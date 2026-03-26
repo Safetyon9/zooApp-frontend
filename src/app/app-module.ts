@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RegisterDialog } from './dialog/register-dialog/register-dialog';
 import { ChangePassword } from './dialog/change-password/change-password';
+import { Navbar } from "./navbar/navbar";
 
 @NgModule({
   declarations: [
@@ -38,8 +39,9 @@ import { ChangePassword } from './dialog/change-password/change-password';
     MatRadioModule,
     MatIconModule,
     MatButtonModule,
-    MatTooltipModule
-  ],
+    MatTooltipModule,
+    Navbar
+],
   providers: [
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
