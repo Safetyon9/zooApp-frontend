@@ -1,0 +1,55 @@
+.turtle-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Pulsanti */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background: rgba(0, 0, 0, 0.4); /* trasparente scuro */
+  color: white;
+  border: none;
+  
+  font-size: 2.5rem;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  
+  border-radius: 50%;
+  backdrop-filter: blur(4px); /* effetto moderno */
+
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Posizioni */
+.carousel-btn.left {
+  left: 15px;
+}
+
+.carousel-btn.right {
+  right: 15px;
+}
+
+/* Responsive (mobile) */
+@media (max-width: 768px) {
+  .carousel-btn {
+    font-size: 2rem;
+    padding: 0.6rem 1rem;
+  }
+}

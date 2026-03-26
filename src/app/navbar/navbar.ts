@@ -46,6 +46,7 @@ export class Navbar {
     this.dialog.open(ChangePassword, { width: '400px' });
   }
 
+
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
