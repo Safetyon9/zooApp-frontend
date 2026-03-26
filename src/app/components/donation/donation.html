@@ -1,0 +1,90 @@
+<div class="donation-container">
+  <div class="donation-header">
+    <h1>🌍 Proteggi la Fauna Selvatica</h1>
+    <p>La tua donazione aiuta a conservare gli habitat naturali e proteggere le specie in pericolo</p>
+  </div>
+
+  <div class="donation-content">
+    <!-- Sezione Importi -->
+    <div class="donation-section">
+      <h2>Scegli un Importo</h2>
+      <div class="amount-grid">
+        <button *ngFor="let plan of donationPlans" 
+                class="amount-btn" 
+                [class.active]="selectedAmount() === plan.amount"
+                (click)="selectAmount(plan.amount)">
+          <div class="amount-value">{{ plan.label }}</div>
+          <div class="amount-desc">{{ plan.description }}</div>
+        </button>
+      </div>
+
+      <div class="custom-amount">
+        <input type="number" 
+               placeholder="Importo personalizzato (€)" 
+               [(ngModel)]="customAmount"
+               (input)="selectCustom()"
+               min="1">
+      </div>
+    </div>
+
+    <!-- Sezione Dati Personali -->
+    <div class="donation-section">
+      <h2>I Tuoi Dati</h2>
+      <div class="form-grid">
+        <input type="text" 
+               placeholder="Nome Completo *" 
+               [(ngModel)]="formData.name"
+               class="form-input">
+        <input type="email" 
+               placeholder="Email *" 
+               [(ngModel)]="formData.email"
+               class="form-input">
+        <input type="tel" 
+               placeholder="Telefono" 
+               [(ngModel)]="formData.phone"
+               class="form-input">
+        <input type="text" 
+               placeholder="Indirizzo" 
+               [(ngModel)]="formData.address"
+               class="form-input">
+        <input type="text" 
+               placeholder="Città" 
+               [(ngModel)]="formData.city"
+               class="form-input">
+        <input type="text" 
+               placeholder="CAP" 
+               [(ngModel)]="formData.postalCode"
+               class="form-input">
+      </div>
+    </div>
+
+    <!-- Sezione Pagamento -->
+    <div class="donation-section">
+      <h2>Metodo di Pagamento</h2>
+      <div class="payment-grid">
+        <button *ngFor="let method of paymentMethods"
+                class="payment-btn"
+                [class.active]="selectedPayment() === method.id"
+                (click)="selectedPayment.set(method.id)">
+          <span class="payment-icon">{{ method.icon }}</span>
+          <span class="payment-label">{{ method.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Riepilogo e Pulsante Donazione -->
+    <div class="donation-summary">
+      <div class="summary-row">
+        <span>Importo:</span>
+        <span class="amount">{{ getTotalAmount() }}€</span>
+      </div>
+      <div class="summary-row">
+        <span>Metodo:</span>
+        <span>{{ selectedPayment() === 'card' ? '💳 Carta' : selectedPayment() === 'paypal' ? '🅿️ PayPal' : '🏦 Bonifico' }}</span>
+      </div>
+      <button class="donate-btn" (click)="submitDonation()">
+        Procedi alla Donazione
+      </button>
+    </div>
+  </div>
+</div>

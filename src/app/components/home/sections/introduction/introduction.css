@@ -27,6 +27,7 @@
 
 .hero-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
 
@@ -59,6 +60,23 @@
 .secondary-btn:hover {
   background: white;
   color: black;
+}
+
+.donation-btn {
+  background-color: #0052A3;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.donation-btn:hover {
+  background-color: #003d7a;
 }
 
 
