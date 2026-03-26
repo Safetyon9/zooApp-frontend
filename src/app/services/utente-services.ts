@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UtenteServices {
-  private url = "http://localhost:9090/rest/utenti/";
+  private url = "http://localhost:9090/rest/utente/";
 
   constructor(private http:HttpClient){}
 

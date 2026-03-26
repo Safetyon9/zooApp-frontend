@@ -27,7 +27,7 @@ export class LoginDialog {
 
   onSubmit(signin: NgForm) {
     this.account.login({
-      userName: signin.form.value.userName,
+      userName: signin.form.value.username,
       pwd: signin.form.value.password
     }).subscribe({
       next: (resp: any) => {
