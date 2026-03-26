@@ -9,6 +9,7 @@
 
   padding: 0 10%;
   color: white;
+  min-width: 30%;
   max-width: 40%;
 }
 
@@ -28,6 +29,7 @@
 .hero-buttons {
   display: flex;
   flex-wrap: wrap;
+  font-size: 1rem;
   gap: 15px;
 }
 
@@ -39,11 +41,13 @@
   font-weight: 600;
   cursor: pointer;
   border-radius: 8px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
-
 .primary-btn:hover {
-  background-color: #ffc300;
+  background-color: #FFC300;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
 }
 
 .secondary-btn {
@@ -54,12 +58,13 @@
   font-weight: 600;
   cursor: pointer;
   border-radius: 8px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
-
 .secondary-btn:hover {
-  background: white;
-  color: black;
+  background: rgba(255,255,255,0.2);
+  color: #FFD60A;
+  transform: translateY(-2px) scale(1.05);
+  border-color: #FFD60A;
 }
 
 .donation-btn {

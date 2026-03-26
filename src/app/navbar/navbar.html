@@ -4,11 +4,14 @@
     <div class="navbar-left">
       <div class="logo-container">
         <div class="turtle-circle">🌳</div>
-        <span class="logo">ZooApp</span>
+        <a routerLink="/" (click)="closeMenu()"><span class="logo">ZooApp</span></a>
       </div>
     
       <ul class="navbar-menu left">
-        <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+        <li><a routerLink="/" (click)="closeMenu()"></a></li>
+        <li><a routerLink="/" (click)="closeMenu()">Chi siamo</a></li>
+        <li><a routerLink="/" (click)="closeMenu()">Attività</a></li>
+        <li><a routerLink="/" (click)="closeMenu()">Servizi</a></li>
       </ul>
     </div>
 
@@ -16,11 +19,9 @@
       <ul class="navbar-menu right" [class.active]="isMenuOpen">
         <ng-container *ngIf="!authGrant().isLogged">
           <li><a (click)="openLoginDialog()">Login</a></li>
-          <li><a (click)="openRegisterDialog()">Register</a></li>
         </ng-container>
         <ng-container *ngIf="authGrant().isLogged">
           <li><a (click)="goToUserArea()">Area Utenti</a></li>
-          <li><a (click)="openChangePasswordDialog()">Cambia Password</a></li>
           <li><a (click)="logout()">Logout</a></li>
         </ng-container>
       </ul>

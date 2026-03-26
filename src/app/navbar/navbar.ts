@@ -35,15 +35,15 @@ export class Navbar {
   }
 
   openLoginDialog() {
-    this.dialog.open(LoginDialog, { width: '400px' });
+    this.dialog.open(LoginDialog, { minWidth: '20%' });
   }
 
   openRegisterDialog() {
-    this.dialog.open(RegisterDialog, { width: '400px' });
+    this.dialog.open(RegisterDialog, { minWidth: '30%' });
   }
 
   openChangePasswordDialog() {
-    this.dialog.open(ChangePassword, { width: '400px' });
+    this.dialog.open(ChangePassword, { minWidth: '20%' });
   }
 
 

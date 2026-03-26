@@ -3,6 +3,7 @@
   top: 0;
   left: 0;
   z-index: 100;
+  padding: 20px 40px;
   backdrop-filter: blur(10px);
   background-color: rgba(27, 67, 50, 0.7);
   display: flex;
@@ -16,7 +17,7 @@
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: 15px;
+  gap: 35px;
   margin: 0;
   padding: 0;
 }
@@ -24,7 +25,6 @@
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
 .navbar-right {
@@ -36,28 +36,60 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
-
+.logo-container > * {
+  pointer-events: none; /* <-- i figli non catturano hover */
+}
+.logo-container:hover .logo {
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+.logo-container:hover .turtle-circle {
+  transform: rotate(10deg) scale(1.1);
+}
 .logo {
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 2rem;
   letter-spacing: 1px;
   color: #FFD60A;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.logo:hover {
+  color: #FFFFFF;
+  transform: scale(1.05);
 }
 
 .navbar-menu a {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  font-size: 1.3rem;
+  letter-spacing: 0.8px;
   color: #FFFFFF;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
-
 .navbar-menu a:hover {
   color: #FFD60A;
+  transform: translateY(-2px);
+}
+.navbar-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #FFD60A;
+  transition: width 0.3s ease;
+}
+.navbar-menu a:hover::after {
+  width: 100%;
 }
 
 .turtle-circle {
@@ -71,6 +103,10 @@
   font-size: 24px;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(255, 214, 10, 0.4);
+  transition: all 0.3s ease;
+}
+.logo-container:hover .turtle-circle {
+  transform: rotate(10deg) scale(1.1);
 }
 
 .hamburger {
