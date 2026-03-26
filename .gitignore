@@ -42,3 +42,25 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Local environment files
+.env
+*.local
+*.log
+
+# Angular build outputs
+*.js
+*.js.map
+*.d.ts
+*.css.map
+*.ngsummary.json
+
+# Test / coverage
+coverage/
+junit/
+test-results/
+
+# Editor swap / temp
+*.bak
+*.tmp
+*.swp
