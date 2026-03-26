@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-brand">
+      <span class="logo">🦁 ZooApp</span>
+    </div>
+
+    <!-- Menu -->
+    <ul class="navbar-menu" [class.active]="isMenuOpen">
+      <li><a href="/" (click)="closeMenu()">Home</a></li>
+      <li><a href="/animals" (click)="closeMenu()">Animali</a></li>
+      <li><a href="/about" (click)="closeMenu()">Chi Siamo</a></li>
+      <li><a href="/contact" (click)="closeMenu()">Contatti</a></li>
+    </ul>
+
