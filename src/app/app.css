@@ -1,0 +1,45 @@
+:root {
+  --primary-color: #FFD60A;
+  --secondary-color: #1B4332;
+  --accent-color: #E63946;
+  --text-color: #FFFFFF;
+  --light-bg: #FFFFFF;
+}
+
+body {
+  min-height: 10000px;
+}
+
+.turtle-carousel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s ease-in-out;
+  animation: fadeInOut 5s ease-in-out infinite;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(27, 67, 50, 0.1);
+  z-index: 1;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 1; }
+}

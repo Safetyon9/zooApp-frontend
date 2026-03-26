@@ -87,4 +87,8 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object) {
   isRoleAdmin() {
     return this.grant().isAdmin;
   }
+
+  logout() {
+    this.resetAll();
+  }
 }
