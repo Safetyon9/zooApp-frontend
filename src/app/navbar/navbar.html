@@ -2,7 +2,10 @@
   <div class="navbar-container">
 
     <div class="navbar-left">
-      <span class="logo">🦁ZooApp</span>
+      <div class="logo-container">
+        <div class="turtle-circle">🌳</div>
+        <span class="logo">ZooApp</span>
+      </div>
     
       <ul class="navbar-menu left">
         <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
@@ -11,9 +14,15 @@
 
     <div class="navbar-right">
       <ul class="navbar-menu right" [class.active]="isMenuOpen">
-        <li><a (click)="openLoginDialog()">Login</a></li>
-        <li><a (click)="openRegisterDialog()">Register</a></li>
-        <li><a (click)="openChangePasswordDialog()">ChangePassword</a></li>
+        <ng-container *ngIf="!authGrant().isLogged">
+          <li><a (click)="openLoginDialog()">Login</a></li>
+          <li><a (click)="openRegisterDialog()">Register</a></li>
+        </ng-container>
+        <ng-container *ngIf="authGrant().isLogged">
+          <li><a (click)="goToUserArea()">Area Utenti</a></li>
+          <li><a (click)="openChangePasswordDialog()">Cambia Password</a></li>
+          <li><a (click)="logout()">Logout</a></li>
+        </ng-container>
       </ul>
   </div>
   </div>
