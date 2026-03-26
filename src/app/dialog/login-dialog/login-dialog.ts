@@ -6,7 +6,7 @@ import { AuthServices } from '../../auth/auth-services';
 
 @Component({
   selector: 'app-login-dialog',
-  imports: [],
+  standalone: false,
   templateUrl: './login-dialog.html',
   styleUrl: './login-dialog.css',
 })
