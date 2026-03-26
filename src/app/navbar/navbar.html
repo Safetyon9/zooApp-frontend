@@ -1,23 +1,20 @@
 <nav class="navbar">
   <div class="navbar-container">
 
-    <div class="navbar-brand">
-      <span class="logo">🦁 ZooApp</span>
+    <div class="navbar-left">
+      <span class="logo">🦁ZooApp</span>
+    
+      <ul class="navbar-menu left">
+        <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+      </ul>
     </div>
 
-    <ul class="navbar-menu" [class.active]="isMenuOpen">
-      <li><a href="/" (click)="closeMenu()">Home</a></li>
-      <li><a href="/animals" (click)="closeMenu()">Animali</a></li>
-      <li><a href="/about" (click)="closeMenu()">Chi Siamo</a></li>
-      <li><a href="/contact" (click)="closeMenu()">Contatti</a></li>
-    </ul>
-
-    <div class="navbar-actions">
-      <button mat-button (click)="openLoginDialog()">Login</button>
-      <button mat-button (click)="openRegisterDialog()">Register</button>
-      <button mat-button (click)="openChangePasswordDialog()">Cambia Password</button>
-    </div>
-
-    <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+    <div class="navbar-right">
+      <ul class="navbar-menu right" [class.active]="isMenuOpen">
+        <li><a (click)="openLoginDialog()">Login</a></li>
+        <li><a (click)="openRegisterDialog()">Register</a></li>
+        <li><a (click)="openChangePasswordDialog()">ChangePassword</a></li>
+      </ul>
+  </div>
   </div>
 </nav>
