@@ -1,0 +1,17 @@
+<div class="turtle-carousel">
+  <img 
+    [src]="turtleImages[currentImageIndex()]" 
+    class="carousel-image"
+  />
+
+  <div class="carousel-overlay"></div>
+
+  <!-- Zone hover -->
+  <div class="hover-zone left" (click)="prevImage()">
+    <span class="arrow">❮</span>
+  </div>
+
+  <div class="hover-zone right" (click)="nextImage()">
+    <span class="arrow">❯</span>
+  </div>
+</div>
