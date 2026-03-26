@@ -1,6 +1,8 @@
 .navbar-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .navbar-menu {
@@ -11,10 +13,21 @@
   padding: 0;
 }
 
-.navbar-menu.left {
-  margin-left: 20px;
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.navbar-menu.right {
-  margin-left: auto; 
+.navbar-right {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
 }
