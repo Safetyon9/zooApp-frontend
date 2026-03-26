@@ -14,7 +14,7 @@ import { RegisterDialog } from '../register-dialog/register-dialog';
   styleUrl: './login-dialog.css',
 })
 export class LoginDialog {
- msg = signal('');
+  msg = signal('');
   readonly dialog = inject(MatDialog);
 
   constructor(
