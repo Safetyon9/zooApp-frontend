@@ -4,12 +4,12 @@ import { UtenteServices } from '../../services/utente-services';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-registrazione-dialog',
+  selector: 'app-register-dialog',
   standalone: false,
-  templateUrl: './registrazione-dialog.html',
-  styleUrl: './registrazione-dialog.css',
+  templateUrl: './register-dialog.html',
+  styleUrl: './register-dialog.css',
 })
-export class RegistrazioneDialog implements OnInit {
+export class RegisterDialog implements OnInit {
   account = signal<any>(null);
   mod: any;
 
@@ -34,7 +34,7 @@ export class RegistrazioneDialog implements OnInit {
   constructor(
     private accoutServices: UtenteServices,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<RegistrazioneDialog>
+    private dialogRef: MatDialogRef<RegisterDialog>
   ) {
     if (data) {
       this.account.set(data.account);
