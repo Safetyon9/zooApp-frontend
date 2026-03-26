@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 10px;
+  background-color: rgb(255, 102, 102);
 }
 
 .navbar-menu {
