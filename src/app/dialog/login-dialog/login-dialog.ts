@@ -1,8 +1,11 @@
-import { Component, signal, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UtenteServices } from '../../services/utente-services';
-import { Router } from '@angular/router';
 import { AuthServices } from '../../auth/auth-services';
+import { Router } from '@angular/router';
+import { Utilities } from '../../services/utilities';
+import { NgForm } from '@angular/forms';
+import { RegisterDialog } from '../register-dialog/register-dialog';
 
 @Component({
   selector: 'app-login-dialog',
@@ -11,41 +14,59 @@ import { AuthServices } from '../../auth/auth-services';
   styleUrl: './login-dialog.css',
 })
 export class LoginDialog {
+ msg = signal('');
+  readonly dialog = inject(MatDialog);
 
-   msg = signal("");
-  @ViewChild ('loginForm') loginForm:NgForm
+  constructor(
+    private account: UtenteServices,
+    private auth: AuthServices,
+    private routing: Router,
+    private util: Utilities,
+    private dialogRef: MatDialogRef<LoginDialog>
+  ) { }
 
-  constructor(private utenteServices: UtenteServices, 
-    private auth:AuthServices, 
-    private routing: Router) {}
-
-    onSubmit(){
-      this.utenteServices.login({
-      username: this.loginForm.form.value.username,
-      pwd: this.loginForm.form.value.password
+  onSubmit(signin: NgForm) {
+    this.account.login({
+      userName: signin.form.value.userName,
+      pwd: signin.form.value.password
     }).subscribe({
-      next: ((r:any)=>{
+      next: (resp: any) => {
         this.msg.set("");
-        console.log(r);
-        this.auth.setAutentificated();
+        console.log(resp)
+        this.auth.setAutentificated(resp.id);
+        if (resp.role == 'ADMIN') this.auth.setAdmin();
+        if (resp.role == 'USER') this.auth.setUser();
 
-        if(r.ruolo == 'ADMIN')
-          this.auth.setAdmin();
-        else
-          this.auth.setUser();
+        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated() );
+       
 
-        this.routing.navigate(['home'])
-      }),
-      error: ((r:any)=>{
-        this.msg.set(r.error.msg);
-      })
-    })
+        this.dialogRef.close(true);
+        this.routing.navigate(['/dash']);
+      },
+      error: (resp: any) => {
+        console.log(resp);
+        this.msg.set(resp.error.msg);
+      }
+    });
+  }
 
-    }
 
-    registrazione(){
-      this.routing.navigate(['registra'])
-    }
+  registrazione() {
+   
+    this.util.openDialog(RegisterDialog,
+      {
+        account: null,
+        mode: "C"
+      }, 
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto',
+      }
+    );
+   
+  }
+
 
 
 }

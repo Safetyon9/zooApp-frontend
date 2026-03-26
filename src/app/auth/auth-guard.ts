@@ -1,9 +1,13 @@
-import { inject, Injectable } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthServices } from './auth-services';
+import { inject } from '@angular/core';
 
-export const authAuthentificatedGuard: CanActivateFn = (route, state) => {
+export const authAutentificatedGuard: CanActivateFn = (route, state) => {
   const authServices = inject(AuthServices);
   const router = inject(Router);
 
-  return authServices.isAutentificated();}
+  if (authServices.isAutentificated()) {
+    return true;
+  }
+  return router.parseUrl('/dash/home');
+};
