@@ -1,0 +1,17 @@
+<div class="turtle-carousel">
+  <img 
+    [src]="turtleImages[currentImageIndex()]" 
+    [alt]="'Tartaruga ' + currentImageIndex()"
+    class="carousel-image"
+  />
+
+  <div class="carousel-overlay"></div>
+
+  <button class="carousel-btn left" (click)="prevImage()">
+    ❮
+  </button>
+
+  <button class="carousel-btn right" (click)="nextImage()">
+    ❯
+  </button>
+</div>
