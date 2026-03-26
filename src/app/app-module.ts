@@ -21,6 +21,7 @@ import { RegisterDialog } from './dialog/register-dialog/register-dialog';
 import { ChangePassword } from './dialog/change-password/change-password';
 import { Navbar } from "./navbar/navbar";
 import { Home } from './components/home/home';
+import { Introduction } from "./components/home/sections/introduction/introduction";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { Home } from './components/home/home';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    Navbar
+    Navbar,
+    Introduction
 ],
   providers: [
     provideHttpClient(withFetch()),

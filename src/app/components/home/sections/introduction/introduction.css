@@ -1,0 +1,100 @@
+
+.turtle-carousel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* regola qui intensità */
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background: transparent; 
+  color: rgba(255, 255, 255, 0); 
+  border: none;
+  
+  font-size: 2.5rem;
+  padding: 1rem;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.hover-zone {
+  position: absolute;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hover-zone.left {
+  left: 0;
+}
+
+.hover-zone.right {
+  right: 0;
+}
+
+.arrow {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0); /* invisibili */
+  transition: all 0.3s ease;
+}
+
+.hover-zone:hover .arrow {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hover-zone:hover .arrow:hover {
+  color: white;
+  transform: scale(1.2);
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+.turtle-carousel:hover .carousel-btn {
+  color: rgba(255, 255, 255, 0.6); 
+}
+
+.carousel-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .carousel-btn {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
