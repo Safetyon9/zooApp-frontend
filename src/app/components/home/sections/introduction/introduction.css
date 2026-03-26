@@ -1,3 +1,66 @@
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 0 10%;
+  color: white;
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.primary-btn {
+  background-color: #FFD60A;
+  color: #1B4332;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background-color: #ffc300;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.secondary-btn:hover {
+  background: white;
+  color: black;
+}
+
 
 .turtle-carousel {
   position: fixed;
@@ -12,7 +75,8 @@
 .carousel-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /* regola qui intensità */
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
 
 .carousel-image {
@@ -42,14 +106,17 @@
   top: 0;
   width: 15%;
   height: 100%;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .hover-zone.left {
   left: 0;
+  z-index: 9999;
 }
 
 .hover-zone.right {
@@ -96,5 +163,16 @@
 @media (max-width: 768px) {
   .carousel-btn {
     color: rgba(255, 255, 255, 0.5);
+  .hero-content h1 {
+    font-size: 2.2rem;
+    }
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
   }
 }
