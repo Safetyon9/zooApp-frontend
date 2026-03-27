@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Introduction implements OnDestroy {
 
-  readonly title = signal('ZooApp');
+  protected readonly title = signal('Benvenuto allo Zoo!');
 
   animalImages = [
     'foto/animal1.jpg',

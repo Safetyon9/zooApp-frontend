@@ -1,17 +1,22 @@
+:host {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
 .introduction-container {
   position: relative;
   width: 100%;
-  min-height: 80vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #1b4332; /* sfondo scuro per contrasto */
+  background-color: #1b4332;
   padding: 2rem 1rem;
 }
 
-/* ===== HERO CONTENT ===== */
 .hero-content {
   text-align: center;
   z-index: 10;
@@ -56,7 +61,6 @@
   background-color: #FFC107;
 }
 
-/* ===== CAROUSEL ANIMALI ===== */
 .animal-carousel {
   position: relative;
   width: 100%;
@@ -69,7 +73,6 @@
   border-radius: 12px;
 }
 
-/* Immagini */
 .carousel-image {
   position: absolute;
   width: 100%;
@@ -85,7 +88,6 @@
   transform: scale(1.02);
 }
 
-/* Overlay gradient */
 .carousel-overlay {
   position: absolute;
   top: 0; left: 0;
@@ -96,7 +98,6 @@
   border-radius: 12px;
 }
 
-/* Frecce navigazione */
 .hover-zone {
   position: absolute;
   top: 50%;
@@ -125,27 +126,4 @@
 .arrow {
   font-size: 1.5rem;
   color: #FFD60A;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-
-  .hero-content p {
-    font-size: 1rem;
-  }
-
-  .animal-carousel {
-    height: 250px;
-  }
-
-  .hover-zone {
-    padding: 0.3rem 0.5rem;
-  }
-
-  .arrow {
-    font-size: 1.2rem;
-  }
 }

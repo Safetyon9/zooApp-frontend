@@ -8,13 +8,13 @@
 }
 
 section {
-  padding: 4rem 2rem;
   box-sizing: border-box;
 }
 
 .intro-section,
 .donation-section {
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
