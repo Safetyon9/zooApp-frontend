@@ -1,9 +1,11 @@
-<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
-  <div class="section">
-    <app-introduction></app-introduction>
-  </div>
+<div class="home-container">
 
-  <div class="section">
+  <section class="intro-section">
+    <app-introduction></app-introduction>
+  </section>
+
+  <section class="donation-section">
     <app-donation></app-donation>
-  </div>
+  </section>
+
 </div>
