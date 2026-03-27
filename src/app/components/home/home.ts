@@ -1,4 +1,3 @@
-// home.ts
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,6 +7,4 @@ import { Component } from '@angular/core';
   styleUrl: './home.css',
 })
 export class Home {
-
-    
 }

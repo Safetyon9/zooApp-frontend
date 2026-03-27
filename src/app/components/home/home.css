@@ -5,15 +5,15 @@
 .home-container {
   display: flex;
   flex-direction: column;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 section {
   box-sizing: border-box;
-}
-
-.intro-section,
-.donation-section {
   min-height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
 }

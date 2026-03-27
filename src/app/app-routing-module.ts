@@ -6,6 +6,7 @@ import { AreaUtente } from './components/area-utente/area-utente';
 import { authAutentificatedGuard } from './auth/auth-guard';
 import { Home } from './components/home/home';
 import { Profilo } from './components/profilo/profilo';
+import { AreaAdmin } from './components/area-admin/area-admin';
 
 const routes: Routes = [
   {path:'', component: Home},
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'profilo', pathMatch: 'full' },
     {path:'profilo', component:Profilo}
   ]},
+  {path:'admin', component: AreaAdmin},
   {path:'login', component: LoginDialog},
   {path:'registra', component: RegisterDialog}
 ];

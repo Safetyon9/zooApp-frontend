@@ -1,84 +1,80 @@
-{
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "cli": {
-    "packageManager": "npm",
-<<<<<<< HEAD
-    "analytics": false
-=======
-    "analytics": "f06536fe-5ea7-4e56-b598-c4b80efbd0b3"
->>>>>>> 765eb98e7ff51c237e578bd221cf51f5a1aff7e8
-  },
-  "newProjectRoot": "projects",
-  "projects": {
-    "zooApp-frontend": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": ["src/material-theme.scss", "src/styles.css"],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "security": {
-              "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
-            }
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
+  {
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "cli": {
+      "packageManager": "npm",
+      "analytics": false
+    },
+    "newProjectRoot": "projects",
+    "projects": {
+      "zooApp-frontend": {
+        "projectType": "application",
+        "schematics": {},
+        "root": "",
+        "sourceRoot": "src",
+        "prefix": "app",
+        "architect": {
+          "build": {
+            "builder": "@angular/build:application",
+            "options": {
+              "browser": "src/main.ts",
+              "tsConfig": "tsconfig.app.json",
+              "assets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "glob": "**/*",
+                  "input": "public"
                 }
               ],
-              "outputHashing": "all"
+              "styles": ["src/material-theme.scss", "src/styles.css"],
+              "server": "src/main.server.ts",
+              "outputMode": "server",
+              "security": {
+                "allowedHosts": []
+              },
+              "ssr": {
+                "entry": "src/server.ts"
+              }
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "zooApp-frontend:build:production"
+            "configurations": {
+              "production": {
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "500kB",
+                    "maximumError": "1MB"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "4kB",
+                    "maximumError": "8kB"
+                  }
+                ],
+                "outputHashing": "all"
+              },
+              "development": {
+                "optimization": false,
+                "extractLicenses": false,
+                "sourceMap": true
+              }
             },
-            "development": {
-              "buildTarget": "zooApp-frontend:build:development"
-            }
+            "defaultConfiguration": "production"
           },
-          "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test"
+          "serve": {
+            "builder": "@angular/build:dev-server",
+            "configurations": {
+              "production": {
+                "buildTarget": "zooApp-frontend:build:production"
+              },
+              "development": {
+                "buildTarget": "zooApp-frontend:build:development"
+              }
+            },
+            "defaultConfiguration": "development"
+          },
+          "test": {
+            "builder": "@angular/build:unit-test"
+          }
         }
       }
     }
   }
-}

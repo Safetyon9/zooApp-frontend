@@ -47,6 +47,10 @@ export class Navbar {
     this.isMenuOpen = false;
   }
 
+  openHome(){
+    this.router.navigate(['']);
+  }
+
   openLoginDialog() {
     this.dialog.open(LoginDialog, { minWidth: '20%' });
   }
@@ -67,5 +71,9 @@ export class Navbar {
 
   goToUserArea() {
     this.router.navigate(['utente']);
+  }
+
+  goToAdminArea() {
+    this.router.navigate(['admin']);
   }
 }
