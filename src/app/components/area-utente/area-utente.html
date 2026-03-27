@@ -36,7 +36,8 @@
   }
 </mat-toolbar>
 <mat-drawer-container class="example-container">
-    <mat-drawer mode="side" [opened]=auth.isRoleAdmin() class="side-menu"> 
+    <!--<mat-drawer mode="side" [opened]=auth.isRoleAdmin() class="side-menu">-->
+    <mat-drawer mode="side" opened class="side-menu">  
         <mat-list role="list">
         <mat-list-item role="listitem" routerLink="profilo" [routerLinkActive]="'active'">Profilo</mat-list-item>
         <!--@if (auth.isRoleAdmin()){

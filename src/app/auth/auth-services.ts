@@ -85,7 +85,6 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   isRoleAdmin() {
-    console.log('[isRoleAdmin]', this.grant().isAdmin);
     return this.grant().isAdmin;
   }
 

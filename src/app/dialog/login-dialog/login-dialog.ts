@@ -26,23 +26,24 @@ export class LoginDialog {
   ) { }
 
   onSubmit(signin: NgForm) {
+    
     this.account.login({
       username: signin.form.value.username,
       pwd: signin.form.value.pwd
     }).subscribe({
       next: (resp: any) => {
-        console.log('RISPOSTA COMPLETA:', JSON.stringify(resp));
         this.msg.set("");
         console.log(resp)
-        this.auth.setAutentificated(resp.id);
-        if (resp.role == 'ADMIN') this.auth.setAdmin();
-        if (resp.role == 'USER') this.auth.setUser();
+        this.auth.setAutentificated(resp.username);
+
+        if (resp.ruolo == 'ADMIN') this.auth.setAdmin();
+        if (resp.ruolo == 'USER') this.auth.setUser();
 
         console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated() );
        
 
         this.dialogRef.close(true);
-        this.routing.navigate(['/dash']);
+        this.routing.navigate(['utente']);
       },
       error: (resp: any) => {
         console.log(resp);
