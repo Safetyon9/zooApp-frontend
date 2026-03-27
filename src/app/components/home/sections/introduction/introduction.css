@@ -1,212 +1,151 @@
-:host {
-  display: block;
+.introduction-container {
   position: relative;
-  height: 100vh;
-  scroll-snap-align: start;
-  padding-top: 70px;
-  box-sizing: border-box;
-}
-
-.hero-content {
-  position: absolute;
-  z-index: 2;
-
-  height: 100vh;
+  width: 100%;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
+  background-color: #1b4332; /* sfondo scuro per contrasto */
+  padding: 2rem 1rem;
+}
 
-  padding: 0 10%;
-  color: white;
-  min-width: 30%;
-  max-width: 40%;
+/* ===== HERO CONTENT ===== */
+.hero-content {
+  text-align: center;
+  z-index: 10;
+  margin-bottom: 2rem;
 }
 
 .hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  color: #FFD60A;
+  margin-bottom: 1rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
 }
 
 .hero-content p {
-  font-size: 1.3rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  color: #ffffff;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.5;
 }
 
 .hero-buttons {
   display: flex;
-  flex-wrap: wrap;
-  font-size: 1rem;
-  gap: 15px;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .primary-btn {
   background-color: #FFD60A;
+  border: none;
   color: #1B4332;
-  border: none;
-  padding: 12px 25px;
-  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
+
 .primary-btn:hover {
-  background-color: #FFC300;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  transform: scale(1.05);
+  background-color: #FFC107;
 }
 
-.secondary-btn {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 12px 25px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-.secondary-btn:hover {
-  background: rgba(255,255,255,0.2);
-  color: #FFD60A;
-  transform: translateY(-2px) scale(1.05);
-  border-color: #FFD60A;
-}
-
-.donation-btn {
-  background-color: #0052A3;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: 0.3s;
+/* ===== CAROUSEL ANIMALI ===== */
+.animal-carousel {
+  position: relative;
   width: 100%;
-  font-size: 0.9rem;
-}
-
-.donation-btn:hover {
-  background-color: #003d7a;
-}
-
-
-.turtle-carousel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
+  max-width: 800px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  border-radius: 12px;
 }
 
-.carousel-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-}
-
+/* Immagini */
 .carousel-image {
+  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.carousel-btn {
+.carousel-image.active {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.02);
+}
+
+/* Overlay gradient */
+.carousel-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(27,67,50,0.3), rgba(27,67,50,0.7));
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+/* Frecce navigazione */
+.hover-zone {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  
-  background: transparent; 
-  color: rgba(255, 255, 255, 0); 
+  background: rgba(27,67,50,0.5);
   border: none;
-  
-  font-size: 2.5rem;
-  padding: 1rem;
   cursor: pointer;
-
-  transition: all 0.3s ease;
-}
-
-.hover-zone {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 3%;
-  display: flex;
-  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
   z-index: 5;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.hover-zone.left {  
-  left: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.hover-zone.right {
-  right: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.arrow {
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0); /* invisibili */
   transition: all 0.3s ease;
 }
 
-.hover-zone:hover .arrow {
-  color: rgba(255, 255, 255, 0.6);
+.hover-zone:hover {
+  background: rgba(27,67,50,0.8);
 }
 
-.hover-zone:hover .arrow:hover {
-  color: white;
-  transform: scale(1.2);
-}
-
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn.left {
+.hover-zone.left {
   left: 10px;
 }
 
-.carousel-btn.right {
+.hover-zone.right {
   right: 10px;
 }
 
-.turtle-carousel:hover .carousel-btn {
-  color: rgba(255, 255, 255, 0.6); 
+.arrow {
+  font-size: 1.5rem;
+  color: #FFD60A;
 }
 
-.carousel-btn:hover {
-  color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-50%) scale(1.1);
-}
-
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .carousel-btn {
-    color: rgba(255, 255, 255, 0.5);
   .hero-content h1 {
-    font-size: 2.2rem;
-    }
+    font-size: 2rem;
   }
 
   .hero-content p {
     font-size: 1rem;
   }
 
-  .hero-buttons {
-    flex-direction: column;
+  .animal-carousel {
+    height: 250px;
+  }
+
+  .hover-zone {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .arrow {
+    font-size: 1.2rem;
   }
 }

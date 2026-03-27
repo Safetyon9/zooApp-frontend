@@ -1,23 +1,22 @@
-<div class="hero-container">
+<div class="introduction-container">
 
   <div class="hero-content">
-    <h1>Benvenuto allo Zoo</h1>
-    <p>Esplora il Regno Animale, vivi un viaggio indimenticabile tra le specie più affascinanti del pianeta.</p>
+    <h1>{{ title() }}</h1>
+    <p>Esplora il Regno Animale e vivi un viaggio indimenticabile tra le specie più affascinanti del pianeta.</p>
 
     <div class="hero-buttons">
       <button class="primary-btn">Esplora gli animali</button>
-      <button class="secondary-btn">Acquista biglietti</button>
     </div>
   </div>
 
-  <div class="turtle-carousel">
+  <div class="animal-carousel">
 
-    <img 
-      *ngFor="let img of turtleImages; let i = index"
-      [src]="img.src"
-      [alt]="img.alt"
+    <img
+      *ngFor="let img of animalImages; let i = index"
+      [src]="img"
       class="carousel-image"
-      [class.active]="i === currentIndex"
+      [class.active]="i === currentImageIndex()"
+      [alt]="'Immagine ' + (i + 1)"
     />
 
     <div class="carousel-overlay"></div>
