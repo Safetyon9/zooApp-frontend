@@ -5,10 +5,13 @@ import { RegisterDialog } from './dialog/register-dialog/register-dialog';
 import { AreaUtente } from './components/area-utente/area-utente';
 import { authAutentificatedGuard } from './auth/auth-guard';
 import { Home } from './components/home/home';
+import { Profilo } from './components/profilo/profilo';
 
 const routes: Routes = [
   {path:'', component: Home},
-  {path:'utente', component:AreaUtente, canActivate:[authAutentificatedGuard]},
+  {path:'utente', component:AreaUtente, canActivate:[authAutentificatedGuard], children:[
+    {path:'profilo', component:Profilo}
+  ]},
   {path:'login', component: LoginDialog},
   {path:'registra', component: RegisterDialog}
 ];

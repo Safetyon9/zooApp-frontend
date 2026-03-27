@@ -38,12 +38,11 @@
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" [opened]=auth.isRoleAdmin() class="side-menu"> 
         <mat-list role="list">
-        <mat-list-item role="listitem" routerLink="home" [routerLinkActive]="'active'">Home</mat-list-item>
-        <mat-list-item role="listitem" routerLink="utente" [routerLinkActive]="'active'">Gestione Utente</mat-list-item>
-        @if (auth.isRoleAdmin()){
-          <!--<mat-list-item role="listitem" routerLink="utente" [routerLinkActive]="'active'">Gestione Utente</mat-list-item>-->
-        }
-    </mat-list>
+        <mat-list-item role="listitem" routerLink="profilo" [routerLinkActive]="'active'">Profilo</mat-list-item>
+        <!--@if (auth.isRoleAdmin()){
+          <mat-list-item role="listitem" routerLink="utente" [routerLinkActive]="'active'">Gestione Utente</mat-list-item>
+        }-->
+        </mat-list>
     </mat-drawer>
     <mat-drawer-content>
         <router-outlet></router-outlet>
