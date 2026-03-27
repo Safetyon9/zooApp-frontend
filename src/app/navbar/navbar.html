@@ -27,25 +27,31 @@
     </div>
 
     <div class="navbar-right" [class.active]="isMenuOpen">
-      <ul class="navbar-menu right">
+        <ul class="navbar-menu right">
 
-        <ng-container *ngIf="!authGrant().isLogged">
-          <li>
-            <a (click)="openLoginDialog()">Login</a>
-          </li>
-        </ng-container>
+          @if (!authGrant().isLogged) {
+            <li>
+              <a (click)="openLoginDialog()">Login</a>
+            </li>
+          }
 
-        <ng-container *ngIf="authGrant().isLogged">
-          <li>
-            <a (click)="goToUserArea()">Area Utenti</a>
-          </li>
-          <li>
-            <a (click)="logout()">Logout</a>
-          </li>
-        </ng-container>
+          @if (authGrant().isLogged) {
+            @if (authGrant().isAdmin) {
+              <li>
+                <a (click)="goToAdminArea()">Area Admin</a>
+              </li>
+            } @else {
+              <li>
+                <a (click)="goToUserArea()">Area Utenti</a>
+              </li>
+            }
+            <li>
+              <a (click)="logout()">Logout</a>
+            </li>
+          }
 
-      </ul>
-    </div>
+        </ul>
+      </div>
 
   </div>
 
