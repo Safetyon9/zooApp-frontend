@@ -30,6 +30,7 @@ import { ChangePassword } from './dialog/change-password/change-password';
 import { Navbar } from "./navbar/navbar";
 import { Home } from './components/home/home';
 import { Introduction } from "./components/home/sections/introduction/introduction";
+import { Donation } from "./components/home/sections/donation/donation";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { Introduction } from "./components/home/sections/introduction/introducti
     MatPaginatorModule,
     MatProgressSpinnerModule,
     Navbar,
-    Introduction
+    Introduction,
+    Donation
 ],
   providers: [
     provideHttpClient(withFetch()),

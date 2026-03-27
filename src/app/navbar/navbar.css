@@ -1,7 +1,11 @@
 .navbar-container {
-  position: relative;
+  position: sticky;
   top: 0;
   left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+  transition: transform 0.3s ease;
   z-index: 100;
   padding: 20px 40px;
   backdrop-filter: blur(10px);
@@ -12,6 +16,10 @@
   width: 100%;
   padding: 15px 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container.hidden {
+  transform: translateY(-100%);
 }
 
 .navbar-menu {

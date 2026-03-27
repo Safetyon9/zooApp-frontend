@@ -1,5 +1,5 @@
 // home.ts
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../dialog/login-dialog/login-dialog';
@@ -18,12 +18,25 @@ export class Navbar {
   isMenuOpen = false;
   authGrant: any;
 
+  private lastScrollY = 0;
+  isHidden = false;
+
   constructor(
     private dialog: MatDialog,
     private auth: AuthServices,
     private router: Router
   ) {
     this.authGrant = this.auth.grant;
+  }
+
+  @HostListener('window:scroll') onScroll() {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > this.lastScrollY && currentScrollY > 80) {
+      this.isHidden = true;
+    } else {
+      this.isHidden = false;
+    }
+    this.lastScrollY = currentScrollY;
   }
 
   toggleMenu() {
