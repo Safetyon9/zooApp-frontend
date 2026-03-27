@@ -1,26 +1,35 @@
-<div class="hero-content">
-  <h1>Benvenuto allo Zoo</h1>
-  <p>Esplora il Regno Animale, vivi un viaggio indimenticabile tra le specie più affascinanti del pianeta..</p>
-  
-  <div class="hero-buttons">
-    <button class="primary-btn">Esplora gli animali</button>
-    <button class="secondary-btn">Acquista biglietti</button>
+<div class="hero-container">
+
+  <div class="hero-content">
+    <h1>Benvenuto allo Zoo</h1>
+    <p>Esplora il Regno Animale, vivi un viaggio indimenticabile tra le specie più affascinanti del pianeta.</p>
+
+    <div class="hero-buttons">
+      <button class="primary-btn">Esplora gli animali</button>
+      <button class="secondary-btn">Acquista biglietti</button>
+    </div>
   </div>
-</div>
 
-<div class="turtle-carousel">
-  <img 
-    [src]="turtleImages[currentImageIndex()]" 
-    class="carousel-image"
-  />
+  <div class="turtle-carousel">
 
-  <div class="carousel-overlay"></div>
-</div>
+    <img 
+      *ngFor="let img of turtleImages; let i = index"
+      [src]="img.src"
+      [alt]="img.alt"
+      class="carousel-image"
+      [class.active]="i === currentIndex"
+    />
 
-<div class="hover-zone left" (click)="prevImage()">
-    <span class="arrow">❮</span>
-</div>
+    <div class="carousel-overlay"></div>
 
-  <div class="hover-zone right" (click)="nextImage()">
-    <span class="arrow">❯</span>
+    <button class="hover-zone left" (click)="prevImage()" aria-label="Previous Image">
+      <span class="arrow">❮</span>
+    </button>
+
+    <button class="hover-zone right" (click)="nextImage()" aria-label="Next Image">
+      <span class="arrow">❯</span>
+    </button>
+
   </div>
+
+</div>

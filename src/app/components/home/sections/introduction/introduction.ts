@@ -2,20 +2,21 @@ import { Component, OnDestroy, signal } from '@angular/core';
 
 @Component({
   selector: 'app-introduction',
-  imports: [],
   templateUrl: './introduction.html',
-  styleUrl: './introduction.css',
+  styleUrls: ['./introduction.css'],
+  standalone: true
 })
-export class Introduction implements OnDestroy{
+export class Introduction implements OnDestroy {
 
-  protected readonly title = signal('zooApp-frontend');
-  
+  readonly title = signal('ZooApp');
+
   turtleImages = [
     'foto/animal1.jpg',
     'foto/animal2.jpg',
     'foto/animal3.jpg',
     'foto/animal4.jpg'
   ];
+
   currentImageIndex = signal(0);
 
   private intervalId: any;
@@ -26,7 +27,7 @@ export class Introduction implements OnDestroy{
 
   startCarousel() {
     this.intervalId = setInterval(() => {
-      this.currentImageIndex.update(index => (index + 1) % this.turtleImages.length);
+      this.nextImage();
     }, 5000);
   }
 
@@ -36,13 +37,13 @@ export class Introduction implements OnDestroy{
     }
   }
 
-    nextImage() {
-  this.currentImageIndex.update(index => (index + 1) % this.turtleImages.length);
-}
+  nextImage() {
+    this.currentImageIndex.update(i => (i + 1) % this.turtleImages.length);
+  }
 
-prevImage() {
-  this.currentImageIndex.update(index => 
-    (index - 1 + this.turtleImages.length) % this.turtleImages.length
-  );
+  prevImage() {
+    this.currentImageIndex.update(i =>
+      (i - 1 + this.turtleImages.length) % this.turtleImages.length
+    );
   }
 }
