@@ -50,7 +50,14 @@ export class AreaUtente {
   }
 
    profile() {
-    this.utenteServices.findByUserName(this.auth.grant().userId)
+    
+    const userId = this.auth.grant().userId;
+
+    if (!userId) {
+      return;
+    }
+
+    this.utenteServices.findByUserName(userId)
       .subscribe({
         next: ((r: any) => {
           this.util.openDialog(RegisterDialog,
