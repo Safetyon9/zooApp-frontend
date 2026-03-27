@@ -1,28 +1,155 @@
-.dialog-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+/* Dialog Angular trasparente */
+::ng-deep .cdk-overlay-pane .mat-mdc-dialog-surface {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.dialog-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+::ng-deep .mat-mdc-dialog-content {
+  background: transparent !important;
+  padding: 0 !important;
 }
 
-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* PANNELLO GLASS LOGIN (uguale stile register, solo più stretto) */
+.dialog-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 26px 30px 24px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(27, 67, 50, 0.78);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 214, 10, 0.18);
+  color: #ffffff;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.button-group{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.dialog-container:hover {
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
+  transform: translateY(-2px);
 }
 
-/*
-    che barba
-*/
+/* contenuto interno */
+.dialog-inner {
+  padding: 0 0 4px 0 !important;
+}
+
+/* Titolo */
+h2[mat-dialog-title] {
+  margin: 0 0 22px 0;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #FFD60A;
+  transition: all 0.3s ease;
+}
+
+.dialog-container:hover h2[mat-dialog-title] {
+  color: #ffffff;
+  transform: scale(1.03);
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+/* Stile Angular Material dei campi: uguale al register */
+::ng-deep .dialog-container .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.10);
+}
+
+::ng-deep .dialog-container .mat-mdc-text-field-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.25);
+}
+
+::ng-deep .dialog-container .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+::ng-deep .dialog-container .mdc-line-ripple {
+  display: none !important;
+}
+
+::ng-deep .dialog-container .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+::ng-deep .dialog-container .mat-mdc-input-element {
+  color: #ffffff !important;
+  caret-color: #FFD60A !important;
+  font-size: 0.98rem;
+}
+
+::ng-deep .dialog-container .mat-mdc-input-element::placeholder {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+::ng-deep .dialog-container .mdc-floating-label {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #FFD60A !important;
+}
+
+::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.45);
+}
+
+/* Messaggio errore */
+p {
+  margin: 0;
+  min-height: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ff8a8a !important;
+  text-align: center;
+}
+
+/* Bottoni */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  min-width: 140px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #FFD60A;
+  color: #1B4332;
+  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.28);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #ffe15c;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 214, 
