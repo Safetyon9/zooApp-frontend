@@ -47,6 +47,10 @@ export class Navbar {
     this.isMenuOpen = false;
   }
 
+  openHome(){
+    this.router.navigate(['']);
+  }
+
   openLoginDialog() {
     this.dialog.open(LoginDialog, { minWidth: '20%' });
   }
