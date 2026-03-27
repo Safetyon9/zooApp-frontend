@@ -9,5 +9,5 @@ export const authAutentificatedGuard: CanActivateFn = (route, state) => {
   if (authServices.isAutentificated()) {
     return true;
   }
-  return router.parseUrl('/area-utenti');  
+  return router.parseUrl('');  
 };

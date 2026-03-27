@@ -4,8 +4,10 @@ import { LoginDialog } from './dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './dialog/register-dialog/register-dialog';
 import { AreaUtente } from './components/area-utente/area-utente';
 import { authAutentificatedGuard } from './auth/auth-guard';
+import { Home } from './components/home/home';
 
 const routes: Routes = [
+  {path:'', component: Home},
   {path:'utente', component:AreaUtente, canActivate:[authAutentificatedGuard]},
   {path:'login', component: LoginDialog},
   {path:'registra', component: RegisterDialog}

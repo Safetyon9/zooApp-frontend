@@ -66,6 +66,6 @@ export class Navbar {
   }
 
   goToUserArea() {
-    this.router.navigate(['/user-area']);
+    this.router.navigate(['utente']);
   }
 }
