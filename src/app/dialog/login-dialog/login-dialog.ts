@@ -31,6 +31,7 @@ export class LoginDialog {
       pwd: signin.form.value.pwd
     }).subscribe({
       next: (resp: any) => {
+        console.log('RISPOSTA COMPLETA:', JSON.stringify(resp));
         this.msg.set("");
         console.log(resp)
         this.auth.setAutentificated(resp.id);

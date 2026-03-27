@@ -10,6 +10,7 @@ import { Profilo } from './components/profilo/profilo';
 const routes: Routes = [
   {path:'', component: Home},
   {path:'utente', component:AreaUtente, canActivate:[authAutentificatedGuard], children:[
+    { path: '', redirectTo: 'profilo', pathMatch: 'full' },
     {path:'profilo', component:Profilo}
   ]},
   {path:'login', component: LoginDialog},
