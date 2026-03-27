@@ -12,9 +12,11 @@ import { MatIcon } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from "@angular/material/sidenav";
 
+import { MatList } from "@angular/material/list";
+
 @Component({
   selector: 'app-area-utente',
-  imports: [MatToolbar, MatIcon, MatMenuModule, RouterLink, MatDrawerContainer, MatDrawer, MatDrawerContent, RouterOutlet],
+  imports: [MatToolbar, MatIcon, MatMenuModule, RouterLink, MatDrawerContainer, MatDrawer, MatList, MatDrawerContent, RouterOutlet],
   templateUrl: './area-utente.html',
   styleUrl: './area-utente.css',
 })
@@ -38,7 +40,7 @@ export class AreaUtente {
   logout() {
     console.log('logout')
     this.auth.resetAll();
-    this.routing.navigate(['/area-utenti']);
+    this.routing.navigate(['utente']);
   }
   changePWD(){
      this.dialog.open(ChangePassword, {
@@ -49,7 +51,14 @@ export class AreaUtente {
   }
 
    profile() {
-    this.utenteServices.findByUserName(this.auth.grant().userId)
+    
+    const userId = this.auth.grant().userId;
+
+    if (!userId) {
+      return;
+    }
+
+    this.utenteServices.findByUserName(userId)
       .subscribe({
         next: ((r: any) => {
           this.util.openDialog(RegisterDialog,

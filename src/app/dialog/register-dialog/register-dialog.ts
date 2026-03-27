@@ -22,9 +22,9 @@ export class RegisterDialog implements OnInit {
     via: new FormControl(null, Validators.required),
     comune: new FormControl(null, Validators.required),
     cap: new FormControl(null, Validators.required),
-    userName: new FormControl(null),
-    password: new FormControl(null),
-    passwordControl: new FormControl(null)
+    username: new FormControl(null),
+    pwd: new FormControl(null),
+    pwdControl: new FormControl(null)
   })
 
 
@@ -57,7 +57,7 @@ export class RegisterDialog implements OnInit {
         via: this.account().via,
         comune: this.account().comune,
         cap: this.account().cap,
-        userName: this.account().userName
+        username: this.account().username
       })
     }
   }
@@ -69,7 +69,7 @@ export class RegisterDialog implements OnInit {
 
   onSubmitUpdate() {
     this.msg.set('');
-    const updateBody: any = { userName: this.account().userName};
+    const updateBody: any = { username: this.account().username};
 
     if (this.updateForm.controls['nome'].dirty)
       updateBody.nome = this.updateForm.value.nome;
@@ -113,7 +113,7 @@ export class RegisterDialog implements OnInit {
   onSubmitCreate() {
     this.msg.set("");
 
-    if (this.updateForm.value.password != this.updateForm.value.passwordControl) {
+    if (this.updateForm.value.pwd != this.updateForm.value.pwdControl) {
       this.msg.set("passord non coindicidenti");
       return;
     }
@@ -129,8 +129,8 @@ export class RegisterDialog implements OnInit {
       via: this.updateForm.value.via,
       commune: this.updateForm.value.comune,
       cap: this.updateForm.value.cap,
-      userName: this.updateForm.value.userName,
-      pwd: this.updateForm.value.password,
+      username: this.updateForm.value.username,
+      pwd: this.updateForm.value.pwd,
       role: 'USER'
     }).subscribe({
       next: ((resp: any) => {
@@ -146,4 +146,3 @@ export class RegisterDialog implements OnInit {
 
 
 }
-
