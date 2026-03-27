@@ -7,6 +7,7 @@ import { App } from './app';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { AngularFullpageModule } from '@fullpage/angular-fullpage';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -64,7 +65,8 @@ import { AreaUtente } from "./components/area-utente/area-utente";
     Navbar,
     Introduction,
     Donation,
-    AreaUtente
+    AreaUtente,
+    AngularFullpageModule
 ],
   providers: [
     provideHttpClient(withFetch()),
