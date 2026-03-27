@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UtenteServices } from '../../services/utente-services';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-dialog',
@@ -13,63 +13,56 @@ export class RegisterDialog implements OnInit {
   account = signal<any>(null);
   mod: any;
 
-  updateForm: FormGroup = new FormGroup({
-    nome: new FormControl(null, Validators.required),
-    cognome: new FormControl(null, Validators.required),
-    email: new FormControl(null, Validators.required),
-    sesso: new FormControl('M', Validators.required),
-    telefono: new FormControl(null, Validators.required),
-    via: new FormControl(null, Validators.required),
-    comune: new FormControl(null, Validators.required),
-    cap: new FormControl(null, Validators.required),
-    username: new FormControl(null),
-    pwd: new FormControl(null),
-    pwdControl: new FormControl(null)
-  })
-
-
-
+  updateForm = new FormGroup({
+    nome: new FormControl<string | null>(null, { nonNullable: false }),
+    cognome: new FormControl<string | null>(null),
+    email: new FormControl<string | null>(null),
+    telefono: new FormControl<string | null>(null),
+    via: new FormControl<string | null>(null),
+    comune: new FormControl<string | null>(null),
+    cap: new FormControl<string | null>(null),
+    username: new FormControl<string | null>(null),
+    pwd: new FormControl<string | null>(null),
+    pwdControl: new FormControl<string | null>(null),
+  });
 
   msg = signal('');
+  private baseUrl = 'http://localhost:9090/rest/utente';
+
   constructor(
-    private accoutServices: UtenteServices,
+    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<RegisterDialog>
   ) {
     if (data) {
       this.account.set(data.account);
       this.mod = data.mode;
-
     }
-
   }
 
-
-
   ngOnInit(): void {
-    if (this.mod == "U") {
+    if (this.mod == 'U') {
       this.updateForm.patchValue({
         nome: this.account().nome,
         cognome: this.account().cognome,
         email: this.account().email,
-        sesso: this.account().sesso ? 'M' : 'F',
         telefono: this.account().telefono,
         via: this.account().via,
         comune: this.account().comune,
         cap: this.account().cap,
-        username: this.account().username
-      })
+        username: this.account().username,
+      });
     }
   }
 
- onSubmit() {
+  onSubmit() {
     if (this.mod == 'C') this.onSubmitCreate();
     if (this.mod == 'U') this.onSubmitUpdate();
   }
 
   onSubmitUpdate() {
     this.msg.set('');
-    const updateBody: any = { username: this.account().username};
+    const updateBody: any = { username: this.account().username };
 
     if (this.updateForm.controls['nome'].dirty)
       updateBody.nome = this.updateForm.value.nome;
@@ -79,9 +72,6 @@ export class RegisterDialog implements OnInit {
 
     if (this.updateForm.controls['email'].dirty)
       updateBody.email = this.updateForm.value.email;
-
-    if (this.updateForm.controls['sesso'].dirty)
-      updateBody.sesso = this.updateForm.value.sesso == 'M' ? true : false;
 
     if (this.updateForm.controls['telefono'].dirty)
       updateBody.telefono = this.updateForm.value.telefono;
@@ -95,54 +85,52 @@ export class RegisterDialog implements OnInit {
     if (this.updateForm.controls['cap'].dirty)
       updateBody.cap = this.updateForm.value.cap;
 
-    console.log(updateBody);
-
-    this.accoutServices.update(updateBody)
-      .subscribe({
-        next: ((resp: any) => {
-          console.log(resp);
-          this.dialogRef.close();
-        }),
-        error: ((resp: any) => {
-          this.msg.set(resp.error.msg);
-        })
-      })
-  }
-
-
-  onSubmitCreate() {
-    this.msg.set("");
-
-    if (this.updateForm.value.pwd != this.updateForm.value.pwdControl) {
-      this.msg.set("passord non coindicidenti");
-      return;
-    }
-    console.log("nome" + this.updateForm.value.nome);
-    console.log("cognome" + this.updateForm.value.cognome);
-
-    this.accoutServices.create({
-      nome: this.updateForm.value.nome,
-      cognome: this.updateForm.value.cognome,
-      email: this.updateForm.value.email,
-      sesso: this.updateForm.value.sesso == 'M' ? true : false,
-      telefono: this.updateForm.value.telefono,
-      via: this.updateForm.value.via,
-      commune: this.updateForm.value.comune,
-      cap: this.updateForm.value.cap,
-      username: this.updateForm.value.username,
-      pwd: this.updateForm.value.pwd,
-      role: 'USER'
-    }).subscribe({
-      next: ((resp: any) => {
+    this.http.put(`${this.baseUrl}/update`, updateBody).subscribe({
+      next: (resp: any) => {
         console.log(resp);
         this.dialogRef.close();
-      }),
-      error: ((resp: any) => {
-        console.log(resp.error.msg)
+      },
+      error: (resp: any) => {
         this.msg.set(resp.error.msg);
-      })
-    })
+      },
+    });
   }
 
+  onSubmitCreate() {
+    this.msg.set('');
 
+    if (this.updateForm.value.pwd != this.updateForm.value.pwdControl) {
+      this.msg.set('passord non coindicidenti');
+      return;
+    }
+
+    const body = {
+      utente: {
+        username: this.updateForm.value.username,
+        email: this.updateForm.value.email,
+        pwd: this.updateForm.value.pwd,
+        role: 'USER',
+      },
+      cliente: {
+        nome: this.updateForm.value.nome,
+        cognome: this.updateForm.value.cognome,
+        indirizzo: this.updateForm.value.via,
+        utenteUsername: this.updateForm.value.username,
+        comune: this.updateForm.value.comune,
+        cap: this.updateForm.value.cap,
+        telefono: this.updateForm.value.telefono,
+      },
+    };
+
+    this.http.post(`${this.baseUrl}/register`, body).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.dialogRef.close();
+      },
+      error: (resp: any) => {
+        console.log(resp.error?.msg);
+        this.msg.set(resp.error?.msg || 'Errore in registrazione');
+      },
+    });
+  }
 }

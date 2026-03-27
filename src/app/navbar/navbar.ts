@@ -68,4 +68,8 @@ export class Navbar {
   goToUserArea() {
     this.router.navigate(['utente']);
   }
+
+  goToAdminArea() {
+    this.router.navigate(['admin']);
+  }
 }
