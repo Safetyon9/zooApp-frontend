@@ -57,7 +57,7 @@ export class RegisterDialog implements OnInit {
         via: this.account().via,
         comune: this.account().comune,
         cap: this.account().cap,
-        userName: this.account().username
+        username: this.account().username
       })
     }
   }
@@ -129,7 +129,7 @@ export class RegisterDialog implements OnInit {
       via: this.updateForm.value.via,
       commune: this.updateForm.value.comune,
       cap: this.updateForm.value.cap,
-      userName: this.updateForm.value.username,
+      username: this.updateForm.value.username,
       pwd: this.updateForm.value.pwd,
       role: 'USER'
     }).subscribe({
