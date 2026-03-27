@@ -1,16 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { AuthServices } from '../../auth/auth-services';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialog/login-dialog/login-dialog';
 import { ChangePassword } from '../../dialog/change-password/change-password';
 import { UtenteServices } from '../../services/utente-services';
 import { Utilities } from '../../services/utilities';
 import { RegisterDialog } from '../../dialog/register-dialog/register-dialog';
+import { MatToolbar } from "@angular/material/toolbar";
+import { MatIcon } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatDrawerContainer, MatDrawer, MatDrawerContent } from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-area-utente',
-  imports: [],
+  imports: [MatToolbar, MatIcon, MatMenuModule, RouterLink, MatDrawerContainer, MatDrawer, MatDrawerContent, RouterOutlet],
   templateUrl: './area-utente.html',
   styleUrl: './area-utente.css',
 })
