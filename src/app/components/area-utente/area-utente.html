@@ -12,7 +12,7 @@
       <span>Profile</span>
     </button>
   </mat-menu>
-  <span>Vendita veicoli</span>
+  <span>Gestione Profilo</span>
   
 
 
@@ -24,37 +24,26 @@
   }
     <span class="example-spacer"></span>
   
-    <button mat-icon-button
-        class="example-icon" aria-label="Home page" matTooltip="Home Page"
-        [routerLink]="['/area-utenti','home']">
-
-  <mat-icon>home</mat-icon>
-</button>
-  
 @if (auth.grant().isLogged){
     <div class="icon-with-label" 
         matTooltip="Gestione del Carrello" 
-        [routerLink]="['/area-utenti','cart']">
+        [routerLink]="['utente','cart']">
 
-    <button mat-icon-button aria-label="Carrello" >
-      <img src="cart.svg" class="menu-icon-img" />
+    <button mat-icon-button aria-label="Carrello" matTooltip="Il Tuo Carrello">
+      <mat-icon>shopping_cart</mat-icon>
     </button>
     </div>
   }
-   <button matIconButton class="example-icon" 
-    matTooltip="credentziale per l'applicazione"
-    (click)="login()">
-    <mat-icon>login</mat-icon>
-  </button>
-  <button matIconButton class="example-icon" aria-label="uscire dell'applicazione" 
-    matTooltip="Uscire dell'applicazione"
-    (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
 </mat-toolbar>
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" [opened]=auth.isRoleAdmin() class="side-menu"> 
-        
+        <mat-list role="list">
+        <mat-list-item role="listitem" routerLink="home" [routerLinkActive]="'active'">Home</mat-list-item>
+        <mat-list-item role="listitem" routerLink="utente" [routerLinkActive]="'active'">Gestione Utente</mat-list-item>
+        @if (auth.isRoleAdmin()){
+          <!--<mat-list-item role="listitem" routerLink="utente" [routerLinkActive]="'active'">Gestione Utente</mat-list-item>-->
+        }
+    </mat-list>
     </mat-drawer>
     <mat-drawer-content>
         <router-outlet></router-outlet>

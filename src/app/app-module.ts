@@ -31,6 +31,7 @@ import { Navbar } from "./navbar/navbar";
 import { Home } from './components/home/home';
 import { Introduction } from "./components/home/sections/introduction/introduction";
 import { Donation } from "./components/home/sections/donation/donation";
+import { AreaUtente } from "./components/area-utente/area-utente";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { Donation } from "./components/home/sections/donation/donation";
     MatProgressSpinnerModule,
     Navbar,
     Introduction,
-    Donation
+    Donation,
+    AreaUtente
 ],
   providers: [
     provideHttpClient(withFetch()),

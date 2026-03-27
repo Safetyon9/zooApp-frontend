@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthServices } from '../../auth/auth-services';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialog/login-dialog/login-dialog';
 import { ChangePassword } from '../../dialog/change-password/change-password';
@@ -16,7 +16,7 @@ import { MatList } from "@angular/material/list";
 
 @Component({
   selector: 'app-area-utente',
-  imports: [MatToolbar, MatIcon, MatMenuModule, RouterLink, MatDrawerContainer, MatDrawer, MatList, MatDrawerContent, RouterOutlet],
+  imports: [MatToolbar, MatIcon, MatMenuModule, RouterLink, MatDrawerContainer, MatDrawer, MatList, MatDrawerContent, RouterOutlet, RouterLinkActive],
   templateUrl: './area-utente.html',
   styleUrl: './area-utente.css',
 })
