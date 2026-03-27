@@ -16,6 +16,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { LoginDialog } from './dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './dialog/register-dialog/register-dialog';
 import { ChangePassword } from './dialog/change-password/change-password';
@@ -44,6 +52,13 @@ import { Introduction } from "./components/home/sections/introduction/introducti
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     Navbar,
     Introduction
 ],
