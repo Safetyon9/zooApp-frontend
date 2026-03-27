@@ -6,24 +6,119 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register-dialog',
   standalone: false,
-  templateUrl: './register-dialog.html',
-  styleUrl: './register-dialog.css',
+  template: `
+<mat-dialog-content class="dialog-container">
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-card>
+    <mat-card-header class="header-center">
+      <mat-card-title>Creazione nuovo utente</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" name="nome" formControlName="nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cognome</mat-label>
+          <input matInput type="text" name="cognome" formControlName="cognome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" name="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input matInput type="text" name="telefono" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Via</mat-label>
+          <input matInput type="text" name="via" formControlName="via">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Comune</mat-label>
+          <input matInput type="text" name="comune" formControlName="comune">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia</mat-label>
+          <input matInput type="text" name="provincia" formControlName="provincia">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cap</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="cap"
+            maxlength="5"
+            pattern="[0-9]*"
+            inputmode="numeric">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>UserName</mat-label>
+          <input matInput type="text" name="username" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" name="pwd" formControlName="pwd">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Retype Password</mat-label>
+          <input matInput type="password" name="pwdControl" formControlName="pwdControl">
+        </mat-form-field>
+
+        <div class="msg-error">
+          <span style="color:red">{{ msg() }}</span>
+        </div>
+
+        <div class="button-group">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!updateForm.valid"
+            matTooltip="Salvare le modifiche">
+            Crea nuovo utente
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+  `,
+  styleUrls: ['./register-dialog.css'],
 })
 export class RegisterDialog implements OnInit {
   account = signal<any>(null);
-  mod: any;
+  mod: any = 'C';
 
   updateForm = new FormGroup({
-    nome: new FormControl<string | null>(null, { nonNullable: false }),
-    cognome: new FormControl<string | null>(null),
-    email: new FormControl<string | null>(null),
+    nome: new FormControl<string | null>(null, Validators.required),
+    cognome: new FormControl<string | null>(null, Validators.required),
+    email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
     telefono: new FormControl<string | null>(null),
     via: new FormControl<string | null>(null),
-    comune: new FormControl<string | null>(null),
-    cap: new FormControl<string | null>(null),
-    username: new FormControl<string | null>(null),
-    pwd: new FormControl<string | null>(null),
-    pwdControl: new FormControl<string | null>(null),
+    comune: new FormControl<string | null>(null, Validators.required),
+    provincia: new FormControl<string | null>(null),
+    cap: new FormControl<string | null>(null, [Validators.minLength(5), Validators.maxLength(5)]),
+    username: new FormControl<string | null>(null, Validators.required),
+    pwd: new FormControl<string | null>(null, Validators.required),
+    pwdControl: new FormControl<string | null>(null, Validators.required),
   });
 
   msg = signal('');
@@ -36,12 +131,12 @@ export class RegisterDialog implements OnInit {
   ) {
     if (data) {
       this.account.set(data.account);
-      this.mod = data.mode;
+      this.mod = data.mode ?? 'C';
     }
   }
 
   ngOnInit(): void {
-    if (this.mod == 'U') {
+    if (this.mod == 'U' && this.account()) {
       this.updateForm.patchValue({
         nome: this.account().nome,
         cognome: this.account().cognome,
@@ -49,6 +144,7 @@ export class RegisterDialog implements OnInit {
         telefono: this.account().telefono,
         via: this.account().via,
         comune: this.account().comune,
+        provincia: this.account().provincia,
         cap: this.account().cap,
         username: this.account().username,
       });
@@ -56,51 +152,14 @@ export class RegisterDialog implements OnInit {
   }
 
   onSubmit() {
-    if (this.mod == 'C') this.onSubmitCreate();
-    if (this.mod == 'U') this.onSubmitUpdate();
-  }
-
-  onSubmitUpdate() {
-    this.msg.set('');
-    const updateBody: any = { username: this.account().username };
-
-    if (this.updateForm.controls['nome'].dirty)
-      updateBody.nome = this.updateForm.value.nome;
-
-    if (this.updateForm.controls['cognome'].dirty)
-      updateBody.cognome = this.updateForm.value.cognome;
-
-    if (this.updateForm.controls['email'].dirty)
-      updateBody.email = this.updateForm.value.email;
-
-    if (this.updateForm.controls['telefono'].dirty)
-      updateBody.telefono = this.updateForm.value.telefono;
-
-    if (this.updateForm.controls['via'].dirty)
-      updateBody.via = this.updateForm.value.via;
-
-    if (this.updateForm.controls['comune'].dirty)
-      updateBody.commune = this.updateForm.value.comune;
-
-    if (this.updateForm.controls['cap'].dirty)
-      updateBody.cap = this.updateForm.value.cap;
-
-    this.http.put(`${this.baseUrl}/update`, updateBody).subscribe({
-      next: (resp: any) => {
-        console.log(resp);
-        this.dialogRef.close();
-      },
-      error: (resp: any) => {
-        this.msg.set(resp.error.msg);
-      },
-    });
+    this.onSubmitCreate();
   }
 
   onSubmitCreate() {
     this.msg.set('');
 
-    if (this.updateForm.value.pwd != this.updateForm.value.pwdControl) {
-      this.msg.set('passord non coindicidenti');
+    if (this.updateForm.value.pwd !== this.updateForm.value.pwdControl) {
+      this.msg.set('password non coincidenti');
       return;
     }
 
@@ -117,6 +176,7 @@ export class RegisterDialog implements OnInit {
         indirizzo: this.updateForm.value.via,
         utenteUsername: this.updateForm.value.username,
         comune: this.updateForm.value.comune,
+        provincia: this.updateForm.value.provincia,
         cap: this.updateForm.value.cap,
         telefono: this.updateForm.value.telefono,
       },
@@ -125,7 +185,7 @@ export class RegisterDialog implements OnInit {
     this.http.post(`${this.baseUrl}/register`, body).subscribe({
       next: (resp: any) => {
         console.log(resp);
-        this.dialogRef.close();
+        this.dialogRef.close(resp);
       },
       error: (resp: any) => {
         console.log(resp.error?.msg);

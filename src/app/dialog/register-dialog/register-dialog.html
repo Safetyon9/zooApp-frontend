@@ -5,11 +5,7 @@
 
   <mat-card>
     <mat-card-header class="header-center">
-      @if (mod == 'C') {
-        <mat-card-title>Creazione nuovo utente</mat-card-title>
-      } @else {
-        <mat-card-title>Profile di {{ account()?.nome }} {{ account()?.cognome }}</mat-card-title>
-      }
+      <mat-card-title>Creazione nuovo utente</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -42,7 +38,12 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Comune</mat-label>
-          <input matInput type="text" name="comune" formControlName="comune" required>
+          <input matInput type="text" name="comune" formControlName="comune">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia</mat-label>
+          <input matInput type="text" name="provincia" formControlName="provincia">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -53,50 +54,37 @@
             formControlName="cap"
             maxlength="5"
             pattern="[0-9]*"
-            inputmode="numeric"
-            required>
+            inputmode="numeric">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>UserName</mat-label>
-          <input matInput type="text" name="username" formControlName="username" required>
+          <input matInput type="text" name="username" formControlName="username">
         </mat-form-field>
 
-        @if (mod == 'C') {
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" name="pwd" formControlName="pwd">
-          </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" name="pwd" formControlName="pwd">
+        </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Retype Password</mat-label>
-            <input matInput type="password" name="pwdControl" formControlName="pwdControl">
-          </mat-form-field>
-        }
+        <mat-form-field appearance="fill">
+          <mat-label>Retype Password</mat-label>
+          <input matInput type="password" name="pwdControl" formControlName="pwdControl">
+        </mat-form-field>
 
         <div class="msg-error">
           <span style="color:red">{{ msg() }}</span>
         </div>
 
         <div class="button-group">
-          @if (mod == 'C') {
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="!updateForm.valid"
-              matTooltip="Salvare le modifiche">
-              Crea nuovo utente
-            </button>
-          } @else {
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              matTooltip="Salvare le modifiche">
-              Aggiorna il profile
-            </button>
-          }
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!updateForm.valid"
+            matTooltip="Salvare le modifiche">
+            Crea nuovo utente
+          </button>
         </div>
 
       </form>
