@@ -10,7 +10,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { MatCardHeader, MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,19 +23,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-import { LoginDialog } from './dialog/login-dialog/login-dialog';
-import { RegisterDialog } from './dialog/register-dialog/register-dialog';
-import { ChangePassword } from './dialog/change-password/change-password';
-import { Navbar } from "./navbar/navbar";
-import { Home } from './components/home/home';
-import { Introduction } from "./components/home/sections/introduction/introduction";
-import { Donation } from "./components/home/sections/donation/donation";
-import { AreaUtente } from "./components/area-utente/area-utente";
+import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
+import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
+import { ChangePassword } from './features/auth/dialog/change-password/change-password';
+import { PublicLayout } from './features/public/public-layout/public-layout';
+import { Navbar } from "./shared/navbar/navbar";
+import { Home } from './features/public/home/home';
+import { Introduction } from './features/public/home/section/introduction/introduction';
+import { Donation } from './features/public/home/section/donation/donation';
 
 @NgModule({
   declarations: [
     App,
+    PublicLayout,
     LoginDialog,
     RegisterDialog,
     ChangePassword,
@@ -61,10 +61,10 @@ import { AreaUtente } from "./components/area-utente/area-utente";
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatCardHeader,
     Navbar,
     Introduction,
-    Donation,
-    AreaUtente
+    Donation
 ],
   providers: [
     provideHttpClient(withFetch()),

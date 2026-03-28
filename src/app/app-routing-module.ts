@@ -1,22 +1,50 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginDialog } from './dialog/login-dialog/login-dialog';
-import { RegisterDialog } from './dialog/register-dialog/register-dialog';
-import { AreaUtente } from './components/area-utente/area-utente';
-import { authAutentificatedGuard } from './auth/auth-guard';
-import { Home } from './components/home/home';
-import { Profilo } from './components/profilo/profilo';
-import { AreaAdmin } from './components/area-admin/area-admin';
+import { Home } from './features/public/home/home';
+import { Ecommerce } from './features/public/ecommerce/ecommerce';
+import { PublicLayout } from './features/public/public-layout/public-layout';
+import { UserLayout } from './features/user/user-layout/user-layout';
+import { AdminLayout } from './features/admin/admin-layout/admin-layout';
+import { Dashboard } from './features/user/dashboard/dashboard';
+import { AdminDashboard } from './features/admin/admin-dashboard/admin-dashboard';
+import { authAutentificatedGuard } from './core/guards/auth-guard';
+import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
+import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 
 const routes: Routes = [
-  {path:'', component: Home},
-  {path:'utente', component:AreaUtente, canActivate:[authAutentificatedGuard], children:[
-    { path: '', redirectTo: 'profilo', pathMatch: 'full' },
-    {path:'profilo', component:Profilo}
-  ]},
-  {path:'admin', component: AreaAdmin},
-  {path:'login', component: LoginDialog},
-  {path:'registra', component: RegisterDialog}
+  {
+    path: '',
+    component: PublicLayout,
+    children: [
+      { path: '', component: Home },
+      { path: 'shop', component: Ecommerce },
+    ]
+  },
+
+  {
+    path: 'utente',
+    component: UserLayout,
+    canActivate: [authAutentificatedGuard],
+    children: [
+      { path: '', redirectTo: 'profilo', pathMatch: 'full' },
+      { path: 'dashboard', component: Dashboard },
+    ]
+  },
+
+  {
+    path: 'admin',
+    component: AdminLayout,
+    canActivate: [authAutentificatedGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: AdminDashboard },
+    ]
+  },
+
+  { path: 'login', component: LoginDialog },
+  { path: 'register', component: RegisterDialog },
+
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
