@@ -43,7 +43,6 @@ export class LoginDialog {
        
 
         this.dialogRef.close(true);
-        this.routing.navigate(['utente']);
       },
       error: (resp: any) => {
         console.log(resp);
