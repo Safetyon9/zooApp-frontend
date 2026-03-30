@@ -1,42 +1,53 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-
-import { ChangePassword } from '../../auth/dialog/change-password/change-password';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
+import { UtenteServices } from '../services/utente-services';
+import { Utilities } from '../../../core/utils/utilities';
+import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 
 @Component({
-  selector: 'app-navbar-utente',
-  templateUrl: './navbar-utente.html',
-  styleUrls: ['./navbar-utente.css'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.css'],
   standalone: false
 })
-export class NavbarUtenteComponent {
-  @Output() profileSelected = new EventEmitter<void>();
-  @Output() homeSelected = new EventEmitter<void>();
+export class Dashboard implements OnInit {
+  @Input() showProfileSection: boolean = false;
+
+  profilo: any = {};
 
   constructor(
     public auth: AuthServices,
-    private router: Router,
-    private dialog: MatDialog
+    private utenteServices: UtenteServices,
+    private util: Utilities
   ) {}
 
-  goHome(): void {
-    this.homeSelected.emit();
-  }
+  ngOnInit(): void {
+    const userId = this.auth.grant()?.userId;
+    if (!userId) return;
 
-  openProfile(): void {
-    this.profileSelected.emit();
-  }
+    this.utenteServices.findByUserName(userId).subscribe({
+      next: (r: any) => {
+        console.log('PROFILO BACKEND:', r);
 
-  changePWD(): void {
-    this.dialog.open(ChangePassword, {
-      width: '400px'
+        this.profilo = {
+          nome: r.nome ?? r.name ?? r.firstName ?? '',
+          cognome: r.cognome ?? r.surname ?? r.lastName ?? '',
+          email: r.email ?? '',
+          telefono: r.telefono ?? r.phone ?? '',
+          username: r.username ?? r.userName ?? ''
+        };
+      },
+      error: (err: any) => {
+        console.error('error getAccount:', err);
+      }
     });
   }
 
-  logout(): void {
-    this.auth.resetAll();
-    this.router.navigate(['/utente']);
+  modificaProfilo(): void {
+    this.util.openDialog(
+      RegisterDialog,
+      { account: this.profilo, mode: 'U' },
+      { width: '90vw', maxWidth: '1200px', height: 'auto' }
+    );
   }
 }

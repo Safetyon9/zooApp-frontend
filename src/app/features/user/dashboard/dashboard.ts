@@ -27,7 +27,15 @@ export class Dashboard implements OnInit {
 
     this.utenteServices.findByUserName(userId).subscribe({
       next: (r: any) => {
-        this.profilo = r;
+        console.log('PROFILO BACKEND:', r);
+
+        this.profilo = {
+          nome: r.nome ?? r.name ?? r.firstName ?? '',
+          cognome: r.cognome ?? r.surname ?? r.lastName ?? '',
+          email: r.email ?? '',
+          telefono: r.telefono ?? r.phone ?? '',
+          username: r.username ?? r.userName ?? ''
+        };
       },
       error: (err: any) => {
         console.error('error getAccount:', err);
