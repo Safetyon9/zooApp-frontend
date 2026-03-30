@@ -1,22 +1,43 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8); /* sfondo scuro semitrasparente */
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.maintenance-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    background-color: #1B4332;
+    text-align: center;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.maintenance-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .message {
-  color: white;
-  font-size: 2rem;
-  text-align: center;
-}
-
-p {
-  margin: 10px;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    max-width: 90%;
+    margin: 0 auto;
 }
