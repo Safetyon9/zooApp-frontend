@@ -10,7 +10,6 @@ import { AdminDashboard } from './features/admin/admin-dashboard/admin-dashboard
 import { authAutentificatedGuard } from './core/guards/auth-guard';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
-import { authAdminGuard } from './core/guards/auth-admin';
 
 const routes: Routes = [
   {
