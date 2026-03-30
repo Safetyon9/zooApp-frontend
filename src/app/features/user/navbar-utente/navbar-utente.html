@@ -5,16 +5,20 @@
   </div>
 
   <nav class="menu">
-    <a routerLink="/utente" routerLinkActive="active" class="menu-item">
+    <button type="button" class="menu-item" (click)="goHome()">
       Home
-    </a>
+    </button>
+
+    <button type="button" class="menu-item" (click)="profile()">
+      Info profilo
+    </button>
 
     <button type="button" class="menu-item" (click)="changePWD()">
       Cambio password
     </button>
-
-    <button type="button" class="menu-item logout" (click)="logout()">
-      Logout
-    </button>
   </nav>
+
+  <button type="button" class="menu-item logout" (click)="logout()">
+    Logout
+  </button>
 </aside>
