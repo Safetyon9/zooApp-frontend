@@ -8,7 +8,7 @@ import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialo
   selector: 'app-dashboard',
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
-  standalone: false
+  standalone: false,
 })
 export class Dashboard implements OnInit {
   @Input() showProfileSection: boolean = false;

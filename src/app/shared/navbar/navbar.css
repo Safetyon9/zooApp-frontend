@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 15px 30px;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,6 @@
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -31,36 +30,17 @@
   outline: none;
 }
 
-.logo {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 2rem;
-  letter-spacing: 1px;
-  color: #FFD60A;
+.logo-container img.logo-img {
+  width: 8rem;
+  height: auto;
+  max-height: 80px;
   transition: all 0.3s ease;
 }
 
-.logo-container:hover .logo {
-  color: #ffffff;
+.logo-container:hover img.logo-img {
   transform: scale(1.05);
-}
-
-.turtle-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #FFD60A;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 2px 8px rgba(255, 214, 10, 0.4);
-  transition: all 0.3s ease;
-}
-
-.logo-container:hover .turtle-circle {
-  transform: rotate(10deg) scale(1.1);
+  filter: brightness(0) saturate(100%) invert(92%) sepia(82%) saturate(7500%) hue-rotate(1deg);
+  transition: filter 0.3s ease;
 }
 
 .navbar-menu {
@@ -68,7 +48,6 @@
   display: flex;
   gap: 35px;
   margin: 0;
-  margin-left: 15px;
   padding: 0;
 }
 
