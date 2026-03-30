@@ -1,1 +1,68 @@
-<div class="prova"></div>
+<div class="donation-container" id="donation-section">
+  
+  <div class="animal-carousel">
+    <img
+      *ngFor="let img of animalImages; let i = index"
+      [src]="img"
+      class="carousel-image"
+      [class.active]="i === currentImageIndex()"
+      [alt]="'Donation Image ' + (i + 1)"
+    />
+    
+    <div class="carousel-overlay"></div>
+
+    <button class="hover-zone left" (click)="prevImage()" aria-label="Previous Image">
+      <span class="arrow">❮</span>
+    </button>
+
+    <button class="hover-zone right" (click)="nextImage()" aria-label="Next Image">
+      <span class="arrow">❯</span>
+    </button>
+  </div>
+
+  <div class="donation-card-wrapper">
+    <div class="donation-card">
+      <div class="card-header">
+        <h2>Sostieni il Nostro Zoo 🐾</h2>
+        <p>Il tuo contributo aiuta ad alimentare e proteggere le specie a rischio.</p>
+      </div>
+
+      <div class="donation-content">
+        <div class="amount-selectors">
+          <button
+            *ngFor="let amount of [5, 10, 20, 50]"
+            class="amount-btn"
+            [class.active]="selectedAmount() === amount"
+            (click)="selectAmount(amount)"
+          >
+            {{ amount }}€
+          </button>
+        </div>
+
+        <div class="custom-amount">
+          <span class="currency-symbol">€</span>
+          <input
+            type="number"
+            placeholder="Importo personalizzato"
+            [(ngModel)]="customAmount"
+            (focus)="selectAmount(0)"
+          />
+        </div>
+
+        <button
+          class="donate-now-btn"
+          [disabled]="!selectedAmount() && !customAmount"
+          (click)="processDonation()"
+        >
+          <span *ngIf="!isProcessing()">Dona Ora</span>
+          <span *ngIf="isProcessing()">In elaborazione...</span>
+        </button>
+      </div>
+
+      <div class="card-footer">
+        <p>❤️ Grazie per il tuo supporto!</p>
+      </div>
+    </div>
+  </div>
+
+</div>

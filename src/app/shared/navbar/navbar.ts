@@ -70,4 +70,18 @@ export class Navbar {
   goToAdminArea() {
     this.router.navigate(['admin']);
   }
+
+  scrollToDonation() {
+    const element = document.getElementById('donation-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          const el = document.getElementById('donation-section');
+          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      });
+    }
+  }
 }

@@ -1,5 +1,222 @@
-.prova {
-    width: 100%;
-    height: 100vh;
-    background-color: yellow;
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+.donation-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--secondary-color);
+}
+
+.animal-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.carousel-image.active {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(27, 67, 50, 0.6);
+  z-index: 1;
+}
+
+.donation-card-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+}
+
+.donation-card {
+  width: 100%;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 214, 10, 0.3);
+  color: white;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.card-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-header p {
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.amount-selectors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.amount-btn {
+  padding: 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: white;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.amount-btn:hover {
+  background: rgba(255, 214, 10, 0.1);
+  border-color: var(--primary-color);
+}
+
+.amount-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.custom-amount {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.custom-amount input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.custom-amount input:focus {
+  border-color: var(--primary-color);
+}
+
+.donate-now-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(255, 214, 10, 0.4);
+}
+
+.donate-now-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 214, 10, 0.5);
+}
+
+.donate-now-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.card-footer {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* CAROUSEL ARROWS - matching Introduction style */
+.hover-zone {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4%;
+  border: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  opacity: 0.2;
+}
+
+.hover-zone:hover {
+  transform: translateY(-50%) scale(1.2);
+  opacity: 1;
+}
+
+.hover-zone.left {
+  height: 90%;
+  left: 0;
+}
+
+.hover-zone.right {
+  height: 90%;
+  right: 0;
+}
+
+.hover-zone .arrow {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+  .donation-card {
+    padding: 1.5rem;
+  }
 }
