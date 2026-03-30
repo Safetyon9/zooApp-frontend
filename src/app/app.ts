@@ -8,5 +8,4 @@ import { Component, OnDestroy, signal } from '@angular/core';
 })
 export class App {
 
-  
 }

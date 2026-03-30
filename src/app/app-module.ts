@@ -27,6 +27,7 @@ import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { ChangePassword } from './features/auth/dialog/change-password/change-password';
 import { PublicLayout } from './features/public/public-layout/public-layout';
+import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Introduction } from './features/public/home/section/introduction/introduction';
@@ -34,16 +35,13 @@ import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
-import { NavbarEcommerce } from './features/public/ecommerce/navbar-ecommerce/navbar-ecommerce';
-import { Promo } from './features/public/ecommerce/section/promo/promo';
-import { Categories } from './features/public/ecommerce/section/categories/categories';
-import { Shop } from './features/public/ecommerce/section/shop/shop';
 
 @NgModule({
   declarations: [
     App,
     PublicLayout,
     UserLayout,
+    AdminLayout,
     LoginDialog,
     RegisterDialog,
     ChangePassword,
@@ -52,11 +50,7 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
     Dashboard,
     Donation,
     Introduction,
-    Ecommerce,
-    NavbarEcommerce,
-    Promo,
-    Categories,
-    Shop
+    Ecommerce
   ],
   imports: [
     BrowserModule,
@@ -78,7 +72,7 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-],
+  ],
   providers: [
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),

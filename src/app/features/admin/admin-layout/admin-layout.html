@@ -1,1 +1,5 @@
-<p>admin-layout works!</p>
+<div class="page-container">
+  @if (isInMaintenance()) {
+    <app-maintenance-overlay></app-maintenance-overlay>
+  }
+</div>
