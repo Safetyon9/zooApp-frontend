@@ -35,8 +35,6 @@ import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
-import { NavbarEcommerce } from './features/public/ecommerce/navbar-ecommerce/navbar-ecommerce';
-import { Shop } from './features/public/ecommerce/section/shop/shop';
 
 @NgModule({
   declarations: [
@@ -52,9 +50,7 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
     Dashboard,
     Donation,
     Introduction,
-    Ecommerce,
-    NavbarEcommerce,
-    Shop
+    Ecommerce
   ],
   imports: [
     BrowserModule,
@@ -75,7 +71,7 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
     MatMenuModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideHttpClient(withFetch()),
