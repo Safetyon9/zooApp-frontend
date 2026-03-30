@@ -35,11 +35,6 @@ import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
-import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
-import { Promo } from './features/public/ecommerce/section/promo/promo';
-import { Categories } from './features/public/ecommerce/section/categories/categories';
-import { Shop } from './features/public/ecommerce/section/shop/shop';
-import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
 
 @NgModule({
   declarations: [
@@ -55,12 +50,7 @@ import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-ove
     Dashboard,
     Donation,
     Introduction,
-    Ecommerce,
-    NavbarEcommerce,
-    Promo,
-    Categories,
-    Shop,
-    MaintenanceOverlay
+    Ecommerce
   ],
   imports: [
     BrowserModule,
