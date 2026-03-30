@@ -1,9 +1,35 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ChangePassword } from '../../auth/dialog/change-password/change-password';
+import { AuthServices } from '../../../core/services/auth-services';
 
 @Component({
   selector: 'app-navbar-utente',
-  imports: [],
   templateUrl: './navbar-utente.html',
-  styleUrl: './navbar-utente.css',
+  styleUrls: ['./navbar-utente.css'],
+  standalone:false
 })
-export class NavbarUtente {}
+export class NavbarUtenteComponent {
+  constructor(
+    public auth: AuthServices,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
+
+  goHome(): void {
+    this.router.navigate(['/utente']);
+  }
+
+  changePWD(): void {
+    this.dialog.open(ChangePassword, {
+      width: '400px'
+    });
+  }
+
+  logout(): void {
+    this.auth.resetAll();
+    this.router.navigate(['/utente']);
+  }
+}

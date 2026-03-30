@@ -40,6 +40,7 @@ import { Promo } from './features/public/ecommerce/section/promo/promo';
 import { Categories } from './features/public/ecommerce/section/categories/categories';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
+import { NavbarUtenteComponent } from './features/user/navbar-utente/navbar-utente';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-ove
     Promo,
     Categories,
     Shop,
-    MaintenanceOverlay
+    MaintenanceOverlay,
+    NavbarUtenteComponent
   ],
   imports: [
     BrowserModule,
