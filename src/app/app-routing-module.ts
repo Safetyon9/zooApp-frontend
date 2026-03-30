@@ -9,7 +9,7 @@ import { AdminDashboard } from './features/admin/admin-dashboard/admin-dashboard
 import { authAutentificatedGuard } from './core/guards/auth-guard';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
-import { UserLayoutComponent } from './features/user/user-layout/user-layout';
+import { UserLayout } from './features/user/user-layout/user-layout';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
 
   {
     path: 'utente',
-    component: UserLayoutComponent,
+    component: UserLayout,
     canActivate: [authAutentificatedGuard],
     children: [
       { path: '', component: Dashboard },

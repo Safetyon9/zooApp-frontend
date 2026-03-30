@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-layout.css'],
   standalone: false
 })
-export class UserLayoutComponent {
+export class UserLayout {
   showProfile = false;
 
   showHomeSection(): void {

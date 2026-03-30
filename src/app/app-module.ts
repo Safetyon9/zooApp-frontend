@@ -39,15 +39,15 @@ import { Promo } from './features/public/ecommerce/section/promo/promo';
 import { Categories } from './features/public/ecommerce/section/categories/categories';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
-import { NavbarUtenteComponent } from './features/user/navbar-utente/navbar-utente';
-import { UserLayoutComponent } from './features/user/user-layout/user-layout';
+import { NavbarUtente } from './features/user/navbar-utente/navbar-utente';
+import { UserLayout } from './features/user/user-layout/user-layout';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     App,
     PublicLayout,
-    UserLayoutComponent,
+    UserLayout,
     AdminLayout,
     LoginDialog,
     RegisterDialog,
@@ -63,7 +63,7 @@ import { CommonModule } from '@angular/common';
     Categories,
     Shop,
     MaintenanceOverlay,
-    NavbarUtenteComponent
+    NavbarUtente,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ import { AuthServices } from '../../../core/services/auth-services';
   styleUrls: ['./navbar-utente.css'],
   standalone: false
 })
-export class NavbarUtenteComponent {
+export class NavbarUtente {
 
   constructor(
     public auth: AuthServices,
