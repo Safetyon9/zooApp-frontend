@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { Home } from './features/public/home/home';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { PublicLayout } from './features/public/public-layout/public-layout';
-import { UserLayout } from './features/user/user-layout/user-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { AdminDashboard } from './features/admin/admin-dashboard/admin-dashboard';
 import { authAutentificatedGuard } from './core/guards/auth-guard';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
+import { UserLayoutComponent } from './features/user/user-layout/user-layout';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
 
   {
     path: 'utente',
-    component: UserLayout,
+    component: UserLayoutComponent,
     canActivate: [authAutentificatedGuard],
     children: [
       { path: '', component: Dashboard },

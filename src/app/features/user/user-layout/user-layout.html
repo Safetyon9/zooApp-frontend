@@ -1,7 +1,10 @@
 <div class="user-layout">
-  <app-navbar-utente></app-navbar-utente>
+  <app-navbar-utente
+    (homeSelected)="showHomeSection()"
+    (profileSelected)="showProfileSection()">
+  </app-navbar-utente>
 
   <main class="user-content">
-    <router-outlet></router-outlet>
+    <app-dashboard [showProfileSection]="showProfile"></app-dashboard>
   </main>
 </div>

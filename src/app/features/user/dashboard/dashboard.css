@@ -1,49 +1,54 @@
-.example-container {
-  min-height: 600px;
-  height: auto;
-  margin: 10px;
-  border: 1px solid #555;
-  background: #eee;
+.dashboard-page {
+  padding: 24px;
 }
 
-.side-menu {
-  width: 200px; 
+.profile-card,
+.home-card {
+  margin-top: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
-.user-info {
+
+.profile-card-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  margin-bottom: 24px;
 }
 
-.welcome {
-    margin-left: 20px;
-  font-weight: 500;
+.profile-card-header button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
 }
 
-button mat-icon {
-  margin-right: 6px;
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
 }
 
-.main-content {
-  padding: 20px;
-  background: white;
-}
-.side-menu mat-list-item {
-  font-size: 14px; 
-  padding: 4px 8px;
-  min-height: 32px;
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  background-color: #f8fafc;
+  border-radius: 10px;
 }
 
-.side-menu mat-list-item:hover {
-  background-color: #ddd; 
+.label {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
 }
-.active {
-  background-color: blanchedalmond;
-}
-.example-spacer {
-  flex: 1 1 auto;
-}
-.logo {
-    width: 5%;
+
+.value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
 }

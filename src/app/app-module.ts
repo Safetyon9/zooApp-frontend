@@ -33,7 +33,6 @@ import { Home } from './features/public/home/home';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
-import { UserLayout } from './features/user/user-layout/user-layout';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
 import { Promo } from './features/public/ecommerce/section/promo/promo';
@@ -41,12 +40,14 @@ import { Categories } from './features/public/ecommerce/section/categories/categ
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
 import { NavbarUtenteComponent } from './features/user/navbar-utente/navbar-utente';
+import { UserLayoutComponent } from './features/user/user-layout/user-layout';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     App,
     PublicLayout,
-    UserLayout,
+    UserLayoutComponent,
     AdminLayout,
     LoginDialog,
     RegisterDialog,
@@ -68,6 +69,7 @@ import { NavbarUtenteComponent } from './features/user/navbar-utente/navbar-uten
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDialogModule,

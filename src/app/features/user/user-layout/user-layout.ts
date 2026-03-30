@@ -2,8 +2,18 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-layout',
-  standalone: false,
   templateUrl: './user-layout.html',
-  styleUrl: './user-layout.css',
+  styleUrls: ['./user-layout.css'],
+  standalone: false
 })
-export class UserLayout {}
+export class UserLayoutComponent {
+  showProfile = false;
+
+  showHomeSection(): void {
+    this.showProfile = false;
+  }
+
+  showProfileSection(): void {
+    this.showProfile = true;
+  }
+}
