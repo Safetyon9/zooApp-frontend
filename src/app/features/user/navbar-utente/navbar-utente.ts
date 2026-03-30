@@ -1,53 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ChangePassword } from '../../auth/dialog/change-password/change-password';
 import { AuthServices } from '../../../core/services/auth-services';
-import { UtenteServices } from '../services/utente-services';
-import { Utilities } from '../../../core/utils/utilities';
-import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.html',
-  styleUrls: ['./dashboard.css'],
+  selector: 'app-navbar-utente',
+  templateUrl: './navbar-utente.html',
+  styleUrls: ['./navbar-utente.css'],
   standalone: false
 })
-export class Dashboard implements OnInit {
-  @Input() showProfileSection: boolean = false;
-
-  profilo: any = {};
+export class NavbarUtenteComponent {
 
   constructor(
     public auth: AuthServices,
-    private utenteServices: UtenteServices,
-    private util: Utilities
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    const userId = this.auth.grant()?.userId;
-    if (!userId) return;
-
-    this.utenteServices.findByUserName(userId).subscribe({
-      next: (r: any) => {
-        console.log('PROFILO BACKEND:', r);
-
-        this.profilo = {
-          nome: r.nome ?? r.name ?? r.firstName ?? '',
-          cognome: r.cognome ?? r.surname ?? r.lastName ?? '',
-          email: r.email ?? '',
-          telefono: r.telefono ?? r.phone ?? '',
-          username: r.username ?? r.userName ?? ''
-        };
-      },
-      error: (err: any) => {
-        console.error('error getAccount:', err);
-      }
-    });
+  goHome(): void {
+    this.router.navigate(['']);
   }
 
-  modificaProfilo(): void {
-    this.util.openDialog(
-      RegisterDialog,
-      { account: this.profilo, mode: 'U' },
-      { width: '90vw', maxWidth: '1200px', height: 'auto' }
-    );
+  openProfile(): void {
+     this.router.navigate(['']);
+  }
+
+  changePWD(): void {
+    this.router.navigate(['']);
+  }
+
+  logout(): void {
+    this.auth.resetAll();
+    this.router.navigate(['']);
   }
 }
