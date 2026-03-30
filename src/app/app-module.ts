@@ -33,6 +33,7 @@ import { Introduction } from './features/public/home/section/introduction/introd
 import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { UserLayout } from './features/user/user-layout/user-layout';
+import { Ecommerce } from './features/public/ecommerce/ecommerce';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UserLayout } from './features/user/user-layout/user-layout';
     Navbar,
     Dashboard,
     Donation,
-    Introduction
+    Introduction,
+    Ecommerce
   ],
   imports: [
     BrowserModule,

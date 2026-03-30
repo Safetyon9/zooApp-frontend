@@ -176,45 +176,6 @@
   opacity: 0.8;
 }
 
-/* CAROUSEL ARROWS - matching Introduction style */
-.hover-zone {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4%;
-  border: none;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  cursor: pointer;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  opacity: 0.2;
-}
-
-.hover-zone:hover {
-  transform: translateY(-50%) scale(1.2);
-  opacity: 1;
-}
-
-.hover-zone.left {
-  height: 90%;
-  left: 0;
-}
-
-.hover-zone.right {
-  height: 90%;
-  right: 0;
-}
-
-.hover-zone .arrow {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-}
-
 @media (max-width: 600px) {
   .donation-card {
     padding: 1.5rem;
