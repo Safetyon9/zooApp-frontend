@@ -27,6 +27,7 @@ import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { ChangePassword } from './features/auth/dialog/change-password/change-password';
 import { PublicLayout } from './features/public/public-layout/public-layout';
+import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Introduction } from './features/public/home/section/introduction/introduction';
@@ -34,12 +35,14 @@ import { Donation } from './features/public/home/section/donation/donation';
 import { Dashboard } from './features/user/dashboard/dashboard';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
+import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
 
 @NgModule({
   declarations: [
     App,
     PublicLayout,
     UserLayout,
+    AdminLayout,
     LoginDialog,
     RegisterDialog,
     ChangePassword,
@@ -48,7 +51,8 @@ import { Ecommerce } from './features/public/ecommerce/ecommerce';
     Dashboard,
     Donation,
     Introduction,
-    Ecommerce
+    Ecommerce,
+    MaintenanceOverlay
   ],
   imports: [
     BrowserModule,
