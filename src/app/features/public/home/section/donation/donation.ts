@@ -2,9 +2,9 @@ import { Component, OnDestroy, signal } from '@angular/core';
 
 @Component({
   selector: 'app-donation',
-  imports: [],
   templateUrl: './donation.html',
   styleUrl: './donation.css',
+  standalone: false,
 })
 export class Donation{
 

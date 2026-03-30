@@ -1,10 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-introduction',
-  standalone: true,
-  imports: [CommonModule], 
+  standalone: false,
   templateUrl: './introduction.html',
   styleUrls: ['./introduction.css'],
 })

@@ -1,18 +1,17 @@
 import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 import { LoginDialog } from '../../features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from '../../features/auth/dialog/register-dialog/register-dialog';
 import { ChangePassword } from '../../features/auth/dialog/change-password/change-password';
 import { AuthServices } from '../../core/services/auth-services';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
-  standalone: true,
+  standalone: false,
 })
 export class Navbar {
   isMenuOpen = false;
@@ -31,11 +30,7 @@ export class Navbar {
 
   @HostListener('window:scroll') onScroll() {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > this.lastScrollY && currentScrollY > 80) {
-      this.isHidden = true;
-    } else {
-      this.isHidden = false;
-    }
+    this.isHidden = currentScrollY > this.lastScrollY && currentScrollY > 80;
     this.lastScrollY = currentScrollY;
   }
 
@@ -47,7 +42,7 @@ export class Navbar {
     this.isMenuOpen = false;
   }
 
-  openHome(){
+  openHome() {
     this.router.navigate(['']);
   }
 
@@ -62,7 +57,6 @@ export class Navbar {
   openChangePasswordDialog() {
     this.dialog.open(ChangePassword, { minWidth: '20%' });
   }
-
 
   logout() {
     this.auth.logout();

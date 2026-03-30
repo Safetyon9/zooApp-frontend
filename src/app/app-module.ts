@@ -10,7 +10,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardHeader, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,19 +27,26 @@ import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { ChangePassword } from './features/auth/dialog/change-password/change-password';
 import { PublicLayout } from './features/public/public-layout/public-layout';
-import { Navbar } from "./shared/navbar/navbar";
+import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
+import { Dashboard } from './features/user/dashboard/dashboard';
+import { UserLayout } from './features/user/user-layout/user-layout';
 
 @NgModule({
   declarations: [
     App,
     PublicLayout,
+    UserLayout,
     LoginDialog,
     RegisterDialog,
     ChangePassword,
-    Home
+    Home,
+    Navbar,
+    Dashboard,
+    Donation,
+    Introduction
   ],
   imports: [
     BrowserModule,
@@ -61,10 +68,6 @@ import { Donation } from './features/public/home/section/donation/donation';
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatCardHeader,
-    Navbar,
-    Introduction,
-    Donation
 ],
   providers: [
     provideHttpClient(withFetch()),
