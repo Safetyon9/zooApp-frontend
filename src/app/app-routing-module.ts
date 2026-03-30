@@ -26,8 +26,7 @@ const routes: Routes = [
     component: UserLayout,
     canActivate: [authAutentificatedGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: Dashboard },
+      { path: '', component: Dashboard },
     ]
   },
 
