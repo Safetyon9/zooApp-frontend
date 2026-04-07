@@ -25,12 +25,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
-import { ChangePassword } from './features/auth/dialog/change-password/change-password';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Info } from './features/user/info/info';
+import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
 import { Eventi } from './features/public/home/section/eventi/eventi';
@@ -54,9 +54,9 @@ import { CommonModule } from '@angular/common';
     AdminLayout,
     LoginDialog,
     RegisterDialog,
-    ChangePassword,
     Home,
     Info,
+    ChangePwd,
     Navbar,
     Donation,
     Eventi,
