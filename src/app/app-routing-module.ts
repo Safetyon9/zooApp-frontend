@@ -12,7 +12,7 @@ import { UserLayout } from './features/user/user-layout/user-layout';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { GestioneProdotti } from './features/admin/gestione-prodotti/gestione-prodotti';
-import { GestioneUtenti } from './features/admin/gestione-utenti/gestione-utenti';
+import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
@@ -48,7 +48,7 @@ const routes: Routes = [
       { path: 'prodotti/merch', component: Merch },
       { path: 'prodotti/biglietti', component: Biglietti },
 
-      { path: 'utenti', component: GestioneUtenti },
+      { path: 'utenti', component: GestioneUtente },
 
       { path: 'eventi', component: GestioneEventi },
     ]

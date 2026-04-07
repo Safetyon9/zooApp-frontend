@@ -1,9 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { UtenteServices } from '../../user/services/utente-services';
 
 @Component({
-  selector: 'app-gestione-utenti',
+  selector: 'app-gestione-utente',
+  standalone: false,
   templateUrl: './gestione-utenti.html',
-  styleUrl: './gestione-utenti.css',
-  standalone:false,
+  styleUrls: ['./gestione-utenti.css'],
 })
-export class GestioneUtenti {}
+export class GestioneUtente implements OnInit {
+  userName: any = null;
+  nome: any = null;
+  cognome: any = null;
+  role: any = null;
+
+  readonly dialog = inject(MatDialog);
+
+  constructor(public accountServices: UtenteServices) {}
+
+  get accounts() {
+    return this.accountServices.accounts();
+  }
+
+  ngOnInit(): void {
+    this.accountServices.list();
+  }
+
+  search() {
+    this.accountServices.list(this.userName, this.nome, this.cognome, this.role);
+  }
+
+  create() {
+    console.log('Creazione nuovo account');
+  }
+
+  onSelectedAccount(acc: any) {
+    console.log(acc);
+  }
+
+  deleteAccount(acc: any, event: Event) {
+    event.stopPropagation();
+
+    this.accountServices.delete(acc.userName).subscribe({
+      next: () => {
+        this.accountServices.list(this.userName, this.nome, this.cognome, this.role);
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione utente', err);
+      }
+    });
+  }
+}
