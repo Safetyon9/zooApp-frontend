@@ -7,5 +7,14 @@ import { Component, signal} from '@angular/core';
   standalone: false,
 })
 export class AdminLayout {
-  isInMaintenance = signal(true);
+  isInMaintenance = signal(false);
+  showProfile = false;
+
+  showHomeSection(): void {
+    this.showProfile = false;
+  }
+
+  showProfileSection(): void {
+    this.showProfile = true;
+  }
 }

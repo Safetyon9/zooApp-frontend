@@ -1,10 +1,9 @@
 <div class="user-layout">
   <aside class="sidebar-wrapper">
-    <app-navbar-utente>
-    </app-navbar-utente>
+    <app-navbar-utente></app-navbar-utente>
   </aside>
 
   <main class="user-content">
-    <app-dashboard [showProfileSection]="showProfile"></app-dashboard>
+    <router-outlet></router-outlet>
   </main>
 </div>
