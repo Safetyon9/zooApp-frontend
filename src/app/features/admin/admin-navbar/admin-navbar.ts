@@ -24,8 +24,8 @@ export class AdminNavbar {
     this.homeSelected.emit();
   }
 
-  openProfile(): void {
-    this.profileSelected.emit();
+  openGestioneUtenti(): void {
+    this.router.navigate(['gestione-utenti']);
   }
 
   changePWD(): void {
