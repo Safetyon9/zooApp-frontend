@@ -25,7 +25,7 @@ export class AdminNavbar {
   }
 
   openGestioneUtenti(): void {
-    this.router.navigate(['gestione-utenti']);
+    this.router.navigate(['/admin/utenti']);
   }
 
   changePWD(): void {
