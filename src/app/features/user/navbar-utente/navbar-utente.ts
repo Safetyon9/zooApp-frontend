@@ -25,11 +25,11 @@ export class NavbarUtente {
   }
 
   openProfile(): void {
-     this.router.navigate(['utente/info']);
+     this.router.navigate(['utente']);
   }
 
   changePWD(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['utente/modify']);
   }
 
   logout(): void {

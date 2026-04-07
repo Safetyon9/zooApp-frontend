@@ -10,6 +10,7 @@ import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Info } from './features/user/info/info';
+import { ChangePwd } from './features/user/change-pwd/change-pwd';
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
     component: UserLayout,
     canActivate: [authAutentificatedGuard],
     children: [
-      { path: '', component: Info }
+      { path: '', component: Info },
+      { path: 'modify', component: ChangePwd }
     ]
   },
 

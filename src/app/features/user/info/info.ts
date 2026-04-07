@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
 import { UtenteServices } from '../services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
+import { ChangeDetectorRef } from '@angular/core';
 import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 
 @Component({
@@ -18,7 +19,8 @@ export class Info implements OnInit{
   constructor(
     public auth: AuthServices,
     private utenteServices: UtenteServices,
-    private util: Utilities
+    private util: Utilities,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class Info implements OnInit{
           telefono: r.telefono ?? r.phone ?? '',
           username: r.username ?? r.userName ?? ''
         };
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         console.error('error getAccount:', err);
