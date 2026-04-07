@@ -10,6 +10,7 @@ import { authAutentificatedGuard } from './core/guards/auth-guard';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UserLayout } from './features/user/user-layout/user-layout';
+import { Info } from './features/user/info/info';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
     canActivate: [authAutentificatedGuard],
     children: [
       { path: '', component: Dashboard },
+      { path: 'info', component: Info }
     ]
   },
 
