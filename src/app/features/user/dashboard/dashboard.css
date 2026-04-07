@@ -1,5 +1,7 @@
 .dashboard-page {
   padding: 24px;
+  background-color: #ffffff;
+  min-height: 100vh;
 }
 
 .profile-card,
@@ -8,7 +10,9 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
 }
 
 .profile-card-header {
@@ -22,9 +26,17 @@
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
-  background-color: #2563eb;
-  color: white;
+
+  background-color: #FACC15;
+  color: #1f2937; 
+
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-card-header button:hover {
+  background-color: #EAB308;
 }
 
 .profile-grid {
@@ -37,18 +49,21 @@
   display: flex;
   flex-direction: column;
   padding: 14px;
-  background-color: #f8fafc;
+
+  background-color: #f9fafb; 
   border-radius: 10px;
+
+  border: 1px solid #e5e7eb;
 }
 
 .label {
   font-size: 13px;
-  color: #64748b;
+  color: #6b7280;
   margin-bottom: 6px;
 }
 
 .value {
   font-size: 16px;
   font-weight: 600;
-  color: #0f172a;
+  color: #111827; 
 }

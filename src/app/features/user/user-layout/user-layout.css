@@ -16,5 +16,4 @@
   min-height: 100vh;
   padding: clamp(1rem, 2vw, 2rem);
   box-sizing: border-box;
-  background-color: #14532d;
 }

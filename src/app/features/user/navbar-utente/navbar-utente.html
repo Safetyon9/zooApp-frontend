@@ -1,10 +1,10 @@
 <aside class="sidebar">
-  <div class="logo" (click)="goHome()">
-    <span class="logo-icon">🦁</span>
-    <span class="logo-text">ZooApp</span>
-  </div>
+    <div class="logo-container" routerLink="/" (click)="goHome()">
+        <img src="logo/logo-app.svg" alt="Logo ZooApp" class="logo-img" (click)="goHome()">
+    </div>
 
   <nav class="menu">
+
     <button type="button" class="menu-item" (click)="goHome()">
       Home
     </button>
