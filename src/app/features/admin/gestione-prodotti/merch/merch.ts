@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-merch',
-  imports: [],
+  standalone: false,
   templateUrl: './merch.html',
   styleUrl: './merch.css',
 })

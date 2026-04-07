@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-gestione-eventi',
-  imports: [],
+  standalone: false,
   templateUrl: './gestione-eventi.html',
   styleUrl: './gestione-eventi.css',
 })
