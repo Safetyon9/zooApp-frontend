@@ -5,13 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthServices } from '../../../core/services/auth-services';
 
 @Component({
-
   selector: 'app-navbar-utente',
   templateUrl: './navbar-utente.html',
   styleUrls: ['./navbar-utente.css'],
   standalone: false
 })
 export class NavbarUtente {
+  @Output() profileSelected = new EventEmitter<void>();
+  @Output() homeSelected = new EventEmitter<void>();
 
   constructor(
     public auth: AuthServices,
@@ -20,11 +21,11 @@ export class NavbarUtente {
   ) {}
 
   goHome(): void {
-    this.router.navigate(['']);
+    this.homeSelected.emit();
   }
 
   openProfile(): void {
-     this.router.navigate(['']);
+    this.profileSelected.emit();
   }
 
   changePWD(): void {
