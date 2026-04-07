@@ -1,0 +1,86 @@
+<mat-dialog-content class="dialog-container">
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-card class="dialog-card">
+    <mat-card-header class="dialog-header">
+      <mat-card-title class="dialog-title">
+        Modifica Utente
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="dialog-content">
+
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" name="nome" formControlName="nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Cognome</mat-label>
+          <input matInput type="text" name="cognome" formControlName="cognome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" name="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Telefono</mat-label>
+          <input matInput type="text" name="telefono" formControlName="telefono">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Via</mat-label>
+          <input matInput type="text" name="via" formControlName="via">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-1">
+          <mat-label>Comune</mat-label>
+          <input matInput type="text" name="comune" formControlName="comune">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-1">
+          <mat-label>Provincia</mat-label>
+          <input matInput type="text" name="provincia" formControlName="provincia">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-1">
+          <mat-label>Cap</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="cap"
+            maxlength="5"
+            pattern="[0-9]*"
+            inputmode="numeric">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-4">
+          <mat-label>UserName</mat-label>
+          <input matInput type="text" name="username" formControlName="username">
+        </mat-form-field>
+        
+        <div class="msg-error col-4">
+          <span>{{ msg() }}</span>
+        </div>
+
+        <div class="button-group col-4">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]= "false"
+            matTooltip="Salvare le modifiche">
+            Modifica utente
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

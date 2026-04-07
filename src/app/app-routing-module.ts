@@ -16,6 +16,7 @@ import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
+import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 
 const routes: Routes = [
   {
@@ -56,6 +57,7 @@ const routes: Routes = [
 
   { path: 'login', component: LoginDialog },
   { path: 'register', component: RegisterDialog },
+  { path: 'update', component: UpdateDialog },
 
   { path: '**', redirectTo: '' }
 ];

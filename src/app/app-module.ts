@@ -25,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
+import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
@@ -60,6 +61,7 @@ import { CommonModule } from '@angular/common';
     AdminLayout,
     LoginDialog,
     RegisterDialog,
+    UpdateDialog,
     ChangePwd,
     Home,
     Info,
