@@ -25,11 +25,7 @@ export class NavbarUtente {
   }
 
   openProfile(): void {
-<<<<<<< HEAD
      this.router.navigate(['utente/info']);
-=======
-    this.profileSelected.emit();
->>>>>>> f2b34de9205e0e6a379598d35405ad89fe4181e0
   }
 
   changePWD(): void {
