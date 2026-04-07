@@ -30,6 +30,7 @@ import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
+import { Info } from './features/user/info/info';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
@@ -52,6 +53,7 @@ import { CommonModule } from '@angular/common';
     RegisterDialog,
     ChangePassword,
     Home,
+    Info,
     Navbar,
     Donation,
     Introduction,
