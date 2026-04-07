@@ -1,6 +1,4 @@
-
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { UtenteServices } from '../../../shared/services/utente-services';
 
 
@@ -17,8 +15,7 @@ export class GestioneUtente implements OnInit {
   role: any = null;
 
   constructor(
-    public accountServices: UtenteServices,
-    private dialogRef: MatDialogRef<GestioneUtente>
+    public accountServices: UtenteServices
   ) {}
 
   get accounts() {
@@ -52,9 +49,5 @@ export class GestioneUtente implements OnInit {
         console.error('Errore eliminazione utente', err);
       }
     });
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 }
