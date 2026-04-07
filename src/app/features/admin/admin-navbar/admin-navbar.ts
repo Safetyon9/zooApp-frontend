@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AuthServices } from '../../../core/services/auth-services';
-
 @Component({
-  selector: 'app-navbar-utente',
-  templateUrl: './navbar-utente.html',
-  styleUrls: ['./navbar-utente.css'],
-  standalone: false
+  selector: 'app-admin-navbar',
+  imports: [],
+  templateUrl: './admin-navbar.html',
+  styleUrl: './admin-navbar.css',
 })
-export class NavbarUtente {
+
+export class AdminNavbar {
   @Output() profileSelected = new EventEmitter<void>();
   @Output() homeSelected = new EventEmitter<void>();
 
@@ -25,11 +25,7 @@ export class NavbarUtente {
   }
 
   openProfile(): void {
-<<<<<<< HEAD
-     this.router.navigate(['utente/info']);
-=======
     this.profileSelected.emit();
->>>>>>> f2b34de9205e0e6a379598d35405ad89fe4181e0
   }
 
   changePWD(): void {
