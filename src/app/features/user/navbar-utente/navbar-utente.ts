@@ -24,7 +24,7 @@ export class NavbarUtente {
   }
 
   openProfile(): void {
-     this.router.navigate(['']);
+     this.router.navigate(['utente/info']);
   }
 
   changePWD(): void {

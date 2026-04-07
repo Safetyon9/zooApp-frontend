@@ -1,1 +1,32 @@
-<p>info works!</p>
+
+    <div class="profile-card-header">
+      <h2>Le tue informazioni</h2>
+      <button type="button" (click)="modificaProfilo()">Modifica profilo</button>
+    </div>
+
+    <div class="profile-grid">
+      <div class="profile-item">
+        <span class="label">Nome</span>
+        <span class="value">{{ profilo.nome || '-' }}</span>
+      </div>
+
+      <div class="profile-item">
+        <span class="label">Cognome</span>
+        <span class="value">{{ profilo.cognome || '-' }}</span>
+      </div>
+
+      <div class="profile-item">
+        <span class="label">Email</span>
+        <span class="value">{{ profilo.email || '-' }}</span>
+      </div>
+
+      <div class="profile-item">
+        <span class="label">Telefono</span>
+        <span class="value">{{ profilo.telefono || '-' }}</span>
+      </div>
+
+      <div class="profile-item">
+        <span class="label">Username</span>
+        <span class="value">{{ profilo.username || '-' }}</span>
+      </div>
+    </div>

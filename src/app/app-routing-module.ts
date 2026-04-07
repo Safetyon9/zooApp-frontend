@@ -27,8 +27,7 @@ const routes: Routes = [
     component: UserLayout,
     canActivate: [authAutentificatedGuard],
     children: [
-      { path: '', component: Dashboard },
-      { path: 'info', component: Info }
+      { path: '', component: Info }
     ]
   },
 
