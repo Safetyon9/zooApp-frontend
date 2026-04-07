@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { LoginDialog } from '../../features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from '../../features/auth/dialog/register-dialog/register-dialog';
-import { ChangePassword } from '../../features/auth/dialog/change-password/change-password';
 import { AuthServices } from '../../core/services/auth-services';
 
 @Component({
@@ -54,9 +53,6 @@ export class Navbar {
     this.dialog.open(RegisterDialog, { minWidth: '30%' });
   }
 
-  openChangePasswordDialog() {
-    this.dialog.open(ChangePassword, { minWidth: '20%' });
-  }
 
   logout() {
     this.auth.logout();
