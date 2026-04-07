@@ -1,1 +1,30 @@
-<p>change-pwd works!</p>
+<div class="container page-container">
+  <h2>Cambio password</h2>
+
+  <form #pwdForm="ngForm" (ngSubmit)="onSubmit(pwdForm)">
+    <mat-form-field appearance="fill">
+      <mat-label>Password attuale</mat-label>
+      <input matInput type="password" name="oldpassword" 
+             placeholder="Inserire password attuale" ngModel required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nuova password</mat-label>
+      <input matInput type="password" name="newpassword" 
+             placeholder="Inserire nuova password" ngModel required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Conferma password</mat-label>
+      <input matInput type="password" name="cntrlpassword" 
+             placeholder="Confermare nuova password" ngModel required>
+    </mat-form-field>
+
+    <p style="color:red">{{ msg() }}</p>
+
+    <div class="button-group">
+      <button class="btn btn-primary" type="submit" 
+              [disabled]="!pwdForm.valid">Esegui cambio password</button>
+    </div>
+  </form>
+</div>
