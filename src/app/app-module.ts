@@ -35,6 +35,7 @@ import { Introduction } from './features/public/home/section/introduction/introd
 import { Donation } from './features/public/home/section/donation/donation';
 import { Eventi } from './features/public/home/section/eventi/eventi';
 import { News } from './features/public/home/section/news/news';
+import { SafePipe } from './shared/pipes/safe.pipe';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
 import { Promo } from './features/public/ecommerce/section/promo/promo';
@@ -80,7 +81,8 @@ import { merge } from 'rxjs';
     GestioneProdotti,
     GestioneUtenti,
     Merch,
-    Biglietti
+    Biglietti,
+    SafePipe
   ],
   imports: [
     BrowserModule,
