@@ -22,9 +22,7 @@ export class UpdateDialog implements OnInit{
     comune: new FormControl<string | null>(null, Validators.required),
     provincia: new FormControl<string | null>(null),
     cap: new FormControl<string | null>(null, [Validators.minLength(5), Validators.maxLength(5)]),
-    username: new FormControl<string | null>(null, Validators.required),
-    pwd: new FormControl<string | null>(null, Validators.required),
-    pwdControl: new FormControl<string | null>(null, Validators.required),
+    username: new FormControl<string | null>(null, Validators.required)
   });
 
   msg = signal('');
@@ -58,34 +56,22 @@ export class UpdateDialog implements OnInit{
   }
 
   onSubmit() {
-    this.onSubmitCreate();
+    this.onSubmitUpdate();
   }
 
-  onSubmitCreate() {
+  onSubmitUpdate() {
     this.msg.set('');
 
-    if (this.updateForm.value.pwd !== this.updateForm.value.pwdControl) {
-      this.msg.set('password non coincidenti');
-      return;
-    }
-
     const body = {
-      utente: {
-        username: this.updateForm.value.username,
-        email: this.updateForm.value.email,
-        pwd: this.updateForm.value.pwd,
-        role: 'USER',
-      },
-      cliente: {
-        nome: this.updateForm.value.nome,
-        cognome: this.updateForm.value.cognome,
-        indirizzo: this.updateForm.value.via,
-        utenteUsername: this.updateForm.value.username,
-        comune: this.updateForm.value.comune,
-        provincia: this.updateForm.value.provincia,
-        cap: this.updateForm.value.cap,
-        telefono: this.updateForm.value.telefono,
-      },
+      userName: this.account().username,
+      email: this.updateForm.value.email,
+      nome: this.updateForm.value.nome,
+      cognome: this.updateForm.value.cognome,
+      indirizzo: this.updateForm.value.via,
+      comune: this.updateForm.value.comune,
+      provincia: this.updateForm.value.provincia,
+      cap: this.updateForm.value.cap,
+      telefono: this.updateForm.value.telefono,
     };
 
     this.http.post(`${this.baseUrl}/update`, body).subscribe({
