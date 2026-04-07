@@ -1,1 +1,94 @@
-<p>gestione-utenti worksddsjdnaijndjiasndijansjdnasijdn!</p>
+<div class="page-container">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header class="header-row">
+      <mat-card-title>Elenco Account</mat-card-title>
+      <button mat-raised-button color="primary" (click)="create()">
+        Creazione nuovo account
+      </button>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <div class="search-row">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="userName" [(ngModel)]="userName">
+          @if (userName) {
+            <button mat-icon-button matSuffix (click)="userName = null" matTooltip="Cancella">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="nome" [(ngModel)]="nome">
+          @if (nome) {
+            <button mat-icon-button matSuffix (click)="nome = null" matTooltip="Cancella">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Cognome</mat-label>
+          <input matInput placeholder="cognome" [(ngModel)]="cognome">
+          @if (cognome) {
+            <button mat-icon-button matSuffix (click)="cognome = null" matTooltip="Cancella">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select name="role" [(ngModel)]="role">
+            <mat-option value="USER">User</mat-option>
+            <mat-option value="ADMIN">Admin</mat-option>
+          </mat-select>
+          @if (role) {
+            <button mat-icon-button matSuffix (click)="role = null" matTooltip="Cancella">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="search()"
+          matTooltip="ricerca con criteri">
+          Cerca
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="table-wrapper">
+        <table class="accounts-table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Username</th>
+      <th>Telefono</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (cliente of accounts; track cliente.id) {
+      <tr class="clickable-row" (click)="onSelectedAccount(cliente)">
+        <td>{{ cliente.nome || '-' }}</td>
+        <td>{{ cliente.cognome || '-' }}</td>
+        <td>{{ cliente.utenteUsername || '-' }}</td>
+        <td>{{ cliente.telefono || '-' }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

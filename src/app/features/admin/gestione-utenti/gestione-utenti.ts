@@ -1,53 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { UtenteServices } from '../../../shared/services/utente-services';
 
-
 @Component({
   selector: 'app-gestione-utente',
-  standalone: false,
   templateUrl: './gestione-utenti.html',
   styleUrls: ['./gestione-utenti.css'],
+  standalone: false
 })
 export class GestioneUtente implements OnInit {
-  userName: any = null;
-  nome: any = null;
-  cognome: any = null;
-  role: any = null;
+  userName: string | null = null;
+  nome: string | null = null;
+  cognome: string | null = null;
+  role: string | null = null;
 
-  constructor(
-    public accountServices: UtenteServices
-  ) {}
+  constructor(public UtenteServices: UtenteServices) {}
 
   get accounts() {
-    return this.accountServices.accounts();
+    return this.UtenteServices.accounts();
   }
 
   ngOnInit(): void {
-    this.accountServices.list();
+    this.UtenteServices.list();
   }
 
-  search() {
-    this.accountServices.list(this.userName, this.nome, this.cognome, this.role);
+  search(): void {
+    this.UtenteServices.list(
+      this.userName ?? undefined,
+      this.nome ?? undefined,
+      this.cognome ?? undefined,
+      this.role ?? undefined
+    );
   }
 
-  create() {
+  create(): void {
     console.log('Creazione nuovo account');
   }
 
-  onSelectedAccount(acc: any) {
-    console.log(acc);
+  onSelectedAccount(acc: any): void {
+    console.log('Account selezionato:', acc);
   }
 
-  deleteAccount(acc: any, event: Event) {
+  deleteAccount(acc: any, event: Event): void {
     event.stopPropagation();
 
-    this.accountServices.delete(acc.userName).subscribe({
+    this.UtenteServices.delete(acc.userName).subscribe({
       next: () => {
-        this.accountServices.list(this.userName, this.nome, this.cognome, this.role);
+        this.UtenteServices.list(
+          this.userName ?? undefined,
+          this.nome ?? undefined,
+          this.cognome ?? undefined,
+          this.role ?? undefined
+        );
       },
       error: (err: any) => {
         console.error('Errore eliminazione utente', err);
       }
     });
   }
+
+  
 }

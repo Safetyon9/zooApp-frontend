@@ -4,16 +4,26 @@
   width: 100%;
 }
 
+/* wrapper solo per tenere lo spazio della sidebar */
 .sidebar-wrapper {
-  flex: 0 0 clamp(13rem, 16vw, 15rem);
-  max-width: clamp(13rem, 16vw, 15rem);
-  min-height: 100vh;
+  width: 240px;      /* stessa width della .sidebar */
+  min-width: 240px;
 }
 
+/* area contenuto a destra */
 .user-content {
+  margin-left: 240px;        /* offset rispetto alla sidebar */
   flex: 1;
   min-width: 0;
   min-height: 100vh;
   padding: clamp(1rem, 2vw, 2rem);
+  box-sizing: border-box;
+}
+
+.admin-content {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+  padding: 24px;
   box-sizing: border-box;
 }

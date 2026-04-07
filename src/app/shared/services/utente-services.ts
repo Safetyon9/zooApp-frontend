@@ -67,4 +67,5 @@ export class UtenteServices {
     const params = new HttpParams().set("userName", id);
     return this.http.get(this.url + "findAllByUserName", {params});
   }
+  
 }
