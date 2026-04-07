@@ -1,6 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UtenteServices } from '../../../shared/services/utente-services';
+
 
 @Component({
   selector: 'app-gestione-utente',
@@ -14,9 +16,10 @@ export class GestioneUtente implements OnInit {
   cognome: any = null;
   role: any = null;
 
-  readonly dialog = inject(MatDialog);
-
-  constructor(public accountServices: UtenteServices) {}
+  constructor(
+    public accountServices: UtenteServices,
+    private dialogRef: MatDialogRef<GestioneUtente>
+  ) {}
 
   get accounts() {
     return this.accountServices.accounts();
@@ -49,5 +52,9 @@ export class GestioneUtente implements OnInit {
         console.error('Errore eliminazione utente', err);
       }
     });
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
