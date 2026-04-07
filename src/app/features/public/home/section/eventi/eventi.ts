@@ -12,8 +12,9 @@ export class Eventi {
     {
       title: 'I Protagonisti del Video',
       date: 'Ogni Weekend',
-      description: 'Vieni a conoscere dal vivo i meravigliosi animali esotici che vedi in azione qui di fianco!',
-      icon: '🐾'
+      description: 'Vieni a conoscere dal vivo i meravigliosi animali esotici che vedi muoversi qui in sottofondo!',
+      icon: '🐾',
+      actionText: 'Scopri tutto su questo animale'
     },
     {
       title: 'Safari Esclusivo',
@@ -22,4 +23,15 @@ export class Eventi {
       icon: '🌿'
     }
   ]);
+
+  isAnimalModalOpen = signal(false);
+
+  openAnimalModal(event: Event) {
+    event.preventDefault();
+    this.isAnimalModalOpen.set(true);
+  }
+
+  closeAnimalModal() {
+    this.isAnimalModalOpen.set(false);
+  }
 }

@@ -1,17 +1,25 @@
 <div class="news-container" id="news-section">
 
   <div class="news-header">
-    <h2>Ultime Notizie 📰</h2>
-    <p>Resta aggiornato sulle novità dal nostro zoo.</p>
+    <h2>Le Notizie dal Mondo 🌍</h2>
+    <p>Rimani aggiornato sulle scoperte più recenti e le vere campagne internazionali di tutela.</p>
   </div>
 
   <div class="news-list">
     <div class="news-card" *ngFor="let news of newsList()">
-      <span class="news-tag">{{ news.tag }}</span>
-      <h3>{{ news.title }}</h3>
-      <span class="news-date">📅 {{ news.date }}</span>
-      <p>{{ news.summary }}</p>
-      <a class="news-link">Leggi tutto →</a>
+      
+      <div class="news-image-wrapper">
+        <img [src]="news.imageUrl" alt="Immagine della notizia" class="news-image">
+        <span class="news-tag">{{ news.tag }}</span>
+      </div>
+
+      <div class="news-content">
+        <span class="news-date">{{ news.date }}</span>
+        <h3>{{ news.title }}</h3>
+        <p>{{ news.summary }}</p>
+        <a [href]="news.link" target="_blank" rel="noopener noreferrer" class="news-link">Leggi l'articolo originale <span class="arrow">→</span></a>
+      </div>
+
     </div>
   </div>
 

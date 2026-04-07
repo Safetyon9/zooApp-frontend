@@ -1,32 +1,52 @@
 <div class="eventi-container" id="eventi-section">
+  
+  <video autoplay loop muted playsinline class="eventi-bg-video">
+    <source src="video/zoo-video.mp4" type="video/mp4">
+  </video>
+  
+  <div class="eventi-overlay"></div>
 
-  <div class="eventi-frame">
-    <div class="eventi-header-top">
-      <h2>Prossimi Eventi 🎉</h2>
-      <p>Scopri le attività in programma nel nostro zoo e prenota il tuo posto.</p>
+  <!-- LA NUOVA SIDEBAR IN VETRO SULLA DESTRA -->
+  <div class="glass-sidebar">
+    
+    <div class="sidebar-header">
+      <h2>Prossimi Eventi</h2>
+      <p>Scopri l'emozione della natura.</p>
     </div>
 
-    <div class="eventi-bento-grid">
-      
-      <div class="bento-video">
-        <video autoplay loop muted playsinline class="local-video">
-          <source src="video/zoo-video.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <div class="bento-cards">
-        <div class="evento-card" *ngFor="let event of events()">
-          <div class="card-left">
-             <span class="evento-icon">{{ event.icon }}</span>
-          </div>
-          <div class="card-right">
-            <span class="evento-date">{{ event.date }}</span>
-            <h3>{{ event.title }}</h3>
-            <p>{{ event.description }}</p>
-          </div>
+    <div class="sidebar-cards">
+      <div class="side-card" *ngFor="let event of events()">
+        <div class="icon-circle">{{ event.icon }}</div>
+        <div class="side-text">
+          <span class="side-badge">{{ event.date }}</span>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.description }}</p>
+          
+          <!-- Pulsante Alert aggiuntivo -->
+          <a class="alert-link" *ngIf="event.actionText" href="javascript:void(0)" (click)="openAnimalModal($event)">
+            <span class="pulse-dot"></span>
+            {{ event.actionText }}
+          </a>
         </div>
       </div>
+    </div>
+    
+  </div>
 
+  <!-- OVERLAY MODAL INFO ANIMALE -->
+  <div class="animal-modal-overlay" *ngIf="isAnimalModalOpen()" (click)="closeAnimalModal()">
+    <div class="animal-modal-content" (click)="$event.stopPropagation()">
+      <button class="close-modal-btn" (click)="closeAnimalModal()">&times;</button>
+      <h2>Il Suricato 🏜️</h2>
+      <p class="scientific-name">Nome scientifico: Suricata suricatta</p>
+      <div class="modal-body">
+        <p>Una vera "star" delle savane! I suricati sono famossissimi per la loro abitudine di ergersi ritti sulle zampe posteriori: non stanno "in posa", stanno facendo da sentinelle per proteggere la loro grande e unitissima famiglia (chiamata "mob" o "gang").</p>
+        <p>
+           <strong>Habitat Riprodotti:</strong> Pianure aride, terra mossa da scavare e rocce assolate.<br>
+           <strong>Dieta Preferita:</strong> Insettivori e carnivori, sono ghiotti di coleotteri, millepiedi, e sono persino immuni al veleno di molti scorpioni!<br>
+           <strong>Curiosità:</strong> Sono super socievoli e passano ore a farsi le "coccole" (grooming) per rafforzare o riappacificare i legami familiari. Quando uno dorme, gli altri gli si accalcano sopra per scaldarsi!
+        </p>
+      </div>
     </div>
   </div>
 

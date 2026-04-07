@@ -10,28 +10,29 @@ export class News {
 
   newsList = signal([
     {
-      title: 'Nato un cucciolo di giraffa!',
-      date: '2 Aprile 2026',
-      summary: 'Il nostro zoo dà il benvenuto ad un nuovo cucciolo di giraffa. Vieni a conoscerlo!',
-      tag: 'Nascite'
+      tag: 'Conservazione',
+      title: 'Nuovo Report: I Crimini di Natura',
+      date: 'Marzo 2026',
+      summary: 'Il WWF Italia ha pubblicato un nuovo studio globale sul traffico di specie selvatiche e sulla deforestazione, minacce cruciali per la biodiversità.',
+      imageUrl: 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=600&q=80',
+      link: 'https://www.wwf.it/'
     },
     {
-      title: 'Nuovo habitat per i pinguini',
-      date: '28 Marzo 2026',
-      summary: 'Inaugurata la nuova area artica con un habitat ampliato per i pinguini imperatore.',
-      tag: 'Novità'
+      tag: 'Scoperte',
+      title: 'Leopardi delle nevi in Bhutan',
+      date: 'Febbraio 2026',
+      summary: 'Grazie alle nuove tecnologie di DNA ambientale (eDNA), i ricercatori hanno individuato rarissimi esemplari in zone finora inesplorate.',
+      imageUrl: 'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=600&q=80',
+      link: 'https://www.worldwildlife.org/'
     },
     {
-      title: 'Orari estivi aggiornati',
-      date: '20 Marzo 2026',
-      summary: 'Da aprile lo zoo sarà aperto fino alle 20:00. Approfitta delle giornate più lunghe!',
-      tag: 'Info'
-    },
-    {
-      title: 'Programma di conservazione',
-      date: '10 Marzo 2026',
-      summary: 'Abbiamo aderito al programma europeo per la conservazione del lupo appenninico.',
-      tag: 'Conservazione'
+      tag: 'Ricerca',
+      title: 'I Castori Eroi del Clima',
+      date: 'Gennaio 2026',
+      summary: 'Un reportage esplora come l\'attività naturale dei castori stia incredibilmente rinfrescando gli ecosistemi e arrestando gli incendi boschivi.',
+      imageUrl: 'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=600&q=80',
+      link: 'https://www.nationalgeographic.com/'
     }
   ]);
+
 }
