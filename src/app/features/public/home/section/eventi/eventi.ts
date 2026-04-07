@@ -10,18 +10,16 @@ export class Eventi {
 
   events = signal([
     {
-      title: 'Safari Notturno',
-      date: '20 Aprile 2026',
-      description: 'Esplora lo zoo di notte e scopri gli animali notturni in azione.',
-      icon: '🌙'
+      title: 'I Protagonisti del Video',
+      date: 'Ogni Weekend',
+      description: 'Vieni a conoscere dal vivo i meravigliosi animali esotici che vedi in azione qui di fianco!',
+      icon: '🐾'
     },
     {
-      title: 'Giornata dei Cuccioli',
-      date: '5 Maggio 2026',
-      description: 'Vieni a conoscere i nuovi nati del nostro zoo!',
-      icon: '🐣'
+      title: 'Safari Esclusivo',
+      date: 'Tutti i Giorni',
+      description: 'Un tour immersivo e ravvicinato per scoprire i segreti della savana nel nostro habitat.',
+      icon: '🌿'
     }
   ]);
-
-  videoUrl = 'https://www.youtube.com/embed/iOiBwHe_VRM';
 }

@@ -47,7 +47,7 @@ import { UserLayout } from './features/user/user-layout/user-layout';
 import { AdminNavbar } from './features/admin/admin-navbar/admin-navbar';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { GestioneProdotti } from './features/admin/gestione-prodotti/gestione-prodotti';
-import { GestioneUtenti } from './features/admin/gestione-utenti/gestione-utenti';
+import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
 import { CommonModule } from '@angular/common';
@@ -77,7 +77,7 @@ import { CommonModule } from '@angular/common';
     AdminNavbar,
     GestioneEventi,
     GestioneProdotti,
-    GestioneUtenti,
+    GestioneUtente,
     Merch,
     Biglietti,
     SafePipe

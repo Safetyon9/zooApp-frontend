@@ -1,31 +1,33 @@
 <div class="eventi-container" id="eventi-section">
 
-  <div class="eventi-left">
-    <div class="eventi-header">
+  <div class="eventi-frame">
+    <div class="eventi-header-top">
       <h2>Prossimi Eventi 🎉</h2>
-      <p>Scopri le attività in programma nel nostro zoo.</p>
+      <p>Scopri le attività in programma nel nostro zoo e prenota il tuo posto.</p>
     </div>
 
-    <div class="eventi-list">
-      <div class="evento-card" *ngFor="let event of events()">
-        <span class="evento-icon">{{ event.icon }}</span>
-        <div class="evento-info">
-          <h3>{{ event.title }}</h3>
-          <span class="evento-date">📅 {{ event.date }}</span>
-          <p>{{ event.description }}</p>
+    <div class="eventi-bento-grid">
+      
+      <div class="bento-video">
+        <video autoplay loop muted playsinline class="local-video">
+          <source src="video/zoo-video.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="bento-cards">
+        <div class="evento-card" *ngFor="let event of events()">
+          <div class="card-left">
+             <span class="evento-icon">{{ event.icon }}</span>
+          </div>
+          <div class="card-right">
+            <span class="evento-date">{{ event.date }}</span>
+            <h3>{{ event.title }}</h3>
+            <p>{{ event.description }}</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="eventi-right">
-    <iframe
-      [src]="videoUrl | safe"
-      title="Video Zoo"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
+    </div>
   </div>
 
 </div>

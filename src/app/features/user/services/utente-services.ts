@@ -1,31 +1,70 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtenteServices {
-  private url = "http://localhost:9090/rest/utente/";
+  private url = 'http://localhost:9090/rest/utente/';
 
-  constructor(private http:HttpClient){}
+  private _accounts = signal<any[]>([]);
 
-  login(body:{}){
-    return this.http.post(this.url + "login", body);
-  }
-  create(body:{}){
-    return this.http.post(this.url + "create", body);
-  }
+  constructor(private http: HttpClient) {}
 
-  update(body:{}){
-    return this.http.put(this.url + "update", body);
-  }
-  changePwd(body:{}){
-    return this.http.put(this.url + "changePwd", body);
+  accounts() {
+    return this._accounts();
   }
 
-  findByUserName(id:string){
+  login(body: {}) {
+    return this.http.post(this.url + 'login', body);
+  }
+
+  create(body: {}) {
+    return this.http.post(this.url + 'create', body);
+  }
+
+  update(body: {}) {
+    return this.http.put(this.url + 'update', body);
+  }
+
+  changePwd(body: {}) {
+    return this.http.put(this.url + 'changePwd', body);
+  }
+
+  list(userName?: string, nome?: string, cognome?: string, role?: string) {
+    let params = new HttpParams();
+
+    if (userName) {
+      params = params.set('userName', userName);
+    }
+    if (nome) {
+      params = params.set('nome', nome);
+    }
+    if (cognome) {
+      params = params.set('cognome', cognome);
+    }
+    if (role) {
+      params = params.set('role', role);
+    }
+
+    this.http.get<any[]>(this.url + 'list', { params }).subscribe({
+      next: (resp) => this._accounts.set(resp),
+      error: (err: any) => console.error('Errore caricamento utenti', err),
+    });
+  }
+
+  findByUserName(userName: string) {
+    const params = new HttpParams().set('userName', userName);
+    return this.http.get(this.url + 'findByUserName', { params });
+  }
+
+  delete(userName: string) {
+    const params = new HttpParams().set('userName', userName);
+    return this.http.delete(this.url + 'delete', { params });
+  }
+
+  findAllByUserName(id:string){
     const params = new HttpParams().set("userName", id);
-    return this.http.get(this.url + "findByUserName", {params});
+    return this.http.get(this.url + "findAllByUserName", {params});
   }
-
 }

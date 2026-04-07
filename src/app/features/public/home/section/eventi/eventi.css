@@ -1,125 +1,185 @@
 :host {
   display: block;
   width: 100%;
-  min-height: 100vh;
 }
 
 .eventi-container {
   width: 100%;
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 5%;
+  padding: 4rem 3%; /* Reduced padding since the frame has its own padding */
   box-sizing: border-box;
-  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
-  gap: 3rem;
+  background: linear-gradient(180deg, #1B4332 0%, #21513C 100%);
+  display: flex;
+  justify-content: center;
 }
 
-/* --- Colonna sinistra: eventi --- */
-.eventi-left {
-  flex: 1;
-  max-width: 500px;
+.eventi-frame {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  /* La cornice diviene un vero e proprio "quadro Savana" opaco */
+  border: 2px solid rgba(255, 214, 10, 0.4);
+  border-radius: 40px;
+  background: linear-gradient(135deg, #7C4A28 0%, #D48C45 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 50px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-.eventi-header {
-  margin-bottom: 2rem;
+.eventi-header-top {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  width: 100%;
 }
 
-.eventi-header h2 {
-  font-size: 2.5rem;
+.eventi-header-top h2 {
+  font-size: 3.2rem;
   color: #FFD60A;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1rem 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.eventi-header p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
+.eventi-header-top p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
 }
 
-.eventi-list {
+/* BENTO GRID */
+.eventi-bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Video takes twice as much space as the cards column */
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* VIDEO STYLING */
+.bento-video {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 140, 69, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  background-color: #000;
+}
+
+.local-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CARDS STYLING */
+.bento-cards {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .evento-card {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 214, 10, 0.2);
-  border-radius: 16px;
-  padding: 1.5rem;
+  flex-direction: row; /* Icon on left, text on right */
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1; /* Stretch vertically evenly */
+  
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(212, 140, 69, 0.12) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 1.8rem;
   color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .evento-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: translateX(-8px); /* Shifts left towards the video interaction */
+  box-shadow: 0 15px 40px rgba(212, 140, 69, 0.3);
+  border-color: rgba(255, 214, 10, 0.4);
 }
 
-.evento-icon {
-  font-size: 2.2rem;
+.card-left {
   flex-shrink: 0;
 }
 
-.evento-info h3 {
-  font-size: 1.2rem;
-  color: #FFD60A;
-  margin: 0 0 0.3rem 0;
+.evento-icon {
+  font-size: 2rem;
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, #FFD60A 0%, #D48C45 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(255, 214, 10, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.evento-card:hover .evento-icon {
+  transform: scale(1.1) rotate(-10deg);
+}
+
+.card-right {
+  display: flex;
+  flex-direction: column;
 }
 
 .evento-date {
-  display: block;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.75rem;
+  color: #FFD60A;
+  background: rgba(255, 214, 10, 0.15);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
   margin-bottom: 0.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.evento-info p {
+.card-right h3 {
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.card-right p {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.5;
   margin: 0;
 }
 
-/* --- Colonna destra: video --- */
-.eventi-right {
-  flex: 1;
-  max-width: 600px;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 214, 10, 0.2);
-}
-
-.eventi-right iframe {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 /* --- Responsive --- */
 @media (max-width: 900px) {
-  .eventi-container {
+  .eventi-bento-grid {
+    grid-template-columns: 1fr; /* Switch to a single column on mobile */
+  }
+  
+  .bento-video {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .eventi-header-top h2 {
+    font-size: 2.5rem;
+  }
+  
+  .evento-card {
     flex-direction: column;
-    padding: 3rem 1.5rem;
-  }
-
-  .eventi-left,
-  .eventi-right {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .eventi-header h2 {
-    font-size: 1.8rem;
+    align-items: flex-start;
   }
 }

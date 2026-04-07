@@ -27,9 +27,9 @@ export class Info implements OnInit{
     const userId = this.auth.grant()?.userId;
     if (!userId) return;
 
-    this.utenteServices.findByUserName(userId).subscribe({
+    this.utenteServices.findAllByUserName(userId).subscribe({
       next: (r: any) => {
-        console.log('PROFILO BACKEND:', r);
+        console.log('PROFILO BACKEND:', JSON.stringify(r));
 
         this.profilo = {
           nome: r.nome ?? r.name ?? r.firstName ?? '',
