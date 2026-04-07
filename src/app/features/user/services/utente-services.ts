@@ -24,7 +24,7 @@ export class UtenteServices {
   }
 
   findByUserName(id:string){
-    const params = new HttpParams().set("id", id);
+    const params = new HttpParams().set("userName", id);
     return this.http.get(this.url + "findByUserName", {params});
   }
 

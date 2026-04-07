@@ -32,7 +32,6 @@ import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
-import { Dashboard } from './features/user/dashboard/dashboard';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
 import { Promo } from './features/public/ecommerce/section/promo/promo';
@@ -55,7 +54,6 @@ import { CommonModule } from '@angular/common';
     ChangePassword,
     Home,
     Navbar,
-    Dashboard,
     Donation,
     Introduction,
     Ecommerce,
