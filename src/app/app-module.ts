@@ -41,6 +41,7 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
 import { NavbarUtente } from './features/user/navbar-utente/navbar-utente';
 import { UserLayout } from './features/user/user-layout/user-layout';
+import { AdminNavbar } from './features/admin/admin-navbar/admin-navbar';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -64,6 +65,7 @@ import { CommonModule } from '@angular/common';
     Shop,
     MaintenanceOverlay,
     NavbarUtente,
+    AdminNavbar
   ],
   imports: [
     BrowserModule,

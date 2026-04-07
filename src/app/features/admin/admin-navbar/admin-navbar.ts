@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthServices } from '../../../core/services/auth-services';
 @Component({
   selector: 'app-admin-navbar',
-  imports: [],
+  standalone: false,
   templateUrl: './admin-navbar.html',
   styleUrl: './admin-navbar.css',
 })
