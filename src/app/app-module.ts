@@ -58,6 +58,7 @@ import { merge } from 'rxjs';
     AdminLayout,
     LoginDialog,
     RegisterDialog,
+    ChangePwd,
     Home,
     Info,
     Navbar,
