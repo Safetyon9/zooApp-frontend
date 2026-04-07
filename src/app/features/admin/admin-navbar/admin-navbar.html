@@ -1,1 +1,24 @@
-<p>admin-navbar works!</p>
+<aside class="sidebar">
+    <div class="logo-container" routerLink="/" (click)="goHome()">
+        <img src="logo/logo-app.svg" alt="Logo ZooApp" class="logo-img" (click)="goHome()">
+    </div>
+
+  <nav class="menu">
+
+    <button type="button" class="menu-item" (click)="goHome()">
+      Home
+    </button>
+
+    <button type="button" class="menu-item" (click)="openProfile()">
+      Info profilo
+    </button>
+
+    <button type="button" class="menu-item" (click)="changePWD()">
+      Cambio password
+    </button>
+  </nav>
+
+  <button type="button" class="menu-item logout" (click)="logout()">
+    Logout
+  </button>
+</aside>

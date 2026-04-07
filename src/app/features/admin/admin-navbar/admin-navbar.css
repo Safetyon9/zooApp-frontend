@@ -1,0 +1,131 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    #FEF3C7 0%,
+    #FDE68A 100%
+  );
+
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+
+  box-shadow: 2px 0 20px rgba(250, 204, 21, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  cursor: pointer;
+  user-select: none;
+  color: #1f2937;
+  transition: all 0.25s ease;
+}
+
+.logo:hover {
+  color: #b45309; /* ambra elegante */
+  transform: translateX(3px);
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: #d97706;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  width: 100%;
+  display: block;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.4);
+  color: #1f2937;
+
+  text-decoration: none;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+  position: relative;
+
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background: rgba(250, 204, 21, 0.5);
+  color: #78350f;
+  transform: translateX(4px);
+}
+
+.menu-item.active {
+  background: #facc15;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.menu-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 8px;
+  height: calc(100% - 16px);
+  width: 4px;
+  background: #b45309;
+  border-radius: 4px;
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo-container > * {
+  pointer-events: none; 
+  outline: none;
+}
+
+.logo-container img.logo-img {
+  width: 8rem;
+  height: auto;
+  max-height: 80px;
+  filter: brightness(0) invert(1);
+}
+
+.logo-container:hover img.logo-img {
+  transform: scale(1.2);
+  filter: brightness(0) saturate(100%) invert(92%) sepia(82%) saturate(7500%) hue-rotate(1deg);
+  transition: transform 0.5s ease;
+}
+
+.logout {
+  margin-top: auto;
+  background: rgba(250, 204, 21, 0.4);
+  color: #78350f;
+  font-weight: 600;
+}
+
+.logout:hover {
+  background: #facc15;
+  color: #1f2937;
+}
