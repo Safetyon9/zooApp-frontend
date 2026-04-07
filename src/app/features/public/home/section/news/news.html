@@ -1,0 +1,18 @@
+<div class="news-container" id="news-section">
+
+  <div class="news-header">
+    <h2>Ultime Notizie 📰</h2>
+    <p>Resta aggiornato sulle novità dal nostro zoo.</p>
+  </div>
+
+  <div class="news-list">
+    <div class="news-card" *ngFor="let news of newsList()">
+      <span class="news-tag">{{ news.tag }}</span>
+      <h3>{{ news.title }}</h3>
+      <span class="news-date">📅 {{ news.date }}</span>
+      <p>{{ news.summary }}</p>
+      <a class="news-link">Leggi tutto →</a>
+    </div>
+  </div>
+
+</div>

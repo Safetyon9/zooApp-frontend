@@ -72,13 +72,25 @@ export class Navbar {
   }
 
   scrollToDonation() {
-    const element = document.getElementById('donation-section');
+    this.scrollToSection('donation-section');
+  }
+
+  scrollToEventi() {
+    this.scrollToSection('eventi-section');
+  }
+
+  scrollToNews() {
+    this.scrollToSection('news-section');
+  }
+
+  private scrollToSection(id: string) {
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       this.router.navigate(['/']).then(() => {
         setTimeout(() => {
-          const el = document.getElementById('donation-section');
+          const el = document.getElementById(id);
           el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       });

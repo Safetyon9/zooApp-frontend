@@ -1,0 +1,18 @@
+<div class="eventi-container" id="eventi-section">
+
+  <div class="eventi-header">
+    <h2>Prossimi Eventi 🎉</h2>
+    <p>Scopri le attività e gli eventi in programma nel nostro zoo.</p>
+  </div>
+
+  <div class="eventi-grid">
+    <div class="evento-card" *ngFor="let event of events()">
+      <span class="evento-icon">{{ event.icon }}</span>
+      <h3>{{ event.title }}</h3>
+      <span class="evento-date">📅 {{ event.date }}</span>
+      <p>{{ event.description }}</p>
+      <button class="evento-btn">Scopri di più</button>
+    </div>
+  </div>
+
+</div>

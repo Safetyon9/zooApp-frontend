@@ -1,0 +1,113 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.eventi-container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+}
+
+.eventi-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eventi-header h2 {
+  font-size: 2.5rem;
+  color: #FFD60A;
+  margin: 0 0 0.75rem 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+}
+
+.eventi-header p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.eventi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.evento-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 214, 10, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.evento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.evento-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.evento-card h3 {
+  font-size: 1.3rem;
+  color: #FFD60A;
+  margin: 0 0 0.5rem 0;
+}
+
+.evento-date {
+  display: block;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+}
+
+.evento-card p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
+}
+
+.evento-btn {
+  background: #FFD60A;
+  color: #1B4332;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.evento-btn:hover {
+  transform: scale(1.05);
+  background: #FFC107;
+}
+
+@media (max-width: 600px) {
+  .eventi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eventi-header h2 {
+    font-size: 1.8rem;
+  }
+}

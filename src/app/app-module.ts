@@ -33,6 +33,8 @@ import { Home } from './features/public/home/home';
 import { Info } from './features/user/info/info';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
+import { Eventi } from './features/public/home/section/eventi/eventi';
+import { News } from './features/public/home/section/news/news';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
 import { Promo } from './features/public/ecommerce/section/promo/promo';
@@ -57,6 +59,8 @@ import { CommonModule } from '@angular/common';
     Info,
     Navbar,
     Donation,
+    Eventi,
+    News,
     Introduction,
     Ecommerce,
     NavbarEcommerce,
