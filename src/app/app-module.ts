@@ -51,6 +51,7 @@ import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
 import { CommonModule } from '@angular/common';
+
 @NgModule({
   declarations: [
     App,

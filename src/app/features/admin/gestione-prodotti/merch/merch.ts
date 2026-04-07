@@ -7,6 +7,7 @@ import { Utilities } from '../../../../core/utils/utilities';
   standalone: false,
   templateUrl: './merch.html',
   styleUrls: ['./merch.css']
+  
 })
 export class Merch implements OnInit {
   

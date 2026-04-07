@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UtenteServices } from '../../user/services/utente-services';
+import { UtenteServices } from '../../../shared/services/utente-services';
 
 @Component({
   selector: 'app-gestione-utente',
