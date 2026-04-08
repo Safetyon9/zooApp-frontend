@@ -48,7 +48,6 @@ export class GestioneUtente implements OnInit {
           telefono: r.telefono ?? '',
           provincia: r.provincia ?? '',
           expanded: false,
-          // cliente normale → role USER (adatta se hai altri ruoli cliente)
           isCliente: (r.role ?? '') === 'USER'
         }));
 
@@ -66,7 +65,7 @@ export class GestioneUtente implements OnInit {
   }
 
   toggleDettaglio(profilo: any): void {
-    if (!profilo.isCliente) return; // solo clienti hanno dettagli
+    if (!profilo.isCliente) return;
     profilo.expanded = !profilo.expanded;
     this.cdr.detectChanges();
   }

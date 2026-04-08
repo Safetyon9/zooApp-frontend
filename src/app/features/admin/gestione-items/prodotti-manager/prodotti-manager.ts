@@ -38,23 +38,14 @@ export class ProdottiManager {
   }
 
   onSelected(row: any) {
-<<<<<<< HEAD
-=======
     const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
     
     dialogRef.afterClosed().subscribe(choice => {
       if (choice === 'update') this.eseguoUpdate(row);
-      //else if (choice === 'upload') this.eseguoUpload(row);
     });
->>>>>>> fcb6530b822093ee4f7bf71e63a5d622a83512b5
   }
 
 
   eseguoUpdate(row: any) {
   }
-
-  /*
-  eseguoUpload(row: any) {
-  }
-  */
 }
