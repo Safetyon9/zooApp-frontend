@@ -68,26 +68,16 @@ export class GestioneUtente implements OnInit {
     });
   }
 
-  toggleDettaglio(profilo: any): void {
-    if (!profilo.isCliente) {
+  private caricaDettaglioProfilo(profilo: any, callback?: () => void): void {
+    if (!profilo) {
       return;
     }
 
-    // chiudi se già aperto
-    if (profilo.expanded) {
-      profilo.expanded = false;
-      this.cdr.detectChanges();
-      return;
-    }
-
-    // se già caricato, solo apri
     if (profilo.dettaglioCaricato) {
-      profilo.expanded = true;
-      this.cdr.detectChanges();
+      callback?.();
       return;
     }
 
-    // carica dettaglio da backend
     profilo.loadingDettaglio = true;
     this.cdr.detectChanges();
 
@@ -102,12 +92,14 @@ export class GestioneUtente implements OnInit {
         profilo.comune = r.comune ?? '';
         profilo.cap = r.cap ?? '';
         profilo.provincia = r.provincia ?? '';
+        profilo.email = r.email ?? profilo.email ?? '';
+        profilo.role = r.role ?? profilo.role ?? '';
 
         profilo.dettaglioCaricato = true;
         profilo.loadingDettaglio = false;
-        profilo.expanded = true;
 
         this.cdr.detectChanges();
+        callback?.();
       },
       error: (err: any) => {
         console.error('Errore caricamento dettaglio utente', err);
@@ -117,24 +109,50 @@ export class GestioneUtente implements OnInit {
     });
   }
 
+  toggleDettaglio(profilo: any): void {
+    if (!profilo.isCliente) {
+      return;
+    }
+
+    if (profilo.expanded) {
+      profilo.expanded = false;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.caricaDettaglioProfilo(profilo, () => {
+      profilo.expanded = true;
+      this.cdr.detectChanges();
+    });
+  }
+
   create(): void {
     console.log('Creazione nuovo cliente');
   }
 
   modificaProfilo(profilo: any): void {
-    const dialogRef = this.util.openDialog(
-      UpdateDialog,
-      { account: { ...profilo }, mode: 'U' },
-      { width: '720px', maxWidth: '95vw', height: 'auto' }
-    );
-
-    if (dialogRef?.afterClosed) {
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result) {
-          this.search();
+    this.caricaDettaglioProfilo(profilo, () => {
+      const dialogRef = this.util.openDialog(
+        UpdateDialog,
+        {
+          account: { ...profilo },
+          mode: 'U'
+        },
+        {
+          width: '720px',
+          maxWidth: '95vw',
+          height: 'auto'
         }
-      });
-    }
+      );
+
+      if (dialogRef?.afterClosed) {
+        dialogRef.afterClosed().subscribe((result: any) => {
+          if (result) {
+            this.search();
+          }
+        });
+      }
+    });
   }
 
   eliminaProfilo(profilo: any): void {
