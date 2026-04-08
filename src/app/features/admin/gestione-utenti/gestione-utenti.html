@@ -1,9 +1,9 @@
 <div class="page-container">
-  <mat-card class="example-card" appearance="outlined">
+  <mat-card class="admin-card" appearance="outlined">
     <mat-card-header class="header-row">
-      <mat-card-title>Elenco Account</mat-card-title>
-      <button mat-raised-button color="primary" (click)="create()">
-        Creazione nuovo account
+      <mat-card-title>Gestione Clienti</mat-card-title>
+      <button mat-raised-button color="primary" type="button" (click)="create()">
+        Nuovo cliente
       </button>
     </mat-card-header>
 
@@ -11,47 +11,19 @@
 
     <mat-card-content>
       <div class="search-row">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
-          <input matInput placeholder="userName" [(ngModel)]="userName">
-          @if (userName) {
-            <button mat-icon-button matSuffix (click)="userName = null" matTooltip="Cancella">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
+          <input matInput placeholder="userName" [(ngModel)]="userName" />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="nome" [(ngModel)]="nome">
-          @if (nome) {
-            <button mat-icon-button matSuffix (click)="nome = null" matTooltip="Cancella">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
+          <input matInput placeholder="nome" [(ngModel)]="nome" />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Cognome</mat-label>
-          <input matInput placeholder="cognome" [(ngModel)]="cognome">
-          @if (cognome) {
-            <button mat-icon-button matSuffix (click)="cognome = null" matTooltip="Cancella">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Role</mat-label>
-          <mat-select name="role" [(ngModel)]="role">
-            <mat-option value="USER">User</mat-option>
-            <mat-option value="ADMIN">Admin</mat-option>
-          </mat-select>
-          @if (role) {
-            <button mat-icon-button matSuffix (click)="role = null" matTooltip="Cancella">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
+          <input matInput placeholder="cognome" [(ngModel)]="cognome" />
         </mat-form-field>
 
         <span class="spacer"></span>
@@ -59,35 +31,76 @@
         <button
           mat-raised-button
           color="accent"
-          (click)="search()"
-          matTooltip="ricerca con criteri">
+          type="button"
+          (click)="search()">
           Cerca
         </button>
       </div>
 
       <mat-divider></mat-divider>
 
-      <div class="table-wrapper">
-        <table class="accounts-table">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Cognome</th>
-      <th>Username</th>
-      <th>Telefono</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (cliente of accounts; track cliente.id) {
-      <tr class="clickable-row" (click)="onSelectedAccount(cliente)">
-        <td>{{ cliente.nome || '-' }}</td>
-        <td>{{ cliente.cognome || '-' }}</td>
-        <td>{{ cliente.utenteUsername || '-' }}</td>
-        <td>{{ cliente.telefono || '-' }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
+      <div class="clients-grid">
+        @for (profilo of profili; track profilo.username) {
+          <mat-card class="profile-card" appearance="outlined">
+            <div class="profile-card-header">
+              <h2>Informazioni cliente</h2>
+              <button type="button" (click)="modificaProfilo(profilo)">
+                Modifica profilo
+              </button>
+            </div>
+
+            <div class="profile-grid">
+              <div class="profile-item">
+                <span class="label">Nome</span>
+                <span class="value">{{ profilo.nome || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Cognome</span>
+                <span class="value">{{ profilo.cognome || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Indirizzo</span>
+                <span class="value">{{ profilo.indirizzo || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Comune</span>
+                <span class="value">{{ profilo.comune || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Cap</span>
+                <span class="value">{{ profilo.cap || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Provincia</span>
+                <span class="value">{{ profilo.provincia || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Email</span>
+                <span class="value">{{ profilo.email || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Telefono</span>
+                <span class="value">{{ profilo.telefono || '-' }}</span>
+              </div>
+
+              <div class="profile-item">
+                <span class="label">Username</span>
+                <span class="value">{{ profilo.username || '-' }}</span>
+              </div>
+            </div>
+          </mat-card>
+        } @empty {
+          <div class="empty-state">
+            <p>Nessun cliente trovato.</p>
+          </div>
+        }
       </div>
     </mat-card-content>
   </mat-card>

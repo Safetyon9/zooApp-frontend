@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { UtenteServices } from '../../../shared/services/utente-services';
 
 @Component({
@@ -11,52 +13,82 @@ export class GestioneUtente implements OnInit {
   userName: string | null = null;
   nome: string | null = null;
   cognome: string | null = null;
-  role: string | null = null;
 
-  constructor(public UtenteServices: UtenteServices) {}
+  profili: any[] = [];
 
-  get accounts() {
-    return this.UtenteServices.accounts();
-  }
+  constructor(public utenteServices: UtenteServices) {}
 
   ngOnInit(): void {
-    this.UtenteServices.list();
+    this.search();
   }
 
   search(): void {
-    this.UtenteServices.list(
+    this.utenteServices.list(
       this.userName ?? undefined,
       this.nome ?? undefined,
-      this.cognome ?? undefined,
-      this.role ?? undefined
+      this.cognome ?? undefined
     );
+
+    const utentiBase = this.utenteServices.accounts();
+
+    if (!utentiBase || utentiBase.length === 0) {
+      setTimeout(() => this.loadProfiliCompleti(), 300);
+      return;
+    }
+
+    this.loadProfiliCompleti();
   }
 
-  create(): void {
-    console.log('Creazione nuovo account');
-  }
+  loadProfiliCompleti(): void {
+    const utentiBase = this.utenteServices.accounts();
 
-  onSelectedAccount(acc: any): void {
-    console.log('Account selezionato:', acc);
-  }
+    if (!utentiBase || utentiBase.length === 0) {
+      this.profili = [];
+      return;
+    }
 
-  deleteAccount(acc: any, event: Event): void {
-    event.stopPropagation();
+    const chiamate = utentiBase.map((u: any) =>
+      this.utenteServices.findAllByUserName(u.userName ?? u.utenteUsername).pipe(
+        catchError((err) => {
+          console.error('Errore dettaglio profilo:', err);
+          return of(null);
+        })
+      )
+    );
 
-    this.UtenteServices.delete(acc.userName).subscribe({
-      next: () => {
-        this.UtenteServices.list(
-          this.userName ?? undefined,
-          this.nome ?? undefined,
-          this.cognome ?? undefined,
-          this.role ?? undefined
-        );
+    forkJoin(chiamate).subscribe({
+      next: (results: any[]) => {
+        this.profili = results
+          .filter((r) => r != null)
+          .map((r: any) => ({
+            username: r.userName ?? '',
+            email: r.email ?? '',
+            nome: r.nome ?? '',
+            cognome: r.cognome ?? '',
+            telefono: r.telefono ?? '',
+            indirizzo: r.indirizzo ?? '',
+            comune: r.comune ?? '',
+            cap: r.cap ?? '',
+            provincia: r.provincia ?? ''
+          }));
+
+        console.log('PROFILI COMPLETI:', this.profili);
       },
       error: (err: any) => {
-        console.error('Errore eliminazione utente', err);
+        console.error('Errore caricamento profili completi', err);
       }
     });
   }
 
-  
+  create(): void {
+    console.log('Creazione nuovo cliente');
+  }
+
+  onSelectedCliente(cliente: any): void {
+    console.log('Cliente selezionato:', cliente);
+  }
+
+  modificaProfilo(cliente: any): void {
+    console.log('Modifica profilo:', cliente);
+  }
 }

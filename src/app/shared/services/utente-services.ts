@@ -1,13 +1,27 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-
+export interface ClienteDto {
+  id: number;
+  nome: string;
+  cognome: string;
+  telefono: string;
+  utenteUsername: string;
+  indirizzo: string;
+  comune: string;
+  cap: string;
+  provincia: string | null;
+  carrelloId: number | null;
+  ordini: any[] | null;
+}
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class UtenteServices {
   private url = 'http://localhost:9090/rest/utente/';
 
-  private _accounts = signal<any[]>([]);
+  private _accounts = signal<ClienteDto[]>([]);
 
   constructor(private http: HttpClient) {}
 
