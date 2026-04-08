@@ -32,6 +32,7 @@ import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
+import { Ordini } from './features/user/ordini/ordini';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
 import { Eventi } from './features/public/home/section/eventi/eventi';
@@ -67,6 +68,7 @@ import { CommonModule } from '@angular/common';
     ChangePwd,
     Home,
     Info,
+    Ordini,
     Navbar,
     Donation,
     Eventi,

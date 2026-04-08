@@ -129,3 +129,15 @@
   background: #facc15;
   color: #1f2937;
 }
+
+.delete {
+  margin-top: 8px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.delete:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
