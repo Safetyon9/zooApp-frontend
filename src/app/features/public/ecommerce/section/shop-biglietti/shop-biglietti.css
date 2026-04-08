@@ -52,11 +52,10 @@
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.65);
-  padding: 1rem 1.5rem;
+  padding: 1.2rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: opacity 0.3s ease;
 }
 
 .label-title {
@@ -73,33 +72,12 @@
   color: #FFD60A;
 }
 
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(27, 67, 50, 0.88);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.product-card:hover .card-overlay {
-  opacity: 1;
+.card-label {
+  transition: background 0.3s ease;
 }
 
 .product-card:hover .card-label {
-  opacity: 0;
-}
-
-.card-overlay p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  background: rgba(27, 67, 50, 0.95);
 }
 
 .buy-btn {
