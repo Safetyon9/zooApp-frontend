@@ -88,7 +88,7 @@ export class UpdateDialog implements OnInit {
     this.msg.set('');
 
     const body: any = {
-      userName: this.account()?.userName,
+      userName: this.account()?.username,
       email: this.updateForm.value.email,
     };
 
