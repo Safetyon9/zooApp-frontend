@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ItemsServices } from '../../../../core/services/items-services';
 import { Utilities } from '../../../../core/utils/utilities';
 import { ComponentType } from '@angular/cdk/overlay';
+import { ProdottoDialog } from '../dialog/prodotto-dialog/prodotto-dialog';
+import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
 
 @Component({
   selector: 'app-prodotti-manager',
@@ -25,13 +27,13 @@ export class ProdottiManager {
   ) {}
 
   ngOnInit() {
-    this.itemsS.list('prodotti');
+    this.itemsS.list('prodotto');
   }
 
   get prodotti() { return this.itemsS.items(); }
 
-  search() { this.itemsS.search(this.filtro, 'prodotti'); }
-/*
+  search() { this.itemsS.search(this.filtro, 'prodotto'); }
+
   onCreateProdotto() {
     const dialogComponent: ComponentType<any> = ProdottoDialog;
 
@@ -43,18 +45,21 @@ export class ProdottiManager {
 
   onSelected(row: any) {
     const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
-    dialogRef.afterClosed().subscribe(r => {
-      if (r === 'upload') this.eseguoUpload(row);
-      else if (r === 'update') this.eseguoUpdate(row);
+    
+    dialogRef.afterClosed().subscribe(choice => {
+      if (choice === 'update') this.eseguoUpdate(row);
+      //else if (choice === 'upload') this.eseguoUpload(row);
     });
   }
+
 
   eseguoUpdate(row: any) {
     this.util.openDialog(ProdottoDialog, { mod: 'U', prodotto: row });
   }
 
+  /*
   eseguoUpload(row: any) {
     this.util.openDialog(UploadDialog, { prodotto: row });
   }
-*/
+  */
 }
