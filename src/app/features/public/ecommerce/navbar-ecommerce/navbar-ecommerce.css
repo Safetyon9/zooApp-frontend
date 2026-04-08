@@ -1,29 +1,26 @@
 .navbar-ecommerce {
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: center;
   align-items: center;
-  padding: 1rem 3rem;
-  background: rgba(22, 54, 40, 0.97);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 0.8rem 3rem;
+  background: #163628;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   gap: 2rem;
+  width: 100%;
+  margin-top: 80px;
 }
 
-.nav-left {
-  display: flex;
+.nav-links, .nav-search {
+  display: flex !important;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  flex-shrink: 0;
 }
 
 .nav-crumb {
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff !important;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
   transition: color 0.2s;
 }
 
@@ -86,6 +83,15 @@
   display: flex;
   gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.shop-link {
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
 }
 
 .nav-links a {

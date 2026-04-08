@@ -32,28 +32,15 @@ export class ProdottiManager {
   search() { this.itemsS.search(this.filtro, 'prodotti'); }
 
   onCreateProdotto() {
-    const dialogComponent: ComponentType<any> = ProdottoDialog;
-
-    this.util.openDialog(dialogComponent, { 
-      mod: 'C', 
-      prodotto: null 
-    });
   }
 
   onSelected(row: any) {
-    const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
-    dialogRef.afterClosed().subscribe(r => {
-      if (r === 'upload') this.eseguoUpload(row);
-      else if (r === 'update') this.eseguoUpdate(row);
-    });
   }
 
   eseguoUpdate(row: any) {
-    this.util.openDialog(ProdottoDialog, { mod: 'U', prodotto: row });
   }
 
   eseguoUpload(row: any) {
-    this.util.openDialog(UploadDialog, { prodotto: row });
   }
 
 }

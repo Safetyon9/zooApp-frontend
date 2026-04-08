@@ -9,20 +9,39 @@
     </div>
 
       <ul class="navbar-menu left">
-        <li>
-          <a (click)="scrollToEventi(); closeMenu()">Eventi</a>
-        </li>
-        <li>
-          <a (click)="scrollToNews(); closeMenu()">News</a>
-        </li>
-        <li>
-          <a (click)="scrollToDonation(); closeMenu()">Donazioni</a>
-        </li>
-        <li>
-          <a routerLink="/shop" routerLinkActive="active" (click)="closeMenu()">Negozio</a>
-        </li>
+        @if (!isShopPage()) {
+          <li>
+            <a (click)="scrollToEventi(); closeMenu()">Eventi</a>
+          </li>
+          <li>
+            <a (click)="scrollToNews(); closeMenu()">News</a>
+          </li>
+          <li>
+            <a (click)="scrollToDonation(); closeMenu()">Donazioni</a>
+          </li>
+          <li>
+            <a routerLink="/shop" (click)="closeMenu()">Negozio</a>
+          </li>
+        } @else {
+          <li>
+            <a routerLink="/" (click)="closeMenu()">Home</a>
+          </li>
+          <li>
+            <a routerLink="/shop/biglietti" routerLinkActive="active" (click)="closeMenu()">Biglietti</a>
+          </li>
+          <li>
+            <a routerLink="/shop/merch" routerLinkActive="active" (click)="closeMenu()">Merchandise</a>
+          </li>
+        }
 
       </ul>
+
+      @if (isMerchPage()) {
+        <div class="navbar-search">
+          <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Cerca prodotti..." class="search-input">
+          <span class="material-icons search-icon">search</span>
+        </div>
+      }
 
     </div>
 
@@ -47,6 +66,17 @@
             }
             <li>
               <a (click)="logout()">Logout</a>
+            </li>
+          }
+
+          @if (isShopPage()) {
+            <li class="cart-item">
+              <a class="cart-link">
+                <span class="material-icons">shopping_cart</span>
+                @if (cartCount > 0) {
+                  <span class="cart-badge">{{ cartCount }}</span>
+                }
+              </a>
             </li>
           }
 

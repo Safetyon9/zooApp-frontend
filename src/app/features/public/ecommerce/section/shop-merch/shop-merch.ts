@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from '../../../../../core/services/cart-service';
 
 @Component({
   selector: 'app-shop-merch',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './shop-merch.css',
   standalone: false,
 })
-export class ShopMerch {}
+export class ShopMerch {
+  constructor(private cartS: CartService) {}
+
+  addToCart(id: number, nome: string, prezzo: number, immagine: string) {
+    this.cartS.addToCart({ id, nome, prezzo, immagine }, 'prodotto');
+  }
+}

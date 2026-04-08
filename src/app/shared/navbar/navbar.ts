@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { LoginDialog } from '../../features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from '../../features/auth/dialog/register-dialog/register-dialog';
 import { AuthServices } from '../../core/services/auth-services';
+import { CartService } from '../../core/services/cart-service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,12 +20,36 @@ export class Navbar {
   private lastScrollY = 0;
   isHidden = false;
 
+  isShop = false;
+  searchQuery = '';
+
   constructor(
     private dialog: MatDialog,
     private auth: AuthServices,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private cartS: CartService
   ) {
     this.authGrant = this.auth.grant;
+    this.router.events.subscribe(() => {
+      this.isShop = this.router.url.startsWith('/shop');
+      this.cdr.detectChanges();
+    });
+  }
+
+  isMerchPage(): boolean {
+    return this.router.url.includes('/merch');
+  }
+
+  onSearch() {
+  }
+
+  get cartCount() {
+    return this.cartS.totalCount();
+  }
+
+  isShopPage(): boolean {
+    return this.isShop;
   }
 
   @HostListener('window:scroll') onScroll() {

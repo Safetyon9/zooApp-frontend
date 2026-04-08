@@ -83,17 +83,114 @@
   color: #FFD60A;
 }
 
-.navbar-menu a.active::after {
-  width: 0%;
+.navbar-menu a.active {
+  color: #ffffff;
 }
 
-.navbar-menu a.active {
-  color: #FFD60A;
+.navbar-menu a.active::after {
+  width: 100%;
 }
 
 .navbar-left,
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 25px;
+}
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 5px 15px;
+  margin-left: 20px;
+  transition: all 0.3s ease;
+}
+
+.navbar-search:focus-within {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #FFD60A;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  width: 180px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-icon {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.navbar-search:focus-within .search-icon {
+  color: #FFD60A;
+}
+
+.cart-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.cart-link span.material-icons {
+  font-size: 1.5rem;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.cart-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #FFD60A;
+  transition: width 0.3s ease;
+}
+
+.cart-link:hover::after {
+  width: 100%;
+}
+
+.cart-link:hover span.material-icons {
+  color: #FFD60A;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #FFD60A;
+  color: #1B4332;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }

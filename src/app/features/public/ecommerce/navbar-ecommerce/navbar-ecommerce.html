@@ -1,11 +1,8 @@
 <nav class="navbar-ecommerce">
-  <div class="nav-left">
-    <a routerLink="/" class="nav-crumb">Home</a>
-    <span class="sep">&#8250;</span>
-    <a routerLink="/shop" class="nav-crumb">Negozio</a>
+  <div class="nav-links">
   </div>
 
-  <div class="nav-search">
+  <div class="nav-search" *ngIf="isMerchPage()">
     <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Cerca prodotti..." class="search-input" id="shop-search-input">
     <button class="search-btn" id="shop-search-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -13,10 +10,5 @@
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
     </button>
-  </div>
-
-  <div class="nav-links">
-    <a routerLink="/shop/biglietti" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" id="nav-biglietti">Biglietti</a>
-    <a routerLink="/shop/merch" routerLinkActive="active" id="nav-merch">Merchandise</a>
   </div>
 </nav>
