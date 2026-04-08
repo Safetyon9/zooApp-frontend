@@ -21,6 +21,8 @@ import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-m
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 import { Ordini } from './features/user/ordini/ordini';
 
+import { Shop } from './features/public/ecommerce/section/shop/shop';
+
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +33,7 @@ const routes: Routes = [
         path: 'shop',
         component: Ecommerce,
         children: [
-          { path: '', redirectTo: 'biglietti', pathMatch: 'full' },
+          { path: '', component: Shop },
           { path: 'biglietti', component: ShopBiglietti },
           { path: 'merch', component: ShopMerch }
         ]

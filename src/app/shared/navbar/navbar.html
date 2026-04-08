@@ -27,6 +27,9 @@
             <a routerLink="/" (click)="closeMenu()">Home</a>
           </li>
           <li>
+            <a routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Negozio</a>
+          </li>
+          <li>
             <a routerLink="/shop/biglietti" routerLinkActive="active" (click)="closeMenu()">Biglietti</a>
           </li>
           <li>

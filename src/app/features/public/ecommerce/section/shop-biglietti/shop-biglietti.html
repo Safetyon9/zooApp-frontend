@@ -1,31 +1,75 @@
 <div class="shop-section">
-  <div class="section-title">Ingresso Giornaliero</div>
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="foto/apassingstranger-meerkats-6153748_1920.jpg" alt="Biglietto Standard">
-      <div class="card-label">
-        <span class="label-title">Standard</span>
-        <span class="label-price">€ 25.00</span>
-      </div>
-      <button class="buy-btn" (click)="addToCart(1, 'Biglietto Standard', 25, 'foto/apassingstranger-meerkats-6153748_1920.jpg')">
-        <span class="material-icons">add_shopping_cart</span>
-        Acquista
-      </button>
-    </div>
+  <div class="shop-biglietti-container">
 
-    <div class="product-card">
-      <img src="foto/garten-gg-zebra-470358_1920.jpg" alt="Biglietto Famiglia">
-      <div class="card-label">
-        <span class="label-title">Famiglia</span>
-        <span class="label-price">€ 75.00</span>
+  @if (step === 1) {
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img src="ticket/ticket-1.jpg" alt="Biglietto Standard">
+          <div class="overlay">
+            <button class="btn-buy" (click)="selectTicket({id: 1, nome: 'Biglietto Standard', prezzo: 25, immagine: 'ticket/ticket-1.jpg'})">Acquista</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3>Biglietto Standard</h3>
+          <p class="price">25,00 €</p>
+        </div>
       </div>
-      <button class="buy-btn" (click)="addToCart(2, 'Biglietto Famiglia', 75, 'foto/garten-gg-zebra-470358_1920.jpg')">
-        <span class="material-icons">add_shopping_cart</span>
-        Acquista
-      </button>
-    </div>
-  </div>
 
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img src="ticket/ticket-2.jpg" alt="Biglietto Famiglia">
+          <div class="overlay">
+            <button class="btn-buy" (click)="selectTicket({id: 2, nome: 'Biglietto Famiglia', prezzo: 60, immagine: 'ticket/ticket-2.jpg'})">Acquista</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3>Biglietto Famiglia</h3>
+          <p class="price">60,00 €</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img src="ticket/ticket-3.jpg" alt="Biglietto Ridotto">
+          <div class="overlay">
+            <button class="btn-buy" (click)="selectTicket({id: 3, nome: 'Biglietto Ridotto', prezzo: 15, immagine: 'ticket/ticket-3.jpg'})">Acquista</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3>Biglietto Ridotto</h3>
+          <p class="price">15,00 €</p>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="date-selection-container">
+      <div class="selection-card">
+        <button class="btn-back" (click)="reset()">
+          <span class="material-icons">arrow_back</span>
+          Indietro
+        </button>
+        
+        <div class="selected-info">
+          <img [src]="selectedTicket.immagine" alt="Ticket selection">
+          <div class="text">
+            <h2>{{ selectedTicket.nome }}</h2>
+            <p>Seleziona la data della visita</p>
+          </div>
+        </div>
+
+        <div class="date-picker-mock">
+          <input type="date" [(ngModel)]="selectedDate" class="date-input">
+        </div>
+
+        <button class="btn-confirm" [disabled]="!selectedDate" (click)="confirmPurchase()">
+          Conferma e Aggiungi al Carrello
+        </button>
+      </div>
+    </div>
+  }
+
+</div>
   <div class="section-title">Pass Annuali</div>
   <div class="product-grid">
     <div class="product-card tall">
@@ -34,7 +78,7 @@
         <span class="label-title">Pass Annuale</span>
         <span class="label-price">€ 95.00</span>
       </div>
-      <button class="buy-btn" (click)="addToCart(3, 'Pass Annuale', 95, 'foto/anramb-elephants-6176590_1920.jpg')">
+      <button class="buy-btn" (click)="selectTicket({id: 4, nome: 'Pass Annuale', prezzo: 95, immagine: 'foto/anramb-elephants-6176590_1920.jpg'})">
         <span class="material-icons">add_shopping_cart</span>
         Acquista
       </button>

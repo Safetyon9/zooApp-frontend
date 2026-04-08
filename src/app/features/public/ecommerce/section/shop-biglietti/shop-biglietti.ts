@@ -8,9 +8,30 @@ import { CartService } from '../../../../../core/services/cart-service';
   standalone: false,
 })
 export class ShopBiglietti {
+  step = 1;
+  selectedTicket: any = null;
+  selectedDate: string = '';
+
   constructor(private cartS: CartService) {}
 
-  addToCart(id: number, nome: string, prezzo: number, immagine: string) {
-    this.cartS.addToCart({ id, nome, prezzo, immagine }, 'biglietto');
+  selectTicket(ticket: any) {
+    this.selectedTicket = ticket;
+    this.step = 2;
+  }
+
+  confirmPurchase() {
+    if (this.selectedDate) {
+      this.cartS.addToCart({ 
+        ...this.selectedTicket, 
+        nome: `${this.selectedTicket.nome} (${this.selectedDate})` 
+      }, 'biglietto');
+      this.reset();
+    }
+  }
+
+  reset() {
+    this.step = 1;
+    this.selectedTicket = null;
+    this.selectedDate = '';
   }
 }
