@@ -6,18 +6,30 @@ import { Injectable, signal } from '@angular/core';
 })
 export class ItemsServices {
   private baseUrl = "http://localhost:9090/rest/";
-  items = signal<any[]>([]);
+  
+  prodotti = signal<any[]>([]);
+  biglietti = signal<any[]>([]);
 
   constructor(private http: HttpClient) {}
 
   search(req: any, tipo: 'prodotto' | 'biglietti') {
-    this.http.post<any[]>(`${this.baseUrl}${tipo}/search`, req)
-      .subscribe(res => this.items.set(res));
+    if(tipo === 'prodotto') {
+      this.http.post<any[]>(`${this.baseUrl}${tipo}/search`, req)
+        .subscribe(res => this.prodotti.set(res));
+    } else {
+      this.http.post<any[]>(`${this.baseUrl}${tipo}/search`, req)
+        .subscribe(res => this.biglietti.set(res));
+    }
   }
 
   list(tipo: 'prodotto' | 'biglietti') {
-    this.http.get<any[]>(`${this.baseUrl}${tipo}/list`)
-      .subscribe(res => this.items.set(res));
+    if(tipo === 'prodotto') {
+      this.http.get<any[]>(`${this.baseUrl}${tipo}/list`)
+        .subscribe(res => this.prodotti.set(res));
+    } else {
+      this.http.get<any[]>(`${this.baseUrl}${tipo}/list`)
+        .subscribe(res => this.biglietti.set(res));
+    }
   }
 
 }

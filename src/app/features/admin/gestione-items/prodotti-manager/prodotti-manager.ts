@@ -30,7 +30,7 @@ export class ProdottiManager {
     this.itemsS.list('prodotto');
   }
 
-  get prodotti() { return this.itemsS.items(); }
+  get prodotti() { return this.itemsS.prodotti(); }
 
   search() { this.itemsS.search(this.filtro, 'prodotto'); }
 

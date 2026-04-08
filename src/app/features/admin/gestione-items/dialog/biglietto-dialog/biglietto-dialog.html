@@ -1,1 +1,72 @@
-<p>biglietto-dialog works!</p>
+<div>
+
+  @if (mod() == 'U'){
+    <h2 mat-dialog-title>Dettaglio {{biglietto().nome}}</h2>
+  } @else {
+    <h2 mat-dialog-title>Creazione nuovo biglietto</h2>
+  }
+
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-dialog-content>
+
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
+
+      <div class="form-container">
+
+        <div class="row-fields">
+          <mat-form-field appearance="fill" class="small-field">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="small-field">
+            <mat-label>Tipo Id</mat-label>
+            <input matInput type="number" formControlName="tipoId">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="small-field full-row">
+            <mat-label>URL Immagine</mat-label>
+            <input matInput type="text" formControlName="urlImmagine">
+          </mat-form-field>
+        </div>
+
+        <div class="row-fields">
+          <mat-form-field appearance="fill" class="small-field">
+            <mat-label>Prezzo</mat-label>
+            <input matInput type="number" formControlName="prezzo">
+          </mat-form-field>
+        </div>
+
+        <div class="row-fields">
+          <mat-form-field appearance="fill" class="full-row">
+            <mat-label>Descrizione</mat-label>
+            <textarea matInput formControlName="descrizione"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="msg-error full-row">
+          <span style="color:red">{{ msg() }}</span>
+        </div>
+
+        <div class="button-group full-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
+            {{ mod() == 'C' ? 'Crea' : 'Salva' }}
+          </button>
+
+          @if (mod() == 'U'){
+            <button mat-raised-button color="warn" type="button" (click)="remove()">
+              Cancella
+            </button>
+          }
+        </div>
+
+      </div>
+
+    </form>
+
+  </mat-dialog-content>
+
+</div>

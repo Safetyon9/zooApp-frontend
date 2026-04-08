@@ -82,6 +82,10 @@ export class ProdottoDialog implements OnInit {
     });
   }
 
+  remove() {
+
+  }
+
   cancel() {
     this.dialogRef.close(false);
   }

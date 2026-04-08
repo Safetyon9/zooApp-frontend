@@ -1,1 +1,72 @@
-<p>biglietti-manager works!</p>
+<div class="container">
+  <mat-card>
+
+    <mat-card-header class="header-row">
+      <mat-card-title>Elenco Biglietti</mat-card-title>
+
+      <button mat-raised-button color="primary" (click)="onCreateBiglietto()">
+        Nuovo Biglietto
+      </button>
+    </mat-card-header>
+
+    <mat-divider style="margin-top: 20px;"></mat-divider>
+
+    <mat-card-content>
+
+      <div class="search-row">
+
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="filtro.nome" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Tipo</mat-label>
+          <input matInput [(ngModel)]="filtro.tipoNome" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Prezzo</mat-label>
+          <input matInput type="number" [(ngModel)]="filtro.prezzo" (keyup)="search()">
+        </mat-form-field>
+
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Tipo</th>
+            <th>Prezzo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (b of biglietti; track b.id) {
+            <tr (click)="onSelected(b)" class="clickable-row">
+
+              <td>
+                @if(b.urlImmagine){
+                  <img [src]="b.urlImmagine" style="max-width: 80px;">
+                } @else {
+                  <img src="no_image.png" style="max-width: 80px;">
+                }
+              </td>
+
+              <td>{{b.nome}}</td>
+              <td>{{b.descrizione}}</td>
+              <td>{{b.tipoNome}}</td>
+              <td>{{b.prezzo}}</td>
+
+            </tr>
+          }
+        </tbody>
+
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
