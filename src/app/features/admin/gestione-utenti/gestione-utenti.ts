@@ -13,7 +13,7 @@ export class GestioneUtente implements OnInit {
   userName: string | null = null;
   nome: string | null = null;
   cognome: string | null = null;
-  profilo: any = {};
+
   profili: any[] = [];
   loading = false;
 
@@ -36,22 +36,27 @@ export class GestioneUtente implements OnInit {
       this.cognome ?? undefined
     ).subscribe({
       next: (resp: any[]) => {
+        console.log('RISPOSTA BACKEND:', resp);
+
         this.profili = (resp || []).map((r: any) => ({
-          userName: r.userName ?? '',
+          userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
           email: r.email ?? '',
           role: r.role ?? '',
-          nome: r.nome ?? '',
-          cognome: r.cognome ?? '',
-          indirizzo: r.indirizzo ?? '',
-          comune: r.comune ?? '',
-          cap: r.cap ?? '',
-          telefono: r.telefono ?? '',
-          provincia: r.provincia ?? '',
+
+          nome: r.nome ?? r.cliente?.nome ?? '',
+          cognome: r.cognome ?? r.cliente?.cognome ?? '',
+          indirizzo: r.indirizzo ?? r.via ?? r.cliente?.indirizzo ?? '',
+          comune: r.comune ?? r.cliente?.comune ?? '',
+          cap: r.cap ?? r.cliente?.cap ?? '',
+          telefono: r.telefono ?? r.cliente?.telefono ?? '',
+          provincia: r.provincia ?? r.cliente?.provincia ?? '',
+
           expanded: false,
           isCliente: (r.role ?? '') === 'USER'
         }));
 
-        console.log('PROFILI:', this.profili);
+        console.log('PROFILI MAPPATI:', this.profili);
+
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -75,20 +80,20 @@ export class GestioneUtente implements OnInit {
   }
 
   modificaProfilo(profilo: any): void {
-  const dialogRef = this.util.openDialog(
-    UpdateDialog,
-    { account: { ...profilo }, mode: 'U' },
-    { width: '90vw', maxWidth: '1200px', height: 'auto' }
-  );
+    const dialogRef = this.util.openDialog(
+      UpdateDialog,
+      { account: { ...profilo }, mode: 'U' },
+      { width: '90vw', maxWidth: '1200px', height: 'auto' }
+    );
 
-  if (dialogRef?.afterClosed) {
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.search();
-      }
-    });
+    if (dialogRef?.afterClosed) {
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          this.search();
+        }
+      });
+    }
   }
-}
 
   eliminaProfilo(profilo: any): void {
     console.log('Elimina profilo:', profilo);
