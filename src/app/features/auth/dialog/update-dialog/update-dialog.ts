@@ -53,7 +53,7 @@ export class UpdateDialog implements OnInit {
         comune: this.account()?.comune ?? '',
         provincia: this.account()?.provincia ?? '',
         cap: this.account()?.cap ?? '',
-        username: this.account()?.userName ?? '',
+        username: this.account()?.username ?? '',
       });
     }
 

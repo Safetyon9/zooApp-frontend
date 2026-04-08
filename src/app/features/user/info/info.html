@@ -1,7 +1,6 @@
 
     <div class="profile-card-header">
       <h2>Le tue informazioni</h2>
-      <button type="button" (click)="modificaProfilo()">Modifica profilo</button>
     </div>
 
     <div class="profile-grid">
@@ -50,6 +49,8 @@
         <span class="value">{{ profilo.username || '-' }}</span>
       </div>
     </div>
-    <button type="button" class="menu-item delete" (click)="delete()">
-        Elimina Utente
-      </button>
+
+    <div class="button-row">
+      <button type="button" class="delete" (click)="delete()">Elimina Utente</button>
+      <button type="button" class="modifica" (click)="modificaProfilo()">Modifica profilo</button>
+    </div>
