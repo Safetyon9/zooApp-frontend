@@ -36,27 +36,26 @@ export class GestioneUtente implements OnInit {
       this.cognome ?? undefined
     ).subscribe({
       next: (resp: any[]) => {
-        console.log('RISPOSTA BACKEND:', resp);
+        console.log('RISPOSTA BACKEND LIST:', resp);
 
         this.profili = (resp || []).map((r: any) => ({
           userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
           email: r.email ?? '',
           role: r.role ?? '',
-
-          nome: r.nome ?? r.cliente?.nome ?? '',
-          cognome: r.cognome ?? r.cliente?.cognome ?? '',
-          indirizzo: r.indirizzo ?? r.via ?? r.cliente?.indirizzo ?? '',
-          comune: r.comune ?? r.cliente?.comune ?? '',
-          cap: r.cap ?? r.cliente?.cap ?? '',
-          telefono: r.telefono ?? r.cliente?.telefono ?? '',
-          provincia: r.provincia ?? r.cliente?.provincia ?? '',
-
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          indirizzo: r.indirizzo ?? '',
+          comune: r.comune ?? '',
+          cap: r.cap ?? '',
+          telefono: r.telefono ?? '',
+          provincia: r.provincia ?? '',
           expanded: false,
+          loadingDettaglio: false,
+          dettaglioCaricato: false,
           isCliente: (r.role ?? '') === 'USER'
         }));
 
         console.log('PROFILI MAPPATI:', this.profili);
-
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -70,9 +69,52 @@ export class GestioneUtente implements OnInit {
   }
 
   toggleDettaglio(profilo: any): void {
-    if (!profilo.isCliente) return;
-    profilo.expanded = !profilo.expanded;
+    if (!profilo.isCliente) {
+      return;
+    }
+
+    // chiudi se già aperto
+    if (profilo.expanded) {
+      profilo.expanded = false;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // se già caricato, solo apri
+    if (profilo.dettaglioCaricato) {
+      profilo.expanded = true;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // carica dettaglio da backend
+    profilo.loadingDettaglio = true;
     this.cdr.detectChanges();
+
+    this.utenteServices.findAllByUserName(profilo.userName).subscribe({
+      next: (r: any) => {
+        console.log('DETTAGLIO BACKEND:', r);
+
+        profilo.nome = r.nome ?? '';
+        profilo.cognome = r.cognome ?? '';
+        profilo.telefono = r.telefono ?? '';
+        profilo.indirizzo = r.indirizzo ?? '';
+        profilo.comune = r.comune ?? '';
+        profilo.cap = r.cap ?? '';
+        profilo.provincia = r.provincia ?? '';
+
+        profilo.dettaglioCaricato = true;
+        profilo.loadingDettaglio = false;
+        profilo.expanded = true;
+
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Errore caricamento dettaglio utente', err);
+        profilo.loadingDettaglio = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   create(): void {
@@ -83,7 +125,7 @@ export class GestioneUtente implements OnInit {
     const dialogRef = this.util.openDialog(
       UpdateDialog,
       { account: { ...profilo }, mode: 'U' },
-      { width: '90vw', maxWidth: '1200px', height: 'auto' }
+      { width: '720px', maxWidth: '95vw', height: 'auto' }
     );
 
     if (dialogRef?.afterClosed) {
@@ -96,8 +138,6 @@ export class GestioneUtente implements OnInit {
   }
 
   eliminaProfilo(profilo: any): void {
-    console.log('Elimina profilo:', profilo);
-
     const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${profilo.userName}"?`);
     if (!conferma) {
       return;
