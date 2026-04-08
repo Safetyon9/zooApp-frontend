@@ -60,17 +60,31 @@
                   <td>{{ profilo.userName || '-' }}</td>
                   <td>{{ profilo.email || '-' }}</td>
                   <td>{{ profilo.role || '-' }}</td>
-                  <td>
+                  <td class="actions-cell">
+                    <button
+                      type="button"
+                      class="text-button"
+                      (click)="modificaProfilo(profilo)">
+                      Modifica
+                    </button>
+
+                    <button
+                      type="button"
+                      class="text-button text-button-danger"
+                      (click)="eliminaProfilo(profilo)">
+                      Elimina
+                    </button>
+
                     @if (profilo.isCliente) {
                       <button
                         type="button"
-                        class="arrow-button"
+                        class="icon-button"
                         (click)="toggleDettaglio(profilo)"
                         [attr.aria-label]="profilo.expanded ? 'Chiudi dettagli' : 'Apri dettagli'">
-                        {{ profilo.expanded ? '▼' : '▶' }}
+                        <span class="chevron" [class.open]="profilo.expanded"></span>
                       </button>
                     } @else {
-                      <span>-</span>
+                      <span class="muted chevron-placeholder"></span>
                     }
                   </td>
                 </tr>
@@ -81,7 +95,10 @@
                       <div class="detail-box">
                         <div class="detail-header">
                           <h3>Informazioni cliente</h3>
-                          <button type="button" class="edit-button" (click)="modificaProfilo(profilo)">
+                          <button
+                            type="button"
+                            class="edit-button"
+                            (click)="modificaProfilo(profilo)">
                             Modifica profilo
                           </button>
                         </div>
@@ -138,5 +155,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-html----------

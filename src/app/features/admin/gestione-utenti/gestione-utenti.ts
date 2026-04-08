@@ -45,6 +45,7 @@ export class GestioneUtente implements OnInit {
           telefono: r.telefono ?? '',
           provincia: r.provincia ?? '',
           expanded: false,
+          // cliente normale → role USER (adatta se hai altri ruoli cliente)
           isCliente: (r.role ?? '') === 'USER'
         }));
 
@@ -62,7 +63,7 @@ export class GestioneUtente implements OnInit {
   }
 
   toggleDettaglio(profilo: any): void {
-    if (!profilo.isCliente) return;
+    if (!profilo.isCliente) return; // solo clienti hanno dettagli
     profilo.expanded = !profilo.expanded;
     this.cdr.detectChanges();
   }
@@ -73,5 +74,25 @@ export class GestioneUtente implements OnInit {
 
   modificaProfilo(profilo: any): void {
     console.log('Modifica profilo:', profilo);
+    // qui poi aprirai dialog / routing
+  }
+
+  eliminaProfilo(profilo: any): void {
+    console.log('Elimina profilo:', profilo);
+
+    const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${profilo.userName}"?`);
+    if (!conferma) {
+      return;
+    }
+
+    this.utenteServices.delete(profilo.userName).subscribe({
+      next: () => {
+        this.profili = this.profili.filter(p => p.userName !== profilo.userName);
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione utente', err);
+      }
+    });
   }
 }

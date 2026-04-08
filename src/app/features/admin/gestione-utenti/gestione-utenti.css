@@ -47,19 +47,71 @@
   background: #f8fafc;
 }
 
-.arrow-button {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #ffffff;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+.actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
-.arrow-button:hover {
+.icon-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto; /* freccia tutta a destra */
+}
+
+.icon-button:hover {
   background: #f3f4f6;
+}
+
+.chevron {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #4b5563;
+  border-bottom: 2px solid #4b5563;
+  transform: rotate(45deg);
+  transition: transform 160ms ease-out;
+}
+
+.chevron.open {
+  transform: rotate(135deg);
+}
+
+.chevron-placeholder {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+}
+
+.text-button {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  background: #f3f4f6;
+}
+
+.text-button-danger {
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.text-button-danger:hover {
+  background: #fee2e2;
 }
 
 .detail-row td {
@@ -124,6 +176,11 @@
 .empty-state {
   text-align: center;
   padding: 20px;
+}
+
+.muted {
+  color: #9ca3af;
+  font-size: 12px;
 }
 
 @media (max-width: 768px) {
