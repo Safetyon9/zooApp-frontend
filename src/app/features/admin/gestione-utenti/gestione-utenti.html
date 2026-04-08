@@ -51,6 +51,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Online</th>
                 <th>Azioni</th>
               </tr>
             </thead>
@@ -61,6 +62,18 @@
                   <td>{{ profilo.userName || '-' }}</td>
                   <td>{{ profilo.email || '-' }}</td>
                   <td>{{ profilo.role || '-' }}</td>
+                  <td>
+                    <div class="status-cell">
+                      <span
+                        class="status-dot"
+                        [class.online]="profilo.isOnline"
+                        [class.offline]="!profilo.isOnline">
+                      </span>
+                      <span class="status-text">
+                        {{ profilo.isOnline ? 'Online' : 'Offline' }}
+                      </span>
+                    </div>
+                  </td>
                   <td class="actions-cell">
                     <button
                       type="button"
@@ -90,7 +103,7 @@
 
                 @if (profilo.expanded) {
                   <tr class="detail-row">
-                    <td colspan="4">
+                    <td colspan="5">
                       <div class="detail-box">
                         @if (profilo.loadingDettaglio) {
                           <p class="detail-note">Caricamento dettaglio...</p>
@@ -165,7 +178,7 @@
                 }
               } @empty {
                 <tr>
-                  <td colspan="4" class="empty-cell">Nessun utente trovato.</td>
+                  <td colspan="5" class="empty-cell">Nessun utente trovato.</td>
                 </tr>
               }
             </tbody>

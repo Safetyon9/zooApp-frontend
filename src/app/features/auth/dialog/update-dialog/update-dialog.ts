@@ -15,15 +15,20 @@ export class UpdateDialog implements OnInit {
   isAdmin = false;
 
   updateForm = new FormGroup({
+    username: new FormControl<string | null>(null, Validators.required),
+    email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+    role: new FormControl<string | null>(null),
+
     nome: new FormControl<string | null>(null),
     cognome: new FormControl<string | null>(null),
-    email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
     telefono: new FormControl<string | null>(null),
     via: new FormControl<string | null>(null),
     comune: new FormControl<string | null>(null),
     provincia: new FormControl<string | null>(null),
-    cap: new FormControl<string | null>(null, [Validators.minLength(5), Validators.maxLength(5)]),
-    username: new FormControl<string | null>(null, Validators.required)
+    cap: new FormControl<string | null>(null, [
+      Validators.minLength(5),
+      Validators.maxLength(5)
+    ])
   });
 
   msg = signal('');
@@ -41,19 +46,25 @@ export class UpdateDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAdmin = (this.account()?.role ?? '') === 'ADMIN';
+    const accountData = this.account();
+    const ruoloProfilo = accountData?.role ?? '';
 
-    if (this.mod === 'U' && this.account()) {
+    // ATTENZIONE: qui isAdmin indica se IL PROFILO è ADMIN,
+    // non se l'utente loggato è admin
+    this.isAdmin = ruoloProfilo === 'ADMIN';
+
+    if (this.mod === 'U' && accountData) {
       this.updateForm.patchValue({
-        nome: this.account()?.nome ?? '',
-        cognome: this.account()?.cognome ?? '',
-        email: this.account()?.email ?? '',
-        telefono: this.account()?.telefono ?? '',
-        via: this.account()?.indirizzo ?? '',
-        comune: this.account()?.comune ?? '',
-        provincia: this.account()?.provincia ?? '',
-        cap: this.account()?.cap ?? '',
-        username: this.account()?.username ?? '',
+        username: accountData?.userName ?? accountData?.username ?? '',
+        email: accountData?.email ?? '',
+        role: accountData?.role ?? 'USER',
+        nome: accountData?.nome ?? '',
+        cognome: accountData?.cognome ?? '',
+        telefono: accountData?.telefono ?? '',
+        via: accountData?.indirizzo ?? accountData?.via ?? '',
+        comune: accountData?.comune ?? '',
+        provincia: accountData?.provincia ?? '',
+        cap: accountData?.cap ?? '',
       });
     }
 
@@ -61,6 +72,7 @@ export class UpdateDialog implements OnInit {
       this.updateForm.get('nome')?.setValidators([Validators.required]);
       this.updateForm.get('cognome')?.setValidators([Validators.required]);
       this.updateForm.get('comune')?.setValidators([Validators.required]);
+      this.updateForm.get('role')?.clearValidators();
     } else {
       this.updateForm.get('nome')?.clearValidators();
       this.updateForm.get('cognome')?.clearValidators();
@@ -69,6 +81,7 @@ export class UpdateDialog implements OnInit {
       this.updateForm.get('comune')?.clearValidators();
       this.updateForm.get('provincia')?.clearValidators();
       this.updateForm.get('cap')?.clearValidators();
+      this.updateForm.get('role')?.setValidators([Validators.required]);
     }
 
     this.updateForm.get('nome')?.updateValueAndValidity();
@@ -78,21 +91,30 @@ export class UpdateDialog implements OnInit {
     this.updateForm.get('comune')?.updateValueAndValidity();
     this.updateForm.get('provincia')?.updateValueAndValidity();
     this.updateForm.get('cap')?.updateValueAndValidity();
+    this.updateForm.get('role')?.updateValueAndValidity();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.onSubmitUpdate();
   }
 
-  onSubmitUpdate() {
+  onSubmitUpdate(): void {
     this.msg.set('');
 
+    if (this.updateForm.invalid) {
+      this.updateForm.markAllAsTouched();
+      this.msg.set('Controlla i campi obbligatori');
+      return;
+    }
+
     const body: any = {
-      userName: this.account()?.username,
+      userName: this.updateForm.value.username,
       email: this.updateForm.value.email,
     };
 
-    if (!this.isAdmin) {
+    if (this.isAdmin) {
+      body.role = this.updateForm.value.role;
+    } else {
       body.nome = this.updateForm.value.nome;
       body.cognome = this.updateForm.value.cognome;
       body.indirizzo = this.updateForm.value.via;

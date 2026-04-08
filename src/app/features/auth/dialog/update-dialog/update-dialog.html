@@ -6,17 +6,23 @@
   <h2>Modifica Utente</h2>
 
   <form [formGroup]="updateForm" class="dialog-form">
-
     <mat-form-field appearance="outline" style="display: none;">
       <mat-label>UserName*</mat-label>
       <input matInput formControlName="username" readonly />
     </mat-form-field>
 
     <div class="form-grid">
-
       <mat-form-field appearance="outline">
         <mat-label>Email*</mat-label>
         <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ruolo</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="ADMIN">ADMIN</mat-option>
+          <mat-option value="USER">USER</mat-option>
+        </mat-select>
       </mat-form-field>
 
       @if (!isAdmin) {
@@ -55,7 +61,6 @@
           <input matInput formControlName="cap" />
         </mat-form-field>
       }
-
     </div>
 
     @if (msg()) {
@@ -67,6 +72,5 @@
         Modifica utente
       </button>
     </div>
-
   </form>
 </div>

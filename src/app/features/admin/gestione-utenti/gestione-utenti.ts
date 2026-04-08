@@ -49,6 +49,8 @@ export class GestioneUtente implements OnInit {
           cap: r.cap ?? '',
           telefono: r.telefono ?? '',
           provincia: r.provincia ?? '',
+          // QUI prendiamo sia isOnline che online, poi forziamo a boolean
+          isOnline: !!(r.isOnline ?? r.online ?? r.isonline),
           expanded: false,
           loadingDettaglio: false,
           dettaglioCaricato: false,
@@ -94,6 +96,8 @@ export class GestioneUtente implements OnInit {
         profilo.provincia = r.provincia ?? '';
         profilo.email = r.email ?? profilo.email ?? '';
         profilo.role = r.role ?? profilo.role ?? '';
+        // mantieni coerente anche lo stato online
+        profilo.isOnline = !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline);
 
         profilo.dettaglioCaricato = true;
         profilo.loadingDettaglio = false;

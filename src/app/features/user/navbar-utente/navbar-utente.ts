@@ -38,8 +38,11 @@ export class NavbarUtente {
 
   logout(): void {
     this.auth.resetAll();
+    
     this.router.navigate(['']);
   }
+
+  
 
   delete(): void{
     
