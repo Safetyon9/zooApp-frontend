@@ -31,7 +31,7 @@ export class ProdottiManager {
   get prodotti() { return this.itemsS.items(); }
 
   search() { this.itemsS.search(this.filtro, 'prodotti'); }
-
+/*
   onCreateProdotto() {
     const dialogComponent: ComponentType<any> = ProdottoDialog;
 
@@ -56,5 +56,5 @@ export class ProdottiManager {
   eseguoUpload(row: any) {
     this.util.openDialog(UploadDialog, { prodotto: row });
   }
-
+*/
 }
