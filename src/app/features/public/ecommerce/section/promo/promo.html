@@ -1,4 +1,16 @@
-<div class="promo-section">
-  <h1>PROMO SECTION</h1>
-  <p>Benvenuti nell'area Promo dello Zoo Shop.</p>
+<div class="promo-carousel-container" (mouseenter)="stopCarousel()" (mouseleave)="startCarousel()">
+  
+  <div class="carousel-slide" *ngFor="let img of images; let i = index" [class.active]="i === currentIndex()">
+    <img [src]="img" alt="Shop Immagine">
+  </div>
+  
+  <button class="nav-btn prev" (click)="prevSlide()">&#10094;</button>
+  <button class="nav-btn next" (click)="nextSlide()">&#10095;</button>
+
+  <div class="carousel-dots">
+    <span class="dot" *ngFor="let dot of images; let i = index" 
+          [class.active]="i === currentIndex()" 
+          (click)="setSlide(i)"></span>
+  </div>
+
 </div>
