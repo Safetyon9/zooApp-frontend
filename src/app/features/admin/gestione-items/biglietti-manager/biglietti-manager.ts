@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-biglietti-manager',
-  imports: [],
+  standalone: false,
   templateUrl: './biglietti-manager.html',
   styleUrl: './biglietti-manager.css',
 })

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ItemsServices } from '../../../../core/services/items-services';
 import { Utilities } from '../../../../core/utils/utilities';
+import { ComponentType } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-prodotti-manager',
