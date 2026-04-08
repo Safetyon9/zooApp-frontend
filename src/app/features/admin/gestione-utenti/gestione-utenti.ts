@@ -75,13 +75,21 @@ export class GestioneUtente implements OnInit {
     console.log('Creazione nuovo cliente');
   }
 
-  modificaProfilo(): void {
-      this.util.openDialog(
-        UpdateDialog,
-        { account: this.profilo, mode: 'U' },
-        { width: '90vw', maxWidth: '1200px', height: 'auto' }
-      );
-    }
+  modificaProfilo(profilo: any): void {
+  const dialogRef = this.util.openDialog(
+    UpdateDialog,
+    { account: { ...profilo }, mode: 'U' },
+    { width: '90vw', maxWidth: '1200px', height: 'auto' }
+  );
+
+  if (dialogRef?.afterClosed) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.search();
+      }
+    });
+  }
+}
 
   eliminaProfilo(profilo: any): void {
     console.log('Elimina profilo:', profilo);
