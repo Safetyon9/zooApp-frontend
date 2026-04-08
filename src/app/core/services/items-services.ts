@@ -10,12 +10,12 @@ export class ItemsServices {
 
   constructor(private http: HttpClient) {}
 
-  search(req: any, tipo: 'prodotti' | 'biglietti') {
+  search(req: any, tipo: 'prodotto' | 'biglietti') {
     this.http.post<any[]>(`${this.baseUrl}${tipo}/search`, req)
       .subscribe(res => this.items.set(res));
   }
 
-  list(tipo: 'prodotti' | 'biglietti') {
+  list(tipo: 'prodotto' | 'biglietti') {
     this.http.get<any[]>(`${this.baseUrl}${tipo}/list`)
       .subscribe(res => this.items.set(res));
   }

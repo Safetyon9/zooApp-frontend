@@ -8,6 +8,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
+import { CommonModule } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -23,22 +25,28 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
+import { SceltaUpdateDialog } from './features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
+import { ProdottoDialog } from './features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog';
+import { BigliettoDialog } from './features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
+import { Ordini } from './features/user/ordini/ordini';
 import { Introduction } from './features/public/home/section/introduction/introduction';
 import { Donation } from './features/public/home/section/donation/donation';
 import { Eventi } from './features/public/home/section/eventi/eventi';
 import { News } from './features/public/home/section/news/news';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
-import { NavbarEcommerce } from "./features/public/ecommerce/navbar-ecommerce/navbar-ecommerce";
+import { NavbarEcommerce } from './features/public/ecommerce/navbar-ecommerce/navbar-ecommerce';
 import { Promo } from './features/public/ecommerce/section/promo/promo';
 import { Categories } from './features/public/ecommerce/section/categories/categories';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
@@ -53,7 +61,6 @@ import { ProdottiManager } from './features/admin/gestione-items/prodotti-manage
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -64,9 +71,11 @@ import { CommonModule } from '@angular/common';
     LoginDialog,
     RegisterDialog,
     UpdateDialog,
+    SceltaUpdateDialog,
     ChangePwd,
     Home,
     Info,
+    Ordini,
     Navbar,
     Donation,
     Eventi,
@@ -85,6 +94,9 @@ import { CommonModule } from '@angular/common';
     GestioneUtente,
     ProdottiManager,
     BigliettiManager,
+    SceltaUpdateDialog,
+    ProdottoDialog,
+    BigliettoDialog,
     ShopBiglietti,
     ShopMerch,
     SafePipe
@@ -109,7 +121,8 @@ import { CommonModule } from '@angular/common';
     MatMenuModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatButtonToggleModule
   ],
   providers: [
     provideHttpClient(withFetch()),

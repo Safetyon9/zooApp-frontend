@@ -32,8 +32,16 @@ export class NavbarUtente {
     this.router.navigate(['utente/modify']);
   }
 
+  viewOrder(): void {
+    this.router.navigate(['utente/ordini']);
+  }
+
   logout(): void {
     this.auth.resetAll();
     this.router.navigate(['']);
+  }
+
+  delete(): void{
+    
   }
 }

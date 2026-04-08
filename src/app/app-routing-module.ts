@@ -19,6 +19,7 @@ import { BigliettiManager } from './features/admin/gestione-items/biglietti-mana
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
+import { Ordini } from './features/user/ordini/ordini';
 
 const routes: Routes = [
   {
@@ -44,7 +45,8 @@ const routes: Routes = [
     canActivate: [authAutentificatedGuard],
     children: [
       { path: '', component: Info },
-      { path: 'modify', component: ChangePwd }
+      { path: 'modify', component: ChangePwd },
+      { path: 'ordini', component: Ordini }
     ]
   },
 

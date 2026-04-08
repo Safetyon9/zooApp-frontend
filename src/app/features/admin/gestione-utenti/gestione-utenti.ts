@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { forkJoin, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UtenteServices } from '../../../core/services/utente-services';
+import { Utilities } from '../../../core/utils/utilities';
+import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
 
 @Component({
   selector: 'app-gestione-utente',
@@ -13,82 +13,100 @@ export class GestioneUtente implements OnInit {
   userName: string | null = null;
   nome: string | null = null;
   cognome: string | null = null;
-
+  profilo: any = {};
   profili: any[] = [];
+  loading = false;
 
-  constructor(public utenteServices: UtenteServices) {}
+  constructor(
+    public utenteServices: UtenteServices,
+    private util: Utilities,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.search();
   }
 
   search(): void {
+    this.loading = true;
+
     this.utenteServices.list(
       this.userName ?? undefined,
       this.nome ?? undefined,
       this.cognome ?? undefined
-    );
+    ).subscribe({
+      next: (resp: any[]) => {
+        this.profili = (resp || []).map((r: any) => ({
+          userName: r.userName ?? '',
+          email: r.email ?? '',
+          role: r.role ?? '',
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          indirizzo: r.indirizzo ?? '',
+          comune: r.comune ?? '',
+          cap: r.cap ?? '',
+          telefono: r.telefono ?? '',
+          provincia: r.provincia ?? '',
+          expanded: false,
+          // cliente normale → role USER (adatta se hai altri ruoli cliente)
+          isCliente: (r.role ?? '') === 'USER'
+        }));
 
-    const utentiBase = this.utenteServices.accounts();
-
-    if (!utentiBase || utentiBase.length === 0) {
-      setTimeout(() => this.loadProfiliCompleti(), 300);
-      return;
-    }
-
-    this.loadProfiliCompleti();
-  }
-
-  loadProfiliCompleti(): void {
-    const utentiBase = this.utenteServices.accounts();
-
-    if (!utentiBase || utentiBase.length === 0) {
-      this.profili = [];
-      return;
-    }
-
-    const chiamate = utentiBase.map((u: any) =>
-      this.utenteServices.findAllByUserName(u.userName ?? u.utenteUsername).pipe(
-        catchError((err) => {
-          console.error('Errore dettaglio profilo:', err);
-          return of(null);
-        })
-      )
-    );
-
-    forkJoin(chiamate).subscribe({
-      next: (results: any[]) => {
-        this.profili = results
-          .filter((r) => r != null)
-          .map((r: any) => ({
-            username: r.userName ?? '',
-            email: r.email ?? '',
-            nome: r.nome ?? '',
-            cognome: r.cognome ?? '',
-            telefono: r.telefono ?? '',
-            indirizzo: r.indirizzo ?? '',
-            comune: r.comune ?? '',
-            cap: r.cap ?? '',
-            provincia: r.provincia ?? ''
-          }));
-
-        console.log('PROFILI COMPLETI:', this.profili);
+        console.log('PROFILI:', this.profili);
+        this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
-        console.error('Errore caricamento profili completi', err);
+        console.error('Errore caricamento utenti', err);
+        this.profili = [];
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     });
+  }
+
+  toggleDettaglio(profilo: any): void {
+    if (!profilo.isCliente) return; // solo clienti hanno dettagli
+    profilo.expanded = !profilo.expanded;
+    this.cdr.detectChanges();
   }
 
   create(): void {
     console.log('Creazione nuovo cliente');
   }
 
-  onSelectedCliente(cliente: any): void {
-    console.log('Cliente selezionato:', cliente);
-  }
+  modificaProfilo(profilo: any): void {
+  const dialogRef = this.util.openDialog(
+    UpdateDialog,
+    { account: { ...profilo }, mode: 'U' },
+    { width: '90vw', maxWidth: '1200px', height: 'auto' }
+  );
 
-  modificaProfilo(cliente: any): void {
-    console.log('Modifica profilo:', cliente);
+  if (dialogRef?.afterClosed) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.search();
+      }
+    });
+  }
+}
+
+  eliminaProfilo(profilo: any): void {
+    console.log('Elimina profilo:', profilo);
+
+    const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${profilo.userName}"?`);
+    if (!conferma) {
+      return;
+    }
+
+    this.utenteServices.delete(profilo.userName).subscribe({
+      next: () => {
+        this.profili = this.profili.filter(p => p.userName !== profilo.userName);
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione utente', err);
+      }
+    });
   }
 }

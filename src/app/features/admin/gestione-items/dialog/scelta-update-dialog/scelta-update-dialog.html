@@ -1,0 +1,13 @@
+<div class="container dialog-container">
+    <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+    <h2 mat-dialog-title>Cosa volete fare sul prodotto?</h2>
+    <mat-dialog-content class="center-content">
+        <mat-button-toggle-group name="updateType" [(ngModel)]="updateType" aria-label="Tipo Update"
+                 (change)="onUpdateTypeChange()">
+            <mat-button-toggle value="update" >Update Prodotto</mat-button-toggle>
+            <mat-button-toggle value="upload">Caricare Immagine</mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-dialog-content>
+</div>
