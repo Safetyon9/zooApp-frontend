@@ -26,6 +26,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
+import { SceltaUpdateDialog } from './features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
+import { ProdottoDialog } from './features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog';
+import { BigliettoDialog } from './features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
@@ -87,6 +90,9 @@ import { CommonModule } from '@angular/common';
     GestioneUtente,
     ProdottiManager,
     BigliettiManager,
+    SceltaUpdateDialog,
+    ProdottoDialog,
+    BigliettoDialog,
     ShopBiglietti,
     ShopMerch,
     SafePipe
