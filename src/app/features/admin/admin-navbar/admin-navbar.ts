@@ -28,8 +28,8 @@ export class AdminNavbar {
     this.router.navigate(['/admin/utenti']);
   }
 
-  openGestioneProdotti(): void {
-    this.router.navigate(['/admin/prodotti']);
+  openGestioneItems(): void {
+    this.router.navigate(['/admin/Items']);
   }
 
   openGestioneEventi(): void {

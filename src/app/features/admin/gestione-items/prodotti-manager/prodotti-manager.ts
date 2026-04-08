@@ -35,6 +35,12 @@ export class ProdottiManager {
   search() { this.itemsS.search(this.filtro, 'prodotto'); }
 
   onCreateProdotto() {
+    const dialogComponent: ComponentType<any> = ProdottoDialog;
+
+    this.util.openDialog(dialogComponent, { 
+      mod: 'C', 
+      prodotto: null 
+    });
   }
 
   onSelected(row: any) {
@@ -42,10 +48,18 @@ export class ProdottiManager {
     
     dialogRef.afterClosed().subscribe(choice => {
       if (choice === 'update') this.eseguoUpdate(row);
+      //else if (choice === 'upload') this.eseguoUpload(row);
     });
   }
 
 
   eseguoUpdate(row: any) {
+    this.util.openDialog(ProdottoDialog, { mod: 'U', prodotto: row });
   }
+
+  /*
+  eseguoUpload(row: any) {
+    this.util.openDialog(UploadDialog, { prodotto: row });
+  }
+  */
 }
