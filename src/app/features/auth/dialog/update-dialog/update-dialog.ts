@@ -74,7 +74,10 @@ export class UpdateDialog implements OnInit{
       telefono: this.updateForm.value.telefono,
     };
 
-    this.http.post(`${this.baseUrl}/update`, body).subscribe({
+    console.log('account:', this.account());
+  console.log('body:', body)
+
+    this.http.put(`${this.baseUrl}/Allupdate`, body).subscribe({
       next: (resp: any) => {
         console.log(resp);
         this.dialogRef.close(resp);

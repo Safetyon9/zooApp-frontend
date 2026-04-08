@@ -38,7 +38,7 @@ export class UtenteServices {
   }
 
   update(body: {}) {
-    return this.http.put(this.url + 'update', body);
+    return this.http.put(this.url + 'Allupdate', body);
   }
 
   changePwd(body: {}) {
