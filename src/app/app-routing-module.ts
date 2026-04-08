@@ -16,6 +16,8 @@ import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
+import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
+import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 
 const routes: Routes = [
@@ -24,7 +26,15 @@ const routes: Routes = [
     component: PublicLayout,
     children: [
       { path: '', component: Home },
-      { path: 'shop', component: Ecommerce },
+      {
+        path: 'shop',
+        component: Ecommerce,
+        children: [
+          { path: '', redirectTo: 'biglietti', pathMatch: 'full' },
+          { path: 'biglietti', component: ShopBiglietti },
+          { path: 'merch', component: ShopMerch }
+        ]
+      },
     ]
   },
 

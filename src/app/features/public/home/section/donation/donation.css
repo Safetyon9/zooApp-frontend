@@ -46,7 +46,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Nasconde lo stacco netto partendo con colore pieno in cima e sfumando verso l'immagine */
   background: linear-gradient(180deg, rgba(27, 67, 50, 1) 0%, rgba(27, 67, 50, 0.6) 20%, rgba(27, 67, 50, 0.6) 100%);
   z-index: 1;
 }

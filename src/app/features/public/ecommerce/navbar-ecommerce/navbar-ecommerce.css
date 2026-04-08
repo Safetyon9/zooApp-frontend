@@ -1,0 +1,112 @@
+.navbar-ecommerce {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background: rgba(22, 54, 40, 0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  gap: 2rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.nav-crumb {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-crumb:hover {
+  color: white;
+}
+
+.sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.nav-search:focus-within {
+  border-color: rgba(255, 214, 10, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 0.95rem;
+  padding: 0.7rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.search-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.search-btn:hover {
+  color: #FFD60A;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.nav-links a:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-links a.active {
+  background: #FFD60A;
+  color: #1B4332;
+  border-color: transparent;
+}

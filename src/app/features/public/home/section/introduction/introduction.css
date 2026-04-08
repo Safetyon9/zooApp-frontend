@@ -48,7 +48,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Sfuma verso il colore solido in basso per unirsi ad Eventi in modo invisibile */
   background: linear-gradient(180deg, rgba(27, 67, 50, 0.4) 0%, rgba(27, 67, 50, 0.4) 90%, rgba(27, 67, 50, 1) 100%); 
   z-index: 1;
 }

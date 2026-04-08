@@ -51,6 +51,8 @@ import { GestioneProdotti } from './features/admin/gestione-prodotti/gestione-pr
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { Merch } from './features/admin/gestione-prodotti/merch/merch';
 import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
+import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
+import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -83,6 +85,8 @@ import { CommonModule } from '@angular/common';
     GestioneUtente,
     Merch,
     Biglietti,
+    ShopBiglietti,
+    ShopMerch,
     SafePipe
   ],
   imports: [

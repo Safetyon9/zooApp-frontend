@@ -13,14 +13,14 @@ export class Eventi {
       title: 'I Protagonisti del Video',
       date: 'Ogni Weekend',
       description: 'Vieni a conoscere dal vivo i meravigliosi animali esotici che vedi muoversi qui in sottofondo!',
-      icon: '🐾',
+      icon: '›',
       actionText: 'Scopri tutto su questo animale'
     },
     {
       title: 'Safari Esclusivo',
       date: 'Tutti i Giorni',
       description: 'Un tour immersivo e ravvicinato per scoprire i segreti della savana nel nostro habitat.',
-      icon: '🌿'
+      icon: '›'
     }
   ]);
 

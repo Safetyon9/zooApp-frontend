@@ -4,7 +4,7 @@
   height: 70vh;
   min-height: 500px;
   margin: 0;
-  margin-left: calc(-50vw + 50%); /* Forzare uscita dai container se ce ne fossero in futuro */
+  margin-left: calc(-50vw + 50%);
   overflow: hidden;
   background-color: #000;
 }

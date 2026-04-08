@@ -1,5 +1,3 @@
-<router-outlet></router-outlet>
-
 <app-navbar-ecommerce></app-navbar-ecommerce>
 
 <div class="ecommerce-container">
@@ -7,9 +5,9 @@
   <section class="intro-section">
     <app-promo></app-promo>
   </section>
-  <section class="donation-section">
-    <app-categories></app-categories>
+
+  <section class="shop-content-section">
+    <router-outlet></router-outlet>
   </section>
 
-  <app-shop></app-shop>
 </div>

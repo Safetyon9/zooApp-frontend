@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-navbar-ecommerce',
@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './navbar-ecommerce.css',
   standalone: false,
 })
-export class NavbarEcommerce {}
+export class NavbarEcommerce {
+  searchQuery = '';
+
+  onSearch() {
+  }
+}
