@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UtenteServices } from '../../../core/services/utente-services';
+import { Utilities } from '../../../core/utils/utilities';
+import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
 
 @Component({
   selector: 'app-gestione-utente',
@@ -11,12 +13,13 @@ export class GestioneUtente implements OnInit {
   userName: string | null = null;
   nome: string | null = null;
   cognome: string | null = null;
-
+  profilo: any = {};
   profili: any[] = [];
   loading = false;
 
   constructor(
     public utenteServices: UtenteServices,
+    private util: Utilities,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -73,9 +76,20 @@ export class GestioneUtente implements OnInit {
   }
 
   modificaProfilo(profilo: any): void {
-    console.log('Modifica profilo:', profilo);
-    // qui poi aprirai dialog / routing
+  const dialogRef = this.util.openDialog(
+    UpdateDialog,
+    { account: { ...profilo }, mode: 'U' },
+    { width: '90vw', maxWidth: '1200px', height: 'auto' }
+  );
+
+  if (dialogRef?.afterClosed) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.search();
+      }
+    });
   }
+}
 
   eliminaProfilo(profilo: any): void {
     console.log('Elimina profilo:', profilo);
