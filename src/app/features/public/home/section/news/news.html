@@ -6,7 +6,10 @@
   </div>
 
   <div class="news-list">
-    <div class="news-card" *ngFor="let news of newsList()">
+    <a class="news-card" *ngFor="let news of newsList()"
+      [href]="news.link"
+      target="_blank"
+      rel="noopener noreferrer">
       
       <div class="news-image-wrapper">
         <img [src]="news.imageUrl" alt="Immagine della notizia" class="news-image">
@@ -17,10 +20,10 @@
         <span class="news-date">{{ news.date }}</span>
         <h3>{{ news.title }}</h3>
         <p>{{ news.summary }}</p>
-        <a [href]="news.link" target="_blank" rel="noopener noreferrer" class="news-link">Leggi l'articolo originale <span class="arrow">→</span></a>
+        <span class="news-link">Leggi l'articolo originale <span class="arrow">→</span></span>
       </div>
 
-    </div>
+    </a>
   </div>
 
 </div>

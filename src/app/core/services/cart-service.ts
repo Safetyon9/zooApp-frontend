@@ -23,12 +23,18 @@ export class CartService {
 
   addToCart(item: any, tipo: 'prodotto' | 'biglietto') {
     const currentItems = this.cartItems();
-    const existingItem = currentItems.find(i => i.id === item.id && i.tipo === tipo);
+    const incomingQty = Number(item?.quantita ?? 1);
+    const qtyToAdd = Number.isFinite(incomingQty) && incomingQty > 0 ? incomingQty : 1;
+    const existingItem = currentItems.find(i =>
+      i.id === item.id &&
+      i.tipo === tipo &&
+      i.nome === item.nome
+    );
 
     if (existingItem) {
       const updatedItems = currentItems.map(i => 
-        (i.id === item.id && i.tipo === tipo) 
-          ? { ...i, quantita: i.quantita + 1 } 
+        (i.id === item.id && i.tipo === tipo && i.nome === item.nome)
+          ? { ...i, quantita: i.quantita + qtyToAdd }
           : i
       );
       this.cartItems.set(updatedItems);
@@ -37,7 +43,7 @@ export class CartService {
         id: item.id,
         nome: item.nome,
         prezzo: item.prezzo,
-        quantita: 1,
+        quantita: qtyToAdd,
         tipo: tipo,
         immagine: item.immagine
       }]);
