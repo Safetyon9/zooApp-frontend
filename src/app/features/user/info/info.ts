@@ -58,4 +58,8 @@ export class Info implements OnInit{
       { width: '90vw', maxWidth: '1200px', height: 'auto' }
     );
   }
+
+  delete(): void{
+    
+  }
 }

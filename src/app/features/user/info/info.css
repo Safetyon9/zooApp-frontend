@@ -67,3 +67,17 @@
   font-weight: 600;
   color: #111827; 
 }
+
+.delete {
+  margin-top: 50px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #b91c1c;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 12px;;
+}
+
+.delete:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
