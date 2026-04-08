@@ -11,11 +11,11 @@ import { RegisterDialog } from './features/auth/dialog/register-dialog/register-
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
-import { GestioneProdotti } from './features/admin/gestione-prodotti/gestione-prodotti';
+import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
-import { Merch } from './features/admin/gestione-prodotti/merch/merch';
-import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
+import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
+import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
@@ -55,9 +55,9 @@ const routes: Routes = [
     children: [
       { path: '', component: AdminDashboard },
 
-      { path: 'prodotti', component: GestioneProdotti },
-      { path: 'prodotti/merch', component: Merch },
-      { path: 'prodotti/biglietti', component: Biglietti },
+      { path: 'items', component: GestioneItems },
+      { path: 'items/prodotti', component: ProdottiManager },
+      { path: 'items/biglietti', component: BigliettiManager },
 
       { path: 'utenti', component: GestioneUtente },
 

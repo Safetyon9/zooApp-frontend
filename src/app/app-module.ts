@@ -47,10 +47,10 @@ import { NavbarUtente } from './features/user/navbar-utente/navbar-utente';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { AdminNavbar } from './features/admin/admin-navbar/admin-navbar';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
-import { GestioneProdotti } from './features/admin/gestione-prodotti/gestione-prodotti';
+import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
-import { Merch } from './features/admin/gestione-prodotti/merch/merch';
-import { Biglietti } from './features/admin/gestione-prodotti/biglietti/biglietti';
+import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
+import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { CommonModule } from '@angular/common';
@@ -81,10 +81,10 @@ import { CommonModule } from '@angular/common';
     NavbarUtente,
     AdminNavbar,
     GestioneEventi,
-    GestioneProdotti,
+    GestioneItems,
     GestioneUtente,
-    Merch,
-    Biglietti,
+    ProdottiManager,
+    BigliettiManager,
     ShopBiglietti,
     ShopMerch,
     SafePipe
