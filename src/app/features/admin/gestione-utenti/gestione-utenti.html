@@ -39,69 +39,104 @@
 
       <mat-divider></mat-divider>
 
-      <div class="clients-grid">
-        @for (profilo of profili; track profilo.username) {
-          <mat-card class="profile-card" appearance="outlined">
-            <div class="profile-card-header">
-              <h2>Informazioni cliente</h2>
-              <button type="button" (click)="modificaProfilo(profilo)">
-                Modifica profilo
-              </button>
-            </div>
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento utenti...</p>
+        </div>
+      } @else {
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (profilo of profili; track profilo.userName) {
+                <tr>
+                  <td>{{ profilo.userName || '-' }}</td>
+                  <td>{{ profilo.email || '-' }}</td>
+                  <td>{{ profilo.role || '-' }}</td>
+                  <td>
+                    @if (profilo.isCliente) {
+                      <button
+                        type="button"
+                        class="arrow-button"
+                        (click)="toggleDettaglio(profilo)"
+                        [attr.aria-label]="profilo.expanded ? 'Chiudi dettagli' : 'Apri dettagli'">
+                        {{ profilo.expanded ? '▼' : '▶' }}
+                      </button>
+                    } @else {
+                      <span>-</span>
+                    }
+                  </td>
+                </tr>
 
-            <div class="profile-grid">
-              <div class="profile-item">
-                <span class="label">Nome</span>
-                <span class="value">{{ profilo.nome || '-' }}</span>
-              </div>
+                @if (profilo.expanded && profilo.isCliente) {
+                  <tr class="detail-row">
+                    <td colspan="4">
+                      <div class="detail-box">
+                        <div class="detail-header">
+                          <h3>Informazioni cliente</h3>
+                          <button type="button" class="edit-button" (click)="modificaProfilo(profilo)">
+                            Modifica profilo
+                          </button>
+                        </div>
 
-              <div class="profile-item">
-                <span class="label">Cognome</span>
-                <span class="value">{{ profilo.cognome || '-' }}</span>
-              </div>
+                        <div class="profile-grid">
+                          <div class="profile-item">
+                            <span class="label">Nome</span>
+                            <span class="value">{{ profilo.nome || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Indirizzo</span>
-                <span class="value">{{ profilo.indirizzo || '-' }}</span>
-              </div>
+                          <div class="profile-item">
+                            <span class="label">Cognome</span>
+                            <span class="value">{{ profilo.cognome || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Comune</span>
-                <span class="value">{{ profilo.comune || '-' }}</span>
-              </div>
+                          <div class="profile-item">
+                            <span class="label">Indirizzo</span>
+                            <span class="value">{{ profilo.indirizzo || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Cap</span>
-                <span class="value">{{ profilo.cap || '-' }}</span>
-              </div>
+                          <div class="profile-item">
+                            <span class="label">Comune</span>
+                            <span class="value">{{ profilo.comune || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Provincia</span>
-                <span class="value">{{ profilo.provincia || '-' }}</span>
-              </div>
+                          <div class="profile-item">
+                            <span class="label">CAP</span>
+                            <span class="value">{{ profilo.cap || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Email</span>
-                <span class="value">{{ profilo.email || '-' }}</span>
-              </div>
+                          <div class="profile-item">
+                            <span class="label">Provincia</span>
+                            <span class="value">{{ profilo.provincia || '-' }}</span>
+                          </div>
 
-              <div class="profile-item">
-                <span class="label">Telefono</span>
-                <span class="value">{{ profilo.telefono || '-' }}</span>
-              </div>
-
-              <div class="profile-item">
-                <span class="label">Username</span>
-                <span class="value">{{ profilo.username || '-' }}</span>
-              </div>
-            </div>
-          </mat-card>
-        } @empty {
-          <div class="empty-state">
-            <p>Nessun cliente trovato.</p>
-          </div>
-        }
-      </div>
+                          <div class="profile-item">
+                            <span class="label">Telefono</span>
+                            <span class="value">{{ profilo.telefono || '-' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              } @empty {
+                <tr>
+                  <td colspan="4" class="empty-cell">Nessun utente trovato.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
     </mat-card-content>
   </mat-card>
 </div>
+
+html----------
