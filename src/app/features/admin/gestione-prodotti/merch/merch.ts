@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProdottiServices } from '../prodotti-services';
+import { ProdottiServices } from '../../../../core/services/prodotti-services';
 import { Utilities } from '../../../../core/utils/utilities';
 
 @Component({

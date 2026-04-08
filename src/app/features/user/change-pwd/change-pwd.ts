@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthServices } from '../../../core/services/auth-services';
-import { UtenteServices } from '../../../shared/services/utente-services';
+import { UtenteServices } from '../../../core/services/utente-services';
 
 @Component({
   selector: 'app-change-password',
@@ -12,6 +12,7 @@ import { UtenteServices } from '../../../shared/services/utente-services';
 })
 export class ChangePwd {
   msg = signal('');
+  success = signal(false)
 
   constructor(
     private auth: AuthServices,
@@ -28,12 +29,16 @@ export class ChangePwd {
     }
 
     this.accountServices.changePwd({
-      userName: this.auth.grant().userId,
+      username: this.auth.grant().userId,
       oldPwd: updatePwd.value.oldpassword,
       newPwd: updatePwd.value.newpassword
     }).subscribe({
       next: () => {
-        this.routing.navigate(['/utente']); 
+        this.success.set(true);
+        this.msg.set('Password cambiata con successo!');
+        setTimeout(() => {
+          this.routing.navigate(['/utente']);
+        }, 2000);
       },
       error: (r: any) => {
         this.msg.set(r.error.msg);

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
-import { UtenteServices } from '../../../shared/services/utente-services';
+import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { ChangeDetectorRef } from '@angular/core';
 import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
