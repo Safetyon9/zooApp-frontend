@@ -53,7 +53,7 @@ export class UpdateDialog implements OnInit {
         comune: this.account()?.comune ?? '',
         provincia: this.account()?.provincia ?? '',
         cap: this.account()?.cap ?? '',
-        username: this.account()?.userName ?? '',
+        username: this.account()?.username ?? '',
       });
     }
 
@@ -88,7 +88,7 @@ export class UpdateDialog implements OnInit {
     this.msg.set('');
 
     const body: any = {
-      userName: this.account()?.userName,
+      userName: this.account()?.username,
       email: this.updateForm.value.email,
     };
 
