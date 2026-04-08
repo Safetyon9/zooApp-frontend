@@ -1,6 +1,8 @@
 .ecommerce-container {
   min-height: 100vh;
   padding-top: 80px;
+  background: radial-gradient(circle at top right, #1b4332 0%, #081c15 100%);
+  background-attachment: fixed;
   color: white;
 }
 

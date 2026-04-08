@@ -11,13 +11,13 @@
       <ul class="navbar-menu left">
         @if (!isShopPage()) {
           <li>
-            <a (click)="scrollToEventi(); closeMenu()">Eventi</a>
+            <a href="javascript:void(0)" (click)="scrollToEventi(); closeMenu()">Eventi</a>
           </li>
           <li>
-            <a (click)="scrollToNews(); closeMenu()">News</a>
+            <a href="javascript:void(0)" (click)="scrollToNews(); closeMenu()">News</a>
           </li>
           <li>
-            <a (click)="scrollToDonation(); closeMenu()">Donazioni</a>
+            <a href="javascript:void(0)" (click)="scrollToDonation(); closeMenu()">Donazioni</a>
           </li>
           <li>
             <a routerLink="/shop" (click)="closeMenu()">Negozio</a>
