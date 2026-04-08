@@ -29,7 +29,7 @@ export class AdminNavbar {
   }
 
   openGestioneItems(): void {
-    this.router.navigate(['/admin/Items']);
+    this.router.navigate(['/admin/items']);
   }
 
   openGestioneEventi(): void {

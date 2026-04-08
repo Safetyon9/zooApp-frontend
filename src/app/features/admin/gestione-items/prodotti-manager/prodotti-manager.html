@@ -1,1 +1,77 @@
-<p>prodotti-manager works!</p>
+<div class="container">
+  <mat-card>
+
+    <mat-card-header class="header-row">
+      <mat-card-title>Elenco Prodotti</mat-card-title>
+
+      <button mat-raised-button color="primary" (click)="onCreateProdotto()">
+        Nuovo Prodotto
+      </button>
+    </mat-card-header>
+
+    <mat-divider style="margin-top: 20px;"></mat-divider>
+
+    <mat-card-content>
+
+      <div class="search-row">
+
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="filtro.nome" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Categoria</mat-label>
+          <input matInput [(ngModel)]="filtro.categoriaId" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Prezzo</mat-label>
+          <input matInput type="number" [(ngModel)]="filtro.prezzo" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>SKU</mat-label>
+          <input matInput [(ngModel)]="filtro.sku" (keyup)="search()">
+        </mat-form-field>
+
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Prezzo</th>
+            <th>Stock</th>
+            <th>SKU</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (p of prodotti; track p.id) {
+            <tr (click)="onSelected(p)" class="clickable-row">
+
+              <td>
+                @if(p.urlImmagine){
+                  <img [src]="p.urlImmagine" style="max-width: 80px;">
+                } @else {
+                  <img src="no_image.png" style="max-width: 80px;">
+                }
+              </td>
+
+              <td>{{p.nome}}</td>
+              <td>{{p.prezzo}}</td>
+              <td>{{p.stock}}</td>
+              <td>{{p.sku}}</td>
+
+            </tr>
+          }
+        </tbody>
+
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
