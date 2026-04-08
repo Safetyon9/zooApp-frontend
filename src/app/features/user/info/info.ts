@@ -52,12 +52,36 @@ export class Info implements OnInit{
   }
 
   modificaProfilo(): void {
-    this.util.openDialog(
-      UpdateDialog,
-      { account: this.profilo, mode: 'U' },
-      { width: '90vw', maxWidth: '1200px', height: 'auto' }
-    );
-  }
+  const dialogRef = this.util.openDialog(
+    UpdateDialog,
+    { account: this.profilo, mode: 'U' },
+    { width: '90vw', maxWidth: '1200px', height: 'auto' }
+  );
+
+  dialogRef.afterClosed().subscribe((resp: any) => {
+    if (!resp) return;
+
+    const userId = this.auth.grant()?.userId;
+    if (!userId) return;
+
+    this.utenteServices.findAllByUserName(userId).subscribe({
+      next: (r: any) => {
+        this.profilo = {
+          username: r.userName ?? '',
+          email: r.email ?? '',
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          telefono: r.telefono ?? '',
+          indirizzo: r.indirizzo ?? '',
+          comune: r.comune ?? '',
+          cap: r.cap ?? '',
+          provincia: r.provincia ?? ''
+        };
+        this.cdr.detectChanges();
+      }
+    });
+  });
+}
 
   delete(): void{
     

@@ -6,63 +6,67 @@
   <h2>Modifica Utente</h2>
 
   <form [formGroup]="updateForm" class="dialog-form">
+
     <mat-form-field appearance="outline" style="display: none;">
       <mat-label>UserName*</mat-label>
       <input matInput formControlName="username" readonly />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email*</mat-label>
-      <input matInput formControlName="email" />
-    </mat-form-field>
-
-    @if (!isAdmin) {
-      <mat-form-field appearance="outline">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" />
-      </mat-form-field>
+    <div class="form-grid">
 
       <mat-form-field appearance="outline">
-        <mat-label>Cognome</mat-label>
-        <input matInput formControlName="cognome" />
+        <mat-label>Email*</mat-label>
+        <input matInput formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Telefono</mat-label>
-        <input matInput formControlName="telefono" />
-      </mat-form-field>
+      @if (!isAdmin) {
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Via</mat-label>
-        <input matInput formControlName="via" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cognome</mat-label>
+          <input matInput formControlName="cognome" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Comune</mat-label>
-        <input matInput formControlName="comune" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="telefono" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Provincia</mat-label>
-        <input matInput formControlName="provincia" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Via</mat-label>
+          <input matInput formControlName="via" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Cap</mat-label>
-        <input matInput formControlName="cap" />
-      </mat-form-field>
-    }
+        <mat-form-field appearance="outline">
+          <mat-label>Comune</mat-label>
+          <input matInput formControlName="comune" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Provincia</mat-label>
+          <input matInput formControlName="provincia" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cap</mat-label>
+          <input matInput formControlName="cap" />
+        </mat-form-field>
+      }
+
+    </div>
 
     @if (msg()) {
-      <div class="error-message">
-        {{ msg() }}
-      </div>
+      <div class="error-message">{{ msg() }}</div>
     }
 
     <div class="dialog-actions">
-      <button mat-raised-button color="primary" type="button" (click)="onSubmit()">
+      <button mat-raised-button type="button" (click)="onSubmit()">
         Modifica utente
       </button>
     </div>
+
   </form>
 </div>
