@@ -7,7 +7,8 @@ import { Utilities } from '../../../../../core/utils/utilities';
 @Component({
   selector: 'app-prodotto-dialog',
   templateUrl: './prodotto-dialog.html',
-  styleUrls: ['./prodotto-dialog.css']
+  styleUrls: ['./prodotto-dialog.css'],
+  standalone: false,
 })
 export class ProdottoDialog implements OnInit {
 
