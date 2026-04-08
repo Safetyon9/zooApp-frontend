@@ -6,7 +6,6 @@
   
   <div class="eventi-overlay"></div>
 
-  <!-- LA NUOVA SIDEBAR IN VETRO SULLA DESTRA -->
   <div class="glass-sidebar">
     
     <div class="sidebar-header">
@@ -22,7 +21,6 @@
           <h3>{{ event.title }}</h3>
           <p>{{ event.description }}</p>
           
-          <!-- Pulsante Alert aggiuntivo -->
           <a class="alert-link" *ngIf="event.actionText" href="javascript:void(0)" (click)="openAnimalModal($event)">
             <span class="pulse-dot"></span>
             {{ event.actionText }}
@@ -33,7 +31,6 @@
     
   </div>
 
-  <!-- OVERLAY MODAL INFO ANIMALE -->
   <div class="animal-modal-overlay" *ngIf="isAnimalModalOpen()" (click)="closeAnimalModal()">
     <div class="animal-modal-content" (click)="$event.stopPropagation()">
       <button class="close-modal-btn" (click)="closeAnimalModal()">&times;</button>

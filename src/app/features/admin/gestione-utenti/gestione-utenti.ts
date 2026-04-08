@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UtenteServices } from '../../../shared/services/utente-services';
+import { UtenteServices } from '../../../core/services/utente-services';
 
 @Component({
   selector: 'app-gestione-utente',

@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthServices } from '../../../core/services/auth-services';
-import { UtenteServices } from '../../../shared/services/utente-services';
+import { UtenteServices } from '../../../core/services/utente-services';
 
 @Component({
   selector: 'app-change-password',
