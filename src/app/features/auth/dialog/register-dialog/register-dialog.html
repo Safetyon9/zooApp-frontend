@@ -14,42 +14,47 @@
 
       <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
 
-        <!-- Nome | Cognome -->
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Nome</mat-label>
-          <input matInput type="text" name="nome" formControlName="nome">
+          <input matInput type="text" formControlName="nome">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Cognome</mat-label>
-          <input matInput type="text" name="cognome" formControlName="cognome">
+          <input matInput type="text" formControlName="cognome">
         </mat-form-field>
 
-        <!-- Email | Telefono -->
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Email</mat-label>
-          <input matInput type="email" name="email" formControlName="email">
+          <input matInput type="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-2" *ngIf="isAdminLoggato">
+          <mat-label>Ruolo</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Telefono</mat-label>
-          <input matInput type="text" name="telefono" formControlName="telefono">
+          <input matInput type="text" formControlName="telefono">
         </mat-form-field>
 
-        <!-- Via | Comune | Provincia | Cap -->
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Via</mat-label>
-          <input matInput type="text" name="via" formControlName="via">
+          <input matInput type="text" formControlName="via">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-1">
           <mat-label>Comune</mat-label>
-          <input matInput type="text" name="comune" formControlName="comune">
+          <input matInput type="text" formControlName="comune">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-1">
           <mat-label>Provincia</mat-label>
-          <input matInput type="text" name="provincia" formControlName="provincia">
+          <input matInput type="text" formControlName="provincia">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-1">
@@ -63,36 +68,32 @@
             inputmode="numeric">
         </mat-form-field>
 
-        <!-- UserName -->
         <mat-form-field appearance="fill" class="col-4">
-          <mat-label>UserName</mat-label>
-          <input matInput type="text" name="username" formControlName="username">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username">
         </mat-form-field>
 
-        <!-- Password | Retype Password -->
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Password</mat-label>
-          <input matInput type="password" name="pwd" formControlName="pwd">
+          <input matInput type="password" formControlName="pwd">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Retype Password</mat-label>
-          <input matInput type="password" name="pwdControl" formControlName="pwdControl">
+          <input matInput type="password" formControlName="pwdControl">
         </mat-form-field>
 
-        <!-- Messaggio errore -->
         <div class="msg-error col-4">
           <span>{{ msg() }}</span>
         </div>
 
-        <!-- Bottone submit -->
         <div class="button-group col-4">
           <button
             mat-raised-button
             color="primary"
             type="submit"
             [disabled]="!updateForm.valid"
-            matTooltip="Salvare le modifiche">
+            matTooltip="Crea il nuovo utente">
             Crea nuovo utente
           </button>
         </div>

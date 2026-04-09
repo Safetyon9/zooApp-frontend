@@ -13,6 +13,9 @@ import { AuthServices } from '../../../../core/services/auth-services';
 export class UpdateDialog implements OnInit {
   account = signal<any>(null);
   mod: any = 'U';
+
+  // fix tampone + nome coerente
+  isAdmin = false;
   isAdminLoggato = false;
 
   updateForm = new FormGroup({
@@ -49,7 +52,9 @@ export class UpdateDialog implements OnInit {
 
   ngOnInit(): void {
     const accountData = this.account();
-    this.isAdminLoggato = this.auth.isRoleAdmin();
+
+    this.isAdmin = this.auth.isRoleAdmin();
+    this.isAdminLoggato = this.isAdmin;
 
     if (this.mod === 'U' && accountData) {
       this.updateForm.patchValue({
