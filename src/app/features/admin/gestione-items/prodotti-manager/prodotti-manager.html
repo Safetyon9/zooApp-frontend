@@ -42,8 +42,11 @@
           <tr>
             <th></th>
             <th>Nome</th>
-            <th>Prezzo</th>
+            <th>Categoria</th>
+            <th>Prezzo(€)</th>
             <th>Stock</th>
+            <th>Peso(kg)</th>
+            <th>Dim(cm^3)</th>
             <th>SKU</th>
           </tr>
         </thead>
@@ -61,8 +64,11 @@
               </td>
 
               <td>{{p.nome}}</td>
+              <td>{{p.categoriaId}}</td>
               <td>{{p.prezzo}}</td>
               <td>{{p.stock}}</td>
+              <td>{{p.peso}}</td>
+              <td>{{p.dimensioni}}</td>
               <td>{{p.sku}}</td>
 
             </tr>

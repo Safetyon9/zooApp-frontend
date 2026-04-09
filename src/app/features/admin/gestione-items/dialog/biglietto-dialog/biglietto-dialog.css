@@ -1,0 +1,115 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.row-fields {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 16px; 
+}
+
+
+.form-grid {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.small-field {
+  flex: 1; 
+}
+
+.full-row {
+  grid-column: 1 / -1;  
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ---------- DIALOG ---------- */
+mat-dialog-content {
+  padding: 0 !important;
+  display: block;
+  overflow-y: auto !important;     /* solo verticale */
+  overflow-x: hidden !important;
+  max-height: 70vh !important;     /* fondamentale per non far uscire i bottoni */
+}
+
+/* superficie della dialog più larga e con altezza auto ma limitata */
+::ng-deep .wide-dialog .mat-mdc-dialog-surface {
+  padding: 20px !important;
+
+  width: 1100px !important;      /* larghezza desiderata */
+  max-width: 95vw !important;    /* non oltre lo schermo */
+
+  height: auto !important;
+  max-height: 90vh !important;   /* limite verticale */
+
+  display: flex !important;
+  flex-direction: column !important;
+}
+mat-expansion-panel-header {
+  display: flex;
+  align-items: center;
+}
+
+mat-panel-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+.panel-actions button {
+  margin-left: 8px;
+}
+
+.image-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;       
+}
+
+.image-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.image-right {
+  flex: 1;
+}
+.file-name {
+  margin-left: 10px;
+}
+.dialog-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #555;
+  z-index: 10;
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}
