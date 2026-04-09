@@ -108,21 +108,23 @@ export class UpdateDialog implements OnInit {
     }
 
     const body: any = {
-      userName: this.updateForm.value.username,
-      email: this.updateForm.value.email,
+      utente: {
+        username: this.updateForm.value.username,
+        email: this.updateForm.value.email,
+        role: this.isAdmin ? this.updateForm.value.role : 'USER',
+      },
+      cliente: !this.isAdmin ? {
+        nome: this.updateForm.value.nome,
+        cognome: this.updateForm.value.cognome,
+        indirizzo: this.updateForm.value.via,
+        comune: this.updateForm.value.comune,
+        provincia: this.updateForm.value.provincia,
+        cap: this.updateForm.value.cap,
+        telefono: this.updateForm.value.telefono,
+      } : null
     };
 
-    if (this.isAdmin) {
-      body.role = this.updateForm.value.role;
-    } else {
-      body.nome = this.updateForm.value.nome;
-      body.cognome = this.updateForm.value.cognome;
-      body.indirizzo = this.updateForm.value.via;
-      body.comune = this.updateForm.value.comune;
-      body.provincia = this.updateForm.value.provincia;
-      body.cap = this.updateForm.value.cap;
-      body.telefono = this.updateForm.value.telefono;
-    }
+    console.log('body:', JSON.stringify(body));
 
     this.http.put(`${this.baseUrl}/Allupdate`, body).subscribe({
       next: (resp: any) => {
