@@ -2,22 +2,26 @@ import { Component, Inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { AuthServices } from '../../../../core/services/auth-services';
 
 @Component({
   selector: 'app-update-dialog',
   standalone: false,
   templateUrl: './update-dialog.html',
-  styleUrl: './update-dialog.css',
+  styleUrls: ['./update-dialog.css'],
 })
 export class UpdateDialog implements OnInit {
   account = signal<any>(null);
-  mod: any = 'C';
+  mod: any = 'U';
+
+  // fix tampone + nome coerente
   isAdmin = false;
+  isAdminLoggato = false;
 
   updateForm = new FormGroup({
     username: new FormControl<string | null>(null, Validators.required),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-    role: new FormControl<string | null>(null),
+    role: new FormControl<string | null>('USER'),
 
     nome: new FormControl<string | null>(null),
     cognome: new FormControl<string | null>(null),
@@ -37,21 +41,20 @@ export class UpdateDialog implements OnInit {
   constructor(
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<UpdateDialog>
+    private dialogRef: MatDialogRef<UpdateDialog>,
+    private auth: AuthServices
   ) {
     if (data) {
       this.account.set(data.account);
-      this.mod = data.mode ?? 'C';
+      this.mod = data.mode ?? 'U';
     }
   }
 
   ngOnInit(): void {
     const accountData = this.account();
-    const ruoloProfilo = accountData?.role ?? '';
 
-    // ATTENZIONE: qui isAdmin indica se IL PROFILO è ADMIN,
-    // non se l'utente loggato è admin
-    this.isAdmin = ruoloProfilo === 'ADMIN';
+    this.isAdmin = this.auth.isRoleAdmin();
+    this.isAdminLoggato = this.isAdmin;
 
     if (this.mod === 'U' && accountData) {
       this.updateForm.patchValue({
@@ -68,29 +71,12 @@ export class UpdateDialog implements OnInit {
       });
     }
 
-    if (!this.isAdmin) {
-      this.updateForm.get('nome')?.setValidators([Validators.required]);
-      this.updateForm.get('cognome')?.setValidators([Validators.required]);
-      this.updateForm.get('comune')?.setValidators([Validators.required]);
+    if (!this.isAdminLoggato) {
       this.updateForm.get('role')?.clearValidators();
     } else {
-      this.updateForm.get('nome')?.clearValidators();
-      this.updateForm.get('cognome')?.clearValidators();
-      this.updateForm.get('telefono')?.clearValidators();
-      this.updateForm.get('via')?.clearValidators();
-      this.updateForm.get('comune')?.clearValidators();
-      this.updateForm.get('provincia')?.clearValidators();
-      this.updateForm.get('cap')?.clearValidators();
       this.updateForm.get('role')?.setValidators([Validators.required]);
     }
 
-    this.updateForm.get('nome')?.updateValueAndValidity();
-    this.updateForm.get('cognome')?.updateValueAndValidity();
-    this.updateForm.get('telefono')?.updateValueAndValidity();
-    this.updateForm.get('via')?.updateValueAndValidity();
-    this.updateForm.get('comune')?.updateValueAndValidity();
-    this.updateForm.get('provincia')?.updateValueAndValidity();
-    this.updateForm.get('cap')?.updateValueAndValidity();
     this.updateForm.get('role')?.updateValueAndValidity();
   }
 
@@ -107,22 +93,30 @@ export class UpdateDialog implements OnInit {
       return;
     }
 
+    const accountData = this.account();
+
+    const roleToSend = this.isAdminLoggato
+      ? (this.updateForm.value.role ?? 'USER')
+      : (accountData?.role ?? 'USER');
+
     const body: any = {
-      userName: this.updateForm.value.username,
-      email: this.updateForm.value.email,
+      utente: {
+        username: this.updateForm.value.username,
+        email: this.updateForm.value.email,
+        role: roleToSend,
+      },
+      cliente: {
+        nome: this.updateForm.value.nome,
+        cognome: this.updateForm.value.cognome,
+        indirizzo: this.updateForm.value.via,
+        comune: this.updateForm.value.comune,
+        provincia: this.updateForm.value.provincia,
+        cap: this.updateForm.value.cap,
+        telefono: this.updateForm.value.telefono,
+      }
     };
 
-    if (this.isAdmin) {
-      body.role = this.updateForm.value.role;
-    } else {
-      body.nome = this.updateForm.value.nome;
-      body.cognome = this.updateForm.value.cognome;
-      body.indirizzo = this.updateForm.value.via;
-      body.comune = this.updateForm.value.comune;
-      body.provincia = this.updateForm.value.provincia;
-      body.cap = this.updateForm.value.cap;
-      body.telefono = this.updateForm.value.telefono;
-    }
+    console.log('body Allupdate:', JSON.stringify(body));
 
     this.http.put(`${this.baseUrl}/Allupdate`, body).subscribe({
       next: (resp: any) => {

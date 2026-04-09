@@ -82,9 +82,8 @@ export class UtenteServices {
   }
 
   delete(userName: string) {
-    const params = new HttpParams().set('userName', userName);
-    return this.http.delete(this.url + 'delete', { params });
-  }
+  return this.http.delete(`${this.url}delete/${userName}`);
+}
 
   findAllByUserName(userName: string) {
     const params = new HttpParams().set('userName', userName);

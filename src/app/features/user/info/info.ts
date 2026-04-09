@@ -3,8 +3,9 @@ import { AuthServices } from '../../../core/services/auth-services';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { ChangeDetectorRef } from '@angular/core';
-import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-info',
@@ -21,7 +22,8 @@ export class Info implements OnInit{
     public auth: AuthServices,
     private utenteServices: UtenteServices,
     private util: Utilities,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +85,27 @@ export class Info implements OnInit{
   });
 }
 
-  delete(): void{
-    
+  delete(): void {
+    const username = this.profilo?.username;
+    if (!username) return;
+
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '400px',
+      data: { message: `Sei sicuro di voler eliminare l'utente "${username}"?` }
+    });
+
+    dialogRef.afterClosed().subscribe((conferma: boolean) => {
+      if (!conferma) return;
+
+      this.utenteServices.delete(username).subscribe({
+        next: () => {
+          this.auth.resetAll();
+          window.location.href = '/';
+        },
+        error: (err: any) => {
+          console.error('Errore eliminazione utente', err);
+        }
+      });
+    });
   }
 }

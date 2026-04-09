@@ -30,6 +30,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
+import { ConfirmDialog } from './features/auth/dialog/confirm-dialog/confirm-dialog';
 import { SceltaUpdateDialog } from './features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
 import { ProdottoDialog } from './features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog';
 import { BigliettoDialog } from './features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog';
@@ -72,6 +73,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
     LoginDialog,
     RegisterDialog,
     UpdateDialog,
+    ConfirmDialog,
     SceltaUpdateDialog,
     ChangePwd,
     Home,

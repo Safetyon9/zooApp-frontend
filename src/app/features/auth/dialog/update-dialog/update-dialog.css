@@ -3,12 +3,17 @@
   box-shadow: none !important;
 }
 
+::ng-deep .mat-mdc-dialog-content {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 .dialog-container {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
-  padding: 32px;
+  padding: 24px 32px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
   background-color: rgba(27, 67, 50, 0.92);
@@ -17,37 +22,48 @@
   color: #ffffff;
 }
 
-.close-button {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  color: #FFD60A !important;
-  background-color: rgba(255, 214, 10, 0.08) !important;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+.dialog-card,
+::ng-deep .mat-mdc-card,
+::ng-deep .mat-mdc-card .mdc-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 
-.close-button:hover {
-  background-color: rgba(255, 214, 10, 0.18) !important;
-  transform: rotate(90deg) scale(1.08);
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 16px;
 }
 
-h2 {
+.dialog-title {
+  margin: 0;
+  text-align: center;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 1.8rem;
-  color: #FFD60A;
-  text-align: center;
-  margin: 0 0 28px;
+  font-size: 2rem;
   letter-spacing: 1px;
+  color: #FFD60A;
 }
 
-.dialog-form {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.dialog-content {
+  padding: 0;
 }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px 24px;
+}
+
+.col-1 { grid-column: span 1; }
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: 1 / -1; }
 
 mat-form-field {
   width: 100%;
@@ -80,6 +96,7 @@ mat-form-field {
 ::ng-deep .dialog-container .mat-mdc-input-element {
   color: #ffffff !important;
   caret-color: #FFD60A !important;
+  font-size: 0.98rem;
 }
 
 ::ng-deep .dialog-container .mat-mdc-input-element::placeholder {
@@ -98,70 +115,102 @@ mat-form-field {
   box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.45);
 }
 
-::ng-deep .dialog-container .mdc-text-field--outlined .mdc-notched-outline__leading,
-::ng-deep .dialog-container .mdc-text-field--outlined .mdc-notched-outline__notch,
-::ng-deep .dialog-container .mdc-text-field--outlined .mdc-notched-outline__trailing {
-  border-color: rgba(255, 214, 10, 0.25) !important;
+::ng-deep .dialog-container .mat-mdc-select-value,
+::ng-deep .dialog-container .mat-mdc-select-arrow {
+  color: #ffffff !important;
 }
 
-::ng-deep .dialog-container .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
-::ng-deep .dialog-container .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
-::ng-deep .dialog-container .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
-  border-color: #FFD60A !important;
+::ng-deep .dialog-container .mat-mdc-select-panel {
+  background: rgba(27, 67, 50, 0.97) !important;
 }
 
-.error-message {
-  font-size: 13px;
-  color: #ff8a8a;
-  background: rgba(255, 100, 100, 0.1);
-  border-radius: 8px;
-  padding: 10px 14px;
+::ng-deep .dialog-container .mat-mdc-option {
+  color: #ffffff !important;
+}
+
+::ng-deep .dialog-container .mat-mdc-option:hover {
+  background: rgba(255, 214, 10, 0.15) !important;
+}
+
+.msg-error {
+  min-height: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
   text-align: center;
+  color: #ff8a8a;
 }
 
-.dialog-actions {
+.button-group {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 8px;
 }
 
-.dialog-actions button {
-  min-width: 240px;
+.button-group button {
+  min-width: 260px;
   height: 48px;
   padding: 0 24px;
   border: none;
   border-radius: 12px;
-  background: #FFD60A !important;
-  color: #1B4332 !important;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.28);
+  color: #1B4332 !important;
+  background: #FFD60A !important;
+  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.28) !important;
   transition: all 0.3s ease;
 }
 
-.dialog-actions button:hover {
+.button-group button:hover:not(:disabled) {
   background: #ffe15c !important;
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(255, 214, 10, 0.35);
+  box-shadow: 0 6px 16px rgba(255, 214, 10, 0.35) !important;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px 16px;
+.button-group button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none !important;
 }
 
-.form-grid mat-form-field {
-  width: 100%;
+.dialog-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  z-index: 30;
+  color: #FFD60A !important;
+  background-color: rgba(255, 214, 10, 0.08) !important;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
-::ng-deep .dialog-container .form-grid .mat-mdc-form-field-infix {
-  min-height: 56px !important;
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
+.dialog-close-btn:hover {
+  background-color: rgba(255, 214, 10, 0.18) !important;
+  transform: rotate(90deg) scale(1.08);
 }
 
-::ng-deep .dialog-container .form-grid .mat-mdc-input-element {
-  font-size: 1rem !important;
+@media (max-width: 900px) {
+  .dialog-container {
+    max-width: 100%;
+    margin: 24px 12px;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .dialog-title {
+    font-size: 1.7rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px 0;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    grid-column: 1 / -1;
+  }
+
+  .button-group button {
+    min-width: 100%;
+  }
 }
