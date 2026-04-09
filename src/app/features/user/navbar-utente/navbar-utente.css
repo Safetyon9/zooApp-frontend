@@ -7,41 +7,38 @@
 
   background: linear-gradient(
     180deg,
-    #FEF3C7 0%,
-    #FDE68A 100%
+    #14532d 0%,   
+    #22c55e 100% 
   );
 
-  color: #1f2937;
+  color: #000000;
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
 
-  box-shadow: 2px 0 20px rgba(250, 204, 21, 0.2);
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.logo {
+/* LOGO */
+.logo-container {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 32px;
   cursor: pointer;
-  user-select: none;
-  color: #1f2937;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
 }
 
-.logo:hover {
-  color: #b45309; /* ambra elegante */
-  transform: translateX(3px);
+.logo-container img.logo-img {
+  width: 8rem;
+  height: auto;
+  max-height: 80px;
+  filter: none; 
 }
 
-.logo-icon {
-  font-size: 28px;
-  color: #d97706;
+.logo-container:hover img.logo-img {
+  transform: scale(1.1);
 }
 
+/* MENU */
 .menu {
   display: flex;
   flex-direction: column;
@@ -55,10 +52,9 @@
   border: none;
   border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.4);
-  color: #1f2937;
+  background: #facc15; 
+  color: #000000;      
 
-  text-decoration: none;
   text-align: left;
   font-size: 15px;
   font-weight: 500;
@@ -70,14 +66,12 @@
 }
 
 .menu-item:hover {
-  background: rgba(250, 204, 21, 0.5);
-  color: #78350f;
+  background: #fde047; 
   transform: translateX(4px);
 }
 
 .menu-item.active {
-  background: #facc15;
-  color: #1f2937;
+  background: #eab308; 
   font-weight: 600;
 }
 
@@ -88,44 +82,18 @@
   top: 8px;
   height: calc(100% - 16px);
   width: 4px;
-  background: #b45309;
+  background: #000000;
   border-radius: 4px;
 }
 
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.logo-container > * {
-  pointer-events: none; 
-  outline: none;
-}
-
-.logo-container img.logo-img {
-  width: 8rem;
-  height: auto;
-  max-height: 80px;
-  filter: brightness(0) invert(1);
-}
-
-.logo-container:hover img.logo-img {
-  transform: scale(1.2);
-  filter: brightness(0) saturate(100%) invert(92%) sepia(82%) saturate(7500%) hue-rotate(1deg);
-  transition: transform 0.5s ease;
-}
-
+/* LOGOUT */
 .logout {
   margin-top: auto;
-  background: rgba(250, 204, 21, 0.4);
-  color: #78350f;
+  background: #eab308;
+  color: #000000;
   font-weight: 600;
 }
 
 .logout:hover {
-  background: #facc15;
-  color: #1f2937;
+  background: #fde047;
 }
