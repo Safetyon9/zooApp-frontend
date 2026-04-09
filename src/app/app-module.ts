@@ -61,6 +61,7 @@ import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-p
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
+import { GestioneOridini } from './features/admin/gestione-oridini/gestione-oridini';
 import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
@@ -107,6 +108,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
     ShopBiglietti,
     ShopMerch,
     EventoDialog,
+    GestioneOridini,
     SafePipe
   ],
   imports: [
