@@ -23,12 +23,16 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Data Inizio</mat-label>
-        <input matInput type="date" formControlName="dataInizio">
+        <input matInput [matDatepicker]="picker1" formControlName="dataInizio">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Data Fine</mat-label>
-        <input matInput type="date" formControlName="dataFine">
+        <input matInput [matDatepicker]="picker2" formControlName="dataFine">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
 
       <div class="msg-error full-row">
