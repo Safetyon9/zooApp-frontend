@@ -15,6 +15,7 @@ export class BigliettoDialog implements OnInit {
   biglietto: any = signal(null);
   mod: any = signal('');
   msg = signal('');
+  tipi: any[] = [];
 
   updateForm: FormGroup;
 
@@ -46,6 +47,21 @@ export class BigliettoDialog implements OnInit {
         urlImmagine: this.biglietto().urlImmagine
       });
     }
+
+    this.bigliettiS.getTipi().subscribe(res => {
+      this.tipi = res;
+    });
+
+    if (this.mod() === 'U' && this.biglietto()) {
+        this.updateForm.patchValue({
+          nome: this.biglietto().nome,
+          descrizione: this.biglietto().descrizione,
+          tipoId: this.biglietto().tipo?.id,
+          prezzo: this.biglietto().prezzo,
+          urlImmagine: this.biglietto().urlImmagine
+      });
+    }
+
   }
 
   onSubmit() {

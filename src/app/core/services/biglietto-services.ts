@@ -15,6 +15,10 @@ export class BigliettoServices {
     private itemsS: ItemsServices
   ) {}
 
+  getTipi() {
+    return this.http.get<any[]>('http://localhost:9090/rest/tipibiglietti/list');
+  }
+
   create(body: {}) {
     return this.http.post(this.url + "create", body)
       .pipe(tap(() => this.itemsS.list('biglietti')));

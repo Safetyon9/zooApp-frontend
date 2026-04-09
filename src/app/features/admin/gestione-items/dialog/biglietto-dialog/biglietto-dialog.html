@@ -22,12 +22,18 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Tipo Id</mat-label>
-        <input matInput type="number" formControlName="tipoId">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="tipoId">
+          @for (t of tipi; track t.id) {
+            <mat-option [value]="t.id">
+              {{ t.nome }}
+            </mat-option>
+          }
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Prezzo</mat-label>
+        <mat-label>Prezzo(€)</mat-label>
         <input matInput type="number" formControlName="prezzo">
       </mat-form-field>
 
