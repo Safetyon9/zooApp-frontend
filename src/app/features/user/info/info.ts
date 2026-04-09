@@ -3,7 +3,6 @@ import { AuthServices } from '../../../core/services/auth-services';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { ChangeDetectorRef } from '@angular/core';
-import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
 
 @Component({
@@ -83,7 +82,27 @@ export class Info implements OnInit{
   });
 }
 
-  delete(): void{
-    
+  delete(): void {
+    const username = this.profilo?.username;
+
+    if (!username) {
+      console.error('Username profilo non trovato');
+      return;
+    }
+
+    const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${username}"?`);
+    if (!conferma) {
+      return;
+    }
+
+    this.utenteServices.delete(username).subscribe({
+      next: () => {
+        this.auth.resetAll();
+        window.location.href = '/';
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione utente', err);
+      }
+    });
   }
 }
