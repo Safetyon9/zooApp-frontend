@@ -40,7 +40,7 @@ export class NavbarUtente {
 
   logout(): void {
     const userName = localStorage.getItem('userId');
-    console.log("PROVAAA")
+  console.log("PROVAAA")
     if (!userName) {
       this.auth.resetAll();
       this.router.navigate(['']);
@@ -50,7 +50,6 @@ export class NavbarUtente {
 
     this.utenteServices.logout(userName).subscribe({
       next: () => {
-        console.log("asdadsasda")
         this.auth.resetAll();
         this.router.navigate(['']);
       },
