@@ -1,77 +1,94 @@
-<div class="container">
-  <mat-card>
-
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
     <mat-card-header class="header-row">
-      <mat-card-title>Elenco Biglietti</mat-card-title>
-
-      <button mat-raised-button color="primary" (click)="onCreateBiglietto()">
+      <mat-card-title>Gestione Biglietti</mat-card-title>
+      <button mat-raised-button color="primary" type="button" (click)="onCreateBiglietto()">
         Nuovo Biglietto
       </button>
     </mat-card-header>
 
-    <mat-divider style="margin-top: 20px;"></mat-divider>
+    <mat-divider></mat-divider>
 
     <mat-card-content>
 
       <div class="search-row">
-
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput [(ngModel)]="filtro.nome" (keyup)="search()">
+          <input matInput placeholder="Nome" [(ngModel)]="filtro.nome" />
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Tipo</mat-label>
-          <mat-select [(ngModel)]="filtro.tipoId" (selectionChange)="search()">
+          <mat-select [(ngModel)]="filtro.tipoId">
             <mat-option [value]="null">Tutti</mat-option>
             @for (t of tipi; track t.id) {
-              <mat-option [value]="t.id">@t.nome</mat-option>
+              <mat-option [value]="t.id">{{ t.nome }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Prezzo</mat-label>
-          <input matInput type="number" [(ngModel)]="filtro.prezzo" (keyup)="search()">
+        <mat-form-field appearance="outline">
+          <mat-label>Prezzo minimo</mat-label>
+          <input matInput type="number" min="0" [(ngModel)]="filtro.prezzo" />
         </mat-form-field>
 
+        <span class="spacer"></span>
+
+        <button mat-raised-button color="accent" type="button" (click)="search()">
+          Filtra
+        </button>
       </div>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Nome</th>
-            <th>Descrizione</th>
-            <th>Tipo</th>
-            <th>Prezzo(€)</th>
-          </tr>
-        </thead>
+      <mat-divider></mat-divider>
 
-        <tbody>
-          @for (b of biglietti; track b.id) {
-            <tr (click)="onSelected(b)" class="clickable-row">
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento biglietti...</p>
+        </div>
+      } @else {
 
-              <td>
-                @if(b.urlImmagine){
-                  <img [src]="b.urlImmagine" style="max-width: 80px;">
-                } @else {
-                  <img src="no_image.png" style="max-width: 80px;">
-                }
-              </td>
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>Immagine</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Prezzo(€)</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
 
-              <td>{{b.nome}}</td>
-              <td>{{b.descrizione}}</td>
-              <td>{{b.tipoNome}}</td>
-              <td>{{b.prezzo}}</td>
+            <tbody>
+              @for (b of biglietti; track b.id) {
+                <tr>
+                  <td>
+                    @if (b.urlImmagine) {
+                      <img [src]="b.urlImmagine" style="max-width:80px;">
+                    } @else {
+                      <img src="no_image.png" style="max-width:80px;">
+                    }
+                  </td>
+                  <td>{{ b.nome || '-' }}</td>
+                  <td>{{ b.tipoNome || '-' }}</td>
+                  <td>{{ b.prezzo ?? '-' }}</td>
+                  <td class="actions-cell">
+                    <button type="button" class="text-button" (click)="eseguoUpdate(b)">
+                      Modifica
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-cell">Nessun biglietto trovato.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
 
-            </tr>
-          }
-        </tbody>
-
-      </table>
+      }
 
     </mat-card-content>
-
   </mat-card>
 </div>

@@ -15,6 +15,7 @@ export class ProdottoDialog implements OnInit {
   prodotto: any = signal(null);
   mod: any = signal('');
   msg = signal('');
+  categorie: any[] = [];
 
   updateForm: FormGroup;
 
@@ -41,6 +42,9 @@ export class ProdottoDialog implements OnInit {
   }
 
   ngOnInit(): void {
+    this.prodS.getCategorie().subscribe(res => {
+    this.categorie = res || [];
+
     if (this.mod() === 'U' && this.prodotto()) {
       this.updateForm.patchValue({
         nome: this.prodotto().nome,
@@ -54,6 +58,7 @@ export class ProdottoDialog implements OnInit {
         urlImmagine: this.prodotto().urlImmagine
       });
     }
+  });
   }
 
   onSubmit() {

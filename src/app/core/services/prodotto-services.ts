@@ -10,19 +10,27 @@ export class ProdottoServices {
 
   private url = "http://localhost:9090/rest/prodotto/";
 
-  constructor(private http: HttpClient,
-              private ItemsServices:ItemsServices
+  constructor(
+    private http: HttpClient,
+    private itemsS: ItemsServices
+  ) {}
 
-  ) { }
+  getCategorie() {
+    return this.http.get<any[]>('http://localhost:9090/rest/categorie/list');
+  }
 
-  create(body:{}){
+  create(body: {}) {
     return this.http.post(this.url + "create", body)
-      .pipe(tap(() => this.ItemsServices.list('prodotto')))
+      .pipe(tap(() => this.itemsS.list('prodotto')));
   }
 
-  update(body:{}){
+  update(body: {}) {
     return this.http.put(this.url + "update", body)
-      .pipe(tap(() => this.ItemsServices.list('prodotto')))
+      .pipe(tap(() => this.itemsS.list('prodotto')));
   }
 
+  delete(id: number) {
+    return this.http.delete(this.url + "delete/" + id)
+      .pipe(tap(() => this.itemsS.list('prodotto')));
+  }
 }

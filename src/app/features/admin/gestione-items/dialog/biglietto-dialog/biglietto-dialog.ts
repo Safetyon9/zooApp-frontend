@@ -33,7 +33,7 @@ export class BigliettoDialog implements OnInit {
       descrizione: new FormControl(''),
       tipoId: new FormControl(null, Validators.required),
       prezzo: new FormControl(null, Validators.required),
-      urlImmagine: new FormControl('', Validators.required)
+      urlImmagine: new FormControl('')
     });
   }
 
@@ -50,18 +50,19 @@ export class BigliettoDialog implements OnInit {
 
     this.bigliettiS.getTipi().subscribe(res => {
       this.tipi = res;
-    });
 
-    if (this.mod() === 'U' && this.biglietto()) {
+      if (this.mod() === 'U' && this.biglietto()) {
+        const tipoSelezionato = this.tipi.find(t => t.nome === this.biglietto().tipoNome);
+
         this.updateForm.patchValue({
           nome: this.biglietto().nome,
           descrizione: this.biglietto().descrizione,
-          tipoId: this.biglietto().tipo?.id,
+          tipoId: tipoSelezionato ? tipoSelezionato.id : null,
           prezzo: this.biglietto().prezzo,
           urlImmagine: this.biglietto().urlImmagine
-      });
-    }
-
+        });
+      }
+    });
   }
 
   onSubmit() {

@@ -1,7 +1,7 @@
 <div>
 
-  @if (mod() == 'U'){
-    <h2 mat-dialog-title>Dettaglio {{prodotto().nome}}</h2>
+  @if (mod() === 'U') {
+    <h2 mat-dialog-title>Modifica {{ prodotto().nome }}</h2>
   } @else {
     <h2 mat-dialog-title>Creazione nuovo prodotto</h2>
   }
@@ -12,9 +12,7 @@
 
   <mat-dialog-content>
 
-    <form [formGroup]="updateForm"
-          (ngSubmit)="onSubmit()"
-          class="form-grid">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
 
       <mat-form-field appearance="fill">
         <mat-label>Nome</mat-label>
@@ -23,16 +21,15 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Categoria</mat-label>
-        <input matInput type="number" formControlName="categoriaId">
+        <mat-select formControlName="categoriaId">
+          @for (c of categorie; track c.id) {
+            <mat-option [value]="c.id">{{ c.nome }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>SKU</mat-label>
-        <input matInput type="number" formControlName="sku">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Prezzo</mat-label>
+        <mat-label>Prezzo(€)</mat-label>
         <input matInput type="number" formControlName="prezzo">
       </mat-form-field>
 
@@ -42,13 +39,18 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Peso</mat-label>
-        <input matInput type="number" formControlName="peso">
+        <mat-label>SKU</mat-label>
+        <input matInput type="text" formControlName="sku">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Dimensioni</mat-label>
-        <input matInput type="number" formControlName="dimensioni">
+        <mat-label>Peso(kg)</mat-label>
+        <input matInput type="number" step="0.01" formControlName="peso">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Dimensioni(cm³)</mat-label>
+        <input matInput type="text" formControlName="dimensioni">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-row">
@@ -66,16 +68,12 @@
       </div>
 
       <div class="button-group full-row">
-        <button mat-raised-button color="primary"
-                type="submit"
-                [disabled]="!updateForm.valid">
-          {{ mod() == 'C' ? 'Crea' : 'Salva' }}
+        <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
+          {{ mod() === 'C' ? 'Crea' : 'Salva' }}
         </button>
 
-        @if (mod() == 'U'){
-          <button mat-raised-button color="warn"
-                  type="button"
-                  (click)="remove()">
+        @if (mod() === 'U') {
+          <button mat-raised-button color="warn" type="button" (click)="remove()">
             Cancella
           </button>
         }

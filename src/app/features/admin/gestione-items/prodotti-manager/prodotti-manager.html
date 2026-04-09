@@ -1,83 +1,105 @@
-<div class="container">
-  <mat-card>
-
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
     <mat-card-header class="header-row">
-      <mat-card-title>Elenco Prodotti</mat-card-title>
-
-      <button mat-raised-button color="primary" (click)="onCreateProdotto()">
+      <mat-card-title>Gestione Prodotti</mat-card-title>
+      <button mat-raised-button color="primary" type="button" (click)="onCreateProdotto()">
         Nuovo Prodotto
       </button>
     </mat-card-header>
 
-    <mat-divider style="margin-top: 20px;"></mat-divider>
+    <mat-divider></mat-divider>
 
     <mat-card-content>
 
       <div class="search-row">
-
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput [(ngModel)]="filtro.nome" (keyup)="search()">
+          <input matInput placeholder="Nome" [(ngModel)]="filtro.nome" (keyup)="search()" />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Categoria</mat-label>
-          <input matInput [(ngModel)]="filtro.categoriaId" (keyup)="search()">
+          <mat-select [(ngModel)]="filtro.categoriaId">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (c of categorie; track c.id) {
+              <mat-option [value]="c.id">{{ c.nome }}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Prezzo</mat-label>
-          <input matInput type="number" [(ngModel)]="filtro.prezzo" (keyup)="search()">
+        <mat-form-field appearance="outline">
+          <mat-label>Prezzo minimo</mat-label>
+          <input matInput type="number" min="0" [(ngModel)]="filtro.prezzo" (keyup)="search()" />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>SKU</mat-label>
-          <input matInput [(ngModel)]="filtro.sku" (keyup)="search()">
+          <input matInput [(ngModel)]="filtro.sku" (keyup)="search()" />
         </mat-form-field>
 
+        <span class="spacer"></span>
+
+        <button mat-raised-button color="accent" type="button" (click)="search()">
+          Filtra
+        </button>
       </div>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Prezzo(€)</th>
-            <th>Stock</th>
-            <th>Peso(kg)</th>
-            <th>Dim(cm^3)</th>
-            <th>SKU</th>
-          </tr>
-        </thead>
+      <mat-divider></mat-divider>
 
-        <tbody>
-          @for (p of prodotti; track p.id) {
-            <tr (click)="onSelected(p)" class="clickable-row">
-
-              <td>
-                @if(p.urlImmagine){
-                  <img [src]="p.urlImmagine" style="max-width: 80px;">
-                } @else {
-                  <img src="no_image.png" style="max-width: 80px;">
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento biglietti...</p>
+        </div>
+      } @else {
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>Immagine</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Prezzo(€)</th>
+                <th>Stock</th>
+                <th>Peso(kg)</th>
+                <th>Dim(cm³)</th>
+                <th>SKU</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+                @for (p of prodotti; track p.id) {
+                  <tr>
+                    <td>
+                      @if (p.urlImmagine) {
+                        <img [src]="p.urlImmagine" style="max-width:80px;">
+                      } @else {
+                        <img src="no_image.png" style="max-width:80px;">
+                      }
+                    </td>
+                    <td>{{ p.nome || '-' }}</td>
+                    <td>{{ p.categoriaNome || '-' }}</td>
+                    <td>{{ p.prezzo ?? '-' }}</td>
+                    <td>{{ p.stock ?? '-' }}</td>
+                    <td>{{ p.peso ?? '-' }}</td>
+                    <td>{{ p.dimensioni ?? '-' }}</td>
+                    <td>{{ p.sku || '-' }}</td>
+                    <td class="actions-cell">
+                      <button type="button" class="text-button" (click)="eseguoUpdate(p); $event.stopPropagation()">
+                        Modifica
+                      </button>
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="5" class="empty-cell">Nessun prodotto trovato.</td>
+                  </tr>
                 }
-              </td>
+              </tbody>
 
-              <td>{{p.nome}}</td>
-              <td>{{p.categoriaId}}</td>
-              <td>{{p.prezzo}}</td>
-              <td>{{p.stock}}</td>
-              <td>{{p.peso}}</td>
-              <td>{{p.dimensioni}}</td>
-              <td>{{p.sku}}</td>
-
-            </tr>
-          }
-        </tbody>
-
-      </table>
-
+          </table>
+        </div>
+      }
     </mat-card-content>
-
   </mat-card>
 </div>
