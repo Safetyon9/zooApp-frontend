@@ -15,17 +15,22 @@
 
       <div class="search-row">
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
           <input matInput [(ngModel)]="filtro.nome" (keyup)="search()">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput [(ngModel)]="filtro.tipoNome" (keyup)="search()">
+          <mat-select [(ngModel)]="filtro.tipoId" (selectionChange)="search()">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (t of tipi; track t.id) {
+              <mat-option [value]="t.id">@t.nome</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Prezzo</mat-label>
           <input matInput type="number" [(ngModel)]="filtro.prezzo" (keyup)="search()">
         </mat-form-field>
@@ -39,7 +44,7 @@
             <th>Nome</th>
             <th>Descrizione</th>
             <th>Tipo</th>
-            <th>Prezzo</th>
+            <th>Prezzo(€)</th>
           </tr>
         </thead>
 

@@ -16,9 +16,11 @@ export class BigliettiManager {
 
   filtro = {
     nome: '',
-    tipoNome: '',
+    tipoId: null,
     prezzo: null
   };
+
+  tipi: any[] = [];
 
   constructor(
     private itemsS: ItemsServices,
@@ -28,37 +30,33 @@ export class BigliettiManager {
 
   ngOnInit() {
     this.itemsS.list('biglietti');
+
+    this.bigliettiS.getTipi().subscribe(res => {
+      this.tipi = res;
+    });
   }
 
-  get biglietti() { return this.itemsS.biglietti(); }
+  get biglietti() {
+    return this.itemsS.biglietti();
+  }
 
-  search() { this.itemsS.search(this.filtro, 'biglietti'); }
+  search() {
+    this.itemsS.search(this.filtro, 'biglietti');
+  }
 
   onCreateBiglietto() {
     const dialogComponent: ComponentType<any> = BigliettoDialog;
-
-    this.util.openDialog(dialogComponent, { 
-      mod: 'C', 
-      biglietto: null 
-    });
+    this.util.openDialog(dialogComponent, { mod: 'C', biglietto: null });
   }
 
   onSelected(row: any) {
     const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
-    
     dialogRef.afterClosed().subscribe(choice => {
       if (choice === 'update') this.eseguoUpdate(row);
-      //else if (choice === 'upload') this.eseguoUpload(row);
     });
   }
 
   eseguoUpdate(row: any) {
     this.util.openDialog(BigliettoDialog, { mod: 'U', biglietto: row });
   }
-
-  /*
-  eseguoUpload(row: any) {
-    this.util.openDialog(UploadDialog, { biglietto: row });
-  }
-  */
 }
