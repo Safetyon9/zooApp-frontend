@@ -37,7 +37,7 @@ export class AdminChangePwd {
         this.success.set(true);
         this.msg.set('Password cambiata con successo!');
         setTimeout(() => {
-          this.routing.navigate(['/utente']);
+          this.routing.navigate(['admin']);
         }, 2000);
       },
       error: (r: any) => {
