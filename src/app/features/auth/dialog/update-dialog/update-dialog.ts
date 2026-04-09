@@ -13,7 +13,6 @@ import { AuthServices } from '../../../../core/services/auth-services';
 export class UpdateDialog implements OnInit {
   account = signal<any>(null);
   mod: any = 'U';
-
   isAdminLoggato = false;
 
   updateForm = new FormGroup({
@@ -67,7 +66,6 @@ export class UpdateDialog implements OnInit {
       });
     }
 
-    // Validazioni: se non sei admin, non puoi toccare il ruolo
     if (!this.isAdminLoggato) {
       this.updateForm.get('role')?.clearValidators();
     } else {

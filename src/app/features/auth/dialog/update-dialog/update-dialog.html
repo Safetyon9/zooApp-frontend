@@ -1,76 +1,99 @@
-<div class="dialog-container">
-  <button class="close-button" mat-icon-button mat-dialog-close>
+<mat-dialog-content class="dialog-container">
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
     <mat-icon>close</mat-icon>
   </button>
 
-  <h2>Modifica Utente</h2>
-
-  <form [formGroup]="updateForm" class="dialog-form">
-    <mat-form-field appearance="outline" style="display: none;">
-      <mat-label>UserName*</mat-label>
-      <input matInput formControlName="username" readonly />
-    </mat-form-field>
-
-    <div class="form-grid">
-      <mat-form-field appearance="outline">
-        <mat-label>Email*</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Ruolo</mat-label>
-        <mat-select formControlName="role">
-          <mat-option value="ADMIN">ADMIN</mat-option>
-          <mat-option value="USER">USER</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      @if (!isAdmin) {
-        <mat-form-field appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Cognome</mat-label>
-          <input matInput formControlName="cognome" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Telefono</mat-label>
-          <input matInput formControlName="telefono" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Via</mat-label>
-          <input matInput formControlName="via" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Comune</mat-label>
-          <input matInput formControlName="comune" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Provincia</mat-label>
-          <input matInput formControlName="provincia" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Cap</mat-label>
-          <input matInput formControlName="cap" />
-        </mat-form-field>
-      }
-    </div>
-
-    @if (msg()) {
-      <div class="error-message">{{ msg() }}</div>
-    }
-
-    <div class="dialog-actions">
-      <button mat-raised-button type="button" (click)="onSubmit()">
+  <mat-card class="dialog-card">
+    <mat-card-header class="dialog-header">
+      <mat-card-title class="dialog-title">
         Modifica utente
-      </button>
-    </div>
-  </form>
-</div>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="dialog-content">
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+
+        @if (!isAdminLoggato) {
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Cognome</mat-label>
+            <input matInput type="text" formControlName="cognome">
+          </mat-form-field>
+        }
+
+        <mat-form-field appearance="fill" class="col-2">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email">
+        </mat-form-field>
+
+        @if (isAdminLoggato) {
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Ruolo</mat-label>
+            <mat-select formControlName="role">
+              <mat-option value="USER">USER</mat-option>
+              <mat-option value="ADMIN">ADMIN</mat-option>
+            </mat-select>
+          </mat-form-field>
+        }
+
+        @if (!isAdminLoggato) {
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Telefono</mat-label>
+            <input matInput type="text" formControlName="telefono">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Via</mat-label>
+            <input matInput type="text" formControlName="via">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-1">
+            <mat-label>Comune</mat-label>
+            <input matInput type="text" formControlName="comune">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-1">
+            <mat-label>Provincia</mat-label>
+            <input matInput type="text" formControlName="provincia">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-1">
+            <mat-label>Cap</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="cap"
+              maxlength="5"
+              pattern="[0-9]*"
+              inputmode="numeric">
+          </mat-form-field>
+        }
+
+        <mat-form-field appearance="fill" class="col-4">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" readonly>
+        </mat-form-field>
+
+        <div class="msg-error col-4">
+          <span>{{ msg() }}</span>
+        </div>
+
+        <div class="button-group col-4">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!updateForm.valid"
+            matTooltip="Salvare le modifiche">
+            Salva modifiche
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
