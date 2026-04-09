@@ -1,0 +1,58 @@
+<div>
+
+  @if (mod() == 'U'){
+    <h2 mat-dialog-title>Dettaglio {{evento().tipoEvento}}</h2>
+  } @else {
+    <h2 mat-dialog-title>Creazione nuovo evento</h2>
+  }
+
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-dialog-content>
+
+    <form [formGroup]="updateForm"
+          (ngSubmit)="onSubmit()"
+          class="form-grid">
+
+      <mat-form-field appearance="fill" class="full-row">
+        <mat-label>Tipo Evento</mat-label>
+        <input matInput type="text" formControlName="tipoEvento">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Data Inizio</mat-label>
+        <input matInput type="date" formControlName="dataInizio">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Data Fine</mat-label>
+        <input matInput type="date" formControlName="dataFine">
+      </mat-form-field>
+
+      <div class="msg-error full-row">
+        <span style="color:red">{{ msg() }}</span>
+      </div>
+
+      <div class="button-group full-row">
+        <button mat-raised-button color="primary"
+                type="submit"
+                [disabled]="!updateForm.valid">
+          {{ mod() == 'C' ? 'Crea' : 'Salva' }}
+        </button>
+
+        @if (mod() == 'U'){
+          <button mat-raised-button color="warn"
+                  type="button"
+                  (click)="remove()">
+            Cancella
+          </button>
+        }
+      </div>
+
+    </form>
+
+  </mat-dialog-content>
+
+</div>

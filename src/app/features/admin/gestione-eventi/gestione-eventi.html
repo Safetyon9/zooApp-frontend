@@ -1,1 +1,41 @@
-<p>gestione-eventi works!</p>
+<div class="container">
+  <mat-card>
+
+    <mat-card-header class="header-row">
+      <mat-card-title>Elenco Eventi</mat-card-title>
+
+      <button mat-raised-button color="primary" (click)="onCreateEvento()">
+        Nuovo Evento
+      </button>
+    </mat-card-header>
+
+    <mat-divider style="margin-top: 20px;"></mat-divider>
+
+    <mat-card-content>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Tipo Evento</th>
+            <th>Data Inizio</th>
+            <th>Data Fine</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (e of eventi; track e.id) {
+            <tr (click)="onSelected(e)" class="clickable-row">
+              <td>{{e.id}}</td>
+              <td>{{e.tipoEvento}}</td>
+              <td>{{e.dataInizio}}</td>
+              <td>{{e.dataFine}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
