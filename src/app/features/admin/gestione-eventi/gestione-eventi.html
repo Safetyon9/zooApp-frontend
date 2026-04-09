@@ -13,6 +13,25 @@
 
     <mat-card-content>
 
+      <div class="search-row">
+
+        <mat-form-field>
+          <mat-label>Tipo Evento</mat-label>
+          <input matInput [(ngModel)]="filtro.tipoEvento" (keyup)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Data Inizio</mat-label>
+          <input matInput type="date" [(ngModel)]="filtro.dataInizio" (change)="search()">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Data Fine</mat-label>
+          <input matInput type="date" [(ngModel)]="filtro.dataFine" (change)="search()">
+        </mat-form-field>
+
+      </div>
+
       <table class="table table-striped">
         <thead>
           <tr>
@@ -33,6 +52,7 @@
             </tr>
           }
         </tbody>
+
       </table>
 
     </mat-card-content>

@@ -13,6 +13,12 @@ import { SceltaUpdateDialog } from '../gestione-items/dialog/scelta-update-dialo
 })
 export class GestioneEventi {
 
+  filtro = {
+    tipoEvento: '',
+    dataInizio: null,
+    dataFine: null
+  };
+
   constructor(
     private eventiS: EventiServices,
     private util: Utilities
@@ -23,6 +29,10 @@ export class GestioneEventi {
   }
 
   get eventi() { return this.eventiS.eventi(); }
+
+  search() {
+    this.eventiS.search(this.filtro);
+  }
 
   onCreateEvento() {
     const dialogComponent: ComponentType<any> = EventoDialog;
