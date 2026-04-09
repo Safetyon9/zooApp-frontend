@@ -14,7 +14,6 @@ export class UpdateDialog implements OnInit {
   account = signal<any>(null);
   mod: any = 'U';
 
-  // admin loggato (non il profilo!)
   isAdminLoggato = false;
 
   updateForm = new FormGroup({
@@ -93,9 +92,6 @@ export class UpdateDialog implements OnInit {
 
     const accountData = this.account();
 
-    // ruolo da mandare:
-    // - se admin loggato: quello scelto nel form
-    // - se non admin: mantieni quello che aveva prima
     const roleToSend = this.isAdminLoggato
       ? (this.updateForm.value.role ?? 'USER')
       : (accountData?.role ?? 'USER');
