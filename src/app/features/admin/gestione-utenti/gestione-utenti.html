@@ -13,17 +13,67 @@
       <div class="search-row">
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
-          <input matInput placeholder="userName" [(ngModel)]="userName" />
+          <input
+            matInput
+            name="userName"
+            placeholder="userName"
+            [(ngModel)]="filters.userName" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="nome" [(ngModel)]="nome" />
+          <input
+            matInput
+            name="nome"
+            placeholder="nome"
+            [(ngModel)]="filters.nome" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Cognome</mat-label>
-          <input matInput placeholder="cognome" [(ngModel)]="cognome" />
+          <input
+            matInput
+            name="cognome"
+            placeholder="cognome"
+            [(ngModel)]="filters.cognome" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            name="email"
+            placeholder="email"
+            [(ngModel)]="filters.email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ruolo</mat-label>
+          <mat-select
+            name="role"
+            [(ngModel)]="filters.role">
+            <mat-option value="">Tutti</mat-option>
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Comune</mat-label>
+          <input
+            matInput
+            name="comune"
+            placeholder="comune"
+            [(ngModel)]="filters.comune" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input
+            matInput
+            name="telefono"
+            placeholder="telefono"
+            [(ngModel)]="filters.telefono" />
         </mat-form-field>
 
         <span class="spacer"></span>
@@ -34,6 +84,13 @@
           type="button"
           (click)="search()">
           Cerca
+        </button>
+
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="resetSearch()">
+          Reset
         </button>
       </div>
 

@@ -11,9 +11,15 @@ import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialo
   standalone: false
 })
 export class GestioneUtente implements OnInit {
-  userName: string | null = null;
-  nome: string | null = null;
-  cognome: string | null = null;
+  filters = {
+    userName: '',
+    nome: '',
+    cognome: '',
+    email: '',
+    role: '',
+    comune: '',
+    telefono: ''
+  };
 
   profili: any[] = [];
   loading = false;
@@ -32,29 +38,38 @@ export class GestioneUtente implements OnInit {
     this.loading = true;
 
     this.utenteServices.list(
-      this.userName ?? undefined,
-      this.nome ?? undefined,
-      this.cognome ?? undefined
+      this.toQuery(this.filters.userName),
+      this.toQuery(this.filters.nome),
+      this.toQuery(this.filters.cognome)
     ).subscribe({
       next: (resp: any[]) => {
+        const lista = (resp || []).map((r: any) => ({
+          userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
+          email: r.email ?? '',
+          role: r.role ?? '',
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          indirizzo: r.indirizzo ?? '',
+          comune: r.comune ?? '',
+          cap: r.cap ?? '',
+          telefono: r.telefono ?? '',
+          provincia: r.provincia ?? '',
+          isOnline: r.isActive === true || r.isActive === 'true',
+          expanded: false,
+          loadingDettaglio: false,
+          dettaglioCaricato: false,
+          isCliente: (r.role ?? '') === 'USER'
+        }));
 
-        this.profili = (resp || []).map((r: any) => ({
-            userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
-            email: r.email ?? '',
-            role: r.role ?? '',
-            nome: r.nome ?? '',
-            cognome: r.cognome ?? '',
-            indirizzo: r.indirizzo ?? '',
-            comune: r.comune ?? '',
-            cap: r.cap ?? '',
-            telefono: r.telefono ?? '',
-            provincia: r.provincia ?? '',
-            isOnline: r.isActive === true || r.isActive === 'true',
-            expanded: false,
-            loadingDettaglio: false,
-            dettaglioCaricato: false,
-            isCliente: (r.role ?? '') === 'USER'
-          }));
+        this.profili = lista.filter((p: any) =>
+          this.match(p.userName, this.filters.userName) &&
+          this.match(p.nome, this.filters.nome) &&
+          this.match(p.cognome, this.filters.cognome) &&
+          this.match(p.email, this.filters.email) &&
+          this.matchExact(p.role, this.filters.role) &&
+          this.match(p.comune, this.filters.comune) &&
+          this.match(p.telefono, this.filters.telefono)
+        );
 
         this.loading = false;
         this.cdr.detectChanges();
@@ -68,11 +83,39 @@ export class GestioneUtente implements OnInit {
     });
   }
 
-  private caricaDettaglioProfilo(profilo: any, callback?: () => void): void {
-    if (!profilo) {
-      return;
-    }
+  resetSearch(): void {
+    this.filters = {
+      userName: '',
+      nome: '',
+      cognome: '',
+      email: '',
+      role: '',
+      comune: '',
+      telefono: ''
+    };
+    this.search();
+  }
 
+  private norm(value: any): string {
+    return String(value ?? '').trim().toLowerCase();
+  }
+
+  private toQuery(value: string): string | undefined {
+    return this.norm(value) || undefined;
+  }
+
+  private match(value: any, filter: string): boolean {
+    const f = this.norm(filter);
+    return !f || this.norm(value).includes(f);
+  }
+
+  private matchExact(value: any, filter: string): boolean {
+    const f = this.norm(filter);
+    return !f || this.norm(value) === f;
+  }
+
+  private caricaDettaglioProfilo(profilo: any, callback?: () => void): void {
+    if (!profilo) return;
     if (profilo.dettaglioCaricato) {
       callback?.();
       return;
@@ -83,20 +126,21 @@ export class GestioneUtente implements OnInit {
 
     this.utenteServices.findAllByUserName(profilo.userName).subscribe({
       next: (r: any) => {
-
-        profilo.nome = r.nome ?? '';
-        profilo.cognome = r.cognome ?? '';
-        profilo.telefono = r.telefono ?? '';
-        profilo.indirizzo = r.indirizzo ?? '';
-        profilo.comune = r.comune ?? '';
-        profilo.cap = r.cap ?? '';
-        profilo.provincia = r.provincia ?? '';
-        profilo.email = r.email ?? profilo.email ?? '';
-        profilo.role = r.role ?? profilo.role ?? '';
-        profilo.isOnline = !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline);
-
-        profilo.dettaglioCaricato = true;
-        profilo.loadingDettaglio = false;
+        Object.assign(profilo, {
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          telefono: r.telefono ?? '',
+          indirizzo: r.indirizzo ?? '',
+          comune: r.comune ?? '',
+          cap: r.cap ?? '',
+          provincia: r.provincia ?? '',
+          email: r.email ?? profilo.email ?? '',
+          role: r.role ?? profilo.role ?? '',
+          isOnline: !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline),
+          dettaglioCaricato: true,
+          loadingDettaglio: false,
+          isCliente: (r.role ?? profilo.role ?? '') === 'USER'
+        });
 
         this.cdr.detectChanges();
         callback?.();
@@ -110,9 +154,7 @@ export class GestioneUtente implements OnInit {
   }
 
   toggleDettaglio(profilo: any): void {
-    if (!profilo.isCliente) {
-      return;
-    }
+    if (!profilo.isCliente) return;
 
     if (profilo.expanded) {
       profilo.expanded = false;
@@ -127,61 +169,34 @@ export class GestioneUtente implements OnInit {
   }
 
   create(): void {
-  const dialogRef = this.util.openDialog(
-    RegisterDialog,
-    {
-      mode: 'C'
-    },
-    {
-      width: '720px',
-      maxWidth: '95vw',
-      height: 'auto'
-    }
-  );
-
-  if (dialogRef?.afterClosed) {
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        setTimeout(() => {
-          this.search();
-        }, 0);
-      }
-    });
-  }
-}
-
-  modificaProfilo(profilo: any): void {
-  this.caricaDettaglioProfilo(profilo, () => {
     const dialogRef = this.util.openDialog(
-      UpdateDialog,
-      {
-        account: { ...profilo },
-        mode: 'U'
-      },
-      {
-        width: '720px',
-        maxWidth: '95vw',
-        height: 'auto'
-      }
+      RegisterDialog,
+      { mode: 'C' },
+      { width: '720px', maxWidth: '95vw', height: 'auto' }
     );
 
-    if (dialogRef?.afterClosed) {
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result) {
-          setTimeout(() => {
-            this.search();
-          }, 0);
-        }
+    dialogRef?.afterClosed()?.subscribe((result: any) => {
+      if (result) setTimeout(() => this.search(), 0);
+    });
+  }
+
+  modificaProfilo(profilo: any): void {
+    this.caricaDettaglioProfilo(profilo, () => {
+      const dialogRef = this.util.openDialog(
+        UpdateDialog,
+        { account: { ...profilo }, mode: 'U' },
+        { width: '720px', maxWidth: '95vw', height: 'auto' }
+      );
+
+      dialogRef?.afterClosed()?.subscribe((result: any) => {
+        if (result) setTimeout(() => this.search(), 0);
       });
-    }
-  });
+    });
   }
 
   eliminaProfilo(profilo: any): void {
     const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${profilo.userName}"?`);
-    if (!conferma) {
-      return;
-    }
+    if (!conferma) return;
 
     this.utenteServices.delete(profilo.userName).subscribe({
       next: () => {
