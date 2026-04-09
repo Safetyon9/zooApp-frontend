@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Conferma eliminazione</h2>
+
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close(false)">Annulla</button>
+  <button mat-raised-button color="warn" (click)="dialogRef.close(true)">Elimina</button>
+</mat-dialog-actions>
