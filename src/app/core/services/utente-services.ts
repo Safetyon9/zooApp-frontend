@@ -51,6 +51,10 @@ export class UtenteServices {
     return this.http.put(this.url + 'changePwd', body);
   }
 
+  logout(userName: string) {
+    return this.http.post(this.url + 'logout/' + userName, {});
+  }
+  
   list(userName?: string, nome?: string, cognome?: string, role?: string) {
     let params = new HttpParams();
 

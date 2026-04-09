@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AuthServices } from '../../../core/services/auth-services';
+import { UtenteServices } from '../../../core/services/utente-services';
 
 @Component({
   selector: 'app-navbar-utente',
@@ -17,7 +18,8 @@ export class NavbarUtente {
   constructor(
     public auth: AuthServices,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private utenteServices: UtenteServices
   ) {}
 
   goHome(): void {
@@ -25,7 +27,7 @@ export class NavbarUtente {
   }
 
   openProfile(): void {
-     this.router.navigate(['utente']);
+    this.router.navigate(['utente']);
   }
 
   changePWD(): void {
@@ -37,14 +39,30 @@ export class NavbarUtente {
   }
 
   logout(): void {
-    this.auth.resetAll();
-    
-    this.router.navigate(['']);
+    const userName = localStorage.getItem('userId');
+    console.log("PROVAAA")
+    if (!userName) {
+      this.auth.resetAll();
+      this.router.navigate(['']);
+      console.log("ERRORE no USERNAME")
+      return;
+    }
+
+    this.utenteServices.logout(userName).subscribe({
+      next: () => {
+        console.log("asdadsasda")
+        this.auth.resetAll();
+        this.router.navigate(['']);
+      },
+      error: (err: any) => {
+        console.error('Errore logout backend', err);
+        this.auth.resetAll();
+        this.router.navigate(['']);
+      }
+    });
   }
 
-  
+  delete(): void {
 
-  delete(): void{
-    
   }
 }
