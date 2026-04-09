@@ -4,7 +4,6 @@ import { Home } from './features/public/home/home';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
-import { AdminDashboard } from './features/admin/admin-dashboard/admin-dashboard';
 import { authAutentificatedGuard } from './core/guards/auth-guard';
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
@@ -14,6 +13,7 @@ import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
+import { GestioneOridini } from './features/admin/gestione-oridini/gestione-oridini';
 import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
@@ -58,15 +58,17 @@ const routes: Routes = [
     component: AdminLayout,
     canActivate: [authAutentificatedGuard],
     children: [
-      { path: '', component: AdminDashboard },
+      { path: '', component: GestioneUtente },
+
+      { path: 'utenti', component: GestioneUtente },
 
       { path: 'items', component: GestioneItems },
       { path: 'items/prodotti', component: ProdottiManager },
       { path: 'items/biglietti', component: BigliettiManager },
 
-      { path: 'utenti', component: GestioneUtente },
-
       { path: 'eventi', component: GestioneEventi },
+
+      { path: 'ordini', component: GestioneOridini },
 
       { path: 'modify', component: AdminChangePwd }
     ]

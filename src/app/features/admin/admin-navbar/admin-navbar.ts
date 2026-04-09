@@ -36,6 +36,10 @@ export class AdminNavbar {
     this.router.navigate(['/admin/eventi']);
   }
 
+  openGestioneOrdini(): void {
+    this.router.navigate(['/admin/ordini']);
+  }
+
   changePWD(): void {
     this.router.navigate(['/admin/modify']);
   }

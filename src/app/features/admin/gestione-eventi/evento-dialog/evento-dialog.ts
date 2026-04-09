@@ -89,10 +89,6 @@ export class EventoDialog implements OnInit {
     });
   }
 
-  cancel() {
-    this.dialogRef.close(false);
-  }
-
   private toDateOnly(date: any): string | null {
   if (!date) return null;
 

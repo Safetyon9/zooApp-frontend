@@ -45,14 +45,6 @@
                 [disabled]="!updateForm.valid">
           {{ mod() == 'C' ? 'Crea' : 'Salva' }}
         </button>
-
-        @if (mod() == 'U'){
-          <button mat-raised-button color="warn"
-                  type="button"
-                  (click)="remove()">
-            Cancella
-          </button>
-        }
       </div>
 
     </form>
