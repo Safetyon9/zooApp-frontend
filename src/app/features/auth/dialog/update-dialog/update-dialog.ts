@@ -14,9 +14,9 @@ export class UpdateDialog implements OnInit {
   account = signal<any>(null);
   mod: any = 'U';
 
-  // fix tampone + nome coerente
   isAdmin = false;
   isAdminLoggato = false;
+  profiloIsAdmin = false;
 
   updateForm = new FormGroup({
     username: new FormControl<string | null>(null, Validators.required),
@@ -55,6 +55,7 @@ export class UpdateDialog implements OnInit {
 
     this.isAdmin = this.auth.isRoleAdmin();
     this.isAdminLoggato = this.isAdmin;
+    this.profiloIsAdmin = (accountData?.role ?? 'USER') === 'ADMIN';
 
     if (this.mod === 'U' && accountData) {
       this.updateForm.patchValue({
@@ -71,13 +72,48 @@ export class UpdateDialog implements OnInit {
       });
     }
 
-    if (!this.isAdminLoggato) {
-      this.updateForm.get('role')?.clearValidators();
-    } else {
+    if (this.isAdminLoggato) {
       this.updateForm.get('role')?.setValidators([Validators.required]);
+      this.updateForm.get('role')?.enable();
+    } else {
+      this.updateForm.get('role')?.clearValidators();
+      this.updateForm.get('role')?.disable();
+    }
+
+    if (!this.profiloIsAdmin) {
+      this.updateForm.get('nome')?.setValidators([Validators.required]);
+      this.updateForm.get('cognome')?.setValidators([Validators.required]);
+      this.updateForm.get('comune')?.setValidators([Validators.required]);
+
+      this.updateForm.get('nome')?.enable();
+      this.updateForm.get('cognome')?.enable();
+      this.updateForm.get('telefono')?.enable();
+      this.updateForm.get('via')?.enable();
+      this.updateForm.get('comune')?.enable();
+      this.updateForm.get('provincia')?.enable();
+      this.updateForm.get('cap')?.enable();
+    } else {
+      this.updateForm.get('nome')?.clearValidators();
+      this.updateForm.get('cognome')?.clearValidators();
+      this.updateForm.get('comune')?.clearValidators();
+
+      this.updateForm.get('nome')?.disable();
+      this.updateForm.get('cognome')?.disable();
+      this.updateForm.get('telefono')?.disable();
+      this.updateForm.get('via')?.disable();
+      this.updateForm.get('comune')?.disable();
+      this.updateForm.get('provincia')?.disable();
+      this.updateForm.get('cap')?.disable();
     }
 
     this.updateForm.get('role')?.updateValueAndValidity();
+    this.updateForm.get('nome')?.updateValueAndValidity();
+    this.updateForm.get('cognome')?.updateValueAndValidity();
+    this.updateForm.get('telefono')?.updateValueAndValidity();
+    this.updateForm.get('via')?.updateValueAndValidity();
+    this.updateForm.get('comune')?.updateValueAndValidity();
+    this.updateForm.get('provincia')?.updateValueAndValidity();
+    this.updateForm.get('cap')?.updateValueAndValidity();
   }
 
   onSubmit(): void {
@@ -96,23 +132,23 @@ export class UpdateDialog implements OnInit {
     const accountData = this.account();
 
     const roleToSend = this.isAdminLoggato
-      ? (this.updateForm.value.role ?? 'USER')
+      ? (this.updateForm.getRawValue().role ?? 'USER')
       : (accountData?.role ?? 'USER');
 
     const body: any = {
       utente: {
-        username: this.updateForm.value.username,
-        email: this.updateForm.value.email,
+        username: this.updateForm.getRawValue().username,
+        email: this.updateForm.getRawValue().email,
         role: roleToSend,
       },
-      cliente: {
-        nome: this.updateForm.value.nome,
-        cognome: this.updateForm.value.cognome,
-        indirizzo: this.updateForm.value.via,
-        comune: this.updateForm.value.comune,
-        provincia: this.updateForm.value.provincia,
-        cap: this.updateForm.value.cap,
-        telefono: this.updateForm.value.telefono,
+      cliente: this.profiloIsAdmin ? null : {
+        nome: this.updateForm.getRawValue().nome,
+        cognome: this.updateForm.getRawValue().cognome,
+        indirizzo: this.updateForm.getRawValue().via,
+        comune: this.updateForm.getRawValue().comune,
+        provincia: this.updateForm.getRawValue().provincia,
+        cap: this.updateForm.getRawValue().cap,
+        telefono: this.updateForm.getRawValue().telefono,
       }
     };
 
