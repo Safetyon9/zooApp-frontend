@@ -61,6 +61,7 @@ import { ProdottiManager } from './features/admin/gestione-items/prodotti-manage
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
+import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-m
     BigliettoDialog,
     ShopBiglietti,
     ShopMerch,
+    EventoDialog,
     SafePipe
   ],
   imports: [
