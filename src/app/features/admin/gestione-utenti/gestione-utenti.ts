@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
+import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
 
 @Component({
   selector: 'app-gestione-utente',
@@ -36,28 +37,25 @@ export class GestioneUtente implements OnInit {
       this.cognome ?? undefined
     ).subscribe({
       next: (resp: any[]) => {
-        console.log('RISPOSTA BACKEND LIST:', resp);
 
         this.profili = (resp || []).map((r: any) => ({
-          userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
-          email: r.email ?? '',
-          role: r.role ?? '',
-          nome: r.nome ?? '',
-          cognome: r.cognome ?? '',
-          indirizzo: r.indirizzo ?? '',
-          comune: r.comune ?? '',
-          cap: r.cap ?? '',
-          telefono: r.telefono ?? '',
-          provincia: r.provincia ?? '',
-          // QUI prendiamo sia isOnline che online, poi forziamo a boolean
-          isOnline: !!(r.isOnline ?? r.online ?? r.isonline),
-          expanded: false,
-          loadingDettaglio: false,
-          dettaglioCaricato: false,
-          isCliente: (r.role ?? '') === 'USER'
-        }));
+            userName: r.userName ?? r.username ?? r.utenteUsername ?? '',
+            email: r.email ?? '',
+            role: r.role ?? '',
+            nome: r.nome ?? '',
+            cognome: r.cognome ?? '',
+            indirizzo: r.indirizzo ?? '',
+            comune: r.comune ?? '',
+            cap: r.cap ?? '',
+            telefono: r.telefono ?? '',
+            provincia: r.provincia ?? '',
+            isOnline: r.isActive === true || r.isActive === 'true',
+            expanded: false,
+            loadingDettaglio: false,
+            dettaglioCaricato: false,
+            isCliente: (r.role ?? '') === 'USER'
+          }));
 
-        console.log('PROFILI MAPPATI:', this.profili);
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -85,7 +83,6 @@ export class GestioneUtente implements OnInit {
 
     this.utenteServices.findAllByUserName(profilo.userName).subscribe({
       next: (r: any) => {
-        console.log('DETTAGLIO BACKEND:', r);
 
         profilo.nome = r.nome ?? '';
         profilo.cognome = r.cognome ?? '';
@@ -96,7 +93,6 @@ export class GestioneUtente implements OnInit {
         profilo.provincia = r.provincia ?? '';
         profilo.email = r.email ?? profilo.email ?? '';
         profilo.role = r.role ?? profilo.role ?? '';
-        // mantieni coerente anche lo stato online
         profilo.isOnline = !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline);
 
         profilo.dettaglioCaricato = true;
@@ -131,32 +127,54 @@ export class GestioneUtente implements OnInit {
   }
 
   create(): void {
-    console.log('Creazione nuovo cliente');
-  }
+  const dialogRef = this.util.openDialog(
+    RegisterDialog,
+    {
+      mode: 'C'
+    },
+    {
+      width: '720px',
+      maxWidth: '95vw',
+      height: 'auto'
+    }
+  );
 
-  modificaProfilo(profilo: any): void {
-    this.caricaDettaglioProfilo(profilo, () => {
-      const dialogRef = this.util.openDialog(
-        UpdateDialog,
-        {
-          account: { ...profilo },
-          mode: 'U'
-        },
-        {
-          width: '720px',
-          maxWidth: '95vw',
-          height: 'auto'
-        }
-      );
-
-      if (dialogRef?.afterClosed) {
-        dialogRef.afterClosed().subscribe((result: any) => {
-          if (result) {
-            this.search();
-          }
-        });
+  if (dialogRef?.afterClosed) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        setTimeout(() => {
+          this.search();
+        }, 0);
       }
     });
+  }
+}
+
+  modificaProfilo(profilo: any): void {
+  this.caricaDettaglioProfilo(profilo, () => {
+    const dialogRef = this.util.openDialog(
+      UpdateDialog,
+      {
+        account: { ...profilo },
+        mode: 'U'
+      },
+      {
+        width: '720px',
+        maxWidth: '95vw',
+        height: 'auto'
+      }
+    );
+
+    if (dialogRef?.afterClosed) {
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          setTimeout(() => {
+            this.search();
+          }, 0);
+        }
+      });
+    }
+  });
   }
 
   eliminaProfilo(profilo: any): void {

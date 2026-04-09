@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { AuthServices } from '../../../../core/services/auth-services';
 
 @Component({
   selector: 'app-register-dialog',
@@ -33,6 +34,14 @@ import { HttpClient } from '@angular/common/http';
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput type="email" name="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Ruolo</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN" *ngIf="isAdminLoggato">ADMIN</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -106,11 +115,13 @@ import { HttpClient } from '@angular/common/http';
 export class RegisterDialog implements OnInit {
   account = signal<any>(null);
   mod: any = 'C';
+  isAdminLoggato = false;
 
   updateForm = new FormGroup({
     nome: new FormControl<string | null>(null, Validators.required),
     cognome: new FormControl<string | null>(null, Validators.required),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+    role: new FormControl<string | null>('USER', Validators.required),
     telefono: new FormControl<string | null>(null),
     via: new FormControl<string | null>(null),
     comune: new FormControl<string | null>(null, Validators.required),
@@ -127,7 +138,8 @@ export class RegisterDialog implements OnInit {
   constructor(
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<RegisterDialog>
+    private dialogRef: MatDialogRef<RegisterDialog>,
+    private auth: AuthServices
   ) {
     if (data) {
       this.account.set(data.account);
@@ -136,11 +148,14 @@ export class RegisterDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.mod == 'U' && this.account()) {
+    this.isAdminLoggato = this.auth.isRoleAdmin();
+
+    if (this.mod === 'U' && this.account()) {
       this.updateForm.patchValue({
         nome: this.account().nome,
         cognome: this.account().cognome,
         email: this.account().email,
+        role: this.account().role ?? 'USER',
         telefono: this.account().telefono,
         via: this.account().via,
         comune: this.account().comune,
@@ -151,11 +166,11 @@ export class RegisterDialog implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.onSubmitCreate();
   }
 
-  onSubmitCreate() {
+  onSubmitCreate(): void {
     this.msg.set('');
 
     if (this.updateForm.value.pwd !== this.updateForm.value.pwdControl) {
@@ -163,12 +178,16 @@ export class RegisterDialog implements OnInit {
       return;
     }
 
+    const roleSelezionato = this.isAdminLoggato
+      ? (this.updateForm.value.role ?? 'USER')
+      : 'USER';
+
     const body = {
       utente: {
         username: this.updateForm.value.username,
         email: this.updateForm.value.email,
         pwd: this.updateForm.value.pwd,
-        role: 'USER',
+        role: roleSelezionato,
       },
       cliente: {
         nome: this.updateForm.value.nome,
@@ -184,11 +203,9 @@ export class RegisterDialog implements OnInit {
 
     this.http.post(`${this.baseUrl}/register`, body).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         this.dialogRef.close(resp);
       },
       error: (resp: any) => {
-        console.log(resp.error?.msg);
         this.msg.set(resp.error?.msg || 'Errore in registrazione');
       },
     });
