@@ -52,6 +52,7 @@ export class UtenteServices {
   }
 
   logout(userName: string) {
+    console.log("LOGOUT SU UTENTE SERVICES")
     return this.http.post(this.url + 'logout/' + userName, {});
   }
   

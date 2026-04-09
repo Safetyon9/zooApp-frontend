@@ -6,6 +6,7 @@ import { LoginDialog } from '../../features/auth/dialog/login-dialog/login-dialo
 import { RegisterDialog } from '../../features/auth/dialog/register-dialog/register-dialog';
 import { AuthServices } from '../../core/services/auth-services';
 import { CartService } from '../../core/services/cart-service';
+import { UtenteServices } from '../../core/services/utente-services';
 
 @Component({
   selector: 'app-navbar',
@@ -28,7 +29,8 @@ export class Navbar {
     private auth: AuthServices,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private cartS: CartService
+    private cartS: CartService,
+    private utenteServices: UtenteServices
   ) {
     this.authGrant = this.auth.grant;
     this.router.events.subscribe(() => {
@@ -78,10 +80,26 @@ export class Navbar {
     this.dialog.open(RegisterDialog, { minWidth: '30%' });
   }
 
-
   logout() {
-    this.auth.logout();
-    this.router.navigate(['/']);
+    const userName = localStorage.getItem('userId');
+
+    if (!userName) {
+      this.auth.logout();
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.utenteServices.logout(userName).subscribe({
+      next: () => {
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
+      error: (err: any) => {
+        console.error('Errore logout backend', err);
+        this.auth.logout();
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   goToUserArea() {
