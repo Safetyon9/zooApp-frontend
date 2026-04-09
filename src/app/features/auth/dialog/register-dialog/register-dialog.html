@@ -31,6 +31,14 @@
           <input matInput type="email" name="email" formControlName="email">
         </mat-form-field>
 
+        <mat-form-field appearance="fill" class="col-2" *ngIf="isAdminLoggato">
+          <mat-label>Ruolo</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <mat-form-field appearance="fill" class="col-2">
           <mat-label>Telefono</mat-label>
           <input matInput type="text" name="telefono" formControlName="telefono">
