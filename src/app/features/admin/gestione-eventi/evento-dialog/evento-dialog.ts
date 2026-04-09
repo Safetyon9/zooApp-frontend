@@ -50,23 +50,35 @@ export class EventoDialog implements OnInit {
   }
 
   onCreate() {
-    this.eventiS.create(this.updateForm.value).subscribe({
+    const v = this.updateForm.value;
+
+    const body = {
+      ...v,
+      dataInizio: this.toDateOnly(v.dataInizio),
+      dataFine: this.toDateOnly(v.dataFine)
+    };
+
+    this.eventiS.create(body).subscribe({
       next: () => this.dialogRef.close(true),
-      error: (err: any) => this.msg.set(err.error?.msg || 'Errore durante la creazione')
+      error: (err: any) =>
+        this.msg.set(err.error?.msg || 'Errore durante la creazione')
     });
   }
 
   onUpdate() {
-    const updateBody: any = { id: this.evento().id };
-    Object.keys(this.updateForm.controls).forEach(key => {
-      if (this.updateForm.controls[key].dirty) {
-        updateBody[key] = this.updateForm.value[key];
-      }
-    });
+    const v = this.updateForm.value;
 
-    this.eventiS.update(updateBody).subscribe({
+    const body = {
+      id: this.evento().id,
+      tipoEvento: v.tipoEvento,
+      dataInizio: this.toDateOnly(v.dataInizio),
+      dataFine: this.toDateOnly(v.dataFine)
+    };
+
+    this.eventiS.update(body).subscribe({
       next: () => this.dialogRef.close(true),
-      error: (err: any) => this.msg.set(err.error?.msg || 'Errore durante l\'aggiornamento')
+      error: (err: any) =>
+        this.msg.set(err.error?.msg || 'Errore durante l\'aggiornamento')
     });
   }
 
@@ -80,4 +92,16 @@ export class EventoDialog implements OnInit {
   cancel() {
     this.dialogRef.close(false);
   }
+
+  private toDateOnly(date: any): string | null {
+  if (!date) return null;
+
+  const d = new Date(date);
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
 }
