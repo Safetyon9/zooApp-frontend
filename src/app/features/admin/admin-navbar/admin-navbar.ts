@@ -37,7 +37,7 @@ export class AdminNavbar {
   }
 
   changePWD(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/admin/modify']);
   }
 
   logout(): void {

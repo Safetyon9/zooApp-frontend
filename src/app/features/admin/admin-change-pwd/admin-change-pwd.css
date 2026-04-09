@@ -1,0 +1,86 @@
+.page-container {
+  max-width: 480px;
+  margin: 40px auto;
+  background: linear-gradient(135deg, #052e16, #14532d);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(250, 204, 21, 0.25);
+  color: #ffffff;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #facc15;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .page-container .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.2);
+}
+
+::ng-deep .page-container .mat-mdc-text-field-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.4);
+}
+
+::ng-deep .page-container .mat-mdc-input-element {
+  color: #ffffff !important;
+  caret-color: #facc15 !important;
+}
+
+::ng-deep .page-container .mat-mdc-input-element::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+::ng-deep .page-container .mdc-floating-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep .page-container .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #facc15 !important;
+}
+
+.button-group {
+  margin-top: 12px;
+}
+
+.button-group button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #facc15, #fde047);
+  color: #000000;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 14px rgba(250, 204, 21, 0.35);
+}
+
+.button-group button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(250, 204, 21, 0.45);
+}
+
+.button-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}

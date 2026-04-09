@@ -55,6 +55,7 @@ import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-ove
 import { NavbarUtente } from './features/user/navbar-utente/navbar-utente';
 import { UserLayout } from './features/user/user-layout/user-layout';
 import { AdminNavbar } from './features/admin/admin-navbar/admin-navbar';
+import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
@@ -92,6 +93,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
     MaintenanceOverlay,
     NavbarUtente,
     AdminNavbar,
+    AdminChangePwd,
     GestioneEventi,
     GestioneItems,
     GestioneUtente,

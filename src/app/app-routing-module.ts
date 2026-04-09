@@ -22,6 +22,7 @@ import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog
 import { Ordini } from './features/user/ordini/ordini';
 
 import { Shop } from './features/public/ecommerce/section/shop/shop';
+import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 
 const routes: Routes = [
   {
@@ -66,6 +67,8 @@ const routes: Routes = [
       { path: 'utenti', component: GestioneUtente },
 
       { path: 'eventi', component: GestioneEventi },
+
+      { path: 'modify', component: AdminChangePwd }
     ]
   },
 
