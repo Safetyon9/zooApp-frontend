@@ -4,7 +4,6 @@ import { BigliettoServices } from '../../../../core/services/biglietto-services'
 import { Utilities } from '../../../../core/utils/utilities';
 import { BigliettoDialog } from '../dialog/biglietto-dialog/biglietto-dialog';
 import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
-import { ComponentType } from '@angular/cdk/overlay';
 import { UploaditemDialog } from '../dialog/upload-item-dialog/upload-item-dialog';
 
 @Component({
@@ -21,6 +20,7 @@ export class BigliettiManager implements OnInit {
     prezzo: null
   };
 
+  imgBaseUrl = "http://localhost:9090/files/";
   tipi: any[] = [];
   bigliettiList: any[] = [];
   loading = false;
@@ -42,16 +42,19 @@ export class BigliettiManager implements OnInit {
       next: (res: any[]) => {
         this.tipi = res || [];
         this.cdr.detectChanges();
+        this.search();
       },
       error: (err: any) => {
         console.error('Errore caricamento tipi', err);
         this.tipi = [];
+        this.search();
       }
     });
   }
 
   search(): void {
     this.loading = true;
+
     this.itemsS.search(this.filtro, 'biglietti').subscribe({
       next: (res: any[]) => {
         this.bigliettiList = res || [];
@@ -68,37 +71,43 @@ export class BigliettiManager implements OnInit {
   }
 
   onCreateBiglietto(): void {
-    const dialogRef = this.util.openDialog(BigliettoDialog, { mod: 'C', biglietto: null });
+    const dialogRef = this.util.openDialog(BigliettoDialog, {
+      mod: 'C',
+      biglietto: null
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.search();
-      }
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
     });
   }
 
   onSelected(biglietto: any): void {
     const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
+
     dialogRef.afterClosed().subscribe(choice => {
       if (choice === 'update') {
         this.eseguoUpdate(biglietto);
+      } else if (choice === 'upload') {
+        this.eseguoUpload(biglietto);
       }
     });
   }
 
   eseguoUpdate(biglietto: any): void {
-    const dialogRef = this.util.openDialog(BigliettoDialog, { mod: 'U', biglietto });
+    const dialogRef = this.util.openDialog(BigliettoDialog, {
+      mod: 'U',
+      biglietto
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.search();
-      }
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
     });
   }
 
   eseguoUpload(row: any): void {
     const dialogRef = this.util.openDialog(UploaditemDialog, {
-      prodotto: row
+      item: row,
+      type: 'biglietto'
     }, {
       width: '600px',
       maxWidth: '90vw',
@@ -119,9 +128,7 @@ export class BigliettiManager implements OnInit {
     if (!conferma) return;
 
     this.bigliettiS.delete(biglietto.id).subscribe({
-      next: () => {
-        this.search();
-      },
+      next: () => this.search(),
       error: (err: any) => {
         console.error('Errore eliminazione biglietto', err);
       }

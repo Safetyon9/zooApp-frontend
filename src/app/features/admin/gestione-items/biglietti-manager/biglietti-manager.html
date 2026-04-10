@@ -1,5 +1,6 @@
 <div class="page-container">
   <mat-card class="admin-card" appearance="outlined">
+
     <mat-card-header class="header-row">
       <mat-card-title>Gestione Biglietti</mat-card-title>
       <button mat-raised-button color="primary" type="button" (click)="onCreateBiglietto()">
@@ -12,9 +13,10 @@
     <mat-card-content>
 
       <div class="search-row">
+
         <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="Nome" [(ngModel)]="filtro.nome" />
+          <input matInput [(ngModel)]="filtro.nome" (keyup)="search()" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -29,7 +31,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Prezzo minimo</mat-label>
-          <input matInput type="number" min="0" [(ngModel)]="filtro.prezzo" />
+          <input matInput type="number" min="0" [(ngModel)]="filtro.prezzo" (keyup)="search()" />
         </mat-form-field>
 
         <span class="spacer"></span>
@@ -37,6 +39,7 @@
         <button mat-raised-button color="accent" type="button" (click)="search()">
           Filtra
         </button>
+
       </div>
 
       <mat-divider></mat-divider>
@@ -49,6 +52,7 @@
 
         <div class="table-wrapper">
           <table class="accounts-table">
+
             <thead>
               <tr>
                 <th>Immagine</th>
@@ -62,35 +66,43 @@
             <tbody>
               @for (b of biglietti; track b.id) {
                 <tr>
+
                   <td>
                     @if (b.urlImmagine) {
-                      <img [src]="b.urlImmagine" style="max-width:80px;">
+                      <img [src]="imgBaseUrl + b.urlImmagine" style="max-width:80px;">
                     } @else {
                       <img src="no_image.png" style="max-width:80px;">
                     }
                   </td>
+
                   <td>{{ b.nome || '-' }}</td>
                   <td>{{ b.tipoNome || '-' }}</td>
                   <td>{{ b.prezzo ?? '-' }}</td>
+
                   <td class="actions-cell">
-                    <button type="button" class="text-button" (click)="eseguoUpdate(b)">
+
+                    <button type="button" class="text-button"
+                      (click)="onSelected(b); $event.stopPropagation()">
                       Modifica
                     </button>
 
-                    <button
-                      type="button"
-                      class="text-button text-button-danger"
+                    <button type="button" class="text-button text-button-danger"
                       (click)="eliminaBiglietto(b)">
                       Elimina
                     </button>
+
                   </td>
+
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="5" class="empty-cell">Nessun biglietto trovato.</td>
+                  <td colspan="5" class="empty-cell">
+                    Nessun biglietto trovato.
+                  </td>
                 </tr>
               }
             </tbody>
+
           </table>
         </div>
 
