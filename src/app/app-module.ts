@@ -40,6 +40,7 @@ import { BigliettoDialog } from './features/admin/gestione-items/dialog/bigliett
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
+import { Footer } from './shared/footer/footer';
 import { Home } from './features/public/home/home';
 import { Carrello } from './features/public/carrello/carrello';
 import { Info } from './features/user/info/info';
@@ -89,6 +90,7 @@ import { EmailValidation } from './features/public/email/email-validation/email-
     Info,
     Ordini,
     Navbar,
+    Footer,
     Donation,
     Eventi,
     News,
