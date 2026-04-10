@@ -364,8 +364,6 @@ mat-card-content {
   }
 }
 
-/* STATUS ONLINE/OFFLINE */
-
 .status-cell {
   display: inline-flex;
   align-items: center;

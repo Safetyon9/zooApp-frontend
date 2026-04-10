@@ -5,6 +5,7 @@ import { Utilities } from '../../../../core/utils/utilities';
 import { BigliettoDialog } from '../dialog/biglietto-dialog/biglietto-dialog';
 import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
 import { ComponentType } from '@angular/cdk/overlay';
+import { UploaditemDialog } from '../dialog/upload-item-dialog/upload-item-dialog';
 
 @Component({
   selector: 'app-biglietti-manager',
@@ -67,8 +68,13 @@ export class BigliettiManager implements OnInit {
   }
 
   onCreateBiglietto(): void {
-    const dialogRef: ComponentType<any> = BigliettoDialog;
-    this.util.openDialog(dialogRef, { mod: 'C', biglietto: null });
+    const dialogRef = this.util.openDialog(BigliettoDialog, { mod: 'C', biglietto: null });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.search();
+      }
+    });
   }
 
   onSelected(biglietto: any): void {
@@ -81,10 +87,44 @@ export class BigliettiManager implements OnInit {
   }
 
   eseguoUpdate(biglietto: any): void {
-    this.util.openDialog(BigliettoDialog, { mod: 'U', biglietto });
+    const dialogRef = this.util.openDialog(BigliettoDialog, { mod: 'U', biglietto });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.search();
+      }
+    });
+  }
+
+  eseguoUpload(row: any): void {
+    const dialogRef = this.util.openDialog(UploaditemDialog, {
+      prodotto: row
+    }, {
+      width: '600px',
+      maxWidth: '90vw',
+      maxHeight: '90vh'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
+    });
   }
 
   get biglietti() {
     return this.bigliettiList;
+  }
+
+  eliminaBiglietto(biglietto: any): void {
+    const conferma = confirm(`Sei sicuro di voler eliminare il biglietto "${biglietto.nome}"?`);
+    if (!conferma) return;
+
+    this.bigliettiS.delete(biglietto.id).subscribe({
+      next: () => {
+        this.search();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione biglietto', err);
+      }
+    });
   }
 }

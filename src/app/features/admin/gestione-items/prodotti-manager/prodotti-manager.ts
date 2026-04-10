@@ -55,12 +55,10 @@ export class ProdottiManager implements OnInit {
 
   search(): void {
     this.loading = true;
+
     this.itemsS.search(this.filtro, 'prodotto').subscribe({
       next: (res: any[]) => {
-        this.prodottiList = (res || []).map(p => ({
-          ...p,
-          categoriaNome: this.categorie.find(c => c.id === p.categoriaId)?.nome || '-'
-        }));
+        this.prodottiList = res || [];
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -74,8 +72,11 @@ export class ProdottiManager implements OnInit {
   }
 
   onCreateProdotto(): void {
-    const dialogRef: ComponentType<any> = ProdottoDialog;
-    this.util.openDialog(dialogRef, { mod: 'C', prodotto: null });
+    const dialogRef = this.util.openDialog(ProdottoDialog, { mod: 'C', prodotto: null });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
+    });
   }
 
   onSelected(row: any): void {
@@ -87,23 +88,42 @@ export class ProdottiManager implements OnInit {
   }
 
   eseguoUpdate(row: any): void {
-    this.util.openDialog(ProdottoDialog, { mod: 'U', prodotto: row });
+    const dialogRef = this.util.openDialog(ProdottoDialog, { mod: 'U', prodotto: row });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
+    });
   }
 
   eseguoUpload(row: any): void {
-    this.util.openDialog(UploaditemDialog, {
+    const dialogRef = this.util.openDialog(UploaditemDialog, {
       prodotto: row
     }, {
       width: '600px',
       maxWidth: '90vw',
-      height: 'auto',
-      maxHeight: '90vh',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '300ms'
+      maxHeight: '90vh'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) this.search();
     });
   }
 
   get prodotti() {
     return this.prodottiList;
+  }
+
+  eliminaProdotto(prodotto: any): void {
+    const conferma = confirm(`Sei sicuro di voler eliminare il prodotto "${prodotto.nome}"?`);
+    if (!conferma) return;
+
+    this.prodottiS.delete(prodotto.id).subscribe({
+      next: () => {
+        this.search();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione prodotto', err);
+      }
+    });
   }
 }

@@ -85,8 +85,15 @@
                     <td>{{ p.dimensioni ?? '-' }}</td>
                     <td>{{ p.sku || '-' }}</td>
                     <td class="actions-cell">
-                      <button type="button" class="text-button" (click)="eseguoUpdate(p); $event.stopPropagation()">
+                      <button type="button" class="text-button" (click)="onSelected(p); $event.stopPropagation()">
                         Modifica
+                      </button>
+
+                      <button
+                        type="button"
+                        class="text-button text-button-danger"
+                        (click)="eliminaProdotto(p)">
+                        Elimina
                       </button>
                     </td>
                   </tr>
