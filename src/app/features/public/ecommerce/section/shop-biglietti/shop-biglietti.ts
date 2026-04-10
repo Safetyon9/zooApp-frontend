@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../../../../core/services/cart-service';
 import { ItemsServices } from '../../../../../core/services/items-services';
 import { UtenteServices } from '../../../../../core/services/utente-services';
@@ -21,12 +21,12 @@ export class ShopBiglietti implements OnInit {
   readonly familyParents: number = 2;
   reducedCategory: 'Bambini 10-12' | 'Over 65' | 'Disabilità' | 'Ridotto Accompagnatore' | '' = '';
 
-  constructor(
-    private cartS: CartService,
-    private itemsS: ItemsServices,
-    private utenteServices: UtenteServices,
-    private http: HttpClient
-  ) {console.log('utenteServices: ', this.utenteServices)}
+  private cartS = inject(CartService);
+  private itemsS = inject(ItemsServices);
+  private utenteServices = inject(UtenteServices);
+  private http = inject(HttpClient);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.itemsS.list('biglietti').subscribe({
@@ -88,17 +88,17 @@ export class ShopBiglietti implements OnInit {
     this.utenteServices.findAllByUserName(userId).subscribe({
       next: (profilo: any) => {
         console.log('profilo:', JSON.stringify(profilo));
-    console.log('carrelloId:', profilo.carrelloId);
+        
         this.http.post('http://localhost:9090/rest/oggettiCarrelli/create', {
           carrelloId: profilo.carrelloId,
           itemId: this.selectedTicket.id,
           quantita: this.selectedQuantity,
           prezzoUnitario: this.selectedTicket.prezzo
-        }).subscribe();
+        }).subscribe({
+          next: () => this.reset()
+        });
       }
     });
-
-    this.reset();
   }
 
   reset() {
