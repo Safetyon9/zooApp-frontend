@@ -14,6 +14,12 @@
   margin-top: 8px;
 }
 
+.button-group button {
+  border-radius: 999px;
+  padding: 0 24px;
+  font-weight: 600;
+}
+
 .dialog-close-btn {
   position: absolute;
   top: 8px;
@@ -22,4 +28,63 @@
 
 mat-form-field {
   width: 100%;
+}
+
+h2[mat-dialog-title] {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 22px !important;
+  border: 1px solid rgba(217, 119, 6, 0.18);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .form-grid .mdc-text-field--filled {
+  background: rgba(254, 243, 199, 0.3) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+::ng-deep .form-grid .mdc-text-field--filled:hover {
+  background: rgba(254, 243, 199, 0.5) !important;
+}
+
+::ng-deep .form-grid .mat-mdc-form-field-focus-overlay {
+  background: rgba(217, 119, 6, 0.06) !important;
+}
+
+::ng-deep .form-grid .mdc-floating-label {
+  color: #78350f !important;
+}
+
+::ng-deep .form-grid .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #d97706 !important;
+}
+
+::ng-deep .form-grid .mdc-line-ripple--active::after {
+  border-bottom-color: #d97706 !important;
+}
+
+::ng-deep .button-group .mat-mdc-raised-button.mat-primary {
+  background: var(--zoo-gold-soft) !important;
+  color: #1f2937 !important;
+  border-radius: 999px !important;
+  padding: 0 24px !important;
+  box-shadow: 0 6px 18px rgba(250, 204, 21, 0.28) !important;
+}
+
+::ng-deep .button-group .mat-mdc-raised-button.mat-primary:hover {
+  background: var(--zoo-earth-warm) !important;
+}
+
+.msg-error {
+  min-height: 20px;
+}
+
+.msg-error span {
+  font-size: 13px;
+  font-weight: 500;
 }

@@ -21,7 +21,7 @@ export class AdminNavbar {
   ) {}
 
   goHome(): void {
-    this.homeSelected.emit();
+    this.router.navigate(['/']);
   }
 
   openGestioneUtenti(): void {
