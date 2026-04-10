@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../../../core/services/cart-service';
 import { ItemsServices } from '../../../../../core/services/items-services';
+import { UtenteServices } from '../../../../../core/services/utente-services';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-shop-biglietti',
@@ -21,8 +23,10 @@ export class ShopBiglietti implements OnInit {
 
   constructor(
     private cartS: CartService,
-    private itemsS: ItemsServices
-  ) {}
+    private itemsS: ItemsServices,
+    private utenteServices: UtenteServices,
+    private http: HttpClient
+  ) {console.log('utenteServices: ', this.utenteServices)}
 
   ngOnInit(): void {
     this.itemsS.list('biglietti').subscribe({
@@ -76,6 +80,23 @@ export class ShopBiglietti implements OnInit {
       quantita: 1,
       immagine: this.selectedTicket.urlImmagine,
     }, 'biglietto');
+
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) return;
+
+    this.utenteServices.findAllByUserName(userId).subscribe({
+      next: (profilo: any) => {
+        console.log('profilo:', JSON.stringify(profilo));
+    console.log('carrelloId:', profilo.carrelloId);
+        this.http.post('http://localhost:9090/rest/oggettiCarrelli/create', {
+          carrelloId: profilo.carrelloId,
+          itemId: this.selectedTicket.id,
+          quantita: this.selectedQuantity,
+          prezzoUnitario: this.selectedTicket.prezzo
+        }).subscribe();
+      }
+    });
 
     this.reset();
   }
