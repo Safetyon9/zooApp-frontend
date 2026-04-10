@@ -63,12 +63,12 @@
 
   <button type="button" class="modifica" (click)="modificaProfilo()">Modifica profilo</button>
 
-  @if (!profilo.isValidate) {
-    <button
-      type="button"
-      class="modifica"
-      (click)="inviaMailValidazione()">
-      Invia mail di validazione
-    </button>
-  }
+  @if (profilo.isValidate !== true) {
+  <button
+    type="button"
+    class="modifica"
+    (click)="inviaMailValidazione()">
+    Invia mail di validazione
+  </button>
+}
 </div>

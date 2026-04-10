@@ -41,19 +41,19 @@ export class Info implements OnInit {
   }
 
   private mapProfilo(r: any): any {
-    return {
-      username: r.userName ?? r.username ?? '',
-      email: r.email ?? '',
-      nome: r.nome ?? '',
-      cognome: r.cognome ?? '',
-      telefono: r.telefono ?? '',
-      indirizzo: r.indirizzo ?? '',
-      comune: r.comune ?? '',
-      cap: r.cap ?? '',
-      provincia: r.provincia ?? '',
-      isValidate: this.toBoolean(r.isValidate ?? r.validate)
-    };
-  }
+  return {
+    username: r.userName ?? r.username ?? '',
+    email: r.email ?? '',
+    nome: r.nome ?? '',
+    cognome: r.cognome ?? '',
+    telefono: r.telefono ?? '',
+    indirizzo: r.indirizzo ?? '',
+    comune: r.comune ?? '',
+    cap: r.cap ?? '',
+    provincia: r.provincia ?? '',
+    isValidate: this.toBoolean(r.isValidate ?? r.validate)
+  };
+}
 
   private caricaProfilo(): void {
     const userId = this.getUserId();
