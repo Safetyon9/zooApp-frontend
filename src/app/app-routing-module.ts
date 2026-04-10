@@ -20,7 +20,6 @@ import { ShopBiglietti } from './features/public/ecommerce/section/shop-bigliett
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 import { Ordini } from './features/user/ordini/ordini';
-
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { Carrello } from './features/public/carrello/carrello';
@@ -28,6 +27,7 @@ import { EmailValidation } from './features/public/email/email-validation/email-
 import { Eventi } from './features/public/home/section/eventi/eventi';
 import { News } from './features/public/home/section/news/news';
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
+import { ResetPasswordComponent } from './features/public/email/change-password/change-password';
 
 const routes: Routes = [
   {
@@ -42,7 +42,6 @@ const routes: Routes = [
           { path: '', component: Shop },
           { path: 'biglietti', component: ShopBiglietti },
           { path: 'merch', component: ShopMerch },
-          
         ]
       },
     ]
@@ -65,17 +64,12 @@ const routes: Routes = [
     canActivate: [authAutentificatedGuard],
     children: [
       { path: '', component: GestioneUtente },
-
       { path: 'utenti', component: GestioneUtente },
-
       { path: 'items', component: GestioneItems },
       { path: 'items/prodotti', component: ProdottiManager },
       { path: 'items/biglietti', component: BigliettiManager },
-
       { path: 'eventi', component: GestioneEventi },
-
       { path: 'ordini', component: GestioneOrdini },
-
       { path: 'modify', component: AdminChangePwd }
     ]
   },
@@ -86,6 +80,7 @@ const routes: Routes = [
   { path: 'carrello', component: Carrello },
   { path: 'emailValidation', component: EmailValidation },
   { path: 'forgot-password', component: PasswordDimenticataComponent },
+  { path: 'resetPassword/:token', component: ResetPasswordComponent },
 
   { path: '**', redirectTo: '' }
 ];
