@@ -1,18 +1,18 @@
 .page-container {
   max-width: 480px;
   margin: 40px auto;
-  background: linear-gradient(135deg, #052e16, #14532d);
+  background: linear-gradient(135deg, var(--zoo-dark), rgba(var(--zoo-dark-rgb), 0.95));
   border-radius: 18px;
   padding: 32px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(250, 204, 21, 0.25);
+  border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.25);
   color: #ffffff;
 }
 
 h2 {
   font-size: 22px;
   font-weight: 600;
-  color: #facc15;
+  color: var(--zoo-gold-soft);
   margin-bottom: 24px;
   text-align: center;
 }
@@ -31,17 +31,17 @@ mat-form-field {
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-radius: 12px !important;
   transition: all 0.25s ease;
-  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(var(--zoo-gold-soft-rgb), 0.2);
 }
 
 ::ng-deep .page-container .mat-mdc-text-field-wrapper:hover {
   background-color: rgba(255, 255, 255, 0.12) !important;
-  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(var(--zoo-gold-soft-rgb), 0.4);
 }
 
 ::ng-deep .page-container .mat-mdc-input-element {
   color: #ffffff !important;
-  caret-color: #facc15 !important;
+  caret-color: var(--zoo-gold-soft) !important;
 }
 
 ::ng-deep .page-container .mat-mdc-input-element::placeholder {
@@ -53,7 +53,7 @@ mat-form-field {
 }
 
 ::ng-deep .page-container .mat-mdc-form-field.mat-focused .mdc-floating-label {
-  color: #facc15 !important;
+  color: var(--zoo-gold-soft) !important;
 }
 
 .button-group {
@@ -65,18 +65,18 @@ mat-form-field {
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #facc15, #fde047);
-  color: #000000;
+  background: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 6px 14px rgba(250, 204, 21, 0.35);
+  box-shadow: 0 6px 14px rgba(var(--zoo-gold-soft-rgb), 0.35);
 }
 
 .button-group button:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 18px rgba(250, 204, 21, 0.45);
+  box-shadow: 0 8px 18px rgba(var(--zoo-gold-soft-rgb), 0.45);
 }
 
 .button-group button:disabled {

@@ -1,59 +1,77 @@
-<div class="container">
-  <mat-card>
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
 
     <mat-card-header class="header-row">
-      <mat-card-title>Elenco Eventi</mat-card-title>
+      <mat-card-title>Gestione Eventi</mat-card-title>
 
-      <button mat-raised-button color="primary" (click)="onCreateEvento()">
-        Nuovo Evento
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="onCreateEvento()">
+        Nuovo evento
       </button>
     </mat-card-header>
 
-    <mat-divider style="margin-top: 20px;"></mat-divider>
+    <mat-divider></mat-divider>
 
     <mat-card-content>
 
-      <div class="search-row">
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento eventi...</p>
+        </div>
+      } @else {
 
-        <mat-form-field>
-          <mat-label>Tipo Evento</mat-label>
-          <input matInput [(ngModel)]="filtro.tipoEvento" (keyup)="search()">
-        </mat-form-field>
+        <div class="table-wrapper">
+          <table class="accounts-table">
 
-        <mat-form-field>
-          <mat-label>Data Inizio</mat-label>
-          <input matInput type="date" [(ngModel)]="filtro.dataInizio" (change)="search()">
-        </mat-form-field>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo evento</th>
+                <th>Data inizio</th>
+                <th>Data fine</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
 
-        <mat-form-field>
-          <mat-label>Data Fine</mat-label>
-          <input matInput type="date" [(ngModel)]="filtro.dataFine" (change)="search()">
-        </mat-form-field>
+            <tbody>
+              @for (e of eventi; track e.id) {
+                <tr>
+                  <td>{{ e.id || '-' }}</td>
+                  <td>{{ e.tipoEvento || '-' }}</td>
+                  <td>{{ e.dataInizio || '-' }}</td>
+                  <td>{{ e.dataFine || '-' }}</td>
 
-      </div>
+                  <td class="actions-cell">
+                    <button
+                      type="button"
+                      class="text-button"
+                      (click)="eseguoUpdate(e)">
+                      Modifica
+                    </button>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Tipo Evento</th>
-            <th>Data Inizio</th>
-            <th>Data Fine</th>
-          </tr>
-        </thead>
+                    <button
+                      type="button"
+                      class="text-button text-button-danger"
+                      (click)="eliminaEvento(e)">
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-cell">
+                    Nessun evento trovato.
+                  </td>
+                </tr>
+              }
+            </tbody>
 
-        <tbody>
-          @for (e of eventi; track e.id) {
-            <tr (click)="onSelected(e)" class="clickable-row">
-              <td>{{e.id}}</td>
-              <td>{{e.tipoEvento}}</td>
-              <td>{{e.dataInizio}}</td>
-              <td>{{e.dataFine}}</td>
-            </tr>
-          }
-        </tbody>
-
-      </table>
+          </table>
+        </div>
+      }
 
     </mat-card-content>
 

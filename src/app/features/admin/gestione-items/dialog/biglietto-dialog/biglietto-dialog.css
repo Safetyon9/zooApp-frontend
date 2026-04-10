@@ -42,24 +42,22 @@
   margin-top: 20px;
 }
 
-/* ---------- DIALOG ---------- */
 mat-dialog-content {
   padding: 0 !important;
   display: block;
-  overflow-y: auto !important;     /* solo verticale */
+  overflow-y: auto !important;
   overflow-x: hidden !important;
-  max-height: 70vh !important;     /* fondamentale per non far uscire i bottoni */
+  max-height: 70vh !important;
 }
 
-/* superficie della dialog più larga e con altezza auto ma limitata */
 ::ng-deep .wide-dialog .mat-mdc-dialog-surface {
   padding: 20px !important;
 
-  width: 1100px !important;      /* larghezza desiderata */
-  max-width: 95vw !important;    /* non oltre lo schermo */
+  width: 1100px !important;
+  max-width: 95vw !important;
 
   height: auto !important;
-  max-height: 90vh !important;   /* limite verticale */
+  max-height: 90vh !important;
 
   display: flex !important;
   flex-direction: column !important;

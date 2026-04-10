@@ -34,8 +34,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(51, 95, 84, 0.98) 0%, rgba(51, 95, 84, 0.35) 24%, rgba(47, 93, 80, 0.35) 76%, rgba(47, 93, 80, 0.98) 100%),
-    linear-gradient(180deg, rgba(51, 95, 84, 0.55) 0%, rgba(47, 93, 80, 0.55) 100%);
+    linear-gradient(180deg, rgba(var(--zoo-dark-rgb), 0.98) 0%, rgba(var(--zoo-dark-rgb), 0.45) 24%, rgba(var(--zoo-dark-rgb), 0.45) 76%, rgba(var(--zoo-dark-rgb), 0.98) 100%),
+    linear-gradient(180deg, rgba(var(--zoo-dark-rgb), 0.55) 0%, rgba(var(--zoo-dark-rgb), 0.55) 100%);
   z-index: 1;
   pointer-events: none;
 }

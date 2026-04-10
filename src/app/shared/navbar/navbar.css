@@ -9,9 +9,10 @@
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  background-color: rgba(47, 93, 80, 0.85);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  backdrop-filter: blur(12px);
+  background: linear-gradient(135deg, rgba(107, 85, 64, 0.94) 0%, rgba(90, 70, 52, 0.96) 100%);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.25);
   transition: transform 0.3s ease;
 }
 
@@ -27,7 +28,7 @@
 }
 
 .logo-container > * {
-  pointer-events: none; 
+  pointer-events: none;
   outline: none;
 }
 
@@ -57,11 +58,7 @@
   font-weight: 500;
   font-size: 1.3rem;
   letter-spacing: 0.8px;
-  color: #ffffff;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  text-decoration: none; 
+  color: var(--zoo-sand-light);
 }
 
 .navbar-menu a::after {
@@ -84,7 +81,8 @@
 }
 
 .navbar-menu a.active {
-  color: #ffffff;
+  color: var(--zoo-gold-soft);
+  font-weight: 600;
 }
 
 .navbar-menu a.active::after {
@@ -101,16 +99,15 @@
 .navbar-search {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 5px 15px;
   margin-left: 20px;
   transition: all 0.3s ease;
 }
 
 .navbar-search:focus-within {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-color: var(--zoo-gold-soft);
 }
 
@@ -118,18 +115,18 @@
   background: transparent;
   border: none;
   outline: none;
-  color: white;
+  color: var(--zoo-sand-light);
   padding: 5px 10px;
   font-size: 0.9rem;
   width: 180px;
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(var(--zoo-gold-soft-rgb), 0.4);
 }
 
 .search-icon {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(var(--zoo-gold-soft-rgb), 0.4);
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -154,7 +151,7 @@
 
 .cart-link span.material-icons {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: var(--zoo-sand-light);
   transition: color 0.3s ease;
 }
 

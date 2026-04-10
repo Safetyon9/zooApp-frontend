@@ -17,7 +17,7 @@ html, body {
     width: 100%;
     height: 100%;
     padding: 2rem;
-    background-color: var(--zoo-green-dark);
+    background-color: var(--zoo-dark);
     text-align: center;
     color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

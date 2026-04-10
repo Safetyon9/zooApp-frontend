@@ -1,6 +1,6 @@
 .page-container {
   padding: 28px;
-  background: linear-gradient(180deg, #fffdf7 0%, #fef9e7 100%);
+  background: linear-gradient(180deg, var(--zoo-cream) 0%, var(--zoo-sand-light) 100%);
   min-height: 50vh;
   margin-bottom: 1rem;
 }
@@ -63,7 +63,7 @@ mat-card-content {
 }
 
 .accounts-table thead {
-  background: linear-gradient(180deg, #fff7d6 0%, #fde68a 100%);
+  background: linear-gradient(180deg, var(--zoo-sand-light) 0%, rgba(var(--zoo-gold-soft-rgb), 0.3) 100%);
 }
 
 .accounts-table th {
@@ -144,7 +144,7 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-primary {
-  background: #facc15 !important;
+  background: var(--zoo-gold-soft) !important;
   color: #1f2937 !important;
   border-radius: 999px !important;
   padding: 0 18px !important;
@@ -152,11 +152,11 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-primary:hover {
-  background: #fbbf24 !important;
+  background: var(--zoo-earth-warm) !important;
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-accent {
-  background: #f59e0b !important;
+  background: var(--zoo-earth-warm) !important;
   color: white !important;
   border-radius: 999px !important;
   padding: 0 18px !important;
@@ -164,7 +164,7 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-accent:hover {
-  background: #d97706 !important;
+  background: var(--zoo-gold-soft) !important;
 }
 
 .clickable-row {

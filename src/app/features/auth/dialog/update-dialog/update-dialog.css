@@ -15,11 +15,12 @@
   margin: 40px auto;
   padding: 28px 34px;
   border-radius: 22px;
-  backdrop-filter: blur(12px);
-  background: linear-gradient(135deg, #052e16, #14532d);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(14px);
+  background: linear-gradient(145deg, var(--zoo-dark), rgba(var(--zoo-dark-rgb), 0.95));
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
   color: #ffffff;
+  transition: all 0.35s ease;
 }
 
 .dialog-card,
@@ -36,8 +37,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0 18px;
-  border-bottom: 1px solid rgba(250, 204, 21, 0.3);
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
+  margin-bottom: 6px;
 }
 
 .dialog-title {
@@ -46,7 +48,7 @@
   font-weight: 600;
   font-size: 1.9rem;
   letter-spacing: 0.5px;
-  color: #facc15;
+  color: var(--zoo-gold-soft);
 }
 
 .dialog-content {
@@ -72,12 +74,12 @@ mat-form-field {
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-radius: 12px !important;
   transition: all 0.25s ease;
-  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(var(--zoo-gold-soft-rgb), 0.2);
 }
 
 ::ng-deep .dialog-container .mat-mdc-text-field-wrapper:hover {
   background-color: rgba(255, 255, 255, 0.12) !important;
-  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(var(--zoo-gold-soft-rgb), 0.4);
 }
 
 ::ng-deep .dialog-container .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -94,7 +96,7 @@ mat-form-field {
 
 ::ng-deep .dialog-container .mat-mdc-input-element {
   color: #ffffff !important;
-  caret-color: #facc15 !important;
+  caret-color: var(--zoo-gold-soft) !important;
   font-size: 0.98rem;
 }
 
@@ -107,11 +109,11 @@ mat-form-field {
 }
 
 ::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mdc-floating-label {
-  color: #facc15 !important;
+  color: var(--zoo-gold-soft) !important;
 }
 
 ::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
-  box-shadow: inset 0 0 0 1px rgba(250, 204, 21, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(var(--zoo-gold-soft-rgb), 0.6);
 }
 
 ::ng-deep .dialog-container .mat-mdc-select-value,
@@ -120,7 +122,7 @@ mat-form-field {
 }
 
 ::ng-deep .dialog-container .mat-mdc-select-panel {
-  background: #14532d !important;
+  background: var(--zoo-dark) !important;
 }
 
 ::ng-deep .dialog-container .mat-mdc-option {
@@ -128,7 +130,7 @@ mat-form-field {
 }
 
 ::ng-deep .dialog-container .mat-mdc-option:hover {
-  background: rgba(250, 204, 21, 0.25) !important;
+  background: rgba(var(--zoo-gold-soft-rgb), 0.25) !important;
 }
 
 .msg-error {
@@ -153,15 +155,16 @@ mat-form-field {
   border-radius: 14px;
   font-size: 1rem;
   font-weight: 700;
-  color: #000000 !important;
-  background: linear-gradient(135deg, #facc15, #fde047) !important;
-  box-shadow: 0 6px 16px rgba(250, 204, 21, 0.35) !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--zoo-gold-soft), var(--zoo-earth-warm)) !important;
+  box-shadow: 0 6px 16px rgba(var(--zoo-gold-soft-rgb), 0.35) !important;
   transition: all 0.25s ease;
 }
 
 .button-group button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--zoo-earth-warm), var(--zoo-gold-soft)) !important;
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.45) !important;
+  box-shadow: 0 8px 24px rgba(var(--zoo-gold-soft-rgb), 0.45) !important;
 }
 
 .button-group button:disabled {
@@ -176,14 +179,14 @@ mat-form-field {
   top: 14px;
   right: 18px;
   z-index: 30;
-  color: #000000 !important;
-  background-color: #facc15 !important;
+  color: var(--zoo-text-dark) !important;
+  background-color: var(--zoo-gold-soft) !important;
   border-radius: 50%;
   transition: all 0.25s ease;
 }
 
 .dialog-close-btn:hover {
-  background-color: #fde047 !important;
+  background-color: var(--zoo-earth-warm) !important;
   transform: rotate(90deg) scale(1.08);
 }
 

@@ -1,6 +1,6 @@
 .page-container {
   padding: 28px;
-  background: linear-gradient(180deg, #fffdf7 0%, #fef9e7 100%);
+  background: linear-gradient(180deg, var(--zoo-cream) 0%, var(--zoo-sand-light) 100%);
   min-height: 100vh;
 }
 
@@ -89,7 +89,7 @@ mat-card-content {
 }
 
 .accounts-table thead {
-  background: linear-gradient(180deg, #fff7d6 0%, #fde68a 100%);
+  background: linear-gradient(180deg, var(--zoo-sand-light) 0%, rgba(var(--zoo-gold-soft-rgb), 0.3) 100%);
 }
 
 .accounts-table th {
@@ -192,7 +192,7 @@ mat-card-content {
 
 .detail-row td {
   padding: 0 !important;
-  background: linear-gradient(180deg, #fffbeb 0%, #fffdf7 100%);
+  background: linear-gradient(180deg, var(--zoo-cream) 0%, var(--zoo-sand-light) 100%);
   border-bottom: 1px solid rgba(217, 119, 6, 0.12);
 }
 
@@ -293,7 +293,7 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-primary {
-  background: #facc15 !important;
+  background: var(--zoo-gold-soft) !important;
   color: #1f2937 !important;
   border-radius: 999px !important;
   padding: 0 18px !important;
@@ -301,11 +301,11 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-primary:hover {
-  background: #fbbf24 !important;
+  background: var(--zoo-earth-warm) !important;
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-accent {
-  background: #f59e0b !important;
+  background: var(--zoo-earth-warm) !important;
   color: white !important;
   border-radius: 999px !important;
   padding: 0 18px !important;
@@ -313,7 +313,7 @@ mat-card-content {
 }
 
 ::ng-deep .admin-card .mat-mdc-raised-button.mat-accent:hover {
-  background: #d97706 !important;
+  background: var(--zoo-gold-soft) !important;
 }
 
 @media (max-width: 1200px) {
@@ -363,8 +363,6 @@ mat-card-content {
     align-items: flex-start;
   }
 }
-
-/* STATUS ONLINE/OFFLINE */
 
 .status-cell {
   display: inline-flex;

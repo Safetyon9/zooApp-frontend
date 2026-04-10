@@ -7,38 +7,41 @@
 
   background: linear-gradient(
     180deg,
-    #14532d 0%,   
-    #22c55e 100% 
+    var(--zoo-cream) 0%,
+    var(--zoo-sand-light) 100%
   );
 
-  color: #000000;
+  color: var(--zoo-text-dark);
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
 
-  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
 }
 
-/* LOGO */
-.logo-container {
+.logo {
   display: flex;
   align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 32px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  user-select: none;
+  color: var(--zoo-text-dark);
+  transition: all 0.25s ease;
 }
 
-.logo-container img.logo-img {
-  width: 8rem;
-  height: auto;
-  max-height: 80px;
-  filter: none; 
+.logo:hover {
+  color: var(--zoo-earth-warm);
+  transform: translateX(3px);
 }
 
-.logo-container:hover img.logo-img {
-  transform: scale(1.1);
+.logo-icon {
+  font-size: 28px;
+  color: var(--zoo-gold-soft);
 }
 
-/* MENU */
 .menu {
   display: flex;
   flex-direction: column;
@@ -52,9 +55,10 @@
   border: none;
   border-radius: 10px;
 
-  background: #facc15; 
-  color: #000000;      
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--zoo-text-dark);
 
+  text-decoration: none;
   text-align: left;
   font-size: 15px;
   font-weight: 500;
@@ -66,12 +70,14 @@
 }
 
 .menu-item:hover {
-  background: #fde047; 
+  background: rgba(var(--zoo-gold-soft-rgb), 0.2);
+  color: var(--zoo-earth-warm);
   transform: translateX(4px);
 }
 
 .menu-item.active {
-  background: #eab308; 
+  background: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
   font-weight: 600;
 }
 
@@ -82,18 +88,41 @@
   top: 8px;
   height: calc(100% - 16px);
   width: 4px;
-  background: #000000;
+  background: var(--zoo-earth-warm);
   border-radius: 4px;
 }
 
-/* LOGOUT */
+.logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo-container > * {
+  pointer-events: none;
+  outline: none;
+}
+
+.logo-container img.logo-img {
+  width: 8rem;
+  height: auto;
+  max-height: 80px;
+}
+
+.logo-container:hover img.logo-img {
+  transform: scale(1.2);
+  transition: transform 0.5s ease;
+}
+
 .logout {
   margin-top: auto;
-  background: #eab308;
-  color: #000000;
+  background: rgba(var(--zoo-gold-soft-rgb), 0.15);
+  color: var(--zoo-earth-warm);
   font-weight: 600;
 }
 
 .logout:hover {
-  background: #fde047;
+  background: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
 }

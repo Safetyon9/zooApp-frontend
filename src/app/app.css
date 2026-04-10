@@ -3,22 +3,33 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--zoo-text-dark);
+}
+
+h1, h2, h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 3rem;
+  font-weight: 400;
+  font-style: italic;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
+  font-weight: 400;
+  font-style: italic;
 }
 
 h3 {
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 p {
@@ -43,7 +54,6 @@ button {
 .mat-mdc-raised-button {
   font-size: 1rem !important;
 }
-
 
 @keyframes fadeInOut {
   0% { opacity: 1; }

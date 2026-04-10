@@ -1,55 +1,155 @@
 <div class="shop-section">
+
+  <div class="collection-hero">
+    <img class="hero-bg" src="foto/merch/collezione.png" alt="Collezione Zoo Safari">
+    <img class="hero-bg hero-bg-2" src="foto/merch/indossate.png" alt="Magliette indossate">
+    <div class="collection-overlay"></div>
+    <div class="collection-text">
+      <h2>Collezione Wildlife Conservation</h2>
+      <p>Ogni acquisto sostiene la conservazione della fauna selvatica</p>
+    </div>
+  </div>
+
   <div class="section-title">Abbigliamento</div>
   <div class="product-grid">
+
     <div class="product-card">
-      <img src="foto/shop1.webp" alt="T-Shirt Zoo">
+      <img src="foto/merch/tshirt-crema-leone.png" alt="T-Shirt Crema Leone">
       <div class="card-label">
-        <span class="label-title">Maglietta Zoo</span>
+        <span class="label-title">T-Shirt Leone</span>
+        <span class="label-price">€ 24.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(101, 'T-Shirt Leone Crema', 24.99, 'foto/merch/tshirt-crema-leone.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/tshirt-grigia-leone.png" alt="T-Shirt Grigia Leone">
+      <div class="card-label">
+        <span class="label-title">T-Shirt Grigia</span>
+        <span class="label-price">€ 24.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(102, 'T-Shirt Grigia Leone', 24.99, 'foto/merch/tshirt-grigia-leone.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/tshirt-bianca-elefante.png" alt="T-Shirt Bianca Elefante">
+      <div class="card-label">
+        <span class="label-title">T-Shirt Elefante</span>
+        <span class="label-price">€ 24.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(103, 'T-Shirt Bianca Elefante', 24.99, 'foto/merch/tshirt-bianca-elefante.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/tshirt-nera.png" alt="T-Shirt Nera V-Neck">
+      <div class="card-label">
+        <span class="label-title">T-Shirt Nera V-Neck</span>
+        <span class="label-price">€ 29.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(104, 'T-Shirt Nera V-Neck', 29.99, 'foto/merch/tshirt-nera.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/tshirt-verde-giraffa.png" alt="T-Shirt Verde Giraffa">
+      <div class="card-label">
+        <span class="label-title">T-Shirt Giraffa</span>
+        <span class="label-price">€ 29.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(105, 'T-Shirt Verde Giraffa', 29.99, 'foto/merch/tshirt-verde-giraffa.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/cappellino.png" alt="Cappellino Safari">
+      <div class="card-label">
+        <span class="label-title">Cappellino Safari</span>
         <span class="label-price">€ 19.99</span>
       </div>
-      <button class="buy-btn" (click)="addToCart(101, 'Maglietta Zoo', 19.99, 'foto/shop1.webp')">
+      <button class="buy-btn" (click)="addToCart(106, 'Cappellino Safari', 19.99, 'foto/merch/cappellino.png')">
         <span class="material-icons">add_shopping_cart</span>
         Acquista
       </button>
     </div>
 
     <div class="product-card">
-      <img src="foto/shop2.webp" alt="Felpa Zoo">
+      <img src="foto/merch/tote-bag.png" alt="Tote Bag Conservation">
       <div class="card-label">
-        <span class="label-title">Felpa Ufficiale</span>
-        <span class="label-price">€ 39.99</span>
+        <span class="label-title">Tote Bag</span>
+        <span class="label-price">€ 14.99</span>
       </div>
-      <button class="buy-btn" (click)="addToCart(102, 'Felpa Ufficiale', 39.99, 'foto/shop2.webp')">
+      <button class="buy-btn" (click)="addToCart(107, 'Tote Bag Conservation', 14.99, 'foto/merch/tote-bag.png')">
         <span class="material-icons">add_shopping_cart</span>
         Acquista
       </button>
     </div>
+
   </div>
 
-  <div class="section-title">Accessori e Souvenir</div>
+  <div class="section-title">Accessori & Souvenir</div>
   <div class="product-grid">
+
     <div class="product-card">
-      <img src="foto/shop3.avif" alt="Peluche">
+      <img src="foto/merch/tazza.png" alt="Tazza Zoo Safari">
       <div class="card-label">
-        <span class="label-title">Peluche</span>
-        <span class="label-price">€ 28.00</span>
+        <span class="label-title">Tazza Safari</span>
+        <span class="label-price">€ 12.99</span>
       </div>
-      <button class="buy-btn" (click)="addToCart(103, 'Peluche', 28, 'foto/shop3.avif')">
+      <button class="buy-btn" (click)="addToCart(108, 'Tazza Safari', 12.99, 'foto/merch/tazza.png')">
         <span class="material-icons">add_shopping_cart</span>
         Acquista
       </button>
     </div>
 
     <div class="product-card">
-      <img src="foto/shop4.avif" alt="Set Souvenir">
+      <img src="foto/merch/portachiavi.png" alt="Portachiavi Oro">
       <div class="card-label">
-        <span class="label-title">Set Souvenir</span>
-        <span class="label-price">€ 15.00</span>
+        <span class="label-title">Portachiavi Oro</span>
+        <span class="label-price">€ 9.99</span>
       </div>
-      <button class="buy-btn" (click)="addToCart(104, 'Set Souvenir', 15, 'foto/shop4.avif')">
+      <button class="buy-btn" (click)="addToCart(109, 'Portachiavi Oro', 9.99, 'foto/merch/portachiavi.png')">
         <span class="material-icons">add_shopping_cart</span>
         Acquista
       </button>
     </div>
+
+    <div class="product-card">
+      <img src="foto/merch/pin-spilla.png" alt="Pin Conservation">
+      <div class="card-label">
+        <span class="label-title">Pin Conservation</span>
+        <span class="label-price">€ 7.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(110, 'Pin Conservation', 7.99, 'foto/merch/pin-spilla.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
+    <div class="product-card">
+      <img src="foto/merch/notebook.png" alt="Notebook Wildlife">
+      <div class="card-label">
+        <span class="label-title">Notebook Wildlife</span>
+        <span class="label-price">€ 11.99</span>
+      </div>
+      <button class="buy-btn" (click)="addToCart(111, 'Notebook Wildlife', 11.99, 'foto/merch/notebook.png')">
+        <span class="material-icons">add_shopping_cart</span>
+        Acquista
+      </button>
+    </div>
+
   </div>
+
 </div>

@@ -1,57 +1,118 @@
-import { Component } from '@angular/core';
-import { ComponentType } from '@angular/cdk/overlay';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Utilities } from '../../../core/utils/utilities';
 import { EventiServices } from '../../../core/services/eventi-services';
 import { EventoDialog } from './evento-dialog/evento-dialog';
-import { SceltaUpdateDialog } from '../gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
 
 @Component({
   selector: 'app-gestione-eventi',
-  standalone: false,
   templateUrl: './gestione-eventi.html',
-  styleUrl: './gestione-eventi.css',
+  styleUrls: ['./gestione-eventi.css'],
+  standalone: false
 })
-export class GestioneEventi {
+export class GestioneEventi implements OnInit {
 
-  filtro = {
-    tipoEvento: '',
-    dataInizio: null,
-    dataFine: null
-  };
+  eventi: any[] = [];
+  loading = false;
 
   constructor(
     private eventiS: EventiServices,
-    private util: Utilities
+    private util: Utilities,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    this.eventiS.list();
+  ngOnInit(): void {
+    this.search();
   }
 
-  get eventi() { return this.eventiS.eventi(); }
+  search(): void {
+    this.loading = true;
 
-  search() {
-    this.eventiS.search(this.filtro);
-  }
+    this.eventiS.list().subscribe({
+      next: (resp: any[]) => {
 
-  onCreateEvento() {
-    const dialogComponent: ComponentType<any> = EventoDialog;
+        this.eventi = (resp || []).map((e: any) => ({
+          id: e.id ?? '',
+          tipoEvento: e.tipoEvento ?? '',
+          dataInizio: e.dataInizio ?? '',
+          dataFine: e.dataFine ?? ''
+        }));
 
-    this.util.openDialog(dialogComponent, {
-      mod: 'C',
-      evento: null
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Errore caricamento eventi', err);
+        this.eventi = [];
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 
-  onSelected(row: any) {
-    const dialogRef = this.util.openDialog(SceltaUpdateDialog, null, { width: '400px' });
+  onCreateEvento(): void {
+    const dialogRef = this.util.openDialog(
+      EventoDialog,
+      {
+        mod: 'C',
+        evento: null
+      },
+      {
+        width: '720px',
+        maxWidth: '95vw',
+        height: 'auto'
+      }
+    );
 
-    dialogRef.afterClosed().subscribe(choice => {
-      if (choice === 'update') this.eseguoUpdate(row);
-    });
+    if (dialogRef?.afterClosed) {
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          setTimeout(() => {
+            this.search();
+          }, 0);
+        }
+      });
+    }
   }
 
-  eseguoUpdate(row: any) {
-    this.util.openDialog(EventoDialog, { mod: 'U', evento: row });
+  eseguoUpdate(evento: any): void {
+    const dialogRef = this.util.openDialog(
+      EventoDialog,
+      {
+        mod: 'U',
+        evento: { ...evento }
+      },
+      {
+        width: '720px',
+        maxWidth: '95vw',
+        height: 'auto'
+      }
+    );
+
+    if (dialogRef?.afterClosed) {
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          setTimeout(() => {
+            this.search();
+          }, 0);
+        }
+      });
+    }
+  }
+
+  eliminaEvento(evento: any): void {
+    const conferma = confirm(`Sei sicuro di voler eliminare l'evento "${evento.id}"?`);
+    if (!conferma) {
+      return;
+    }
+
+    this.eventiS.delete(evento.id).subscribe({
+      next: () => {
+        this.eventi = this.eventi.filter(e => e.id !== evento.id);
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione evento', err);
+      }
+    });
   }
 }

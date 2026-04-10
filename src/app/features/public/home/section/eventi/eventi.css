@@ -18,9 +18,9 @@
 
 .eventi-bg-video {
   position: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 0;
@@ -28,12 +28,12 @@
 
 .eventi-overlay {
   position: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(47, 93, 80, 1) 0%, rgba(47, 93, 80, 0) 25%, rgba(51, 95, 84, 0) 95%, rgba(51, 95, 84, 1) 100%);
+  background: linear-gradient(180deg, rgba(var(--zoo-dark-rgb), 1) 0%, rgba(var(--zoo-dark-rgb), 0) 25%, rgba(var(--zoo-dark-rgb), 0) 95%, rgba(var(--zoo-dark-rgb), 1) 100%);
 }
 
 .glass-sidebar {
@@ -42,7 +42,7 @@
   top: 0;
   height: 100%;
   width: 380px;
-  background: linear-gradient(180deg, rgba(47, 93, 80, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(51, 95, 84, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(var(--zoo-dark-rgb), 0.92) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(var(--zoo-dark-rgb), 0.92) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 5;
@@ -181,7 +181,7 @@
 }
 
 .animal-modal-content {
-  background: linear-gradient(135deg, var(--zoo-green-dark) 0%, #1a3a2f 100%);
+  background: linear-gradient(135deg, var(--zoo-dark) 0%, #0d0b08 100%);
   border: 1px solid rgba(200, 155, 60, 0.4);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(200, 155, 60, 0.1);
   border-radius: 20px;
@@ -255,4 +255,3 @@
     padding: 4rem 2rem;
   }
 }
-

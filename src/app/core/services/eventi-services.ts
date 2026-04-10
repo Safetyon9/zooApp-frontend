@@ -30,11 +30,6 @@ export class EventiServices {
     );
   }
 
-  search(req: any) {
-    this.http.post<any[]>(this.url + "search", req)
-      .subscribe(res => this.eventi.set(res));
-  }
-
   create(body: {}) {
     return this.http.post(this.url + 'create', body);
   }

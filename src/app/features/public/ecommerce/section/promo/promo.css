@@ -33,9 +33,10 @@
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(47, 93, 80, 0.4) 0%,
-    rgba(47, 93, 80, 0.4) 90%,
-    rgba(47, 93, 80, 1) 100%
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.45) 70%,
+    rgba(var(--zoo-dark-rgb), 1) 100%
   );
   z-index: 10;
   pointer-events: none;

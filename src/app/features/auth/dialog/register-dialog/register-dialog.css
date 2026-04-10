@@ -1,38 +1,35 @@
-/* Dialog Angular trasparente */
 ::ng-deep .cdk-overlay-pane .mat-mdc-dialog-surface {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-/* mat-dialog-content interno */
 ::ng-deep .mat-mdc-dialog-content {
   background: transparent !important;
   padding: 0 !important;
 }
 
-/* CONTENITORE GLASS REGISTER */
 .dialog-container {
   position: relative;
   width: 100%;
   max-width: 1000px;
   margin: 40px auto;
-  padding: 24px 32px 24px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  background-color: rgba(47, 93, 80, 0.78);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(200, 155, 60, 0.18);
+  padding: 28px 34px 26px;
+  border-radius: 22px;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(145deg, rgba(var(--zoo-dark-rgb), 0.9) 0%, rgba(var(--zoo-dark-rgb), 0.95) 100%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
   color: #ffffff;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
 }
 
 .dialog-container:hover {
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--zoo-gold-soft-rgb), 0.08);
+  border-color: rgba(var(--zoo-gold-soft-rgb), 0.35);
   transform: translateY(-2px);
 }
 
-/* mat-card trasparente */
 .dialog-card,
 ::ng-deep .mat-mdc-card,
 ::ng-deep .mat-mdc-card .mdc-card {
@@ -43,12 +40,13 @@
   padding: 0;
 }
 
-/* Header titolo */
 .dialog-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0 12px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
+  margin-bottom: 6px;
   background: transparent;
 }
 
@@ -69,12 +67,10 @@
   transform: scale(1.03);
 }
 
-/* Contenuto card */
 .dialog-content {
   padding: 0;
 }
 
-/* GRID FORM (disposizione invariata) */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -86,12 +82,10 @@
 .col-3 { grid-column: span 3; }
 .col-4 { grid-column: 1 / -1; }
 
-/* Form field */
 mat-form-field {
   width: 100%;
 }
 
-/* Stile Angular Material dei campi */
 ::ng-deep .dialog-container .mat-mdc-text-field-wrapper {
   background-color: rgba(255, 255, 255, 0.10) !important;
   border-radius: 12px !important;
@@ -143,7 +137,6 @@ mat-form-field {
   border-bottom-color: var(--zoo-gold-soft) !important;
 }
 
-/* Messaggio errore */
 .msg-error {
   min-height: 20px;
   font-size: 0.95rem;
@@ -156,7 +149,6 @@ mat-form-field {
   color: #ff8a8a !important;
 }
 
-/* Gruppo bottone in basso (centrato) */
 .button-group {
   grid-column: 1 / -1;
   display: flex;
@@ -174,16 +166,16 @@ mat-form-field {
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: none;
-  color: var(--zoo-text-dark) !important;
-  background: var(--zoo-gold-soft) !important;
-  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.28) !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--zoo-gold-soft), var(--zoo-earth-warm)) !important;
+  box-shadow: 0 4px 14px rgba(var(--zoo-gold-soft-rgb), 0.3) !important;
   transition: all 0.3s ease;
 }
 
 .button-group button:hover:not(:disabled) {
-  background: var(--zoo-gold-soft) !important;
+  background: linear-gradient(135deg, var(--zoo-earth-warm), var(--zoo-gold-soft)) !important;
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(200, 155, 60, 0.35) !important;
+  box-shadow: 0 6px 20px rgba(var(--zoo-gold-soft-rgb), 0.45) !important;
 }
 
 .button-group button:disabled {
@@ -193,7 +185,6 @@ mat-form-field {
   box-shadow: none !important;
 }
 
-/* Pulsante chiusura (X) spostato dentro */
 .dialog-close-btn {
   position: absolute;
   top: 14px;
@@ -210,7 +201,6 @@ mat-form-field {
   transform: rotate(90deg) scale(1.08);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .dialog-container {
     max-width: 100%;

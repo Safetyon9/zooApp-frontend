@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: var(--zoo-green-dark);
+  background-color: var(--zoo-dark);
 }
 
 .animal-carousel {
@@ -46,7 +46,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(47, 93, 80, 1) 0%, rgba(47, 93, 80, 0.6) 20%, rgba(47, 93, 80, 0.6) 100%);
+  background: linear-gradient(180deg, rgba(var(--zoo-dark-rgb), 1) 0%, rgba(var(--zoo-dark-rgb), 0.6) 20%, rgba(var(--zoo-dark-rgb), 0.6) 100%);
   z-index: 1;
 }
 
@@ -110,7 +110,7 @@
 .amount-btn.active {
   background: var(--zoo-gold-soft);
   border-color: var(--zoo-gold-soft);
-  color: var(--zoo-green-dark);
+  color: var(--zoo-text-dark);
   transform: scale(1.05);
 }
 
@@ -148,7 +148,7 @@
   width: 100%;
   padding: 1rem;
   background: var(--zoo-gold-soft);
-  color: var(--zoo-green-dark);
+  color: var(--zoo-text-dark);
   border: none;
   border-radius: 12px;
   font-size: 1.25rem;
