@@ -71,9 +71,26 @@
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 
+.navbar-menu a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--zoo-gold-soft);
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.navbar-menu a:hover::after {
+  transform: scaleX(1);
+}
+
 .navbar-menu a:hover {
   color: var(--zoo-gold-soft);
-  border-bottom-color: var(--zoo-gold-soft);
 }
 
 .navbar-menu a.active {

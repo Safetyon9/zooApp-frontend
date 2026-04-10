@@ -10,7 +10,9 @@ import { UploadServices } from '../../../../../core/services/upload-services';
 })
 export class UploaditemDialog implements OnInit {
 
-  prodotto = signal<any>(null);
+  item = signal<any>(null);
+  type = signal<'prodotto' | 'biglietto'>('prodotto');
+
   imageUrl = signal<string | null>(null);
   msg = signal<string>("");
 
@@ -23,16 +25,20 @@ export class UploaditemDialog implements OnInit {
     private uploadServices: UploadServices,
     private dialogRef: MatDialogRef<UploaditemDialog>
   ) {
-    if (data?.prodotto) {
-      this.prodotto.set(data.prodotto);
+    if (data?.item) {
+      this.item.set(data.item);
+    }
+
+    if (data?.type) {
+      this.type.set(data.type);
     }
   }
 
   ngOnInit(): void {
-    const p = this.prodotto();
+    const item = this.item();
 
-    if (p?.urlImmagine) {
-      this.uploadServices.getUrl(p.urlImmagine)
+    if (item?.urlImmagine) {
+      this.uploadServices.getUrl(item.urlImmagine)
         .subscribe({
           next: (r: any) => {
             this.imageUrl.set(r?.msg || null);
@@ -65,9 +71,9 @@ export class UploaditemDialog implements OnInit {
   }
 
   onUpload(): void {
-    const prodotto = this.prodotto();
+    const item = this.item();
 
-    if (!prodotto?.id || !this.selectedFile) {
+    if (!item?.id || !this.selectedFile) {
       this.msg.set('Seleziona un file prima di caricare');
       return;
     }
@@ -76,8 +82,8 @@ export class UploaditemDialog implements OnInit {
 
     this.uploadServices.upload(
       this.selectedFile,
-      prodotto.id,
-      'prodotto'
+      item.id,
+      this.type()
     )
     .subscribe({
       next: (r: any) => {
@@ -86,20 +92,22 @@ export class UploaditemDialog implements OnInit {
         this.uploadServices.getUrl(filename)
           .subscribe({
             next: (r2: any) => {
+
               this.loading.set(false);
 
               const finalUrl = r2?.msg || null;
               this.imageUrl.set(finalUrl);
 
-              this.prodotto.update(p => ({
+              this.item.update(p => ({
                 ...p,
                 urlImmagine: filename
               }));
 
               this.dialogRef.close({
                 updated: true,
-                filename: filename,
-                url: finalUrl
+                filename,
+                url: finalUrl,
+                type: this.type()
               });
             },
             error: () => {

@@ -5,7 +5,7 @@
     </button>
 
     <h2 mat-dialog-title>
-        Upload immagine prodotto: {{ prodotto()?.nome }}
+        Upload immagine {{ type() }}: {{ item()?.nome }}
     </h2>
 
     <mat-dialog-content>
@@ -46,7 +46,7 @@
                             <div style="text-align:center">
                                 <img
                                     [src]="imageUrl()"
-                                    alt="product image"
+                                    alt="image preview"
                                     style="max-width: 300px; border-radius: 8px;">
                             </div>
                         }
@@ -80,4 +80,5 @@
             Carica immagine
         </button>
     </mat-dialog-actions>
+
 </div>
