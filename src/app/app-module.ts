@@ -28,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
@@ -67,6 +68,7 @@ import { BigliettiManager } from './features/admin/gestione-items/biglietti-mana
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
+import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
     ShopMerch,
     EventoDialog,
     GestioneOridini,
+    UploaditemDialog,
     SafePipe
   ],
   imports: [
@@ -134,7 +137,8 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
     MatProgressSpinnerModule,
     MatButtonToggleModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   providers: [
     provideHttpClient(withFetch()),

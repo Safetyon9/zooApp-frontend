@@ -1,0 +1,70 @@
+<div class="container dialog-container">
+
+    <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <h2 mat-dialog-title>
+        Upload immagine prodotto: {{ prodotto()?.nome }}
+    </h2>
+
+    <mat-dialog-content>
+
+        <div class="full-row image-row">
+
+            <div class="image-left">
+
+                <button mat-raised-button color="primary" type="button"
+                    (click)="fileInput.click()">
+
+                    <mat-icon>upload</mat-icon>
+                    Scegli immagine
+                </button>
+
+                <span class="file-name">{{ fileName }}</span>
+
+                <input
+                    #fileInput
+                    type="file"
+                    accept="image/*"
+                    style="display: none"
+                    (change)="onFileSelected($event)">
+            </div>
+
+            <div class="image-right">
+
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true">
+
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <span>Anteprima immagine</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        @if (imageUrl()) {
+                            <div style="text-align:center">
+                                <img
+                                    [src]="imageUrl()"
+                                    alt="product image"
+                                    style="max-width: 300px; border-radius: 8px;">
+                            </div>
+                        }
+
+                        @else {
+                            <p>Nessuna immagine caricata</p>
+                        }
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+            </div>
+
+        </div>
+
+        <div class="msg-error full-row">
+            <span style="color:red">{{ msg() }}</span>
+        </div>
+
+    </mat-dialog-content>
+</div>
