@@ -10,6 +10,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 
 import { CommonModule } from '@angular/common';
 
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -72,7 +73,7 @@ import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-m
 import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
-import { PasswordDimenticata } from './features/public/email/password-dimenticata/password-dimenticata';
+import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,7 @@ import { PasswordDimenticata } from './features/public/email/password-dimenticat
     ShopBiglietti,
     ShopMerch,
     EventoDialog,
-    PasswordDimenticata,
+    PasswordDimenticataComponent,
     EmailValidation,
     GestioneOrdini,
     UploaditemDialog,

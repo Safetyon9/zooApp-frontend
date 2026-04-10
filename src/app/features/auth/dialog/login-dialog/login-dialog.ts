@@ -67,6 +67,6 @@ export class LoginDialog {
   passwordDimenticata(): void {
     this.dialogRef.close(false);
 
-    this.routing.navigate(['/password-dimenticata']);
+    this.routing.navigate(['/forgot-password']);
   }
 }

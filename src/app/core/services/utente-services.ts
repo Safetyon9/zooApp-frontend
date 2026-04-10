@@ -98,4 +98,14 @@ emailValidate(token: string) {
     const params = new HttpParams().set('userName', userName);
     return this.http.get(this.url + 'findAllByUserName', { params });
   }
+passwordDimenticata(username: string, email: string) {
+  return this.http.post(`${this.url}password-dimenticata`, {
+    username,
+    email
+  });
+}
+
+
+
+
 }
