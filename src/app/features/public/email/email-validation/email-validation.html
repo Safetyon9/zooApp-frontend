@@ -1,1 +1,19 @@
-<p>email-validation works!</p>
+<div class="validation-wrapper">
+  <div class="validation-card">
+    <h1>Verifica account</h1>
+
+    @if (stato === 'loading') {
+      <p class="info">Verifica account in corso...</p>
+    }
+
+    @if (stato === 'success') {
+      <p class="success">{{ messaggio }}</p>
+      <a routerLink="/" class="btn-home">Vai alla home</a>
+    }
+
+    @if (stato === 'error') {
+      <p class="error">{{ messaggio }}</p>
+      <a routerLink="/" class="btn-home">Torna alla home</a>
+    }
+  </div>
+</div>
