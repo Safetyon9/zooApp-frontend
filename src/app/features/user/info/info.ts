@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 import { AuthServices } from '../../../core/services/auth-services';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
-import { ChangeDetectorRef } from '@angular/core';
+
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
@@ -13,7 +14,7 @@ import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
   templateUrl: './info.html',
   styleUrl: './info.css',
 })
-export class Info implements OnInit{
+export class Info implements OnInit {
   @Input() showProfileSection: boolean = false;
 
   profilo: any = {};
@@ -27,63 +28,80 @@ export class Info implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    const userId = this.auth.grant()?.userId;
+    this.caricaProfilo();
+  }
+
+  private getUserId(): any {
+    return this.auth.grant()?.userId;
+  }
+
+  private toBoolean(value: any): boolean {
+    const normalized = String(value ?? '').trim().toLowerCase();
+    return value === true || value === 1 || normalized === 'true' || normalized === '1';
+  }
+
+  private mapProfilo(r: any): any {
+    return {
+      username: r.userName ?? r.username ?? '',
+      email: r.email ?? '',
+      nome: r.nome ?? '',
+      cognome: r.cognome ?? '',
+      telefono: r.telefono ?? '',
+      indirizzo: r.indirizzo ?? '',
+      comune: r.comune ?? '',
+      cap: r.cap ?? '',
+      provincia: r.provincia ?? '',
+      isValidate: this.toBoolean(r.isValidate ?? r.validate)
+    };
+  }
+
+  private caricaProfilo(): void {
+    const userId = this.getUserId();
     if (!userId) return;
 
     this.utenteServices.findAllByUserName(userId).subscribe({
       next: (r: any) => {
         console.log('PROFILO BACKEND:', JSON.stringify(r));
-
-        this.profilo = this.profilo = {
-          username: r.userName ?? '',
-          email: r.email ?? '',
-          nome: r.nome ?? '',
-          cognome: r.cognome ?? '',
-          telefono: r.telefono ?? '',
-          indirizzo: r.indirizzo ?? '',
-          comune: r.comune ?? '',
-          cap: r.cap ?? '',
-          provincia: r.provincia ?? ''
-        };
+        this.profilo = this.mapProfilo(r);
         this.cdr.detectChanges();
       },
       error: (err: any) => {
-        console.error('error getAccount:', err);
+        console.error('Errore caricamento profilo:', err);
       }
     });
   }
 
   modificaProfilo(): void {
-  const dialogRef = this.util.openDialog(
-    UpdateDialog,
-    { account: this.profilo, mode: 'U' },
-    { width: '90vw', maxWidth: '1200px', height: 'auto' }
-  );
+    const dialogRef = this.util.openDialog(
+      UpdateDialog,
+      { account: this.profilo, mode: 'U' },
+      { width: '90vw', maxWidth: '1200px', height: 'auto' }
+    );
 
-  dialogRef.afterClosed().subscribe((resp: any) => {
-    if (!resp) return;
+    dialogRef?.afterClosed()?.subscribe((resp: any) => {
+      if (!resp) return;
+      this.caricaProfilo();
+    });
+  }
 
-    const userId = this.auth.grant()?.userId;
-    if (!userId) return;
+  // USA USERNAME AL POSTO DI EMAIL
+  inviaMailValidazione(): void {
+    const username = this.profilo?.username;
+    if (!username) {
+      alert('Username non disponibile.');
+      return;
+    }
 
-    this.utenteServices.findAllByUserName(userId).subscribe({
-      next: (r: any) => {
-        this.profilo = {
-          username: r.userName ?? '',
-          email: r.email ?? '',
-          nome: r.nome ?? '',
-          cognome: r.cognome ?? '',
-          telefono: r.telefono ?? '',
-          indirizzo: r.indirizzo ?? '',
-          comune: r.comune ?? '',
-          cap: r.cap ?? '',
-          provincia: r.provincia ?? ''
-        };
-        this.cdr.detectChanges();
+    this.utenteServices.inviaMailValidazione(username).subscribe({
+      next: () => {
+        alert('Mail di validazione inviata con successo.');
+      },
+      error: (err: any) => {
+        console.error('Errore invio mail di validazione', err);
+        alert('Errore durante l\'invio della mail di validazione.');
       }
     });
-  });
-}
+  }
 
   delete(): void {
     const username = this.profilo?.username;
