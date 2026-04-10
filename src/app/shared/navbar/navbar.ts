@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -15,14 +16,16 @@ import { UtenteServices } from '../../core/services/utente-services';
   standalone: false,
 })
 export class Navbar {
+
   isMenuOpen = false;
+  isHidden = false;
+  isShop = false;
+  searchQuery = '';
+
   authGrant: any;
 
   private lastScrollY = 0;
-  isHidden = false;
-
-  isShop = false;
-  searchQuery = '';
+  private listenerAttached = false;
 
   constructor(
     private dialog: MatDialog,
@@ -30,20 +33,49 @@ export class Navbar {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private cartS: CartService,
-    private utenteServices: UtenteServices
+    private utenteServices: UtenteServices,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.authGrant = this.auth.grant;
+
     this.router.events.subscribe(() => {
       this.isShop = this.router.url.startsWith('/shop');
       this.cdr.detectChanges();
     });
   }
 
-  isMerchPage(): boolean {
-    return this.router.url.includes('/merch');
+  ngAfterViewInit() {
+
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    if (this.listenerAttached) return;
+    this.listenerAttached = true;
+
+    const el = document.body;
+
+    el.addEventListener('scroll', () => {
+
+      const y = el.scrollTop;
+      const delta = y - this.lastScrollY;
+
+      const threshold = 8;
+
+      if (y < 80) {
+        this.isHidden = false;
+      } else if (delta > threshold) {
+        this.isHidden = true;
+      } else if (delta < -threshold) {
+        this.isHidden = false;
+      }
+
+      this.lastScrollY = y;
+
+      this.cdr.detectChanges();
+    });
   }
 
-  onSearch() {
+  isMerchPage(): boolean {
+    return this.router.url.includes('/merch');
   }
 
   get cartCount() {
@@ -54,12 +86,6 @@ export class Navbar {
     return this.isShop;
   }
 
-  @HostListener('window:scroll') onScroll() {
-    const currentScrollY = window.scrollY;
-    this.isHidden = currentScrollY > this.lastScrollY && currentScrollY > 80;
-    this.lastScrollY = currentScrollY;
-  }
-
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -67,6 +93,8 @@ export class Navbar {
   closeMenu() {
     this.isMenuOpen = false;
   }
+
+  onSearch() {}
 
   openHome() {
     this.router.navigate(['']);
@@ -94,8 +122,7 @@ export class Navbar {
         this.auth.logout();
         this.router.navigate(['/']);
       },
-      error: (err: any) => {
-        console.error('Errore logout backend', err);
+      error: () => {
         this.auth.logout();
         this.router.navigate(['/']);
       }
@@ -128,13 +155,14 @@ export class Navbar {
 
   private scrollToSection(id: string) {
     const element = document.getElementById(id);
+
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       this.router.navigate(['/']).then(() => {
         setTimeout(() => {
-          const el = document.getElementById(id);
-          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById(id)
+            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       });
     }

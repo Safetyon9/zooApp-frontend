@@ -1,9 +1,9 @@
 .navbar-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0 2.5rem;
+  padding: 0 1rem;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -13,11 +13,13 @@
   background: linear-gradient(135deg, rgba(107, 85, 64, 0.94) 0%, rgba(90, 70, 52, 0.96) 100%);
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   border-bottom: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.25);
-  transition: transform 0.3s ease;
+  transform: translateY(0);
+  transition: transform 0.3s ease, backdrop-filter 0.3s ease;
+  will-change: transform;
 }
 
 .navbar-container.hidden {
-  transform: translateY(-100%);
+  transform: translateY(-110%);
 }
 
 .logo-container {
