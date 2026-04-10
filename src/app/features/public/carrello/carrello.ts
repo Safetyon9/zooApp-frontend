@@ -80,4 +80,9 @@ export class Carrello implements OnInit{
   checkout(): void {
     this.router.navigate(['/utente/checkout']);
   }
+
+  tornaAlNegozio(): void {
+    this.svuota();
+    this.router.navigate(['/shop']);
+  }
 }
