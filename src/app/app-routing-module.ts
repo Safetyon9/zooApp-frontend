@@ -38,7 +38,7 @@ const routes: Routes = [
           { path: '', component: Shop },
           { path: 'biglietti', component: ShopBiglietti },
           { path: 'merch', component: ShopMerch },
-          { path: 'carrello', component: Carrello }
+          
         ]
       },
     ]
@@ -79,7 +79,7 @@ const routes: Routes = [
   { path: 'login', component: LoginDialog },
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
-
+  { path: 'carrello', component: Carrello },
 
   { path: '**', redirectTo: '' }
 ];
