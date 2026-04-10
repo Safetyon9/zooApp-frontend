@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-email-validation',
-  imports: [],
+  standalone:false,
   templateUrl: './email-validation.html',
   styleUrl: './email-validation.css',
 })

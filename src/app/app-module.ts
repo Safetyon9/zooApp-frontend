@@ -70,6 +70,7 @@ import { ShopBiglietti } from './features/public/ecommerce/section/shop-bigliett
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
+import { EmailValidation } from './features/public/email/email-validation/email-validation';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-
     ShopBiglietti,
     ShopMerch,
     EventoDialog,
+    EmailValidation,
     GestioneOridini,
     UploaditemDialog,
     SafePipe

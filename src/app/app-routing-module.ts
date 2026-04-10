@@ -24,6 +24,7 @@ import { Ordini } from './features/user/ordini/ordini';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { Carrello } from './features/public/carrello/carrello';
+import { EmailValidation } from './features/public/email/email-validation/email-validation';
 
 const routes: Routes = [
   {
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
   { path: 'carrello', component: Carrello },
+  { path: 'emailValidation', component: EmailValidation },
 
   { path: '**', redirectTo: '' }
 ];
