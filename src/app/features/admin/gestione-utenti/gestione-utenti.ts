@@ -54,7 +54,10 @@ export class GestioneUtente implements OnInit {
           cap: r.cap ?? '',
           telefono: r.telefono ?? '',
           provincia: r.provincia ?? '',
+          // Online da isActive (boolean o string)
           isOnline: r.isActive === true || r.isActive === 'true',
+          // Validato da isValidate (boolean o string)
+          isValidate: r.isValidate === true || r.isValidate === 'true',
           expanded: false,
           loadingDettaglio: false,
           dettaglioCaricato: false,
@@ -137,6 +140,8 @@ export class GestioneUtente implements OnInit {
           email: r.email ?? profilo.email ?? '',
           role: r.role ?? profilo.role ?? '',
           isOnline: !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline),
+          // di nuovo converto isValidate a boolean
+          isValidate: r.isValidate === true || r.isValidate === 'true',
           dettaglioCaricato: true,
           loadingDettaglio: false,
           isCliente: (r.role ?? profilo.role ?? '') === 'USER'
