@@ -31,7 +31,7 @@ export class UploaditemDialog implements OnInit {
     const p = this.prodotto();
 
     if (p?.urlImmagine) {
-      this.imageUrl.set(p.urlImmagine);
+      this.imageUrl.set(this.normalizeUrl(p.urlImmagine));
     }
   }
 
@@ -50,19 +50,13 @@ export class UploaditemDialog implements OnInit {
     this.onUpload();
   }
 
-onUpload(): void {
-  const prodotto = this.prodotto();
+  onUpload(): void {
+    const prodotto = this.prodotto();
 
-  if (!prodotto?.id || !this.selectedFile) {
-    console.log("UPLOAD ABORTED → missing id or file");
-    return;
-  }
-
-  console.log("START UPLOAD →", {
-    file: this.selectedFile,
-    id: prodotto.id,
-    tipo: 'prodotto'
-  });
+    if (!prodotto?.id || !this.selectedFile) {
+      console.log("UPLOAD ABORTED → missing id or file");
+      return;
+    }
 
     this.uploadServices.upload(
       this.selectedFile,
@@ -72,40 +66,31 @@ onUpload(): void {
     .subscribe({
       next: (r: any) => {
 
-        console.log("UPLOAD RAW RESPONSE →", r);
+        console.log("UPLOAD RESPONSE →", r);
 
-        const filename = r?.msg;
-        console.log("EXTRACTED FILENAME →", filename);
+        const url = r?.msg;
 
-        if (!filename) {
-          console.error("❌ filename is null/undefined");
+        if (!url) {
+          this.msg.set("Errore: URL mancante dal backend");
           return;
         }
 
-        this.uploadServices.getUrl(filename)
-          .subscribe({
-            next: (r2: any) => {
+        this.imageUrl.set(this.normalizeUrl(url));
 
-              console.log("GET URL RESPONSE →", r2);
-
-              const url = r2?.msg;
-              console.log("FINAL IMAGE URL →", url);
-
-              this.imageUrl.set(url || null);
-
-              console.log("IMAGE URL SIGNAL NOW →", this.imageUrl());
-            },
-            error: (err) => {
-              console.error("GET URL ERROR →", err);
-              this.msg.set('Errore recupero URL immagine');
-            }
-          });
       },
       error: (err: any) => {
         console.error("UPLOAD ERROR →", err);
         this.msg.set(err.error?.msg || 'Errore upload');
       }
     });
+  }
+
+  private normalizeUrl(url: string): string {
+    if (!url) return '';
+
+    return url.startsWith('http')
+      ? url
+      : `http://localhost:9090/files/${url}`;
   }
 
   close(): void {
