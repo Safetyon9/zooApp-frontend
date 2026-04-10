@@ -84,8 +84,6 @@ const routes: Routes = [
   { path: 'update', component: UpdateDialog },
   { path: 'carrello', component: Carrello },
   { path: 'emailValidation', component: EmailValidation },
-  { path: 'eventi-home', component: Eventi },
-  { path: 'news-home', component: News },
 
   { path: '**', redirectTo: '' }
 ];
