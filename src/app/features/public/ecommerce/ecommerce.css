@@ -1,9 +1,10 @@
 .ecommerce-container {
   min-height: 100vh;
   padding-top: 80px;
-  background: radial-gradient(circle at top right, var(--zoo-dark) 0%, rgba(var(--zoo-dark-rgb), 0.95) 100%);
+  background: radial-gradient(circle at top right, #5C4A38 0%, #3D2E22 100%);
   background-attachment: fixed;
   color: white;
+  overflow-x: hidden;
 }
 
 .shop-content-section {
