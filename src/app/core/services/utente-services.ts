@@ -17,8 +17,8 @@ export interface ClienteDto {
   provincia?: string | null;
   carrelloId?: number | null;
   ordini?: any[] | null;
-  isOnline?: boolean;     // aggiunto
-  online?: boolean;       // opzionale se il backend lo manda così
+  isOnline?: boolean;
+  online?: boolean;
 }
 
 @Injectable({

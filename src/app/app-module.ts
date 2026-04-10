@@ -55,7 +55,6 @@ import { SafePipe } from './shared/pipes/safe.pipe';
 import { Ecommerce } from './features/public/ecommerce/ecommerce';
 import { NavbarEcommerce } from './features/public/ecommerce/navbar-ecommerce/navbar-ecommerce';
 import { Promo } from './features/public/ecommerce/section/promo/promo';
-import { Categories } from './features/public/ecommerce/section/categories/categories';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { MaintenanceOverlay } from './shared/maintenance-overlay/maintenance-overlay';
 import { NavbarUtente } from './features/user/navbar-utente/navbar-utente';
@@ -100,7 +99,6 @@ import { PasswordDimenticataComponent } from './features/public/email/password-d
     Ecommerce,
     NavbarEcommerce,
     Promo,
-    Categories,
     Shop,
     MaintenanceOverlay,
     NavbarUtente,

@@ -1,97 +1,48 @@
-<div class="shop-section">
-  @if (step === 1) {
-    <div class="section-title">Biglietti</div>
-    <div class="product-grid">
+<div class="shop-container">
 
-      <div class="product-card" *ngFor="let biglietto of biglietti">
-        <img [src]="biglietto.urlImmagine || 'foto/animal-1.jpg'" [alt]="biglietto.nome">
-        <div class="card-label">
-          <span class="label-title">{{ biglietto.nome }}</span>
-          <span class="label-price">€ {{ biglietto.prezzo | number:'1.2-2' }}</span>
+  <h1 class="title">Biglietti disponibili</h1>
+
+  <div class="grid">
+
+    @for (b of biglietti; track b.id) {
+      <mat-card class="ticket-card" appearance="outlined">
+
+        <div class="img-wrapper">
+          @if (b.urlImmagine) {
+            <img [src]="imgBaseUrl + b.urlImmagine">
+          } @else {
+            <img src="no_image.png" />
+          }
         </div>
-        <button class="buy-btn" (click)="selectTicket(biglietto)">
-          <span class="material-icons">add_shopping_cart</span>
-          Acquista
-        </button>
-      </div>
-    </div>
-  } @else {
-    <div class="date-selection-container">
-      <div class="selection-card">
-        <button class="btn-back" (click)="reset()">
-          <span class="material-icons">arrow_back</span>
-          Indietro
-        </button>
 
-        <div class="selected-info">
-          <img [src]="selectedTicket.immagine" alt="Ticket selection">
-          <div class="text">
-            <h2>{{ selectedTicket.nome }}</h2>
-            <p>Configura il biglietto e seleziona la data</p>
+        <mat-card-content>
+
+          <h2 class="name">{{ b.nome }}</h2>
+
+          <p class="type">
+            {{ b.tipoNome }}
+          </p>
+
+          <div class="price">
+            € {{ b.prezzo }}
           </div>
-        </div>
 
-        <div class="ticket-form">
-          <div class="form-grid">
-            <div class="form-field">
-              <label class="field-label">Quantità</label>
-              <input type="number" min="1" step="1" [(ngModel)]="selectedQuantity" class="text-input">
-            </div>
+        </mat-card-content>
 
-            @if (selectedTicket?.id === 1) {
-              <div class="form-field">
-                <label class="field-label">Categoria</label>
-                <select [(ngModel)]="standardCategory" class="text-input">
-                  <option value="" disabled>Seleziona</option>
-                  <option value="Adulto">Adulto</option>
-                  <option value="Bambino">Bambino</option>
-                </select>
-              </div>
-            }
+        <mat-card-actions class="actions">
 
-            @if (selectedTicket?.id === 2) {
-              <div class="form-field">
-                <label class="field-label">Genitori</label>
-                <input type="number" [ngModel]="familyParents" disabled class="text-input">
-              </div>
-              <div class="form-field">
-                <label class="field-label">Bambini</label>
-                <input type="number" min="0" step="1" [(ngModel)]="familyKids" class="text-input">
-              </div>
-            }
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="shop.addToCart(b, 'biglietto', 1)">
+            Aggiungi al carrello
+          </button>
 
-            @if (selectedTicket?.id === 3) {
-              <div class="form-field">
-                <label class="field-label">Categoria</label>
-                <select [(ngModel)]="reducedCategory" class="text-input">
-                  <option value="" disabled>Seleziona</option>
-                  <option value="Bambini 10-12">Bambini 10-12</option>
-                  <option value="Over 65">Over 65</option>
-                  <option value="Disabilità">Ridotto disabilità</option>
-                  <option value="Ridotto Accompagnatore">Ridotto accompagnatore</option>
-                </select>
-              </div>
-            }
+        </mat-card-actions>
 
-            <div class="form-field">
-              <label class="field-label">Data visita</label>
-              <input type="date" [(ngModel)]="selectedDate" class="text-input">
-            </div>
-          </div>
-        </div>
+      </mat-card>
+    }
 
-        <button class="btn-confirm"
-          [disabled]="
-            !selectedDate ||
-            !selectedQuantity ||
-            selectedQuantity < 1 ||
-            (selectedTicket?.id === 1 && !standardCategory) ||
-            (selectedTicket?.id === 3 && !reducedCategory)
-          "
-          (click)="confirmPurchase()">
-          Conferma e Aggiungi al Carrello
-        </button>
-      </div>
-    </div>
-  }
+  </div>
+
 </div>
