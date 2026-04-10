@@ -50,6 +50,9 @@ export class UtenteServices {
   changePwd(body: {}) {
     return this.http.put(this.url + 'changePwd', body);
   }
+  inviaMailValidazione(userName: string) {
+  return this.http.get(this.url +'sendValidation?id=' + userName, {} );
+}
 
   logout(userName: string) {
     console.log("LOGOUT SU UTENTE SERVICES")

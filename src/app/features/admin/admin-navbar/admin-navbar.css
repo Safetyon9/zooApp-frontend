@@ -25,16 +25,17 @@
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0 16px 20px 16px;
 }
 
 .logo-container img.logo-img {
-  width: 8rem;
+  width: 10rem;
   height: auto;
-  max-height: 80px;
-  filter: brightness(0) sepia(1) saturate(3) hue-rotate(-10deg);
+  max-height: 100px;
+  filter: none;
 }
 
 .logo-container:hover img.logo-img {

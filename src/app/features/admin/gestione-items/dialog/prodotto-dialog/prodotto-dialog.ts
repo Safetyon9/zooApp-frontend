@@ -42,14 +42,12 @@ export class ProdottoDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.prodS.getCategorie().subscribe(res => {
-    this.categorie = res || [];
 
     if (this.mod() === 'U' && this.prodotto()) {
       this.updateForm.patchValue({
         nome: this.prodotto().nome,
         descrizione: this.prodotto().descrizione,
-        categoriaId: this.prodotto().categoriaId,
+        categoriaId: this.prodotto().categoria?.id,
         prezzo: this.prodotto().prezzo,
         stock: this.prodotto().stock,
         sku: this.prodotto().sku,
@@ -58,7 +56,29 @@ export class ProdottoDialog implements OnInit {
         urlImmagine: this.prodotto().urlImmagine
       });
     }
-  });
+
+    this.prodS.getCategorie().subscribe(res => {
+      this.categorie = res || [];
+
+      if (this.mod() === 'U' && this.prodotto()) {
+
+        const categoriaSelezionata = this.categorie.find(
+          c => c.nome === this.prodotto().categoriaNome
+        );
+
+        this.updateForm.patchValue({
+          nome: this.prodotto().nome,
+          descrizione: this.prodotto().descrizione,
+          categoriaId: categoriaSelezionata ? categoriaSelezionata.id : null,
+          prezzo: this.prodotto().prezzo,
+          stock: this.prodotto().stock,
+          sku: this.prodotto().sku,
+          peso: this.prodotto().peso,
+          dimensioni: this.prodotto().dimensioni,
+          urlImmagine: this.prodotto().urlImmagine
+        });
+      }
+    });
   }
 
   onSubmit() {

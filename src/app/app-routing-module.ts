@@ -13,7 +13,7 @@ import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
-import { GestioneOridini } from './features/admin/gestione-oridini/gestione-oridini';
+import { GestioneOrdini } from './features/admin/gestione-ordini/gestione-ordini';
 import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
@@ -24,6 +24,9 @@ import { Ordini } from './features/user/ordini/ordini';
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { Carrello } from './features/public/carrello/carrello';
+import { EmailValidation } from './features/public/email/email-validation/email-validation';
+import { Eventi } from './features/public/home/section/eventi/eventi';
+import { News } from './features/public/home/section/news/news';
 
 const routes: Routes = [
   {
@@ -70,7 +73,7 @@ const routes: Routes = [
 
       { path: 'eventi', component: GestioneEventi },
 
-      { path: 'ordini', component: GestioneOridini },
+      { path: 'ordini', component: GestioneOrdini },
 
       { path: 'modify', component: AdminChangePwd }
     ]
@@ -80,6 +83,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
   { path: 'carrello', component: Carrello },
+  { path: 'emailValidation', component: EmailValidation },
+  { path: 'eventi-home', component: Eventi },
+  { path: 'news-home', component: News },
 
   { path: '**', redirectTo: '' }
 ];

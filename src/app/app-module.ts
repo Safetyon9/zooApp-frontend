@@ -40,6 +40,7 @@ import { BigliettoDialog } from './features/admin/gestione-items/dialog/bigliett
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
+import { Footer } from './shared/footer/footer';
 import { Home } from './features/public/home/home';
 import { Carrello } from './features/public/carrello/carrello';
 import { Info } from './features/user/info/info';
@@ -63,13 +64,14 @@ import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-p
 import { GestioneEventi } from './features/admin/gestione-eventi/gestione-eventi';
 import { GestioneItems } from './features/admin/gestione-items/gestione-items';
 import { GestioneUtente } from './features/admin/gestione-utenti/gestione-utenti';
-import { GestioneOridini } from './features/admin/gestione-oridini/gestione-oridini';
+import { GestioneOrdini } from './features/admin/gestione-ordini/gestione-ordini';
 import { ProdottiManager } from './features/admin/gestione-items/prodotti-manager/prodotti-manager';
 import { BigliettiManager } from './features/admin/gestione-items/biglietti-manager/biglietti-manager';
 import { ShopBiglietti } from './features/public/ecommerce/section/shop-biglietti/shop-biglietti';
 import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-merch';
 import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
+import { EmailValidation } from './features/public/email/email-validation/email-validation';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,7 @@ import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-
     Info,
     Ordini,
     Navbar,
+    Footer,
     Donation,
     Eventi,
     News,
@@ -112,7 +115,8 @@ import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-
     ShopBiglietti,
     ShopMerch,
     EventoDialog,
-    GestioneOridini,
+    EmailValidation,
+    GestioneOrdini,
     UploaditemDialog,
     SafePipe
   ],
