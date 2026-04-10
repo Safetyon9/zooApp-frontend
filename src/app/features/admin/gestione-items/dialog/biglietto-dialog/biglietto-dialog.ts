@@ -91,10 +91,6 @@ export class BigliettoDialog implements OnInit {
     });
   }
 
-  remove() {
-    // opzionale: chiamata a delete
-  }
-
   cancel() {
     this.dialogRef.close(false);
   }
