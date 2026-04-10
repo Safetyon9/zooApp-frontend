@@ -25,6 +25,8 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { Carrello } from './features/public/carrello/carrello';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
+import { Eventi } from './features/public/home/section/eventi/eventi';
+import { News } from './features/public/home/section/news/news';
 
 const routes: Routes = [
   {
@@ -82,6 +84,8 @@ const routes: Routes = [
   { path: 'update', component: UpdateDialog },
   { path: 'carrello', component: Carrello },
   { path: 'emailValidation', component: EmailValidation },
+  { path: 'eventi-home', component: Eventi },
+  { path: 'news-home', component: News },
 
   { path: '**', redirectTo: '' }
 ];
