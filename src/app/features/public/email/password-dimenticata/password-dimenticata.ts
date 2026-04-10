@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtenteServices } from '../../../../core/services/utente-services';
 
@@ -7,41 +6,50 @@ import { UtenteServices } from '../../../../core/services/utente-services';
   standalone:false,
   selector: 'app-password-dimenticata',
   templateUrl: './password-dimenticata.html',
-  styleUrls: ['./password-dimenticata.css'],
+  styleUrls: ['./password-dimenticata.css']
 })
 export class PasswordDimenticataComponent {
+
+  email = '';
+
   loading = false;
-  msg: string | null = null;
+  errore = '';
+  messaggio = '';
 
   constructor(
-    private utenteServices: UtenteServices,
-    private router: Router
+    private router: Router,
+    private utenteServices: UtenteServices
   ) {}
 
-  onSubmit(form: NgForm): void {
-    if (form.invalid) {
+  onSubmit(): void {
+    this.errore = '';
+    this.messaggio = '';
+
+    if (!this.email) {
+      this.errore = 'Inserisci la tua email.';
       return;
     }
 
-    const { username, email } = form.value;
-
     this.loading = true;
-    this.msg = null;
 
-    this.utenteServices.passwordDimenticata(username, email).subscribe({
+    this.utenteServices.passwordDimenticata(this.email).subscribe({
       next: (resp: any) => {
         this.loading = false;
-        this.msg = resp?.msg || 'Se i dati sono corretti, riceverai una mail con le istruzioni per reimpostare la password.';
+        this.messaggio =
+          resp?.msg ||
+          'Se l’email è corretta, riceverai una mail per reimpostare la password.';
+
+        this.email = '';
       },
       error: (err: any) => {
         this.loading = false;
-        console.error('Errore password dimenticata', err);
-        this.msg = err?.error?.msg || 'Errore durante la richiesta di reset password.';
+        this.errore =
+          err?.error?.msg || 'Errore durante l’invio della richiesta.';
       }
     });
   }
 
   tornaAlLogin(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
   }
 }
