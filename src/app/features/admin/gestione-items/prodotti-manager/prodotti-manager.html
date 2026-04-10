@@ -72,7 +72,7 @@
                   <tr>
                     <td>
                       @if (p.urlImmagine) {
-                        <img [src]="p.urlImmagine" style="max-width:80px;">
+                        <img [src]="imgBaseUrl+p.urlImmagine" style="max-width:80px;">
                       } @else {
                         <img src="no_image.png" style="max-width:80px;">
                       }
@@ -99,7 +99,7 @@
                   </tr>
                 } @empty {
                   <tr>
-                    <td colspan="5" class="empty-cell">Nessun prodotto trovato.</td>
+                    <td colspan="9" class="empty-cell">Nessun prodotto trovato.</td>
                   </tr>
                 }
               </tbody>

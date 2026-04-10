@@ -23,6 +23,7 @@ export class ProdottiManager implements OnInit {
     sku: null
   };
 
+  imgBaseUrl = "http://localhost:9090/files/";
   categorie: any[] = [];
   prodottiList: any[] = [];
   loading = false;

@@ -16,6 +16,7 @@ export class UploaditemDialog implements OnInit {
 
   fileName: string = '';
   selectedFile: File | null = null;
+  loading = signal<boolean>(false);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
@@ -31,7 +32,15 @@ export class UploaditemDialog implements OnInit {
     const p = this.prodotto();
 
     if (p?.urlImmagine) {
-      this.imageUrl.set(this.normalizeUrl(p.urlImmagine));
+      this.uploadServices.getUrl(p.urlImmagine)
+        .subscribe({
+          next: (r: any) => {
+            this.imageUrl.set(r?.msg || null);
+          },
+          error: () => {
+            this.msg.set('Errore caricamento immagine');
+          }
+        });
     }
   }
 
@@ -39,24 +48,31 @@ export class UploaditemDialog implements OnInit {
     const input = event.target as HTMLInputElement;
 
     if (!input.files || input.files.length === 0) {
-      this.fileName = '';
-      this.selectedFile = null;
+      this.resetSelection();
       return;
     }
 
     this.selectedFile = input.files[0];
     this.fileName = this.selectedFile.name;
 
-    this.onUpload();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageUrl.set(reader.result as string);
+    };
+    reader.readAsDataURL(this.selectedFile);
+
+    this.msg.set("");
   }
 
   onUpload(): void {
     const prodotto = this.prodotto();
 
     if (!prodotto?.id || !this.selectedFile) {
-      console.log("UPLOAD ABORTED → missing id or file");
+      this.msg.set('Seleziona un file prima di caricare');
       return;
     }
+
+    this.loading.set(true);
 
     this.uploadServices.upload(
       this.selectedFile,
@@ -65,32 +81,43 @@ export class UploaditemDialog implements OnInit {
     )
     .subscribe({
       next: (r: any) => {
+        const filename = r?.msg;
 
-        console.log("UPLOAD RESPONSE →", r);
+        this.uploadServices.getUrl(filename)
+          .subscribe({
+            next: (r2: any) => {
+              this.loading.set(false);
 
-        const url = r?.msg;
+              const finalUrl = r2?.msg || null;
+              this.imageUrl.set(finalUrl);
 
-        if (!url) {
-          this.msg.set("Errore: URL mancante dal backend");
-          return;
-        }
+              this.prodotto.update(p => ({
+                ...p,
+                urlImmagine: filename
+              }));
 
-        this.imageUrl.set(this.normalizeUrl(url));
-
+              this.dialogRef.close({
+                updated: true,
+                filename: filename,
+                url: finalUrl
+              });
+            },
+            error: () => {
+              this.loading.set(false);
+              this.msg.set('Errore recupero URL immagine');
+            }
+          });
       },
       error: (err: any) => {
-        console.error("UPLOAD ERROR →", err);
+        this.loading.set(false);
         this.msg.set(err.error?.msg || 'Errore upload');
       }
     });
   }
 
-  private normalizeUrl(url: string): string {
-    if (!url) return '';
-
-    return url.startsWith('http')
-      ? url
-      : `http://localhost:9090/files/${url}`;
+  resetSelection(): void {
+    this.fileName = '';
+    this.selectedFile = null;
   }
 
   close(): void {
