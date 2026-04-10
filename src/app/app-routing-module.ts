@@ -80,7 +80,10 @@ const routes: Routes = [
   { path: 'carrello', component: Carrello },
   { path: 'emailValidation', component: EmailValidation },
   { path: 'forgot-password', component: PasswordDimenticataComponent },
-  { path: 'resetPassword/:token', component: ResetPasswordComponent },
+  {
+  path: 'resetPassword/:token',
+  component: ResetPasswordComponent
+},
 
   { path: '**', redirectTo: '' }
 ];
