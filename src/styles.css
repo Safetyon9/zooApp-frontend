@@ -1,9 +1,12 @@
 :root {
-  --primary-color: #FFD60A;
-  --secondary-color: #1B4332;
-  --accent-color: #E63946;
-  --text-color: #FFFFFF;
-  --light-bg: #FFFFFF;
+  --zoo-green-dark: #2F5D50;
+  --zoo-green-soft: #6E8F71;
+  --zoo-sand-light: #D8C3A5;
+  --zoo-earth-warm: #A47148;
+  --zoo-cream: #F5EEDC;
+  --zoo-gold-soft: #C89B3C;
+  --zoo-text-dark: #2B2B2B;
+  --zoo-text-light: #5A5A5A;
 }
 
 body {

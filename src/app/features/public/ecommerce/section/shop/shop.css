@@ -34,7 +34,7 @@
 .shop-title {
   font-size: 3rem;
   font-weight: 900;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;

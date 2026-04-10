@@ -16,9 +16,9 @@
   padding: 26px 30px 24px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  background-color: rgba(27, 67, 50, 0.78);
+  background-color: rgba(47, 93, 80, 0.78);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 214, 10, 0.18);
+  border: 1px solid rgba(200, 155, 60, 0.18);
   color: #ffffff;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -41,7 +41,7 @@ h2[mat-dialog-title] {
   font-weight: 400;
   font-size: 2rem;
   letter-spacing: 1px;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   transition: all 0.3s ease;
 }
 
@@ -64,12 +64,12 @@ mat-form-field {
   background-color: rgba(255, 255, 255, 0.10) !important;
   border-radius: 12px !important;
   transition: all 0.3s ease;
-  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(200, 155, 60, 0.10);
 }
 
 ::ng-deep .dialog-container .mat-mdc-text-field-wrapper:hover {
   background-color: rgba(255, 255, 255, 0.14) !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(200, 155, 60, 0.25);
 }
 
 ::ng-deep .dialog-container .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -86,7 +86,7 @@ mat-form-field {
 
 ::ng-deep .dialog-container .mat-mdc-input-element {
   color: #ffffff !important;
-  caret-color: #FFD60A !important;
+  caret-color: var(--zoo-gold-soft) !important;
   font-size: 0.98rem;
 }
 
@@ -99,11 +99,11 @@ mat-form-field {
 }
 
 ::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mdc-floating-label {
-  color: #FFD60A !important;
+  color: var(--zoo-gold-soft) !important;
 }
 
 ::ng-deep .dialog-container .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
-  box-shadow: inset 0 0 0 1px rgba(255, 214, 10, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(200, 155, 60, 0.45);
 }
 
 p {
@@ -136,13 +136,13 @@ p {
 }
 
 .btn-primary {
-  background-color: #FFD60A;
-  color: #1B4332;
-  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.28);
+  background-color: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
+  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.28);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #ffe15c;
+  background-color: var(--zoo-gold-soft);
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(255, 214, 0);
+  box-shadow: 0 6px 16px rgba(200, 155, 60, 0.4);
 }

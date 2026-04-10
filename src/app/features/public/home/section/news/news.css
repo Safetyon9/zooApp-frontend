@@ -34,8 +34,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(33, 81, 60, 0.98) 0%, rgba(33, 81, 60, 0.35) 24%, rgba(27, 67, 50, 0.35) 76%, rgba(27, 67, 50, 0.98) 100%),
-    linear-gradient(180deg, rgba(33, 81, 60, 0.55) 0%, rgba(27, 67, 50, 0.55) 100%);
+    linear-gradient(180deg, rgba(51, 95, 84, 0.98) 0%, rgba(51, 95, 84, 0.35) 24%, rgba(47, 93, 80, 0.35) 76%, rgba(47, 93, 80, 0.98) 100%),
+    linear-gradient(180deg, rgba(51, 95, 84, 0.55) 0%, rgba(47, 93, 80, 0.55) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -53,7 +53,7 @@
 
 .news-header h2 {
   font-size: 3rem;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   margin: 0 0 1rem 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
@@ -91,7 +91,7 @@
 .news-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 214, 10, 0.3);
+  border-color: rgba(200, 155, 60, 0.3);
 }
 
 .news-image-wrapper {
@@ -116,8 +116,8 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(255, 214, 10, 0.9);
-  color: #1B4332;
+  background: rgba(200, 155, 60, 0.9);
+  color: var(--zoo-text-dark);
   padding: 0.4rem 1rem;
   border-radius: 30px;
   font-size: 0.8rem;
@@ -159,7 +159,7 @@
 }
 
 .news-link {
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   font-weight: bold;
   font-size: 1rem;
   display: flex;

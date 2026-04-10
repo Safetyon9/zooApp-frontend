@@ -33,7 +33,7 @@
   width: 100%; 
   height: 100%;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(27, 67, 50, 1) 0%, rgba(27, 67, 50, 0) 25%, rgba(33, 81, 60, 0) 95%, rgba(33, 81, 60, 1) 100%);
+  background: linear-gradient(180deg, rgba(47, 93, 80, 1) 0%, rgba(47, 93, 80, 0) 25%, rgba(51, 95, 84, 0) 95%, rgba(51, 95, 84, 1) 100%);
 }
 
 .glass-sidebar {
@@ -42,7 +42,7 @@
   top: 0;
   height: 100%;
   width: 380px;
-  background: linear-gradient(180deg, rgba(27, 67, 50, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(33, 81, 60, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(47, 93, 80, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(51, 95, 84, 0.9) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 5;
@@ -57,13 +57,13 @@
 
 .sidebar-header {
   margin-bottom: 4rem;
-  border-bottom: 2px solid rgba(255, 214, 10, 0.3);
+  border-bottom: 2px solid rgba(200, 155, 60, 0.3);
   padding-bottom: 1.5rem;
 }
 
 .sidebar-header h2 {
   font-size: 2.8rem;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   margin: 0 0 0.5rem 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
@@ -97,12 +97,12 @@
   font-size: 1.8rem;
   min-width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #FFD60A 0%, #D48C45 100%);
+  background: linear-gradient(135deg, var(--zoo-gold-soft) 0%, var(--zoo-earth-warm) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 5px 15px rgba(255, 214, 10, 0.3);
+  box-shadow: 0 5px 15px rgba(200, 155, 60, 0.3);
 }
 
 .side-text h3 {
@@ -122,8 +122,8 @@
 .side-badge {
   display: inline-block;
   font-size: 0.75rem;
-  color: #1B4332;
-  background: #FFD60A;
+  color: var(--zoo-text-dark);
+  background: var(--zoo-gold-soft);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   margin-bottom: 0.8rem;
@@ -137,9 +137,9 @@
   gap: 0.6rem;
   margin-top: 1rem;
   padding: 0.6rem 1rem;
-  background: rgba(255, 214, 10, 0.1);
-  border: 1px solid rgba(255, 214, 10, 0.3);
-  color: #FFD60A;
+  background: rgba(200, 155, 60, 0.1);
+  border: 1px solid rgba(200, 155, 60, 0.3);
+  color: var(--zoo-gold-soft);
   border-radius: 20px;
   text-decoration: none;
   font-size: 0.85rem;
@@ -148,23 +148,23 @@
 }
 
 .alert-link:hover {
-  background: rgba(255, 214, 10, 0.25);
+  background: rgba(200, 155, 60, 0.25);
   transform: translateX(5px);
-  border-color: #FFD60A;
+  border-color: var(--zoo-gold-soft);
 }
 
 .pulse-dot {
   width: 8px;
   height: 8px;
-  background-color: #FFD60A;
+  background-color: var(--zoo-gold-soft);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(255, 214, 10, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(200, 155, 60, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(200, 155, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(200, 155, 60, 0); }
 }
 
 .animal-modal-overlay {
@@ -181,9 +181,9 @@
 }
 
 .animal-modal-content {
-  background: linear-gradient(135deg, #1B4332 0%, #21513C 100%);
-  border: 1px solid rgba(255, 214, 10, 0.4);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 214, 10, 0.1);
+  background: linear-gradient(135deg, var(--zoo-green-dark) 0%, #1a3a2f 100%);
+  border: 1px solid rgba(200, 155, 60, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(200, 155, 60, 0.1);
   border-radius: 20px;
   width: 90%;
   max-width: 600px;
@@ -199,7 +199,7 @@
   right: 1.5rem;
   background: none;
   border: none;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   font-size: 2.5rem;
   cursor: pointer;
   transition: transform 0.2s;
@@ -212,7 +212,7 @@
 
 .animal-modal-content h2 {
   font-size: 2.2rem;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
   margin: 0 0 0.5rem 0;
   font-family: Georgia, serif;
   font-style: italic;
@@ -233,7 +233,7 @@
 }
 
 .modal-body strong {
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
 }
 
 @keyframes fadeIn {

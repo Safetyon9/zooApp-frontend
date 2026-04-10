@@ -33,9 +33,9 @@
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(27, 67, 50, 0.4) 0%,
-    rgba(27, 67, 50, 0.4) 90%,
-    rgba(27, 67, 50, 1) 100%
+    rgba(47, 93, 80, 0.4) 0%,
+    rgba(47, 93, 80, 0.4) 90%,
+    rgba(47, 93, 80, 1) 100%
   );
   z-index: 10;
   pointer-events: none;
@@ -76,5 +76,5 @@
 
 .hover-zone .arrow {
   font-size: 2rem;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
 }

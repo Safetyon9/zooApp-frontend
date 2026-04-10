@@ -65,7 +65,7 @@
 .label-price {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #FFD60A;
+  color: var(--zoo-gold-soft);
 }
 
 .card-label {
@@ -73,7 +73,7 @@
 }
 
 .product-card:hover .card-label {
-  background: rgba(27, 67, 50, 0.95);
+  background: rgba(47, 93, 80, 0.95);
 }
 
 .buy-btn {
@@ -81,8 +81,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
-  background: #FFD60A;
-  color: #1B4332;
+  background: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
   border: none;
   padding: 1rem 1.8rem;
   font-size: 0.9rem;
