@@ -140,7 +140,6 @@ export class GestioneUtente implements OnInit {
           email: r.email ?? profilo.email ?? '',
           role: r.role ?? profilo.role ?? '',
           isOnline: !!(r.isOnline ?? r.online ?? r.isonline ?? profilo.isOnline),
-          // di nuovo converto isValidate a boolean
           isValidate: r.isValidate === true || r.isValidate === 'true',
           dettaglioCaricato: true,
           loadingDettaglio: false,
