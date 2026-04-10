@@ -22,14 +22,15 @@
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .logo-container img.logo-img {
-  width: 8rem;
+  width: 10rem;
   height: auto;
-  max-height: 80px;
+  max-height: 100px;
   filter: none;
 }
 
