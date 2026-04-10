@@ -1,4 +1,4 @@
-<div class="shop-section">
+<!--<div class="shop-section">
   @if (step === 1) {
     <div class="section-title">Biglietti</div>
     <div class="product-grid">
@@ -12,27 +12,20 @@
           <span class="material-icons">add_shopping_cart</span>
           Acquista
         </button>
-      </div>
+      </div>-->
 
-      <div class="product-card">
-        <img src="foto/animal-2.jpg" alt="Biglietto Famiglia">
-        <div class="card-label">
-          <span class="label-title">Biglietto Famiglia</span>
-          <span class="label-price">€ 60.00</span>
-        </div>
-        <button class="buy-btn" (click)="selectTicket({id: 2, nome: 'Biglietto Famiglia', prezzo: 60, immagine: 'foto/animal-2.jpg'})">
-          <span class="material-icons">add_shopping_cart</span>
-          Acquista
-        </button>
-      </div>
+      <div class="shop-section">
+  @if (step === 1) {
+    <div class="section-title">Biglietti</div>
+    <div class="product-grid">
 
-      <div class="product-card">
-        <img src="foto/animal-3.jpg" alt="Biglietto Ridotto">
+      <div class="product-card" *ngFor="let biglietto of biglietti">
+        <img [src]="biglietto.urlImmagine || 'foto/animal-1.jpg'" [alt]="biglietto.nome">
         <div class="card-label">
-          <span class="label-title">Biglietto Ridotto</span>
-          <span class="label-price">€ 15.00</span>
+          <span class="label-title">{{ biglietto.nome }}</span>
+          <span class="label-price">€ {{ biglietto.prezzo | number:'1.2-2' }}</span>
         </div>
-        <button class="buy-btn" (click)="selectTicket({id: 3, nome: 'Biglietto Ridotto', prezzo: 15, immagine: 'foto/animal-3.jpg'})">
+        <button class="buy-btn" (click)="selectTicket(biglietto)">
           <span class="material-icons">add_shopping_cart</span>
           Acquista
         </button>
