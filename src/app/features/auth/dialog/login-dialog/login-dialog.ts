@@ -26,48 +26,49 @@ export class LoginDialog {
   ) { }
 
   onSubmit(signin: NgForm) {
-    
     this.account.login({
       username: signin.form.value.username,
       pwd: signin.form.value.pwd
     }).subscribe({
       next: (resp: any) => {
-        this.msg.set("");
-        console.log(resp)
+        this.msg.set('');
+        console.log(resp);
         this.auth.setAutentificated(resp.username);
 
-        if (resp.ruolo == 'ADMIN') this.auth.setAdmin();
-        if (resp.ruolo == 'USER') this.auth.setUser();
+        if (resp.ruolo === 'ADMIN') this.auth.setAdmin();
+        if (resp.ruolo === 'USER') this.auth.setUser();
 
-        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated() );
-       
+        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated());
 
         this.dialogRef.close(true);
       },
       error: (resp: any) => {
         console.log(resp);
-        this.msg.set(resp.error.msg);
+        this.msg.set(resp.error?.msg || 'Errore durante il login.');
       }
     });
   }
 
-
   registrazione() {
-   
-    this.util.openDialog(RegisterDialog,
+    this.util.openDialog(
+      RegisterDialog,
       {
         account: null,
-        mode: "C"
-      }, 
+        mode: 'C'
+      },
       {
         width: '90vw',
         maxWidth: '1200px',
-        height: 'auto',
+        height: 'auto'
       }
     );
-   
   }
 
+  passwordDimenticata(): void {
+    // Chiudo il dialog di login
+    this.dialogRef.close(false);
 
-
+    // Navigo alla pagina/reset password (modifica la rotta se ne usi un’altra)
+    this.routing.navigate(['/forgot-password']);
+  }
 }
