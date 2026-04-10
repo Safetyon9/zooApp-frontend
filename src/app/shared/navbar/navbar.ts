@@ -110,6 +110,10 @@ export class Navbar {
     this.router.navigate(['admin']);
   }
 
+  goToCarrello() {
+    this.router.navigate(['carrello']);
+  }
+
   scrollToDonation() {
     this.scrollToSection('donation-section');
   }

@@ -23,6 +23,7 @@ import { Ordini } from './features/user/ordini/ordini';
 
 import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
+import { Carrello } from './features/public/carrello/carrello';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
         children: [
           { path: '', component: Shop },
           { path: 'biglietti', component: ShopBiglietti },
-          { path: 'merch', component: ShopMerch }
+          { path: 'merch', component: ShopMerch },
+          { path: 'carrello', component: Carrello }
         ]
       },
     ]
@@ -77,6 +79,7 @@ const routes: Routes = [
   { path: 'login', component: LoginDialog },
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
+
 
   { path: '**', redirectTo: '' }
 ];

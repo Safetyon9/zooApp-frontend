@@ -41,6 +41,7 @@ import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
 import { Home } from './features/public/home/home';
+import { Carrello } from './features/public/carrello/carrello';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { Ordini } from './features/user/ordini/ordini';
@@ -83,6 +84,7 @@ import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-
     SceltaUpdateDialog,
     ChangePwd,
     Home,
+    Carrello,
     Info,
     Ordini,
     Navbar,
