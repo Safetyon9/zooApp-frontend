@@ -88,6 +88,11 @@ export class UtenteServices {
   delete(userName: string) {
   return this.http.delete(`${this.url}delete/${userName}`);
 }
+emailValidate(token: string) {
+  return this.http.get(`${this.url}emailValidate`, {
+    params: { token }
+  });
+}
 
   findAllByUserName(userName: string) {
     const params = new HttpParams().set('userName', userName);
