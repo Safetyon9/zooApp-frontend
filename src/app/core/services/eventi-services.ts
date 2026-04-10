@@ -8,7 +8,7 @@ export interface EventoDto {
   dataInizio?: string;
   dataFine?: string;
 }
-
+//cancellalo
 @Injectable({
   providedIn: 'root',
 })

@@ -24,7 +24,10 @@ export class RegisterDialog implements OnInit {
     via: new FormControl<string | null>(null),
     comune: new FormControl<string | null>(null, Validators.required),
     provincia: new FormControl<string | null>(null),
-    cap: new FormControl<string | null>(null, [Validators.minLength(5), Validators.maxLength(5)]),
+    cap: new FormControl<string | null>(null, [
+      Validators.minLength(5),
+      Validators.maxLength(5)
+    ]),
     username: new FormControl<string | null>(null, Validators.required),
     pwd: new FormControl<string | null>(null, Validators.required),
     pwdControl: new FormControl<string | null>(null, Validators.required),
@@ -98,7 +101,6 @@ export class RegisterDialog implements OnInit {
         telefono: this.updateForm.value.telefono,
       },
     };
-
     this.http.post(`${this.baseUrl}/register`, body).subscribe({
       next: (resp: any) => {
         this.dialogRef.close(resp);
