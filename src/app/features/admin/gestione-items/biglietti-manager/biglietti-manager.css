@@ -118,6 +118,17 @@ mat-card-content {
   box-shadow: 0 6px 14px rgba(217, 119, 6, 0.10);
 }
 
+.text-button-danger {
+  border-color: rgba(220, 38, 38, 0.22);
+  color: #dc2626;
+}
+
+.text-button-danger:hover {
+  background: #fee2e2;
+  color: #991b1b;
+  box-shadow: 0 6px 14px rgba(220, 38, 38, 0.10);
+}
+
 .empty-state {
   padding: 40px 20px;
   text-align: center;

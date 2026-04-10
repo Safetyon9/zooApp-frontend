@@ -74,7 +74,7 @@ export class ProdottoDialog implements OnInit {
   }
 
   onUpdate() {
-    const updateBody: any = { id: this.prodotto().id };
+    const updateBody: any = { itemId: this.prodotto().id };
     Object.keys(this.updateForm.controls).forEach(key => {
       if (this.updateForm.controls[key].dirty) {
         updateBody[key] = this.updateForm.value[key];
@@ -85,10 +85,6 @@ export class ProdottoDialog implements OnInit {
       next: () => this.dialogRef.close(true),
       error: (err: any) => this.msg.set(err.error?.msg || 'Errore durante l\'aggiornamento')
     });
-  }
-
-  remove() {
-
   }
 
   cancel() {

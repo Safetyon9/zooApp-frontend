@@ -109,6 +109,7 @@
                 <th>Email</th>
                 <th>Role</th>
                 <th>Online</th>
+                <th>Validato</th>
                 <th>Azioni</th>
               </tr>
             </thead>
@@ -119,6 +120,8 @@
                   <td>{{ profilo.userName || '-' }}</td>
                   <td>{{ profilo.email || '-' }}</td>
                   <td>{{ profilo.role || '-' }}</td>
+
+                  <!-- Online -->
                   <td>
                     <div class="status-cell">
                       <span
@@ -131,6 +134,21 @@
                       </span>
                     </div>
                   </td>
+
+                  <!-- Validato -->
+                  <td>
+                    <div class="status-cell">
+                      <span
+                        class="status-dot"
+                        [class.online]="profilo.isValidate"
+                        [class.offline]="!profilo.isValidate">
+                      </span>
+                      <span class="status-text">
+                        {{ profilo.isValidate ? 'Validato' : 'Non validato' }}
+                      </span>
+                    </div>
+                  </td>
+
                   <td class="actions-cell">
                     <button
                       type="button"
@@ -160,7 +178,7 @@
 
                 @if (profilo.expanded) {
                   <tr class="detail-row">
-                    <td colspan="5">
+                    <td colspan="6">
                       <div class="detail-box">
                         @if (profilo.loadingDettaglio) {
                           <p class="detail-note">Caricamento dettaglio...</p>
@@ -227,6 +245,13 @@
                               <span class="label">Telefono</span>
                               <span class="value">{{ profilo.telefono || '-' }}</span>
                             </div>
+
+                            <div class="profile-item">
+                              <span class="label">Stato validazione</span>
+                              <span class="value">
+                                {{ profilo.isValidate ? 'Validato' : 'Non validato' }}
+                              </span>
+                            </div>
                           </div>
                         }
                       </div>
@@ -235,7 +260,7 @@
                 }
               } @empty {
                 <tr>
-                  <td colspan="5" class="empty-cell">Nessun utente trovato.</td>
+                  <td colspan="6" class="empty-cell">Nessun utente trovato.</td>
                 </tr>
               }
             </tbody>
