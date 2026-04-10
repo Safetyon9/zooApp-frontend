@@ -17,8 +17,8 @@ export interface ClienteDto {
   provincia?: string | null;
   carrelloId?: number | null;
   ordini?: any[] | null;
-  isOnline?: boolean;
-  online?: boolean;
+  isOnline?: boolean;     // aggiunto
+  online?: boolean;       // opzionale se il backend lo manda così
 }
 
 @Injectable({
@@ -99,7 +99,7 @@ emailValidate(token: string) {
     return this.http.get(this.url + 'findAllByUserName', { params });
   }
 passwordDimenticata(username: string) {
-  return this.http.post(`${this.url}password-dimenticata`, {
+  return this.http.post(`${this.url}passwordDimenticata?id=`+username, {
     username
   });
 
