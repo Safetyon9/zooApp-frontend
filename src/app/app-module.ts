@@ -72,6 +72,7 @@ import { ShopMerch } from './features/public/ecommerce/section/shop-merch/shop-m
 import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/evento-dialog';
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
+import { PasswordDimenticata } from './features/public/email/password-dimenticata/password-dimenticata';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { EmailValidation } from './features/public/email/email-validation/email-
     ShopBiglietti,
     ShopMerch,
     EventoDialog,
+    PasswordDimenticata,
     EmailValidation,
     GestioneOrdini,
     UploaditemDialog,

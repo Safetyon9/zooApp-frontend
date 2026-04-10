@@ -65,10 +65,8 @@ export class LoginDialog {
   }
 
   passwordDimenticata(): void {
-    // Chiudo il dialog di login
     this.dialogRef.close(false);
 
-    // Navigo alla pagina/reset password (modifica la rotta se ne usi un’altra)
-    this.routing.navigate(['/forgot-password']);
+    this.routing.navigate(['/password-dimenticata']);
   }
 }

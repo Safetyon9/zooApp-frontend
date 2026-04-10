@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-password-dimenticata',
-  imports: [],
+  standalone:false,
   templateUrl: './password-dimenticata.html',
   styleUrl: './password-dimenticata.css',
 })
