@@ -99,13 +99,18 @@ emailValidate(token: string) {
     return this.http.get(this.url + 'findAllByUserName', { params });
   }
 passwordDimenticata(email: string) {
-  return this.http.post(`${this.url}passwordDimenticata/${encodeURIComponent(email)}`, {});
-}
+  const params = new HttpParams().set('email', email);
 
-changePassword(token: string, newPwd: string) {
-  return this.http.post(`${this.url}/reset-password`, {
-    token,
-    newPwd
+  return this.http.post(
+    `${this.url}passwordDimenticata/${encodeURIComponent(email)}`,
+    {},
+    { params }
+  );
+}
+changePassword(validationToken: string, newPwd: string) {
+  return this.http.post('http://localhost:9090/rest/utente/resetPassword', {
+    newPwd: newPwd,
+    validationToken: validationToken
   });
 }
 
