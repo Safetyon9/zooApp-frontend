@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AuthServices } from '../../../core/services/auth-services';
+import { UtenteServices } from '../../../core/services/utente-services';
+
 @Component({
   selector: 'app-admin-navbar',
   standalone: false,
@@ -17,6 +19,7 @@ export class AdminNavbar {
   constructor(
     public auth: AuthServices,
     private router: Router,
+    private utenteServices: UtenteServices,
     private dialog: MatDialog
   ) {}
 
@@ -44,8 +47,24 @@ export class AdminNavbar {
     this.router.navigate(['/admin/modify']);
   }
 
-  logout(): void {
-    this.auth.resetAll();
-    this.router.navigate(['']);
+  logout() {
+    const userName = localStorage.getItem('userId');
+
+    if (!userName) {
+      this.auth.logout();
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.utenteServices.logout(userName).subscribe({
+      next: () => {
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.auth.logout();
+        this.router.navigate(['/']);
+      }
+    });
   }
 }
