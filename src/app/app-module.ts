@@ -121,7 +121,6 @@ import { PasswordDimenticataComponent } from './features/public/email/password-d
     EmailValidation,
     GestioneOrdini,
     UploaditemDialog,
-    SafePipe
   ],
   imports: [
     BrowserModule,
