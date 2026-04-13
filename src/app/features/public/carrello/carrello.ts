@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
 import { ShopService } from '../../../core/services/shop-services';
 import { CartType } from '../../../core/services/cart-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrello',
@@ -11,8 +12,11 @@ import { CartType } from '../../../core/services/cart-service';
 })
 export class Carrello {
 
-  cartService = inject(CartService);
-  shopService = inject(ShopService);
+  constructor(
+    public cartService: CartService,
+    private shopService: ShopService,
+    public routing: Router
+  ) {}
 
   subtotale = computed(() =>
     this.cartService.totalPrice()
@@ -53,7 +57,7 @@ export class Carrello {
   }
 
   checkout() {
-    console.log('checkout...');
+    this.routing.navigate(['/checkout']);
   }
 
   tornaAlNegozio() {

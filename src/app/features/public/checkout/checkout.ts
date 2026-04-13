@@ -2,6 +2,7 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { CheckoutService } from '../../../core/services/checkout-services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,8 @@ export class Checkout implements OnInit {
   constructor(
   private cartService: CartService,
   private utenteServices: UtenteServices,
-  public checkoutService: CheckoutService
+  public checkoutService: CheckoutService,
+  public router: Router
 ) {}
 
   ngOnInit(): void {
