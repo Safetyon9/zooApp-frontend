@@ -1,0 +1,132 @@
+<div class="checkout-wrapper">
+  <div class="checkout-container">
+
+    <div class="checkout-header">
+      <h2>Checkout</h2>
+      <button class="btn-back" (click)="router.navigate(['/carrello'])">
+        <span class="material-icons">arrow_back</span>
+        Torna al carrello
+      </button>
+    </div>
+
+    <div class="checkout-grid">
+
+      <div class="left-col">
+
+        <div class="section-card">
+          <h3><span class="material-icons">person</span> Dati di spedizione</h3>
+          <div class="profilo-row">
+            <div class="profilo-field">
+              <label>Nome</label>
+              <p>{{ profilo.nome }}</p>
+            </div>
+            <div class="profilo-field">
+              <label>Cognome</label>
+              <p>{{ profilo.cognome }}</p>
+            </div>
+            <div class="profilo-field">
+              <label>Email</label>
+              <p>{{ profilo.email }}</p>
+            </div>
+            <div class="profilo-field">
+              <label>Telefono</label>
+              <p>{{ profilo.telefono }}</p>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Indirizzo di spedizione</label>
+            <input
+              class="input-field"
+              type="text"
+              [(ngModel)]="indirizzoSpedizione"
+              placeholder="Via, numero civico, città">
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3><span class="material-icons">payment</span> Metodo di pagamento</h3>
+          <div class="metodi-list">
+            <div
+              class="metodo-item"
+              *ngFor="let metodo of metodiPagamento"
+              [class.selected]="metodoSelezionato === metodo.id"
+              (click)="metodoSelezionato = metodo.id">
+              <div class="metodo-radio">
+                <div class="radio-dot" *ngIf="metodoSelezionato === metodo.id"></div>
+              </div>
+              <div class="metodo-info">
+                <p class="metodo-nome">{{ metodo.nome }}</p>
+                <p class="metodo-provider" *ngIf="metodo.provider">{{ metodo.provider }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3><span class="material-icons">local_offer</span> Coupon</h3>
+          <div class="coupon-row">
+            <input
+              class="input-field"
+              type="text"
+              [(ngModel)]="couponCodice"
+              placeholder="Inserisci codice coupon">
+            <button class="btn-coupon" (click)="verificaCoupon()">Applica</button>
+          </div>
+          <p class="coupon-msg" *ngIf="couponMsg()" [class.valid]="couponValido()">
+            {{ couponMsg() }}
+          </p>
+        </div>
+
+      </div>
+
+      <div class="right-col">
+
+        <div class="section-card riepilogo">
+          <h3><span class="material-icons">receipt_long</span> Riepilogo ordine</h3>
+
+          <div class="item-row" *ngFor="let item of items">
+            <div class="item-avatar" *ngIf="!item.immagine">
+              {{ item.nome.charAt(0) }}
+            </div>
+            <img *ngIf="item.immagine" [src]="item.immagine" class="item-img" [alt]="item.nome">
+            <div class="item-info">
+              <p class="item-nome">{{ item.nome }}</p>
+              <p class="item-qty">Qtà: {{ item.quantita }}</p>
+            </div>
+            <p class="item-prezzo">€{{ item.prezzo * item.quantita | number:'1.2-2' }}</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="totale-row">
+            <span>Subtotale</span>
+            <span>€{{ subtotale | number:'1.2-2' }}</span>
+          </div>
+          <div class="totale-row" *ngIf="couponValido()">
+            <span>Sconto coupon</span>
+            <span class="sconto">-€{{ scontoAmount | number:'1.2-2' }}</span>
+          </div>
+          <div class="totale-row">
+            <span>Spedizione</span>
+            <span class="free">Gratuita</span>
+          </div>
+          <div class="totale-row finale">
+            <span>Totale</span>
+            <span>€{{ totaleFinale | number:'1.2-2' }}</span>
+          </div>
+
+          <p class="msg-text" [class.success]="success()" *ngIf="msg()">
+            {{ msg() }}
+          </p>
+
+          <button
+            class="btn-conferma"
+            (click)="confermaOrdine()"
+            [disabled]="isLoading || items.length === 0">
+            {{ isLoading ? 'Elaborazione...' : 'Conferma ordine' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

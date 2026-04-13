@@ -24,10 +24,9 @@ import { Shop } from './features/public/ecommerce/section/shop/shop';
 import { AdminChangePwd } from './features/admin/admin-change-pwd/admin-change-pwd';
 import { Carrello } from './features/public/carrello/carrello';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
-import { Eventi } from './features/public/home/section/eventi/eventi';
-import { News } from './features/public/home/section/news/news';
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
 import { ResetPasswordComponent } from './features/public/email/change-password/change-password';
+import { Checkout } from './features/public/checkout/checkout';
 
 const routes: Routes = [
   {
@@ -78,6 +77,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
   { path: 'carrello', component: Carrello },
+  { path: 'checkout', component: Checkout},
   { path: 'emailValidation', component: EmailValidation },
   { path: 'forgot-password', component: PasswordDimenticataComponent },
   {

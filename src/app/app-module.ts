@@ -44,6 +44,7 @@ import { Navbar } from './shared/navbar/navbar';
 import { Footer } from './shared/footer/footer';
 import { Home } from './features/public/home/home';
 import { Carrello } from './features/public/carrello/carrello';
+import { Checkout } from './features/public/checkout/checkout';
 import { Info } from './features/user/info/info';
 import { ChangePwd } from './features/user/change-pwd/change-pwd';
 import { Ordini } from './features/user/ordini/ordini';
@@ -88,6 +89,7 @@ import { PasswordDimenticataComponent } from './features/public/email/password-d
     ChangePwd,
     Home,
     Carrello,
+    Checkout,
     Info,
     Ordini,
     Navbar,
