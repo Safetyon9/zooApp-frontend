@@ -25,3 +25,14 @@ html, body {
   margin: 0;
   overflow-x: hidden;
 }
+
+.logo {
+  width: 24px;
+  height: 24px;
+}
+
+.material-icons.logo-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
