@@ -27,6 +27,17 @@ export class BigliettiManager implements OnInit {
   bigliettiList: any[] = [];
   loading = false;
 
+  nuovoTipo = {
+    nome: ''
+  };
+
+  tipoInModificaId: number | null = null;
+
+  tipoModifica: any = {
+    id: null,
+    nome: ''
+  };
+
   constructor(
     private itemsS: ItemsServices,
     private bigliettiS: BigliettoServices,
@@ -36,7 +47,6 @@ export class BigliettiManager implements OnInit {
 
   ngOnInit(): void {
     this.loadTipi();
-    this.search();
   }
 
   private loadTipi(): void {
@@ -179,6 +189,70 @@ export class BigliettiManager implements OnInit {
       next: () => this.search(),
       error: (err: any) => {
         console.error('Errore eliminazione biglietto', err);
+      }
+    });
+  }
+
+  creaTipo(): void {
+    const nome = (this.nuovoTipo.nome || '').trim();
+    if (!nome) return;
+
+    this.bigliettiS.createTipo({ nome }).subscribe({
+      next: () => {
+        this.nuovoTipo.nome = '';
+        this.loadTipi();
+      },
+      error: (err: any) => {
+        console.error('Errore creazione tipo', err);
+      }
+    });
+  }
+
+  modificaTipo(tipo: any): void {
+    this.tipoInModificaId = tipo.id;
+    this.tipoModifica = {
+      id: tipo.id,
+      nome: tipo.nome
+    };
+  }
+
+  annullaModificaTipo(): void {
+    this.tipoInModificaId = null;
+    this.tipoModifica = {
+      id: null,
+      nome: ''
+    };
+  }
+
+  salvaTipo(tipo: any): void {
+    const nome = (this.tipoModifica.nome || '').trim();
+    if (!nome) return;
+
+    this.bigliettiS.updateTipo({
+      id: tipo.id,
+      nome: nome
+    }).subscribe({
+      next: () => {
+        this.annullaModificaTipo();
+        this.loadTipi();
+      },
+      error: (err: any) => {
+        console.error('Errore aggiornamento tipo', err);
+      }
+    });
+  }
+
+  eliminaTipo(tipo: any): void {
+    const conferma = confirm(`Sei sicuro di voler eliminare il tipo "${tipo.nome}"?`);
+    if (!conferma) return;
+
+    this.bigliettiS.deleteTipo(tipo.id).subscribe({
+      next: () => {
+        this.annullaModificaTipo();
+        this.loadTipi();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione tipo', err);
       }
     });
   }

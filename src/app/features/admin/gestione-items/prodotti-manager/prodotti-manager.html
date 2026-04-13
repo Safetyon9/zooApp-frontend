@@ -38,7 +38,7 @@
 
       @if (loading) {
         <div class="empty-state">
-          <p>Caricamento biglietti...</p>
+          <p>Caricamento prodotti...</p>
         </div>
       } @else {
         <div class="table-wrapper">
@@ -56,47 +56,141 @@
                 <th>Azioni</th>
               </tr>
             </thead>
-            
+
             <tbody>
-                @for (p of prodotti; track p.id) {
-                  <tr>
-                    <td>
-                      @if (p.urlImmagine) {
-                        <img [src]="imgBaseUrl+p.urlImmagine" style="max-width:80px;">
-                      } @else {
-                        <img src="no_image.png" style="max-width:80px;">
-                      }
-                    </td>
-                    <td>{{ p.nome || '-' }}</td>
-                    <td>{{ p.categoriaNome || '-' }}</td>
-                    <td>{{ p.prezzo ?? '-' }}</td>
-                    <td>{{ p.stock ?? '-' }}</td>
-                    <td>{{ p.peso ?? '-' }}</td>
-                    <td>{{ p.dimensioni ?? '-' }}</td>
-                    <td>{{ p.sku || '-' }}</td>
-                    <td class="actions-cell">
-                      <button type="button" class="text-button" (click)="onSelected(p); $event.stopPropagation()">
+              @for (p of prodotti; track p.id) {
+                <tr>
+                  <td>
+                    @if (p.urlImmagine) {
+                      <img [src]="imgBaseUrl + p.urlImmagine" style="max-width:80px;">
+                    } @else {
+                      <img src="no_image.png" style="max-width:80px;">
+                    }
+                  </td>
+                  <td>{{ p.nome || '-' }}</td>
+                  <td>{{ p.categoriaNome || '-' }}</td>
+                  <td>{{ p.prezzo ?? '-' }}</td>
+                  <td>{{ p.stock ?? '-' }}</td>
+                  <td>{{ p.peso ?? '-' }}</td>
+                  <td>{{ p.dimensioni ?? '-' }}</td>
+                  <td>{{ p.sku || '-' }}</td>
+                  <td class="actions-cell">
+                    <button type="button" class="text-button" (click)="onSelected(p); $event.stopPropagation()">
+                      Modifica
+                    </button>
+
+                    <button
+                      type="button"
+                      class="text-button text-button-danger"
+                      (click)="eliminaProdotto(p)">
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="9" class="empty-cell">Nessun prodotto trovato.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <div class="categories-section">
+        <mat-divider></mat-divider>
+
+        <div class="category-header">
+          <h2>Gestione Categorie</h2>
+        </div>
+
+        <div class="category-create-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nuova categoria</mat-label>
+            <input
+              matInput
+              [(ngModel)]="nuovaCategoria.nome"
+              placeholder="Inserisci nome categoria"
+              (keyup.enter)="creaCategoria()" />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="creaCategoria()">
+            Aggiungi Categoria
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome categoria</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (c of categorie; track c.id) {
+                <tr>
+                  <td>{{ c.id }}</td>
+
+                  <td>
+                    @if (categoriaInModificaId === c.id) {
+                      <input
+                        matInput
+                        [(ngModel)]="categoriaModifica.nome"
+                        placeholder="Nome categoria" />
+                    } @else {
+                      {{ c.nome }}
+                    }
+                  </td>
+
+                  <td class="actions-cell">
+                    @if (categoriaInModificaId === c.id) {
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="salvaCategoria(c)">
+                        Salva
+                      </button>
+
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="annullaModificaCategoria()">
+                        Annulla
+                      </button>
+                    } @else {
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="modificaCategoria(c)">
                         Modifica
                       </button>
 
                       <button
                         type="button"
                         class="text-button text-button-danger"
-                        (click)="eliminaProdotto(p)">
+                        (click)="eliminaCategoria(c)">
                         Elimina
                       </button>
-                    </td>
-                  </tr>
-                } @empty {
-                  <tr>
-                    <td colspan="9" class="empty-cell">Nessun prodotto trovato.</td>
-                  </tr>
-                }
-              </tbody>
-
+                    }
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="3" class="empty-cell">Nessuna categoria trovata.</td>
+                </tr>
+              }
+            </tbody>
           </table>
         </div>
-      }
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>

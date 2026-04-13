@@ -4,7 +4,90 @@
   min-height: 50vh;
   margin-bottom: 1rem;
 }
+.categories-section {
+  margin-top: 28px;
+  padding-top: 6px;
+}
 
+.category-header {
+  margin: 18px 0 14px 0;
+}
+
+.category-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.2px;
+}
+
+.category-create-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 8px 0 18px 0;
+}
+
+.category-create-row mat-form-field {
+  width: 320px;
+  max-width: 100%;
+}
+
+.category-create-row .mat-mdc-raised-button {
+  height: 56px;
+  border-radius: 999px !important;
+}
+
+.category-edit-input {
+  width: 100%;
+  min-width: 180px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(217, 119, 6, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f2937;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.category-edit-input:focus {
+  border-color: rgba(217, 119, 6, 0.45);
+  box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.18);
+}
+
+.categories-section .table-wrapper {
+  margin-top: 8px;
+}
+
+.categories-section .accounts-table th,
+.categories-section .accounts-table td {
+  vertical-align: middle;
+}
+
+.categories-section .actions-cell {
+  justify-content: flex-start;
+}
+
+.categories-section .empty-cell {
+  background: rgba(255, 251, 235, 0.45);
+}
+
+@media (max-width: 900px) {
+  .category-create-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .category-create-row mat-form-field {
+    width: 100%;
+  }
+
+  .category-create-row .mat-mdc-raised-button {
+    width: 100%;
+  }
+}
 .admin-card {
   border-radius: 22px !important;
   border: 1px solid rgba(217, 119, 6, 0.18) !important;
@@ -85,6 +168,8 @@ mat-card-content {
   background: rgba(217, 119, 6, 0.1);
   color: #92400e;
 }
+.category-create-row button {
+  margin-left: auto;
 }
 
 .accounts-table td {

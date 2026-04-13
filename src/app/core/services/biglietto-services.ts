@@ -9,7 +9,7 @@ import { ItemsServices } from './items-services';
 export class BigliettoServices {
 
   private url = "http://localhost:9090/rest/biglietti/";
-
+  private urlTipo = "http://localhost:9090/rest/tipibiglietti/";
   constructor(
     private http: HttpClient,
     private itemsS: ItemsServices
@@ -33,4 +33,16 @@ export class BigliettoServices {
     return this.http.delete(this.url + "delete/" + id)
       .pipe(tap(() => this.itemsS.list('biglietti')));
   }
+
+  createTipo(body: any) {
+  return this.http.post(this.urlTipo + 'create', body);
+}
+
+updateTipo(body: any) {
+  return this.http.put(this.urlTipo + 'update', body);
+}
+
+deleteTipo(id: number) {
+  return this.http.delete(this.url + "delete/" + id);
+}
 }

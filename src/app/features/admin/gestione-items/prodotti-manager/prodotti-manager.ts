@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ItemsServices } from '../../../../core/services/items-services';
 import { ProdottoServices } from '../../../../core/services/prodotto-services';
 import { Utilities } from '../../../../core/utils/utilities';
-import { ComponentType } from '@angular/cdk/overlay';
 import { ProdottoDialog } from '../dialog/prodotto-dialog/prodotto-dialog';
 import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
 import { UploaditemDialog } from '../dialog/upload-item-dialog/upload-item-dialog';
@@ -22,16 +21,27 @@ export class ProdottiManager implements OnInit {
     sku: null
   };
 
-  sortBy: string = 'nome'; // Campo per ordinamento
-  sortOrder: 'asc' | 'desc' = 'asc'; // Direzione ordinamento
+  sortBy: string = 'nome';
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   imgBaseUrl = "http://localhost:9090/files/";
   categorie: any[] = [];
   prodottiList: any[] = [];
   loading = false;
 
+  nuovaCategoria = {
+    nome: ''
+  };
+
+  categoriaInModificaId: number | null = null;
+
+  categoriaModifica: any = {
+    id: null,
+    nome: ''
+  };
+
   constructor(
-    private itemsS: ItemsServices, 
+    private itemsS: ItemsServices,
     private prodottiS: ProdottoServices,
     private util: Utilities,
     private cdr: ChangeDetectorRef
@@ -172,6 +182,72 @@ export class ProdottiManager implements OnInit {
       },
       error: (err: any) => {
         console.error('Errore eliminazione prodotto', err);
+      }
+    });
+  }
+
+  creaCategoria(): void {
+    const nome = (this.nuovaCategoria.nome || '').trim();
+
+    if (!nome) return;
+
+    this.prodottiS.createCategoria({ nome }).subscribe({
+      next: () => {
+        this.nuovaCategoria.nome = '';
+        this.loadCategorie();
+      },
+      error: (err: any) => {
+        console.error('Errore creazione categoria', err);
+      }
+    });
+  }
+
+  modificaCategoria(categoria: any): void {
+    this.categoriaInModificaId = categoria.id;
+    this.categoriaModifica = {
+      id: categoria.id,
+      nome: categoria.nome
+    };
+  }
+
+  annullaModificaCategoria(): void {
+    this.categoriaInModificaId = null;
+    this.categoriaModifica = {
+      id: null,
+      nome: ''
+    };
+  }
+
+  salvaCategoria(categoria: any): void {
+    const nome = (this.categoriaModifica.nome || '').trim();
+
+    if (!nome) return;
+
+    this.prodottiS.updateCategoria({
+      id: categoria.id,
+      nome: nome
+    }).subscribe({
+      next: () => {
+        this.annullaModificaCategoria();
+        this.loadCategorie();
+      },
+      error: (err: any) => {
+        console.error('Errore aggiornamento categoria', err);
+      }
+    });
+  }
+
+  eliminaCategoria(categoria: any): void {
+    const conferma = confirm(`Sei sicuro di voler eliminare la categoria "${categoria.nome}"?`);
+    if (!conferma) return;
+
+    this.prodottiS.deleteCategoria(categoria.id).subscribe({
+      next: () => {
+        this.annullaModificaCategoria();
+        this.loadCategorie();
+      },
+      error: (err: any) => {
+        console.error('Errore eliminazione categoria', err);
       }
     });
   }

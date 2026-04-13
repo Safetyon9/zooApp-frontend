@@ -98,6 +98,103 @@
 
       }
 
+      <div class="tipi-section">
+        <mat-divider></mat-divider>
+
+        <div class="tipo-header">
+          <h2>Gestione Tipi Biglietto</h2>
+        </div>
+
+        <div class="tipo-create-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nuovo tipo</mat-label>
+            <input
+              matInput
+              [(ngModel)]="nuovoTipo.nome"
+              placeholder="Inserisci nome tipo"
+              (keyup.enter)="creaTipo()" />
+          </mat-form-field>
+
+          <button
+            class="add-tipo-btn"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="creaTipo()">
+            Aggiungi Tipo
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome tipo</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (t of tipi; track t.id) {
+                <tr>
+                  <td>{{ t.id }}</td>
+
+                  <td>
+                    @if (tipoInModificaId === t.id) {
+                      <input
+                        class="tipo-edit-input"
+                        [(ngModel)]="tipoModifica.nome"
+                        placeholder="Nome tipo" />
+                    } @else {
+                      {{ t.nome }}
+                    }
+                  </td>
+
+                  <td class="actions-cell">
+                    @if (tipoInModificaId === t.id) {
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="salvaTipo(t)">
+                        Salva
+                      </button>
+
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="annullaModificaTipo()">
+                        Annulla
+                      </button>
+                    } @else {
+                      <button
+                        type="button"
+                        class="text-button"
+                        (click)="modificaTipo(t)">
+                        Modifica
+                      </button>
+
+                      <button
+                        type="button"
+                        class="text-button text-button-danger"
+                        (click)="eliminaTipo(t)">
+                        Elimina
+                      </button>
+                    }
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="3" class="empty-cell">
+                    Nessun tipo trovato.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>
