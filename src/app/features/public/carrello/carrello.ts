@@ -61,6 +61,6 @@ export class Carrello {
   }
 
   tornaAlNegozio() {
-    console.log('torna al negozio');
+    this.routing.navigate(['/shop']);
   }
 }
