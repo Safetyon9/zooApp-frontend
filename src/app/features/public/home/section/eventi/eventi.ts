@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { EventiServices, EventoDto } from '../../../../../core/services/eventi-services';
 
 @Component({
   selector: 'app-eventi',
@@ -6,25 +7,24 @@ import { Component, signal } from '@angular/core';
   templateUrl: './eventi.html',
   styleUrl: './eventi.css',
 })
-export class Eventi {
+export class Eventi implements OnInit {
 
-  events = signal([
-    {
-      title: 'I Protagonisti del Video',
-      date: 'Ogni Weekend',
-      description: 'Vieni a conoscere dal vivo i meravigliosi animali esotici che vedi muoversi qui in sottofondo!',
-      icon: '›',
-      actionText: 'Scopri tutto su questo animale'
-    },
-    {
-      title: 'Safari Esclusivo',
-      date: 'Tutti i Giorni',
-      description: 'Un tour immersivo e ravvicinato per scoprire i segreti della savana nel nostro habitat.',
-      icon: '›'
-    }
-  ]);
-
+  events = signal<EventoDto[]>([]);
   isAnimalModalOpen = signal(false);
+
+  constructor(private eventiS: EventiServices) {}
+
+  ngOnInit(): void {
+    this.eventiS.list().subscribe({
+      next: (res) => {
+        this.events.set(res || []);
+      },
+      error: (err) => {
+        console.error('Errore caricamento eventi', err);
+        this.events.set([]);
+      }
+    });
+  }
 
   openAnimalModal(event: Event) {
     event.preventDefault();

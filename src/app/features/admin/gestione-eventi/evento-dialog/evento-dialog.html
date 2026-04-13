@@ -35,6 +35,11 @@
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
 
+      <mat-form-field appearance="fill" class="full-row">
+        <mat-label>Descrizione</mat-label>
+        <input matInput type="text" formControlName="descrizione">
+      </mat-form-field>
+
       <div class="msg-error full-row">
         <span style="color:red">{{ msg() }}</span>
       </div>

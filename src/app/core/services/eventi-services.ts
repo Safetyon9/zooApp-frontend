@@ -7,6 +7,7 @@ export interface EventoDto {
   tipoEvento?: string;
   dataInizio?: string;
   dataFine?: string;
+  descrizione?: string;
 }
 //cancellalo
 @Injectable({

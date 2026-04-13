@@ -34,7 +34,8 @@ export class GestioneEventi implements OnInit {
           id: e.id ?? '',
           tipoEvento: e.tipoEvento ?? '',
           dataInizio: e.dataInizio ?? '',
-          dataFine: e.dataFine ?? ''
+          dataFine: e.dataFine ?? '',
+          descrizione: e.descrizione ?? ''
         }));
 
         this.loading = false;

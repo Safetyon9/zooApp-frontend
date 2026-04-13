@@ -30,7 +30,8 @@ export class EventoDialog implements OnInit {
     this.updateForm = new FormGroup({
       tipoEvento: new FormControl('', Validators.required),
       dataInizio: new FormControl(null, Validators.required),
-      dataFine: new FormControl(null, Validators.required)
+      dataFine: new FormControl(''),
+      descrizione: new FormControl('')
     });
   }
 
@@ -39,7 +40,8 @@ export class EventoDialog implements OnInit {
       this.updateForm.patchValue({
         tipoEvento: this.evento().tipoEvento,
         dataInizio: this.evento().dataInizio,
-        dataFine: this.evento().dataFine
+        dataFine: this.evento().dataFine,
+        descrizione: this.evento().descrizione
       });
     }
   }
@@ -72,7 +74,8 @@ export class EventoDialog implements OnInit {
       id: this.evento().id,
       tipoEvento: v.tipoEvento,
       dataInizio: this.toDateOnly(v.dataInizio),
-      dataFine: this.toDateOnly(v.dataFine)
+      dataFine: this.toDateOnly(v.dataFine),
+      descrizione: v.descrizione
     };
 
     this.eventiS.update(body).subscribe({
