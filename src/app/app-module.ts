@@ -74,6 +74,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
+import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { PasswordDimenticataComponent } from './features/public/email/password-d
     EmailValidation,
     GestioneOrdini,
     UploaditemDialog,
+    GestioneCoupons
   ],
   imports: [
     BrowserModule,

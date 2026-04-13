@@ -46,6 +46,9 @@ export class AdminNavbar {
   changePWD(): void {
     this.router.navigate(['/admin/modify']);
   }
+  openGestioneCoupons(): void {
+    this.router.navigate(['/admin/coupons']);
+  }
 
   logout() {
     const userName = localStorage.getItem('userId');

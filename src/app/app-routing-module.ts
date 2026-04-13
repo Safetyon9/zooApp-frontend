@@ -27,6 +27,7 @@ import { EmailValidation } from './features/public/email/email-validation/email-
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
 import { ResetPasswordComponent } from './features/public/email/change-password/change-password';
 import { Checkout } from './features/public/checkout/checkout';
+import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 
 const routes: Routes = [
   {
@@ -69,6 +70,7 @@ const routes: Routes = [
       { path: 'items/biglietti', component: BigliettiManager },
       { path: 'eventi', component: GestioneEventi },
       { path: 'ordini', component: GestioneOrdini },
+      { path: 'coupons', component: GestioneCoupons },
       { path: 'modify', component: AdminChangePwd }
     ]
   },
