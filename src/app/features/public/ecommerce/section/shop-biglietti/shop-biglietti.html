@@ -5,6 +5,7 @@
   <div class="grid">
 
     @for (b of biglietti; track b.id) {
+
       <mat-card class="ticket-card" appearance="outlined">
 
         <div class="img-wrapper">
@@ -34,13 +35,14 @@
           <button
             mat-raised-button
             color="primary"
-            (click)="shop.addToCart(b, 'biglietto', 1)">
+            (click)="addToCart(b)">
             Aggiungi al carrello
           </button>
 
         </mat-card-actions>
 
       </mat-card>
+
     }
 
   </div>

@@ -1,69 +1,119 @@
 <div class="carrello-wrapper">
   <div class="carrello-container">
 
-  <div class="carrello-header">
-    <h2>Il tuo carrello</h2>
-    <span class="badge" *ngIf="cartService.totalCount() > 0">
-      {{ cartService.totalCount() }} articoli
-    </span>
-  </div>
+    <div class="carrello-header">
+      <h2>Il tuo carrello</h2>
 
-  <div *ngIf="cartService.items().length === 0" class="empty-state">
-    <p>Il carrello è vuoto</p>
-    <span>Aggiungi qualche prodotto per iniziare</span><br>
-    <button class="btn-back-to-shop" (click)="tornaAlNegozio()">Torna al negozio</button>
-  </div>
+      @if (cartService.totalCount() > 0) {
+        <span class="badge">
+          {{ cartService.totalCount() }} articoli
+        </span>
+      }
+    </div>
 
-  <div *ngIf="cartService.items().length > 0">
+    @if (cartService.items().length === 0) {
+      <div class="empty-state">
+        <p>Il carrello è vuoto</p>
+        <span>Aggiungi qualche prodotto per iniziare</span><br>
 
-    <div class="oggetti-list">
-      <div class="oggetto-card" *ngFor="let item of cartService.items()">
+        <button class="btn-back-to-shop" (click)="tornaAlNegozio()">
+          Torna al negozio
+        </button>
+      </div>
+    }
 
-        <div class="oggetto-info">
-          <div class="oggetto-avatar" *ngIf="!item.immagine">
-            {{ item.nome.charAt(0).toUpperCase() }}
+    @if (cartService.items().length > 0) {
+
+      <div class="oggetti-list">
+
+        @for (item of cartService.items(); track item.id) {
+
+          <div class="oggetto-card">
+
+            <div class="oggetto-info">
+
+              @if (!item.urlImmagine) {
+                <div class="oggetto-avatar">
+                  {{ item.nome.charAt(0).toUpperCase() }}
+                </div>
+              }
+
+              @if (item.urlImmagine) {
+                <img
+                  [src]="item.urlImmagine"
+                  class="oggetto-img"
+                  [alt]="item.nome"
+                />
+              }
+
+              <div class="oggetto-dettagli">
+                <p class="oggetto-nome">{{ item.nome }}</p>
+
+                <span class="oggetto-tipo" [ngClass]="item.tipo">
+                  {{ item.tipo }}
+                </span>
+
+                <p class="oggetto-qty">
+                  €{{ item.prezzo | number:'1.2-2' }} cad.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="oggetto-actions">
+
+              <div class="qty-control">
+                <button class="qty-btn" (click)="decrementa(item)">−</button>
+                <span class="qty-value">{{ item.quantita }}</span>
+                <button class="qty-btn" (click)="incrementa(item)">+</button>
+              </div>
+
+              <p class="oggetto-totale">
+                €{{ item.prezzo * item.quantita | number:'1.2-2' }}
+              </p>
+
+              <button class="btn-remove" (click)="rimuovi(item)">
+                ✕
+              </button>
+
+            </div>
+
           </div>
-          <img *ngIf="item.immagine" [src]="item.immagine" class="oggetto-img" [alt]="item.nome">
-          <div class="oggetto-dettagli">
-            <p class="oggetto-nome">{{ item.nome }}</p>
-            <span class="oggetto-tipo" [ngClass]="item.tipo">{{ item.tipo }}</span>
-            <p class="oggetto-qty">€{{ item.prezzo | number:'1.2-2' }} cad.</p>
-          </div>
+
+        }
+
+      </div>
+
+      <div class="riepilogo-card">
+
+        <div class="riepilogo-row">
+          <span>Subtotale</span>
+          <span>€{{ cartService.totalPrice() | number:'1.2-2' }}</span>
         </div>
 
-        <div class="oggetto-actions">
-          <div class="qty-control">
-            <button class="qty-btn" (click)="decrementa(item)">−</button>
-            <span class="qty-value">{{ item.quantita }}</span>
-            <button class="qty-btn" (click)="incrementa(item)">+</button>
-          </div>
-          <p class="oggetto-totale">€{{ item.prezzo * item.quantita | number:'1.2-2' }}</p>
-          <button class="btn-remove" (click)="rimuovi(item)" title="Rimuovi">✕</button>
+        <div class="riepilogo-row">
+          <span>Spedizione</span>
+          <span class="free">Gratuita</span>
+        </div>
+
+        <div class="riepilogo-row totale">
+          <span>Totale</span>
+          <span>€{{ cartService.totalPrice() | number:'1.2-2' }}</span>
         </div>
 
       </div>
-    </div>
 
-    <div class="riepilogo-card">
-      <div class="riepilogo-row">
-        <span>Subtotale</span>
-        <span>€{{ subtotale | number:'1.2-2' }}</span>
-      </div>
-      <div class="riepilogo-row">
-        <span>Spedizione</span>
-        <span class="free">Gratuita</span>
-      </div>
-      <div class="riepilogo-row totale">
-        <span>Totale</span>
-        <span>€{{ subtotale | number:'1.2-2' }}</span>
-      </div>
-    </div>
+      <div class="carrello-footer">
+        <button class="btn-svuota" (click)="svuota()">
+          Svuota carrello
+        </button>
 
-    <div class="carrello-footer">
-      <button class="btn-svuota" (click)="svuota()">Svuota carrello</button>
-      <button class="btn-checkout" (click)="checkout()">Procedi all'acquisto</button>
-    </div>
+        <button class="btn-checkout" (click)="checkout()">
+          Procedi all'acquisto
+        </button>
+      </div>
 
-  </div>
+    }
+
   </div>
 </div>

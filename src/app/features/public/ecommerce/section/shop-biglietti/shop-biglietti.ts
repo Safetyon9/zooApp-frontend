@@ -10,7 +10,6 @@ import { ShopService } from '../../../../../core/services/shop-services';
 })
 export class ShopBiglietti implements OnInit {
 
-  selectedTicket: any = null;
   quantity = 1;
   selectedDate = '';
   imgBaseUrl = "http://localhost:9090/files/";
@@ -21,37 +20,24 @@ export class ShopBiglietti implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.itemsS.list('biglietti').subscribe();
+    this.itemsS.list('biglietti').subscribe({
+      error: err => console.error('Errore caricamento biglietti', err)
+    });
   }
 
   get biglietti() {
     return this.itemsS.biglietti();
   }
 
-  selectTicket(ticket: any) {
-    this.selectedTicket = ticket;
-    this.quantity = 1;
-    this.selectedDate = '';
-  }
-
-  addToCart() {
-    if (!this.selectedTicket) return;
-
+  addToCart(ticket: any) {
+    console.log('ADD TO CART:', ticket);
     this.shop.addToCart(
-      this.selectedTicket,
+      ticket,
       'biglietto',
       this.quantity,
       {
         date: this.selectedDate
       }
     );
-
-    this.reset();
-  }
-
-  reset() {
-    this.selectedTicket = null;
-    this.quantity = 1;
-    this.selectedDate = '';
   }
 }

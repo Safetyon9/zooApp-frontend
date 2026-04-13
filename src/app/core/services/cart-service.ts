@@ -8,7 +8,8 @@ export interface CartItem {
   prezzo: number;
   quantita: number;
   tipo: CartType;
-  immagine?: string;
+  urlImmagine?: string;
+  cartItemId?: number;
 }
 
 @Injectable({
@@ -16,96 +17,107 @@ export interface CartItem {
 })
 export class CartService {
 
-  private readonly cartItems = signal<CartItem[]>([]);
+  private readonly _items = signal<CartItem[]>([]);
 
-  readonly items = computed(() => this.cartItems());
+  readonly items = computed(() => this._items());
 
   readonly totalCount = computed(() =>
-    this.cartItems().reduce((acc, item) => acc + item.quantita, 0)
+    this._items().reduce((acc, i) => acc + i.quantita, 0)
   );
 
   readonly totalPrice = computed(() =>
-    this.cartItems().reduce((acc, item) => acc + item.prezzo * item.quantita, 0)
+    this._items().reduce((acc, i) => acc + (i.prezzo * i.quantita), 0)
   );
 
-  addToCart(item: Partial<CartItem>, tipo: CartType, quantity: number = 1) {
+  setCart(items: CartItem[]) {
+    this._items.set(items ?? []);
+  }
+
+  addLocal(item: Partial<CartItem>, tipo: CartType, qty: number = 1) {
     if (!item?.id) return;
 
-    const qty = this.normalizeQty(quantity);
-    const current = this.cartItems();
+    const quantity = this.normalizeQty(qty);
+    const current = this._items();
 
     const index = current.findIndex(
       i => i.id === item.id && i.tipo === tipo
     );
 
     if (index !== -1) {
-      this.incrementItem(current, index, qty);
+      const updated = [...current];
+      updated[index] = {
+        ...updated[index],
+        quantita: updated[index].quantita + quantity
+      };
+      this._items.set(updated);
       return;
     }
 
-    this.cartItems.set([
+    this._items.set([
       ...current,
-      this.createItem(item, tipo, qty)
+      this.createItem(item, tipo, quantity)
     ]);
   }
 
-  decrement(item: CartItem, qty: number = 1) {
-    const current = this.cartItems();
+  attachCartItemId(itemId: number, tipo: CartType, cartItemId: number) {
+    const current = this._items();
 
     const index = current.findIndex(
-      i => i.id === item.id && i.tipo === item.tipo
+      i => i.id === itemId && i.tipo === tipo
     );
 
     if (index === -1) return;
 
     const updated = [...current];
 
-    const newQty = updated[index].quantita - qty;
+    updated[index] = {
+      ...updated[index],
+      cartItemId
+    };
 
-    if (newQty <= 0) {
-      this.removeFromCart(item.id, item.tipo);
+    this._items.set(updated);
+  }
+
+  updateQty(id: number, tipo: CartType, qty: number) {
+    const current = this._items();
+
+    const index = current.findIndex(
+      i => i.id === id && i.tipo === tipo
+    );
+
+    if (index === -1) return;
+
+    const updated = [...current];
+
+    if (qty <= 0) {
+      this._items.set(
+        updated.filter(i => !(i.id === id && i.tipo === tipo))
+      );
       return;
     }
 
     updated[index] = {
       ...updated[index],
-      quantita: newQty
+      quantita: qty
     };
 
-    this.cartItems.set(updated);
+    this._items.set(updated);
   }
 
-  removeFromCart(id: number, tipo: CartType) {
-    this.cartItems.set(
-      this.cartItems().filter(
-        i => !(i.id === id && i.tipo === tipo)
-      )
+  remove(id: number, tipo: CartType) {
+    this._items.set(
+      this._items().filter(i => !(i.id === id && i.tipo === tipo))
     );
   }
 
-  clearCart() {
-    this.cartItems.set([]);
-  }
-
-  setCart(items: CartItem[]) {
-    this.cartItems.set(items ?? []);
+  clear() {
+    this._items.set([]);
   }
 
   getItem(id: number, tipo: CartType) {
-    return this.cartItems().find(
+    return this._items().find(
       i => i.id === id && i.tipo === tipo
     );
-  }
-
-  private incrementItem(current: CartItem[], index: number, qty: number) {
-    const updated = [...current];
-
-    updated[index] = {
-      ...updated[index],
-      quantita: updated[index].quantita + qty
-    };
-
-    this.cartItems.set(updated);
   }
 
   private normalizeQty(qty: number): number {
@@ -124,7 +136,7 @@ export class CartService {
       prezzo: Number(item.prezzo ?? 0),
       quantita: qty,
       tipo,
-      immagine: item.immagine
+      urlImmagine: item.urlImmagine ?? ''
     };
   }
 }
