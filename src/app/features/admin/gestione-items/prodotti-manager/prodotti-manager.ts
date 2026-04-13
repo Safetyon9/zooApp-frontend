@@ -17,7 +17,6 @@ export class ProdottiManager implements OnInit {
 
   filtro = {
     nome: '',
-    categoriaId: null,
     prezzo: null,
     stock: null,
     sku: null
@@ -107,21 +106,12 @@ export class ProdottiManager implements OnInit {
   }
 
   sort(field: string): void {
-    if (field === 'categoria') {
-      return;
-    }
-
     if (this.sortBy === field) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortBy = field;
       this.sortOrder = 'asc';
     }
-    this.search();
-  }
-
-  filterByCategory(categoriaId: any): void {
-    this.filtro.categoriaId = categoriaId;
     this.search();
   }
 

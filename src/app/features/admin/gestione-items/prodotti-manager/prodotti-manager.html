@@ -18,16 +18,6 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Categoria</mat-label>
-          <mat-select [(ngModel)]="filtro.categoriaId">
-            <mat-option [value]="null">Tutti</mat-option>
-            @for (c of categorie; track c.id) {
-              <mat-option [value]="c.id">{{ c.nome }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
           <mat-label>Prezzo minimo</mat-label>
           <input matInput type="number" min="0" [(ngModel)]="filtro.prezzo" (keyup)="search()" />
         </mat-form-field>
@@ -57,17 +47,7 @@
               <tr>
                 <th>Immagine</th>
                 <th class="sortable" (click)="sort('nome')">Nome {{ getSortIcon('nome') }}</th>
-                <th class="sortable" [matMenuTriggerFor]="categoryMenu" (click)="$event.stopPropagation()">
-                  Categoria ↓
-                  <mat-menu #categoryMenu="matMenu">
-                    <button mat-menu-item (click)="filterByCategory(null)">Tutti</button>
-                    @for (c of categorie; track c.id) {
-                      <button mat-menu-item (click)="filterByCategory(c.id)" [class.active]="filtro.categoriaId === c.id">
-                        {{ c.nome }} {{ filtro.categoriaId === c.id ? '✓' : '' }}
-                      </button>
-                    }
-                  </mat-menu>
-                </th>
+                <th class="sortable" (click)="sort('categoria')">Categoria {{ getSortIcon('categoria') }}</th>
                 <th class="sortable" (click)="sort('prezzo')">Prezzo(€) {{ getSortIcon('prezzo') }}</th>
                 <th>Stock</th>
                 <th>Peso(kg)</th>

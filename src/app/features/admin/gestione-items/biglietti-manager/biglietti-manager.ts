@@ -16,7 +16,6 @@ export class BigliettiManager implements OnInit {
 
   filtro = {
     nome: '',
-    tipoId: null,
     prezzo: null
   };
 
@@ -105,21 +104,12 @@ export class BigliettiManager implements OnInit {
   }
 
   sort(field: string): void {
-    if (field === 'tipo') {
-      return;
-    }
-
     if (this.sortBy === field) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortBy = field;
       this.sortOrder = 'asc';
     }
-    this.search();
-  }
-
-  filterByTipo(tipoId: any): void {
-    this.filtro.tipoId = tipoId;
     this.search();
   }
 
