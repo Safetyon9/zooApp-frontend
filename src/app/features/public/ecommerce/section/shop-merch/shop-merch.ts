@@ -1,7 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CartService } from '../../../../../core/services/cart-service';
+import { Component, OnInit } from '@angular/core';
 import { ItemsServices } from '../../../../../core/services/items-services';
+import { ShopService } from '../../../../../core/services/shop-services';
 
 @Component({
   selector: 'app-shop-merch',
@@ -10,9 +9,13 @@ import { ItemsServices } from '../../../../../core/services/items-services';
   standalone: false,
 })
 export class ShopMerch implements OnInit {
-  private cartS = inject(CartService);
-  private itemsS = inject(ItemsServices);
-  private http = inject(HttpClient);
+
+  imgBaseUrl = "http://localhost:9090/files/";
+
+  constructor(
+    private itemsS: ItemsServices,
+    public shop: ShopService
+  ) {}
 
   ngOnInit(): void {
     this.itemsS.list('prodotto').subscribe();
@@ -23,27 +26,11 @@ export class ShopMerch implements OnInit {
   }
 
   addToCart(prodotto: any) {
-    this.cartS.addToCart({
-      id: prodotto.id,
-      nome: prodotto.nome,
-      prezzo: Number(prodotto.prezzo),
-      quantita: 1,
-      immagine: prodotto.urlImmagine
-    }, 'prodotto');
-
-    const currentUserId = localStorage.getItem('userId');
-    if (!currentUserId) return;
-
-    this.http.get(`http://localhost:9090/rest/utente/findAllByUserName?userName=${currentUserId}`).subscribe({
-      next: (profilo: any) => {
-        if (!profilo.carrelloId) return;
-        this.http.post('http://localhost:9090/rest/oggettiCarrelli/create', {
-          carrelloId: profilo.carrelloId,
-          itemId: prodotto.id,
-          quantita: 1,
-          prezzoUnitario: prodotto.prezzo
-        }).subscribe();
-      }
-    });
+    this.shop.addToCart(
+      prodotto,
+      'prodotto',
+      1,
+      {}
+    );
   }
 }
