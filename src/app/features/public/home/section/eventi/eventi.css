@@ -254,4 +254,27 @@
     background: rgba(0,0,0,0.8);
     padding: 4rem 2rem;
   }
+
+  .date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.not-available {
+  background: rgba(220, 38, 38, 0.18);
+  color: #ffe0e0;
+  border: 1px solid rgba(255, 120, 120, 0.35);
+}
 }
