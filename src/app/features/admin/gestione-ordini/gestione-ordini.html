@@ -1,1 +1,84 @@
-<p>gestione-ordini works!</p>
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
+    <mat-card-header class="header-row">
+      <mat-card-title>Gestione Ordini</mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+      <div class="search-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Numero</mat-label>
+          <input matInput placeholder="Numero" [(ngModel)]="filtro.numero" (keyup)="search()" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <input matInput placeholder="Cliente" [(ngModel)]="filtro.cliente" (keyup)="search()" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Totale minimo</mat-label>
+          <input matInput type="number" min="0" [(ngModel)]="filtro.totale" (keyup)="search()" />
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <button mat-raised-button color="accent" type="button" (click)="search()">
+          Filtra
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento ordini...</p>
+        </div>
+      } @else {
+        <div class="table-wrapper">
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th class="sortable" (click)="sort('numero')">Numero {{ getSortIcon('numero') }}</th>
+                <th class="sortable" (click)="sort('cliente')">Cliente {{ getSortIcon('cliente') }}</th>
+                <th class="sortable" (click)="sort('totale')">Totale(€) {{ getSortIcon('totale') }}</th>
+                <th>Data</th>
+                <th>Stato</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                @for (o of ordini; track o.id) {
+                  <tr>
+                    <td>{{ o.numero || '-' }}</td>
+                    <td>{{ o.cliente || '-' }}</td>
+                    <td>{{ o.totale ?? '-' }}</td>
+                    <td>{{ o.data || '-' }}</td>
+                    <td>{{ o.stato || '-' }}</td>
+                    <td class="actions-cell">
+                      <button type="button" class="text-button">
+                        Modifica
+                      </button>
+
+                      <button type="button" class="text-button text-button-danger">
+                        Elimina
+                      </button>
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="6" class="empty-cell">Nessun ordine trovato.</td>
+                  </tr>
+                }
+              </tbody>
+
+          </table>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

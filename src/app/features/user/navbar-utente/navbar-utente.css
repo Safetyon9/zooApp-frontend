@@ -27,8 +27,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, box-shadow 0.5s ease;
   padding: 0 16px 20px 16px;
+  border-radius: 12px;
 }
 
 .logo-container > * {
@@ -43,8 +44,12 @@
   filter: none;
 }
 
+.logo-container:hover {
+  box-shadow: 0 0 20px rgba(180, 83, 9, 0.5), 0 0 40px rgba(217, 119, 6, 0.3), inset 0 0 15px rgba(180, 83, 9, 0.2);
+}
+
 .logo-container:hover img.logo-img {
-  transform: scale(1.1);
+  transform: scale(1.12);
   transition: transform 0.5s ease;
 }
 
