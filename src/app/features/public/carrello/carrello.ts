@@ -1,8 +1,12 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService, CartItem } from '../../../core/services/cart-service';
+import { CartService } from '../../../core/services/cart-service';
+import { CartItem } from '../../../core/services/cart-service';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { AuthServices } from '../../../core/services/auth-services';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-carrello',
@@ -10,63 +14,61 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   templateUrl: './carrello.html',
   styleUrl: './carrello.css'
 })
-export class Carrello implements OnInit{
+export class Carrello implements OnInit {
 
   constructor(
     public cartService: CartService,
     private router: Router,
     private utenteServices: UtenteServices,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth: AuthServices,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
+
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const userId = this.auth.grant().userId;
     if (!userId) return;
 
     this.utenteServices.findAllByUserName(userId).subscribe({
       next: (profilo: any) => {
+
         if (!profilo.carrelloId) return;
 
         const params = new HttpParams().set('id', profilo.carrelloId);
-        this.http.get('http://localhost:9090/rest/carrelli/findById', { params }).subscribe({
-          next: (carrello: any) => {
-            this.cartService.clearCart();
-            carrello.oggettiCarrello?.forEach((obj: any) => {
-              this.cartService.addToCart({
-                id: obj.itemId,
-                nome: obj.item?.nome ?? 'Articolo #' + obj.itemId,
-                prezzo: Number(obj.prezzoUnitario),
-                quantita: obj.quantita,
-                immagine: obj.item?.urlImmagine ?? ''
-              }, 'prodotto');
-            });
-          }
-        });
+
+        this.http.get('http://localhost:9090/rest/carrelli/findById', { params })
+          .subscribe({
+            next: (carrello: any) => {
+
+              this.cartService.setCart(
+                carrello.oggettiCarrello?.map((obj: any) => ({
+                  id: obj.itemId,
+                  nome: obj.item?.nome ?? 'Articolo #' + obj.itemId,
+                  prezzo: Number(obj.prezzoUnitario),
+                  quantita: obj.quantita,
+                  immagine: obj.item?.urlImmagine ?? '',
+                  tipo: 'prodotto'
+                })) ?? []
+              );
+            }
+          });
       }
     });
   }
 
   get subtotale(): number {
-    return this.cartService.items().reduce(
-      (acc, item) => acc + item.prezzo * item.quantita, 0
-    );
+    return this.cartService.totalPrice();
   }
 
   incrementa(item: CartItem): void {
-    this.cartService.addToCart({ ...item, quantita: 1 }, item.tipo);
+    this.cartService.addToCart(item, item.tipo, 1);
   }
 
   decrementa(item: CartItem): void {
-    if (item.quantita <= 1) {
-      this.rimuovi(item);
-      return;
-    }
-    const aggiornati = this.cartService.items().map(i =>
-      i.id === item.id && i.tipo === item.tipo && i.nome === item.nome
-        ? { ...i, quantita: i.quantita - 1 }
-        : i
-    );
-    this.cartService['cartItems'].set(aggiornati);
+    this.cartService.decrement(item, 1);
   }
 
   rimuovi(item: CartItem): void {
@@ -82,7 +84,6 @@ export class Carrello implements OnInit{
   }
 
   tornaAlNegozio(): void {
-    this.svuota();
     this.router.navigate(['/shop']);
   }
 }
