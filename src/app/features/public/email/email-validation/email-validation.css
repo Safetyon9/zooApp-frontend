@@ -1,0 +1,210 @@
+.validation-wrapper {
+  min-height: 100vh;
+  padding-top: 80px;
+  background: radial-gradient(circle at top right, #5C4A38 0%, #3D2E22 100%);
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background image con overlay */
+.validation-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/foto/suricati.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.validation-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(var(--zoo-dark-rgb), 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
+  border-radius: 24px;
+  padding: 60px 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.validation-card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--zoo-gold-soft);
+  margin: 0 0 32px;
+  letter-spacing: 0.5px;
+}
+
+.info {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 24px 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Success state */
+.success {
+  font-size: 16px;
+  color: #ffffff;
+  margin: 32px 0;
+  line-height: 1.6;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Success icon */
+.success::before {
+  content: '✓';
+  display: block;
+  font-size: 64px;
+  color: var(--zoo-gold-soft);
+  margin-bottom: 16px;
+  animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Error state */
+.error {
+  font-size: 16px;
+  color: #ff6b6b;
+  margin: 32px 0;
+  line-height: 1.6;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.error::before {
+  content: '✕';
+  display: block;
+  font-size: 48px;
+  color: #ff6b6b;
+  margin-bottom: 16px;
+}
+
+/* Button home */
+.btn-home {
+  display: inline-block;
+  padding: 14px 36px;
+  margin-top: 24px;
+  background: var(--zoo-gold-soft);
+  color: var(--zoo-text-dark);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(var(--zoo-gold-soft-rgb), 0.3);
+  cursor: pointer;
+}
+
+.btn-home:hover {
+  background: #E5B85F;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(var(--zoo-gold-soft-rgb), 0.4);
+}
+
+.btn-home:active {
+  transform: translateY(0);
+}
+
+/* Loading spinner */
+.info::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  border: 2px solid rgba(184, 134, 11, 0.3);
+  border-top-color: var(--zoo-gold-soft);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: -2px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .validation-card {
+    padding: 40px 24px;
+  }
+
+  .validation-card h1 {
+    font-size: 22px;
+  }
+
+  .success::before {
+    font-size: 48px;
+  }
+
+  .btn-home {
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+}
