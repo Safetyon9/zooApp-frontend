@@ -16,13 +16,19 @@ export class ShopService {
     quantity: number = 1,
     extra?: any
   ) {
-
     const enrichedItem =
       type === 'biglietto'
         ? {
             ...item,
             nome: extra?.date
               ? `${item.nome} • Data: ${extra.date}`
+              : item.nome
+          }
+        : type === 'prodotto'
+        ? {
+            ...item,
+            nome: extra?.categoriaNome
+              ? `${item.nome} • Categoria: ${extra.categoriaNome}`
               : item.nome
           }
         : item;

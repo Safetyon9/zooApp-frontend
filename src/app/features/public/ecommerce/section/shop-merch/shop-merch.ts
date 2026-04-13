@@ -26,8 +26,13 @@ export class ShopMerch implements OnInit {
   }
 
   addToCart(prodotto: any) {
+  console.log('prodotto:', JSON.stringify(prodotto));
+  console.log('cart prima:', this.shop['cartService']?.items());
     this.shop.addToCart(
-      prodotto,
+      {
+        ...prodotto,
+        immagine: prodotto.urlImmagine 
+      },
       'prodotto',
       1,
       {}
