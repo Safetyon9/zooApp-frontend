@@ -1,8 +1,9 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { CheckoutService } from '../../../core/services/checkout-services';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -29,10 +30,14 @@ export class Checkout implements OnInit {
   private cartService: CartService,
   private utenteServices: UtenteServices,
   public checkoutService: CheckoutService,
-  public router: Router
+  public router: Router,
+  private cdr: ChangeDetectorRef,
+  @Inject(PLATFORM_ID) private platformId: Object
 ) {}
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
@@ -40,6 +45,7 @@ export class Checkout implements OnInit {
       next: (r: any) => {
         this.profilo = r;
         this.indirizzoSpedizione = r.indirizzo ?? '';
+         this.cdr.detectChanges();
       }
     });
 
