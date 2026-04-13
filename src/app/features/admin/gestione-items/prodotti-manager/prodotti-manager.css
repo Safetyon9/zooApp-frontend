@@ -75,6 +75,18 @@ mat-card-content {
   border-bottom: 1px solid rgba(180, 83, 9, 0.16);
 }
 
+.accounts-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.accounts-table th.sortable:hover {
+  background: rgba(217, 119, 6, 0.1);
+  color: #92400e;
+}
+}
+
 .accounts-table td {
   padding: 16px 18px;
   font-size: 14px;

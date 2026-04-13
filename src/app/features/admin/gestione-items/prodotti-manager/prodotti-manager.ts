@@ -23,6 +23,9 @@ export class ProdottiManager implements OnInit {
     sku: null
   };
 
+  sortBy: string = 'nome'; // Campo per ordinamento
+  sortOrder: 'asc' | 'desc' = 'asc'; // Direzione ordinamento
+
   imgBaseUrl = "http://localhost:9090/files/";
   categorie: any[] = [];
   prodottiList: any[] = [];
@@ -59,7 +62,7 @@ export class ProdottiManager implements OnInit {
 
     this.itemsS.search(this.filtro, 'prodotto').subscribe({
       next: (res: any[]) => {
-        this.prodottiList = res || [];
+        this.prodottiList = this.sortResults(res || []);
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -70,6 +73,61 @@ export class ProdottiManager implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  private sortResults(items: any[]): any[] {
+    const sorted = [...items];
+
+    sorted.sort((a, b) => {
+      let aVal: any, bVal: any;
+
+      switch (this.sortBy) {
+        case 'nome':
+          aVal = (a.nome || '').toLowerCase();
+          bVal = (b.nome || '').toLowerCase();
+          break;
+        case 'prezzo':
+          aVal = a.prezzo || 0;
+          bVal = b.prezzo || 0;
+          break;
+        case 'categoria':
+          aVal = (a.categoriaNome || '').toLowerCase();
+          bVal = (b.categoriaNome || '').toLowerCase();
+          break;
+        default:
+          return 0;
+      }
+
+      if (aVal < bVal) return this.sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return sorted;
+  }
+
+  sort(field: string): void {
+    if (field === 'categoria') {
+      return;
+    }
+
+    if (this.sortBy === field) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = field;
+      this.sortOrder = 'asc';
+    }
+    this.search();
+  }
+
+  filterByCategory(categoriaId: any): void {
+    this.filtro.categoriaId = categoriaId;
+    this.search();
+  }
+
+  getSortIcon(field: string): string {
+    if (this.sortBy !== field) return '⇅';
+    return this.sortOrder === 'asc' ? '↑' : '↓';
   }
 
   onCreateProdotto(): void {

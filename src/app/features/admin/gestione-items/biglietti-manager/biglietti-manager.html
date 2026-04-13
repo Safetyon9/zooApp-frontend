@@ -56,9 +56,19 @@
             <thead>
               <tr>
                 <th>Immagine</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Prezzo(€)</th>
+                <th class="sortable" (click)="sort('nome')">Nome {{ getSortIcon('nome') }}</th>
+                <th class="sortable" [matMenuTriggerFor]="tipoMenu" (click)="$event.stopPropagation()">
+                  Tipo ↓
+                  <mat-menu #tipoMenu="matMenu">
+                    <button mat-menu-item (click)="filterByTipo(null)">Tutti</button>
+                    @for (t of tipi; track t.id) {
+                      <button mat-menu-item (click)="filterByTipo(t.id)" [class.active]="filtro.tipoId === t.id">
+                        {{ t.nome }} {{ filtro.tipoId === t.id ? '✓' : '' }}
+                      </button>
+                    }
+                  </mat-menu>
+                </th>
+                <th class="sortable" (click)="sort('prezzo')">Prezzo(€) {{ getSortIcon('prezzo') }}</th>
                 <th>Azioni</th>
               </tr>
             </thead>

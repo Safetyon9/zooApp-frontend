@@ -20,6 +20,9 @@ export class BigliettiManager implements OnInit {
     prezzo: null
   };
 
+  sortBy: string = 'nome';
+  sortOrder: 'asc' | 'desc' = 'asc';
+
   imgBaseUrl = "http://localhost:9090/files/";
   tipi: any[] = [];
   bigliettiList: any[] = [];
@@ -57,7 +60,7 @@ export class BigliettiManager implements OnInit {
 
     this.itemsS.search(this.filtro, 'biglietti').subscribe({
       next: (res: any[]) => {
-        this.bigliettiList = res || [];
+        this.bigliettiList = this.sortResults(res || []);
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -68,6 +71,61 @@ export class BigliettiManager implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  private sortResults(items: any[]): any[] {
+    const sorted = [...items];
+
+    sorted.sort((a, b) => {
+      let aVal: any, bVal: any;
+
+      switch (this.sortBy) {
+        case 'nome':
+          aVal = (a.nome || '').toLowerCase();
+          bVal = (b.nome || '').toLowerCase();
+          break;
+        case 'prezzo':
+          aVal = a.prezzo || 0;
+          bVal = b.prezzo || 0;
+          break;
+        case 'tipo':
+          aVal = (a.tipoNome || '').toLowerCase();
+          bVal = (b.tipoNome || '').toLowerCase();
+          break;
+        default:
+          return 0;
+      }
+
+      if (aVal < bVal) return this.sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return sorted;
+  }
+
+  sort(field: string): void {
+    if (field === 'tipo') {
+      return;
+    }
+
+    if (this.sortBy === field) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = field;
+      this.sortOrder = 'asc';
+    }
+    this.search();
+  }
+
+  filterByTipo(tipoId: any): void {
+    this.filtro.tipoId = tipoId;
+    this.search();
+  }
+
+  getSortIcon(field: string): string {
+    if (this.sortBy !== field) return '⇅';
+    return this.sortOrder === 'asc' ? '↑' : '↓';
   }
 
   onCreateBiglietto(): void {
