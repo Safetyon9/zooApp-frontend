@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
@@ -75,6 +76,7 @@ import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
+import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 
 @NgModule({
   declarations: [
@@ -121,6 +123,7 @@ import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coup
     EventoDialog,
     EmailValidation,
     GestioneOrdini,
+    CouponDialog,
     UploaditemDialog,
     GestioneCoupons
   ],
@@ -147,6 +150,7 @@ import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coup
     MatProgressSpinnerModule,
     MatButtonToggleModule,
     MatDatepickerModule,
+    MatCheckboxModule,
     MatNativeDateModule,
     MatExpansionModule
   ],

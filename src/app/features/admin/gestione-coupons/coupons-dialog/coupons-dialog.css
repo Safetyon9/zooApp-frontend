@@ -1,0 +1,164 @@
+:host {
+  display: block;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 24px !important;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff7ed 100%) !important;
+  box-shadow: 0 18px 44px rgba(180, 83, 9, 0.18) !important;
+  overflow: hidden;
+}
+
+h2[mat-dialog-title] {
+  margin: 0;
+  padding: 24px 28px 8px 28px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.3px;
+}
+
+.dialog-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  color: #92400e !important;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(217, 119, 6, 0.14);
+  border-radius: 999px;
+  transition: all 0.22s ease;
+}
+
+.dialog-close-btn:hover {
+  background: #fde68a;
+  color: #78350f !important;
+  transform: translateY(-1px);
+}
+
+mat-dialog-content {
+  padding: 8px 28px 28px 28px !important;
+  overflow: visible !important;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.full-row {
+  grid-column: 1 / -1;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  margin-top: 2px;
+  padding: 6px 2px 2px;
+}
+
+.checkbox-status {
+  font-size: 14px;
+  font-weight: 600;
+  color: #78350f;
+}
+
+.msg-error {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+::ng-deep .form-grid .mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .form-grid .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+::ng-deep .form-grid .mdc-text-field--filled,
+::ng-deep .form-grid .mdc-text-field--outlined {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border-radius: 14px !important;
+}
+
+::ng-deep .form-grid .mdc-notched-outline__leading,
+::ng-deep .form-grid .mdc-notched-outline__notch,
+::ng-deep .form-grid .mdc-notched-outline__trailing {
+  border-color: rgba(180, 83, 9, 0.24) !important;
+}
+
+::ng-deep .form-grid .mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .form-grid .mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .form-grid .mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #d97706 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .form-grid .mat-mdc-floating-label,
+::ng-deep .form-grid input.mat-mdc-input-element,
+::ng-deep .form-grid .mat-mdc-select-value-text,
+::ng-deep .form-grid .mat-mdc-select-arrow {
+  color: #374151 !important;
+}
+
+::ng-deep .form-grid .mat-mdc-checkbox .mdc-checkbox__background {
+  border-color: rgba(180, 83, 9, 0.35) !important;
+}
+
+::ng-deep .form-grid .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+}
+
+::ng-deep .button-group .mat-mdc-raised-button.mat-primary {
+  background: var(--zoo-gold-soft) !important;
+  color: #1f2937 !important;
+  border-radius: 999px !important;
+  padding: 0 18px !important;
+  box-shadow: 0 6px 18px rgba(250, 204, 21, 0.28) !important;
+}
+
+::ng-deep .button-group .mat-mdc-raised-button.mat-primary:hover {
+  background: var(--zoo-earth-warm) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 768px) {
+  h2[mat-dialog-title] {
+    padding: 22px 22px 8px 22px;
+    font-size: 21px;
+  }
+
+  mat-dialog-content {
+    padding: 8px 22px 24px 22px !important;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    justify-content: stretch;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  .checkbox-row {
+    flex-wrap: wrap;
+  }
+  
+}

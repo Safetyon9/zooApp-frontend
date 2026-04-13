@@ -28,6 +28,7 @@ import { PasswordDimenticataComponent } from './features/public/email/password-d
 import { ResetPasswordComponent } from './features/public/email/change-password/change-password';
 import { Checkout } from './features/public/checkout/checkout';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
+import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 
 const routes: Routes = [
   {
@@ -75,6 +76,7 @@ const routes: Routes = [
     ]
   },
 
+  { path: 'coupons', component: CouponDialog },
   { path: 'login', component: LoginDialog },
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },

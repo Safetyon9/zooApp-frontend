@@ -1,1 +1,90 @@
-<p>gestione-coupons works!</p>
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
+
+    <mat-card-header class="header-row">
+      <mat-card-title>Gestione Coupons</mat-card-title>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="onCreateCoupon()">
+        Nuovo coupon
+      </button>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento coupons...</p>
+        </div>
+      } @else {
+
+        <div class="table-wrapper">
+          <table class="accounts-table">
+
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Codice</th>
+                <th>Tipo</th>
+                <th>Valore</th>
+                <th>Inizio validità</th>
+                <th>Fine validità</th>
+                <th>Attivo</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (c of coupons; track c.id) {
+                <tr>
+                  <td>{{ c.id || '-' }}</td>
+                  <td>{{ c.codice || '-' }}</td>
+                  <td>{{ c.tipo || '-' }}</td>
+                  <td>{{ c.valore || '-' }}</td>
+                  <td>{{ c.inizioValidita || '-' }}</td>
+                  <td>{{ c.fineValidita || '-' }}</td>
+                  <td>
+                    <span class="status-cell">
+                        <span class="status-dot" [ngClass]="c.attivo ? 'online' : 'offline'"></span>
+                        <span class="status-text">{{ c.attivo ? 'Attivo' : 'Non attivo' }}</span>
+                    </span>
+                </td>
+
+                  <td class="actions-cell">
+                    <button
+                      type="button"
+                      class="text-button"
+                      (click)="eseguoUpdate(c)">
+                      Modifica
+                    </button>
+
+                    <button
+                      type="button"
+                      class="text-button text-button-danger"
+                      (click)="eliminaCoupon(c)">
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="empty-cell">
+                    Nessun coupon trovato.
+                  </td>
+                </tr>
+              }
+            </tbody>
+
+          </table>
+        </div>
+      }
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
