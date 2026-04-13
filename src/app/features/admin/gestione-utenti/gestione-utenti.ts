@@ -54,9 +54,7 @@ export class GestioneUtente implements OnInit {
           cap: r.cap ?? '',
           telefono: r.telefono ?? '',
           provincia: r.provincia ?? '',
-          // Online da isActive (boolean o string)
           isOnline: r.isActive === true || r.isActive === 'true',
-          // Validato da isValidate (boolean o string)
           isValidate: r.isValidate === true || r.isValidate === 'true',
           expanded: false,
           loadingDettaglio: false,

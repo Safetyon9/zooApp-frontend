@@ -19,6 +19,7 @@
         <div class="side-text">
           <span class="side-badge">{{ event.dataInizio || 'Data da definire' }}</span>
           <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
+          <h5>{{ event.descrizione || 'Descrizione Evento Zoo' }}</h5>
           <p>
             @if (event.dataFine) {
               Fine evento: {{ event.dataFine }}
