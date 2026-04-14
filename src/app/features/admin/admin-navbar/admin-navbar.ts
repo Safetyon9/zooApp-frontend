@@ -50,6 +50,10 @@ export class AdminNavbar {
     this.router.navigate(['/admin/coupons']);
   }
 
+  openGestioneCalendario(){
+    this.router.navigate(['/admin/giornate']);
+  }
+
   logout() {
     const userName = localStorage.getItem('userId');
 

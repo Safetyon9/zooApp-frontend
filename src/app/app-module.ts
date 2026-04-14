@@ -77,6 +77,7 @@ import { EmailValidation } from './features/public/email/email-validation/email-
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
+import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
 
 @NgModule({
   declarations: [
@@ -88,8 +89,6 @@ import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/c
     RegisterDialog,
     UpdateDialog,
     ConfirmDialog,
-    SceltaUpdateDialog,
-    ChangePwd,
     Home,
     Carrello,
     Checkout,
@@ -125,7 +124,8 @@ import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/c
     GestioneOrdini,
     CouponDialog,
     UploaditemDialog,
-    GestioneCoupons
+    GestioneCoupons,
+    GestioneGiornate
   ],
   imports: [
     BrowserModule,

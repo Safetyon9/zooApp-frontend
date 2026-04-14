@@ -29,6 +29,7 @@ import { ResetPasswordComponent } from './features/public/email/change-password/
 import { Checkout } from './features/public/checkout/checkout';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
+import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
 
 const routes: Routes = [
   {
@@ -72,6 +73,7 @@ const routes: Routes = [
       { path: 'eventi', component: GestioneEventi },
       { path: 'ordini', component: GestioneOrdini },
       { path: 'coupons', component: GestioneCoupons },
+      { path: 'giornate', component: GestioneGiornate },
       { path: 'modify', component: AdminChangePwd }
     ]
   },
