@@ -56,11 +56,11 @@ export class CheckoutService {
     importo: number;
     metodoPagamentoId: number;
     couponId?: number | null;
-  }) {
+  }) {console.log('CLIENTE ID:', params.clienteId);
     const ordineBody = {
       clienteId: params.clienteId,
       indirizzo: params.indirizzo
-    };
+    };console.log('BODY INVIATO:', ordineBody);
 
     return this.http.post<any>(`${this.baseOrdine}/create`, ordineBody).pipe(
       switchMap((ordineResp: any) => {

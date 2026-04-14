@@ -45,7 +45,7 @@ export class Checkout implements OnInit {
       next: (r: any) => {
         this.profilo = r;
         this.indirizzoSpedizione = r.indirizzo ?? '';
-         this.cdr.detectChanges();
+        this.cdr.detectChanges();
       }
     });
 
