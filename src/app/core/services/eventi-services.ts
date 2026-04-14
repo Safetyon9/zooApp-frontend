@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-export interface EventoDto {
+export interface EventiDto {
   id?: number;
   tipoEvento?: string;
   dataInizio?: string;
@@ -17,7 +17,7 @@ export class EventiServices {
 
   private url = 'http://localhost:9090/rest/eventi/';
 
-  private _eventi = signal<EventoDto[]>([]);
+  private _eventi = signal<EventiDto[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +26,7 @@ export class EventiServices {
   }
 
   list() {
-    return this.http.get<EventoDto[]>(this.url + 'list').pipe(
+    return this.http.get<EventiDto[]>(this.url + 'list').pipe(
       tap((resp) => this._eventi.set(resp))
     );
   }
@@ -44,6 +44,6 @@ export class EventiServices {
   }
 
   getById(id: number) {
-    return this.http.get<EventoDto>(this.url + 'get/' + id);
+    return this.http.get<EventiDto>(this.url + 'get/' + id);
   }
 }

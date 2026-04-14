@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { EventoDto } from './eventi-services';
+import { EventiDto } from './eventi-services';
 
 export interface GiornateDto {
   id?: number;
   data: string;
   stock: number;
   aperto: boolean;
-  evento?: EventoDto;
+  evento?: EventiDto;
+  eventoId?: number;
 }
 
 @Injectable({
@@ -31,11 +32,13 @@ export class GiornateServices {
   }
 
   create(body: GiornateDto) {
-    return this.http.post(this.url + 'create', body);
+    const req = { ...body, eventoId: body.evento?.id };
+    return this.http.post(this.url + 'create', req);
   }
 
   update(body: GiornateDto) {
-    return this.http.put(this.url + 'update', body);
+    const req = { ...body, eventoId: body.evento?.id };
+    return this.http.put(this.url + 'update', req);
   }
 
   delete(id: number) {

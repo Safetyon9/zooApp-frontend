@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { EventiServices, EventoDto } from '../../../../../core/services/eventi-services';
+import { EventiServices, EventiDto } from '../../../../../core/services/eventi-services';
 
 @Component({
   selector: 'app-eventi',
@@ -9,7 +9,7 @@ import { EventiServices, EventoDto } from '../../../../../core/services/eventi-s
 })
 export class Eventi implements OnInit {
 
-  events = signal<(EventoDto & { nonDisponibile?: boolean })[]>([]);
+  events = signal<(EventiDto & { nonDisponibile?: boolean })[]>([]);
   isAnimalModalOpen = signal(false);
 
   constructor(private eventiS: EventiServices) {}
@@ -26,7 +26,7 @@ export class Eventi implements OnInit {
     });
   }
 
-  preparaEventi(lista: EventoDto[]): (EventoDto & { nonDisponibile?: boolean })[] {
+  preparaEventi(lista: EventiDto[]): (EventiDto & { nonDisponibile?: boolean })[] {
     const oggi = new Date();
     oggi.setHours(0, 0, 0, 0);
 
