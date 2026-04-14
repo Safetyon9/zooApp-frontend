@@ -72,19 +72,38 @@ export class Checkout implements OnInit {
   }
 
   confermaOrdine(): void {
-    if (!this.indirizzoSpedizione) { this.msg.set('Inserisci un indirizzo di spedizione'); return; }
-    if (!this.metodoSelezionato)   { this.msg.set('Seleziona un metodo di pagamento'); return; }
+    if (!this.indirizzoSpedizione) {
+      this.msg.set('Inserisci un indirizzo di spedizione');
+      return;
+    }
+
+    if (!this.metodoSelezionato) {
+      this.msg.set('Seleziona un metodo di pagamento');
+      return;
+    }
+
+    if (!this.profilo?.clienteId) {
+      this.msg.set('Cliente non trovato');
+      return;
+    }
 
     this.isLoading = true;
     this.msg.set('');
 
-    this.checkoutService.confermaOrdine({
-      clienteId: this.profilo.clienteId,
-      indirizzo: this.indirizzoSpedizione,
-      importo: this.totaleFinale,
-      metodoPagamentoId: this.metodoSelezionato,
-      couponId: this.couponId
-    }).subscribe({
+    const body = {
+      ordini: {
+        clienteId: this.profilo.clienteId,
+        indirizzo: this.indirizzoSpedizione
+      },
+      pagamenti: {
+        importo: this.totaleFinale,
+        metodoPagamentoId: this.metodoSelezionato,
+        couponId: this.couponId ?? null,
+        stato: 'ATTESA'
+      }
+    };
+
+    this.checkoutService.confermaOrdine(body).subscribe({
       next: () => {
         this.success.set(true);
         this.msg.set('Ordine confermato con successo!');
