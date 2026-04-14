@@ -63,25 +63,26 @@
         @for (b of biglietti; track b.id) {
           <mat-card class="ticket-card" appearance="outlined">
             <div class="img-wrapper">
-              @if (b.urlImmagine) {
-                <img [src]="imgBaseUrl + b.urlImmagine">
-              } @else {
-                <img src="no_image.png" />
-              }
+              <img [src]="getTicketImage(b)" [alt]="b.nome">
+              <div class="ticket-overlay">
+                 <span class="ticket-category">{{ b.tipoNome }}</span>
+              </div>
             </div>
 
-            <mat-card-content>
-              <h2 class="name">{{ b.nome }}</h2>
-              <p class="type">{{ b.tipoNome }}</p>
-              <div class="price">€ {{ b.prezzo }}</div>
+            <mat-card-content class="ticket-info">
+              <div class="header-info">
+                <h2 class="name">{{ b.nome }}</h2>
+                <div class="price">€ {{ b.prezzo }}</div>
+              </div>
+              <p class="description">Accesso completo allo Zoo per un'intera giornata di avventura.</p>
             </mat-card-content>
 
             <mat-card-actions class="actions">
               <button
-                mat-raised-button
                 class="btn-buy"
                 (click)="addToCart(b)">
-                Aggiungi al carrello
+                <span class="material-icons">local_activity</span>
+                Acquista ora
               </button>
             </mat-card-actions>
           </mat-card>

@@ -15,7 +15,7 @@ type EventoView = EventiDto & {
 export class Eventi implements OnInit {
 
   events = signal<EventoView[]>([]);
-  isAnimalModalOpen = signal(false);
+  isModalOpen = signal(false);
 
   constructor(private eventiS: EventiServices) {}
 
@@ -70,6 +70,14 @@ export class Eventi implements OnInit {
     return eventiProcessati;
   }
 
+  get featuredEvents(): EventoView[] {
+    return this.events().slice(0, 2);
+  }
+
+  get remainingEvents(): EventoView[] {
+    return this.events().slice(2);
+  }
+
   formattaData(data?: string): string {
     if (!data) return 'Data da definire';
 
@@ -80,12 +88,11 @@ export class Eventi implements OnInit {
     });
   }
 
-  openAnimalModal(event: Event) {
-    event.preventDefault();
-    this.isAnimalModalOpen.set(true);
+  openModal() {
+    this.isModalOpen.set(true);
   }
 
-  closeAnimalModal() {
-    this.isAnimalModalOpen.set(false);
+  closeModal() {
+    this.isModalOpen.set(false);
   }
 }

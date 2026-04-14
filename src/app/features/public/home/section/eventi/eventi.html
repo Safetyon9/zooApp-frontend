@@ -13,50 +13,49 @@
       <p>Scopri l'emozione della natura.</p>
     </div>
 
-    <div class="sidebar-scroll">
-      <div class="sidebar-cards" *ngIf="events().length > 0; else noEvents">
-        <div class="side-card" *ngFor="let event of events()">
-          <div class="icon-circle">›</div>
+    <div class="sidebar-cards" *ngIf="featuredEvents.length > 0; else noEvents">
+      <div class="side-card" *ngFor="let event of featuredEvents">
+        <div class="icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
 
-          <div class="side-text">
-            <div class="date-row">
-              <span class="side-badge">
-                Inizio: {{ formattaData(event.dataInizio) }}
-              </span>
-
-              <span class="side-badge">
-                Fine: {{ formattaData(event.dataFine) }}
-              </span>
-
-              <span class="status-badge live-badge" *ngIf="event.inCorso">
-                <span class="live-dot"></span>
-                In corso
-              </span>
-
-              <span class="status-badge not-available" *ngIf="event.nonDisponibile">
-                Non disponibile
-              </span>
-            </div>
-
-            <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
-            <h5>{{ event.descrizione || 'Descrizione Evento Zoo' }}</h5>
-
-            <p *ngIf="event.inCorso">
-              L'evento è attualmente in svolgimento.
-            </p>
-
-            <p *ngIf="event.nonDisponibile">
-              Questo evento non è attualmente disponibile.
-            </p>
+        <div class="side-text">
+          <div class="date-row">
+            <span class="side-badge">{{ formattaData(event.dataInizio) }}</span>
+            <span class="status-badge live-badge" *ngIf="event.inCorso">
+              <span class="live-dot"></span>
+              In corso
+            </span>
+            <span class="status-badge not-available" *ngIf="event.nonDisponibile">
+              Concluso
+            </span>
           </div>
+          <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
+          <h5>{{ event.descrizione || 'Descrizione Evento Zoo' }}</h5>
         </div>
       </div>
+
+      <button class="toggle-btn" (click)="openModal()">
+        <span>Vedi tutti gli eventi</span>
+        <span class="material-icons" style="font-size: 18px;">open_in_new</span>
+      </button>
     </div>
 
     <ng-template #noEvents>
       <div class="sidebar-cards">
         <div class="side-card">
-          <div class="icon-circle">›</div>
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
           <div class="side-text">
             <span class="side-badge">Nessuna data</span>
             <h3>Nessun evento disponibile</h3>
@@ -66,6 +65,43 @@
       </div>
     </ng-template>
     
+  </div>
+
+  <div class="events-modal-overlay" *ngIf="isModalOpen()">
+    <div class="events-modal-content">
+      <button class="close-modal-btn" (click)="closeModal()">&times;</button>
+      <h2>Tutti gli Eventi</h2>
+      <p class="subtitle">Scopri tutti gli appuntamenti in programma</p>
+      
+      <div class="modal-events-list">
+        <div class="modal-event-card" *ngFor="let event of events()">
+          <div class="modal-event-dates">
+            <div class="date-box">
+              <span class="date-label">Dal:</span>
+              <span class="date-value">{{ formattaData(event.dataInizio) }}</span>
+            </div>
+            <div class="date-box" *ngIf="event.dataFine">
+              <span class="date-label">Al:</span>
+              <span class="date-value">{{ formattaData(event.dataFine) }}</span>
+            </div>
+          </div>
+          
+          <div class="modal-event-details">
+            <div class="status-wrap">
+              <span class="status-badge live-badge" *ngIf="event.inCorso">
+                <span class="live-dot"></span>
+                In corso
+              </span>
+              <span class="status-badge not-available" *ngIf="event.nonDisponibile">
+                Concluso
+              </span>
+            </div>
+            <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
+            <p>{{ event.descrizione || 'Descrizione Evento Zoo' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

@@ -127,6 +127,19 @@ export class ShopBiglietti implements OnInit {
     return this.itemsS.biglietti();
   }
 
+  animalThumbnails = [
+    'foto/animali/leone.jpg',
+    'foto/animali/tigre.jpg',
+    'foto/animali/giraffa.jpg',
+    'foto/animali/elefante.jpg'
+  ];
+
+  getTicketImage(ticket: any): string {
+    if (ticket.urlImmagine) return this.imgBaseUrl + ticket.urlImmagine;
+    const index = (ticket.id || 0) % this.animalThumbnails.length;
+    return this.animalThumbnails[index];
+  }
+
   addToCart(ticket: any) {
     if (!this.selectedDate) {
       alert('Per favore seleziona una data disponibile dal calendario.');
