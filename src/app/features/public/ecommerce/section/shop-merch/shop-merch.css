@@ -6,7 +6,6 @@
   animation: fadeIn 0.4s ease;
 }
 
-
 .collection-hero {
   position: relative;
   width: 100%;
@@ -33,12 +32,6 @@
 .hero-bg-2 {
   z-index: 1;
   animation: heroFade 8s ease-in-out infinite;
-}
-
-@keyframes heroFade {
-  0%, 10% { opacity: 0; }
-  30%, 70% { opacity: 1; }
-  90%, 100% { opacity: 0; }
 }
 
 .collection-overlay {
@@ -77,6 +70,10 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
+.products-wrapper {
+  width: calc(100% - 2rem);
+  margin-left: 2rem;
+}
 
 .section-title {
   font-size: 1.8rem;
@@ -91,13 +88,11 @@
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
 
-
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-
 
 .product-card {
   position: relative;
@@ -126,7 +121,6 @@
 .product-card:hover img {
   transform: scale(1.05);
 }
-
 
 .card-label {
   position: absolute;
@@ -159,7 +153,6 @@
   font-weight: 700;
   color: var(--zoo-gold-soft);
 }
-
 
 .buy-btn {
   position: absolute;
@@ -202,6 +195,16 @@
   font-size: 1.2rem;
 }
 
+@keyframes heroFade {
+  0%, 10% { opacity: 0; }
+  30%, 70% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @media (max-width: 768px) {
   .collection-hero {
@@ -213,6 +216,11 @@
     font-size: 1.6rem;
   }
 
+  .products-wrapper {
+    width: calc(100% - 1rem);
+    margin-left: 1rem;
+  }
+
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
@@ -220,9 +228,4 @@
   .product-card {
     height: 320px;
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
 }

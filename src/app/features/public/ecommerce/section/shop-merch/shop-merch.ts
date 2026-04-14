@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { ItemsServices } from '../../../../../core/services/items-services';
 import { ShopService } from '../../../../../core/services/shop-services';
 
@@ -10,10 +10,10 @@ import { ShopService } from '../../../../../core/services/shop-services';
 })
 export class ShopMerch implements OnInit {
 
-  imgBaseUrl = "http://localhost:9090/files/";
+  imgBaseUrl = 'http://localhost:9090/files/';
 
   constructor(
-    private itemsS: ItemsServices,
+    public itemsS: ItemsServices,
     public shop: ShopService
   ) {}
 
@@ -21,17 +21,53 @@ export class ShopMerch implements OnInit {
     this.itemsS.list('prodotto').subscribe();
   }
 
-  get prodotti() {
-    return this.itemsS.prodotti();
+  prodottiPerCategoria = computed(() => {
+    const prodotti = this.itemsS.prodotti() || [];
+
+    const gruppi = prodotti.reduce((acc: any, prodotto: any) => {
+      const categoria = prodotto.categoriaNome?.trim() || 'Altri prodotti';
+
+      if (!acc[categoria]) {
+        acc[categoria] = [];
+      }
+
+      acc[categoria].push(prodotto);
+      return acc;
+    }, {});
+
+    return Object.keys(gruppi)
+      .sort((a, b) => a.localeCompare(b))
+      .map(categoria => ({
+        categoria,
+        prodotti: gruppi[categoria].sort((a: any, b: any) =>
+          a.nome.localeCompare(b.nome)
+        )
+      }));
+  });
+
+  getImageUrl(prodotto: any): string {
+    const img = prodotto?.urlImmagine;
+
+    if (!img) {
+      return 'foto/merch/tshirt-crema-leone.png';
+    }
+
+    if (img.startsWith('http://') || img.startsWith('https://')) {
+      return img;
+    }
+
+    return this.imgBaseUrl + img;
+  }
+
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).src = 'foto/merch/tshirt-crema-leone.png';
   }
 
   addToCart(prodotto: any) {
-  console.log('prodotto:', JSON.stringify(prodotto));
-  console.log('cart prima:', this.shop['cartService']?.items());
     this.shop.addToCart(
       {
         ...prodotto,
-        immagine: prodotto.urlImmagine 
+        immagine: this.getImageUrl(prodotto)
       },
       'prodotto',
       1,
