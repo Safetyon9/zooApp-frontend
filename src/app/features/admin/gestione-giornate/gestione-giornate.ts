@@ -14,7 +14,7 @@ export class GestioneGiornate implements OnInit {
   days: any[] = [];
   selectedDate: GiornateDto | null = null;
   eventi = signal<EventiDto[]>([]);
-  
+
   monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
     "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
   ];
@@ -22,7 +22,7 @@ export class GestioneGiornate implements OnInit {
   constructor(
     public giornateS: GiornateServices,
     public eventiS: EventiServices
-  ) {}
+  ) { }
 
   ngOnInit() {
     forkJoin([
@@ -80,9 +80,7 @@ export class GestioneGiornate implements OnInit {
 
       const gInfo = backendGiornate.find(g => g.data.startsWith(dateStr));
 
-      if (gInfo && gInfo.eventoId && !gInfo.evento) {
-        gInfo.evento = allEventi.find(e => e.id === gInfo.eventoId);
-      }
+
 
       this.days.push({
         day: i,
@@ -138,7 +136,7 @@ export class GestioneGiornate implements OnInit {
       data: this.selectedDate.data,
       aperto: this.selectedDate.aperto,
       stock: this.selectedDate.stock,
-      eventoId: this.selectedDate.evento?.id ?? null
+      eventoId: this.selectedDate.eventoId?.id ?? null
     };
 
     const action = this.selectedDate.id

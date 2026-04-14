@@ -79,9 +79,7 @@ export class ShopBiglietti implements OnInit {
         
         const gInfo = backendGiornate.find(g => g.data.startsWith(dateStr));
         
-        if (gInfo && gInfo.eventoId && !gInfo.evento) {
-            gInfo.evento = allEventi.find(e => e.id === gInfo.eventoId);
-        }
+
 
         this.days.push({
             day: i,

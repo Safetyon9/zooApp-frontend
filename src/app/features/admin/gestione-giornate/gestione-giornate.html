@@ -28,20 +28,18 @@
             <div class="weekday">Ven</div>
             <div class="weekday">Sab</div>
 
-            <div *ngFor="let day of days" 
-                 class="day-cell" 
-                 [class.not-current]="!day.currentMonth"
-                 [class.today]="day.isToday"
-                 [class.aperto]="day.info?.aperto && !day.info?.eventoId"
-                 [class.evento]="day.info?.eventoId"
-                 (click)="selectDay(day)">
-              
+            <div *ngFor="let day of days" class="day-cell" [class.not-current]="!day.currentMonth"
+              [class.today]="day.isToday" [class.aperto]="day.info?.aperto && !day.info?.eventoId"
+              [class.evento]="day.info?.eventoId" (click)="selectDay(day)">
+
               <span class="day-number">{{ day.day }}</span>
-              
+
               <div class="day-details" *ngIf="day.currentMonth">
                 <span class="stock-tag" *ngIf="day.info?.stock > 0">S: {{ day.info?.stock }}</span>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #2ebc56" *ngIf="day.info?.aperto && !day.info?.eventoId">check_circle</mat-icon>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: var(--zoo-gold-soft)" *ngIf="day.info?.eventoId">event</mat-icon>
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #2ebc56"
+                  *ngIf="day.info?.aperto && !day.info?.eventoId">check_circle</mat-icon>
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: var(--zoo-gold-soft)"
+                  *ngIf="day.info?.eventoId">event</mat-icon>
               </div>
             </div>
           </div>
@@ -49,7 +47,7 @@
 
         <div class="edit-panel" *ngIf="selectedDate; else noSelection">
           <h4>Dettagli {{ selectedDate.data | date:'dd/MM/yyyy' }}</h4>
-          
+
           <mat-form-field appearance="outline">
             <mat-label>Stock Biglietti</mat-label>
             <input matInput type="number" [(ngModel)]="selectedDate.stock" placeholder="Esempio: 200">
@@ -64,7 +62,7 @@
 
           <mat-form-field appearance="outline">
             <mat-label>Evento speciale</mat-label>
-            <mat-select [(ngModel)]="selectedDate.evento" [compareWith]="compareEventi">
+            <mat-select [(ngModel)]="selectedDate.eventoId" [compareWith]="compareEventi">
               <mat-option [value]="null">Nessun evento</mat-option>
               <mat-option *ngFor="let ev of eventiS.eventi()" [value]="ev">
                 {{ ev.tipoEvento }}
@@ -78,8 +76,8 @@
               * Lo stock definisce il numero massimo di biglietti acquistabili per questa data.
             </p>
             <div style="display: flex; gap: 10px; width: 100%;">
-                <button class="btn-secondary" (click)="cancelEdit()">Annulla</button>
-                <button class="btn-primary" (click)="saveStock()">Salva tutto</button>
+              <button class="btn-secondary" (click)="cancelEdit()">Annulla</button>
+              <button class="btn-primary" (click)="saveStock()">Salva tutto</button>
             </div>
           </div>
         </div>
@@ -87,7 +85,8 @@
         <ng-template #noSelection>
           <div class="edit-panel">
             <div class="empty-state">
-              <mat-icon style="font-size: 48px; width: 48px; height: 48px; color: var(--zoo-gold-soft)">touch_app</mat-icon>
+              <mat-icon
+                style="font-size: 48px; width: 48px; height: 48px; color: var(--zoo-gold-soft)">touch_app</mat-icon>
               <p>Seleziona un giorno dal calendario per gestirne la disponibilità e lo stock.</p>
             </div>
           </div>

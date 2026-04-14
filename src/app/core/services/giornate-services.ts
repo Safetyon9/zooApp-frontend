@@ -8,8 +8,7 @@ export interface GiornateDto {
   data: string;
   stock: number;
   aperto: boolean;
-  evento?: EventiDto;
-  eventoId?: number;
+  eventoId?: EventiDto;
 }
 
 @Injectable({
@@ -32,13 +31,11 @@ export class GiornateServices {
   }
 
   create(body: GiornateDto) {
-    const req = { ...body, eventoId: body.evento?.id };
-    return this.http.post(this.url + 'create', req);
+    return this.http.post(this.url + 'create', body);
   }
 
   update(body: GiornateDto) {
-    const req = { ...body, eventoId: body.evento?.id };
-    return this.http.put(this.url + 'update', req);
+    return this.http.put(this.url + 'update', body);
   }
 
   delete(id: number) {
