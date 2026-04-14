@@ -28,26 +28,22 @@ export class ShopService {
     const carrelloId = this.auth.getCarrelloId();
     if (!carrelloId) return;
 
-    console.log(carrelloId + "ciao");
-
-    this.cartService.addLocal(item, type, quantity);
-
     this.cartApi.create({
       carrelloId,
       itemId: item.id,
       quantita: quantity
     }).subscribe({
       next: (res: any) => {
-
-        this.cartService.attachCartItemId(
-          item.id,
+        console.log('CREATE CART RESPONSE:', res);
+        this.cartService.addLocalWithId(
+          item,
           type,
+          quantity,
           res.id
         );
       },
       error: (err) => {
         console.error('AddToCart error', err);
-        this.cartService.remove(item.id, type);
       }
     });
   }
@@ -55,62 +51,56 @@ export class ShopService {
   removeFromCart(item: any, type: CartType) {
 
     const cartItem = this.cartService.getItem(item.id, type);
-
     this.cartService.remove(item.id, type);
 
     if (!this.auth.isUserWithCart()) return;
+    console.log(cartItem?.cartItemId);
+    if (!cartItem?.cartItemId) return;
 
-    if (!cartItem?.cartItemId) {
-      console.warn('cartItemId mancante → skip backend delete');
-      return;
-    }
+    console.log('DELETE ITEM:', item);
+    console.log('CART ITEM:', cartItem);
+    console.log('CART ITEM ID:', cartItem?.cartItemId);
 
     this.cartApi.delete(cartItem.cartItemId).subscribe({
-      error: (err) => {
-        console.error('Delete error', err);
-      }
+      error: (err) => console.error('Delete error', err)
     });
   }
 
   updateQuantity(item: any, type: CartType, quantity: number) {
 
     const cartItem = this.cartService.getItem(item.id, type);
+    if (!cartItem) return;
 
     this.cartService.updateQty(item.id, type, quantity);
 
     if (!this.auth.isUserWithCart()) return;
-
-    if (!cartItem?.cartItemId) {
-      console.warn('cartItemId mancante → skip backend update');
-      return;
-    }
+    if (!cartItem.cartItemId) return;
 
     this.cartApi.update({
       id: cartItem.cartItemId,
       quantita: quantity
     }).subscribe({
-      error: (err) => {
-        console.error('Update error', err);
-      }
+      error: (err) => console.error('Update error', err)
     });
   }
 
   clearCart() {
-
     const items = this.cartService.items();
 
-    this.cartService.clear();
-
-    if (!this.auth.isUserWithCart()) return;
+    if (!this.auth.isUserWithCart()) {
+      this.cartService.clear();
+      return;
+    }
 
     items.forEach(i => {
       if (!i.cartItemId) return;
 
       this.cartApi.delete(i.cartItemId).subscribe({
-        error: (err) => {
-          console.error('Clear item error', err);
-        }
+        error: (err) => console.error('Clear item error', err)
       });
     });
+
+    this.cartService.clear();
   }
+  
 }

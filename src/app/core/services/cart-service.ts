@@ -139,4 +139,33 @@ export class CartService {
       urlImmagine: item.urlImmagine ?? ''
     };
   }
+
+  addLocalWithId(item: Partial<CartItem>, tipo: CartType, qty: number, cartItemId: number) {
+
+    const quantity = this.normalizeQty(qty);
+    const current = this._items();
+
+    const index = current.findIndex(
+      i => i.id === item.id && i.tipo === tipo
+    );
+
+    if (index !== -1) {
+      const updated = [...current];
+      updated[index] = {
+        ...updated[index],
+        quantita: updated[index].quantita + quantity,
+        cartItemId
+      };
+      this._items.set(updated);
+      return;
+    }
+
+    this._items.set([
+      ...current,
+      {
+        ...this.createItem(item, tipo, quantity),
+        cartItemId
+      }
+    ]);
+  }
 }
