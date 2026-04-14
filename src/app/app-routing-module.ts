@@ -30,6 +30,7 @@ import { Checkout } from './features/public/checkout/checkout';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
+import { OrdineDettaglio } from './features/auth/dialog/ordine-dettaglio/ordine-dettaglio';
 
 const routes: Routes = [
   {
@@ -82,6 +83,7 @@ const routes: Routes = [
   { path: 'login', component: LoginDialog },
   { path: 'register', component: RegisterDialog },
   { path: 'update', component: UpdateDialog },
+  { path: 'ordini-dettaglio', component: OrdineDettaglio },
   { path: 'carrello', component: Carrello },
   { path: 'checkout', component: Checkout},
   { path: 'emailValidation', component: EmailValidation },

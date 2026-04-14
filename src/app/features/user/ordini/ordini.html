@@ -54,7 +54,7 @@
                 <tr>
                   <td>{{ o.id || '-' }}</td>
                   <td>{{ getTotaleOrdine(o) }}</td>
-                  <td>{{ o.dataOrdine | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td>{{ o.dataOrdine ? (o.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</td>
                   <td>{{ o.stato || '-' }}</td>
                   <td class="actions-cell">
                     <button type="button" class="text-button" (click)="dettaglioOrdine(o)">
@@ -62,6 +62,55 @@
                     </button>
                   </td>
                 </tr>
+
+                @if (ordineSelezionato?.id === o.id) {
+                  <tr class="detail-row">
+                    <td colspan="5">
+                      <div class="detail-box">
+                        <h3>Dettaglio ordine #{{ ordineSelezionato?.id }}</h3>
+
+                        <p><strong>Nome:</strong> {{ ordineSelezionato?.nome || '-' }} {{ ordineSelezionato?.cognome || '' }}</p>
+                        <p><strong>Indirizzo:</strong> {{ ordineSelezionato?.indirizzo || '-' }}</p>
+                        <p><strong>Data:</strong> {{ ordineSelezionato?.dataOrdine ? (ordineSelezionato?.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+                        <p><strong>Stato:</strong> {{ ordineSelezionato?.stato || '-' }}</p>
+                        <p><strong>Totale:</strong> {{ getTotaleOrdine(ordineSelezionato!) }} €</p>
+
+                        <mat-divider></mat-divider>
+
+                        <table class="accounts-table" style="margin-top: 12px;">
+                          <thead>
+                            <tr>
+                              <th>Item</th>
+                              <th>Q.tà</th>
+                              <th>Prezzo unit.</th>
+                              <th>Totale</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @for (r of ordineSelezionato?.righe || []; track r.id) {
+                              <tr>
+                                <td>{{ r.nomeItem || '-' }}</td>
+                                <td>{{ r.quantita || '-' }}</td>
+                                <td>{{ r.prezzoUnitario || '-' }}</td>
+                                <td>{{ r.prezzoTotale || '-' }}</td>
+                              </tr>
+                            } @empty {
+                              <tr>
+                                <td colspan="4" class="empty-cell">Nessuna riga presente.</td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+
+                        <div style="margin-top: 12px;">
+                          <button mat-raised-button color="primary" type="button" (click)="ordineSelezionato = null">
+                            Chiudi dettaglio
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                }
               } @empty {
                 <tr>
                   <td colspan="5" class="empty-cell">Nessun ordine trovato.</td>

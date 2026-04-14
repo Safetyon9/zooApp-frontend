@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { OrdineUtenteDTO, OrdineUtenteServices } from '../../../core/services/ordini-utente-services';
 import { AuthServices } from '../../../core/services/auth-services';
+import { Utilities } from '../../../core/utils/utilities';
 
 @Component({
   selector: 'app-ordini',
@@ -23,10 +24,13 @@ export class Ordini implements OnInit {
 
   clienteId: number | null = null;
 
+  ordineSelezionato: OrdineUtenteDTO | null = null;
+
   constructor(
     private ordiniUtenteService: OrdineUtenteServices,
     private cdr: ChangeDetectorRef,
-    private auth: AuthServices
+    private auth: AuthServices,
+    private util: Utilities
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +117,6 @@ export class Ordini implements OnInit {
   }
 
   dettaglioOrdine(o: OrdineUtenteDTO): void {
-    console.log('Ordine selezionato', o);
+    this.ordineSelezionato = o;
   }
 }

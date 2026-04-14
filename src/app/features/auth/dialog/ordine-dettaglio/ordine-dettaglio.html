@@ -1,0 +1,42 @@
+<p>ordine-dettaglio works!</p>
+<h2 mat-dialog-title>Dettaglio ordine #{{ data.id }}</h2>
+
+<mat-dialog-content>
+  <p><strong>Cliente:</strong> {{ data.nome }} {{ data.cognome }}</p>
+  <p><strong>Indirizzo:</strong> {{ data.indirizzo || '-' }}</p>
+  <p><strong>Data ordine:</strong> {{ data.dataOrdine ? (data.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+  <p><strong>Stato:</strong> {{ data.stato || '-' }}</p>
+  <p><strong>Totale:</strong> {{ getTotaleOrdine() }} €</p>
+
+  <mat-divider></mat-divider>
+
+  <h3>Righe ordine</h3>
+  <table class="accounts-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Q.tà</th>
+        <th>Prezzo unit.</th>
+        <th>Totale</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (r of data.righe; track r.id) {
+        <tr>
+          <td>{{ r.nomeItem || '-' }}</td>
+          <td>{{ r.quantita || '-' }}</td>
+          <td>{{ r.prezzoUnitario || '-' }}</td>
+          <td>{{ r.prezzoTotale || '-' }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4">Nessuna riga presente.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Chiudi</button>
+</mat-dialog-actions>

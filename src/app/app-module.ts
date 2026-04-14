@@ -36,6 +36,7 @@ import { LoginDialog } from './features/auth/dialog/login-dialog/login-dialog';
 import { RegisterDialog } from './features/auth/dialog/register-dialog/register-dialog';
 import { UpdateDialog } from './features/auth/dialog/update-dialog/update-dialog';
 import { ConfirmDialog } from './features/auth/dialog/confirm-dialog/confirm-dialog';
+import { OrdineDettaglio } from './features/auth/dialog/ordine-dettaglio/ordine-dettaglio';
 import { SceltaUpdateDialog } from './features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
 import { ProdottoDialog } from './features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog';
 import { BigliettoDialog } from './features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog';
@@ -90,6 +91,7 @@ import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-gi
     RegisterDialog,
     UpdateDialog,
     ConfirmDialog,
+    OrdineDettaglio,
     Home,
     Carrello,
     Checkout,
