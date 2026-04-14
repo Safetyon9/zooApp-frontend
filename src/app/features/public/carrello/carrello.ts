@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
 import { ShopService } from '../../../core/services/shop-services';
 import { CartType } from '../../../core/services/cart-service';
@@ -10,13 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./carrello.css'],
   standalone: false
 })
-export class Carrello {
+export class Carrello implements OnInit{
 
   constructor(
     public cartService: CartService,
     private shopService: ShopService,
     public routing: Router
   ) {}
+
+  ngOnInit(): void {
+    this.shopService.loadCart();
+  }
 
   subtotale = computed(() =>
     this.cartService.totalPrice()

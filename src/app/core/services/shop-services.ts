@@ -13,6 +13,21 @@ export class ShopService {
     private cartApi: CartApiService,
     private auth: AuthServices
   ) {}
+    
+  loadCart() {
+    const carrelloId = this.auth.getCarrelloId();
+    if (!carrelloId) return;
+
+    this.cartApi.getCarrelloById(carrelloId).subscribe({
+      next: (res: any) => {
+        console.log('CARRELLO COMPLETO:', res);
+
+        // 🔥 QUI è giusto
+        this.cartService.setCart(res.oggettiCarrello);
+      },
+      error: (err) => console.error(err)
+    });
+  }
 
   addToCart(
     item: any,
@@ -39,7 +54,7 @@ export class ShopService {
           item,
           type,
           quantity,
-          res.id
+          res.data
         );
       },
       error: (err) => {
@@ -68,19 +83,40 @@ export class ShopService {
 
   updateQuantity(item: any, type: CartType, quantity: number) {
 
+    console.log('SHOP SERVICE CHIAMATO', item, quantity);
+
     const cartItem = this.cartService.getItem(item.id, type);
-    if (!cartItem) return;
+    console.log('CART ITEM:', cartItem);
 
-    this.cartService.updateQty(item.id, type, quantity);
+    if (!cartItem) {
+      console.log('CART ITEM NON TROVATO');
+      return;
+    }
 
-    if (!this.auth.isUserWithCart()) return;
-    if (!cartItem.cartItemId) return;
+    if (!this.auth.isUserWithCart()) {
+      console.log('UTENTE SENZA CARRELLO');
+      return;
+    }
+
+    if (!cartItem.cartItemId) {
+      console.log('CART ITEM ID MANCANTE');
+      return;
+    }
+
+    console.log('PRONTO PER API CALL');
 
     this.cartApi.update({
       id: cartItem.cartItemId,
       quantita: quantity
     }).subscribe({
-      error: (err) => console.error('Update error', err)
+      next: (res) => {
+        console.log('RISPOSTA API:', res);
+
+        this.cartService.updateQty(item.id, type, quantity);
+      },
+      error: (err) => {
+        console.error('ERRORE API:', err);
+      }
     });
   }
 

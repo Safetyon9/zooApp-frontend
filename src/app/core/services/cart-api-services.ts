@@ -42,6 +42,12 @@ export class CartApiService {
     return this.http.get(this.url + 'getById?id=' + id);
   }
 
+  getCarrelloById(id: number) {
+    return this.http.get<any>(
+      `http://localhost:9090/rest/carrelli/findById?id=${id}`
+    );
+  }
+
   getOrCreate(userId: number) {
     return this.http.get<any>(
       `${this.url}getOrCreate/${userId}`
