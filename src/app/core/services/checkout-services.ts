@@ -50,31 +50,20 @@ export class CheckoutService {
     );
   }
 
-  confermaOrdine(params: {
-    clienteId: number;
-    indirizzo: string;
-    importo: number;
-    metodoPagamentoId: number;
-    couponId?: number | null;
-  }) {console.log('CLIENTE ID:', params.clienteId);
-    const ordineBody = {
-      clienteId: params.clienteId,
-      indirizzo: params.indirizzo
-    };console.log('BODY INVIATO:', ordineBody);
-
-    return this.http.post<any>(`${this.baseOrdine}/create`, ordineBody).pipe(
-      switchMap((ordineResp: any) => {
-        const pagamentoBody = {
-          ordineId: ordineResp?.id,
-          importo: params.importo,
-          metodoPagamentoId: params.metodoPagamentoId,
-          couponId: params.couponId ?? null,
-          stato: 'ATTESA'
-        };
-
-        return this.http.post(`${this.basePagamenti}/create`, pagamentoBody);
-      })
-    );
+  confermaOrdine(body: {
+    ordini: {
+      clienteId: number;
+      indirizzo: string;
+    };
+    pagamenti: {
+      importo: number;
+      metodoPagamentoId: number;
+      couponId?: number | null;
+      stato: string;
+    };
+  }) 
+  {
+    return this.http.post(`${this.baseOrdine}/create`, body);
   }
 
   svuotaERedirect() {
