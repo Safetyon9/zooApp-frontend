@@ -156,7 +156,8 @@ export class ProdottiManager implements OnInit {
 
   eseguoUpload(row: any): void {
     const dialogRef = this.util.openDialog(UploaditemDialog, {
-      prodotto: row
+      item:row,
+      type:'prodotto'
     }, {
       width: '600px',
       maxWidth: '90vw',
