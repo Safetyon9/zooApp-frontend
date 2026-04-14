@@ -30,8 +30,7 @@ export class Ordini implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.clienteId = this.auth.getClienteId() ?? 1;
-    this.clienteId = 1
+    this.clienteId = this.auth.getClienteId() ?? 1;
     this.search();
   }
 

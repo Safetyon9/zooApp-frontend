@@ -11,7 +11,8 @@ export class AuthServices {
     isAdmin: false,
     isLogged: false,
     userId: null as string | null,
-    carrelloId: null as number | null
+    carrelloId: null as number | null,
+    clienteId: null as number | null
   });
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
@@ -24,19 +25,21 @@ export class AuthServices {
       const isAdmin = localStorage.getItem("isAdmin") === '1';
       const userId = localStorage.getItem("userId");
       const carrelloId = localStorage.getItem("carrelloId");
+      const clienteId = localStorage.getItem("clienteId");
 
       this.grant.set({
         isAdmin,
         isLogged,
         userId,
-        carrelloId: carrelloId ? Number(carrelloId) : null
+        carrelloId: carrelloId ? Number(carrelloId) : null,
+         clienteId: clienteId ? Number(clienteId) : null
       });
 
       console.log('[AuthService] restore', this.grant());
     }
   }
 
-  setAutentificated(userId: any, carrelloId?: number) {
+  setAutentificated(userId: any, carrelloId?: number, clienteId?: number) {
 
     if (isPlatformBrowser(this.platformId)) {
 
@@ -47,11 +50,16 @@ export class AuthServices {
         localStorage.setItem("carrelloId", String(carrelloId));
       }
 
+      if (clienteId !== undefined && clienteId !== null) {
+        localStorage.setItem("clienteId", String(clienteId));
+      }
+
       this.grant.set({
         isAdmin: false,
         isLogged: true,
         userId,
-        carrelloId: carrelloId ?? null
+        carrelloId: carrelloId ?? null,
+        clienteId: clienteId ?? null
       });
     }
 
@@ -99,7 +107,8 @@ export class AuthServices {
         isAdmin: false,
         isLogged: false,
         userId: null,
-        carrelloId: null
+        carrelloId: null,
+        clienteId: null
       });
     }
 
@@ -128,7 +137,6 @@ export class AuthServices {
   }
 
   getClienteId(): number | null {
-  const userId = this.grant().userId;
-  return userId ? Number(userId) : null;
-}
+    return this.grant().clienteId;
+  }
 }
