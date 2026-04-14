@@ -115,17 +115,28 @@ export class GestioneGiornate implements OnInit {
   }
 
   saveStock() {
-    if (!this.selectedDate) return;
-    
-    const action = this.selectedDate.id ? 
-        this.giornateS.update(this.selectedDate) : 
-        this.giornateS.create(this.selectedDate);
+  if (!this.selectedDate) return;
 
-    action.subscribe(() => {
-        this.loadGiornate();
-        this.selectedDate = null;
-    });
-  }
+  const payload = {
+    id: this.selectedDate.id,
+    data: this.selectedDate.data,
+    aperto: this.selectedDate.aperto,
+    stock: this.selectedDate.stock,
+    eventoId: this.selectedDate.evento?.id ?? null
+  };
+
+  const action = this.selectedDate.id
+    ? this.giornateS.update(payload as any)
+    : this.giornateS.create(payload as any);
+
+  action.subscribe({
+    next: () => {
+      this.loadGiornate();
+      this.selectedDate = null;
+    },
+    error: (err) => console.error('Errore create/update:', err)
+  });
+}
 
   cancelEdit() {
       this.selectedDate = null;
