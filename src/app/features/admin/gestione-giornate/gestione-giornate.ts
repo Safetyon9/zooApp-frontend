@@ -13,7 +13,7 @@ export class GestioneGiornate implements OnInit {
   currentDate = new Date();
   days: any[] = [];
   selectedDate: GiornateDto | null = null;
-  eventi = signal<EventoDto[]>([]);
+  eventi = signal<EventiDto[]>([]);
   
   monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
     "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
