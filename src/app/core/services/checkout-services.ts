@@ -14,9 +14,9 @@ export class CheckoutService {
   private router = inject(Router);
 
   private baseOrdine    = 'http://localhost:9090/rest/ordine';
-  private basePagamenti = 'http://localhost:9090/rest/pagamenti';
   private baseMetodi    = 'http://localhost:9090/rest/metodiPagamento';
   private baseCoupons   = 'http://localhost:9090/rest/coupons';
+  private baseOggettiOrdine   = 'http://localhost:9090/rest/oggettoordine';
 
   getMetodiPagamento() {
     return this.http.get<any[]>(`${this.baseMetodi}/list`);
@@ -50,21 +50,9 @@ export class CheckoutService {
     );
   }
 
-  confermaOrdine(body: {
-    ordini: {
-      clienteId: number;
-      indirizzo: string;
-    };
-    pagamenti: {
-      importo: number;
-      metodoPagamentoId: number;
-      couponId?: number | null;
-      stato: string;
-    };
-  }) 
-  {
-    return this.http.post(`${this.baseOrdine}/create`, body);
-  }
+  confermaOrdine(body: any) {
+  return this.http.post<any>(`${this.baseOrdine}/create`, body);
+}
 
   svuotaERedirect() {
     this.cartService.clear();

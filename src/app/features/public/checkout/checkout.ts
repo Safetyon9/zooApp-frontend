@@ -100,7 +100,13 @@ export class Checkout implements OnInit {
         metodoPagamentoId: this.metodoSelezionato,
         couponId: this.couponId ?? null,
         stato: 'ATTESA'
-      }
+      },
+      righe: this.cartService.items().map(i => ({
+        itemId: i.id,
+        quantita: i.quantita,
+        prezzoUnitario: i.prezzo,
+        prezzoTotale: i.prezzo * i.quantita
+      }))
     };
 
     this.checkoutService.confermaOrdine(body).subscribe({
