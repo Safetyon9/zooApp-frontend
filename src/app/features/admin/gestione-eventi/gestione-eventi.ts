@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Utilities } from '../../../core/utils/utilities';
 import { EventiServices } from '../../../core/services/eventi-services';
 import { EventoDialog } from './evento-dialog/evento-dialog';
+import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-gestione-eventi',
@@ -101,10 +102,11 @@ export class GestioneEventi implements OnInit {
   }
 
   eliminaEvento(evento: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare l'evento "${evento.id}"?`);
-    if (!conferma) {
-      return;
-    }
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare l'evento "${evento.id}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) {
+        return;
+      }
 
     this.eventiS.delete(evento.id).subscribe({
       next: () => {
@@ -114,6 +116,7 @@ export class GestioneEventi implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione evento', err);
       }
+    });
     });
   }
 }

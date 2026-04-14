@@ -5,6 +5,7 @@ import { Utilities } from '../../../../core/utils/utilities';
 import { ProdottoDialog } from '../dialog/prodotto-dialog/prodotto-dialog';
 import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
 import { UploaditemDialog } from '../dialog/upload-item-dialog/upload-item-dialog';
+import { ConfirmDialog } from '../../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-prodotti-manager',
@@ -174,8 +175,9 @@ export class ProdottiManager implements OnInit {
   }
 
   eliminaProdotto(prodotto: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare il prodotto "${prodotto.nome}"?`);
-    if (!conferma) return;
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare il prodotto "${prodotto.nome}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.prodottiS.delete(prodotto.id).subscribe({
       next: () => {
@@ -184,6 +186,7 @@ export class ProdottiManager implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione prodotto', err);
       }
+    });
     });
   }
 
@@ -239,8 +242,9 @@ export class ProdottiManager implements OnInit {
   }
 
   eliminaCategoria(categoria: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare la categoria "${categoria.nome}"?`);
-    if (!conferma) return;
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare la categoria "${categoria.nome}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.prodottiS.deleteCategoria(categoria.id).subscribe({
       next: () => {
@@ -250,6 +254,7 @@ export class ProdottiManager implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione categoria', err);
       }
+    });
     });
   }
 }

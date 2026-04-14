@@ -3,6 +3,7 @@ import { UtenteServices } from '../../../core/services/utente-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
 import { RegisterDialog } from '../../auth/dialog/register-dialog/register-dialog';
+import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-gestione-utente',
@@ -197,8 +198,9 @@ export class GestioneUtente implements OnInit {
   }
 
   eliminaProfilo(profilo: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare l'utente "${profilo.userName}"?`);
-    if (!conferma) return;
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare l'utente "${profilo.userName}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.utenteServices.delete(profilo.userName).subscribe({
       next: () => {
@@ -208,6 +210,7 @@ export class GestioneUtente implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione utente', err);
       }
+    });
     });
   }
 }

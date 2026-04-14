@@ -75,6 +75,7 @@ import { EventoDialog } from './features/admin/gestione-eventi/evento-dialog/eve
 import { UploaditemDialog } from './features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog';
 import { EmailValidation } from './features/public/email/email-validation/email-validation';
 import { PasswordDimenticataComponent } from './features/public/email/password-dimenticata/password-dimenticata';
+import { ResetPasswordComponent } from './features/public/email/change-password/change-password';
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
@@ -121,6 +122,8 @@ import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-gi
     ShopMerch,
     EventoDialog,
     EmailValidation,
+    PasswordDimenticataComponent,
+    ResetPasswordComponent,
     GestioneOrdini,
     CouponDialog,
     UploaditemDialog,

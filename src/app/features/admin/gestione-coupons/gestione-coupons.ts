@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Utilities } from '../../../core/utils/utilities';
 import { CouponsServices } from '../../../core/services/coupons-services';
 import { CouponDialog } from './coupons-dialog/coupons-dialog';
+import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-gestione-coupons',
@@ -102,10 +103,9 @@ export class GestioneCoupons implements OnInit {
   }
 
   eliminaCoupon(coupon: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare il coupon "${coupon.codice}"?`);
-    if (!conferma) {
-      return;
-    }
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare il coupon "${coupon.codice}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.couponsS.delete(coupon.id).subscribe({
       next: () => {
@@ -115,6 +115,7 @@ export class GestioneCoupons implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione coupon', err);
       }
+    });
     });
   }
 }

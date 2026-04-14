@@ -20,7 +20,9 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
   color: #ffffff;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-sizing: border-box;
   transition: all 0.35s ease;
 }
 
@@ -148,4 +150,28 @@ p {
   background: linear-gradient(135deg, var(--zoo-earth-warm), var(--zoo-gold-soft));
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 6px 20px rgba(var(--zoo-gold-soft-rgb), 0.45);
+}
+
+@media (max-width: 600px) {
+  .dialog-container {
+    max-width: 100%;
+    margin: 16px 12px;
+    padding: 24px 20px 20px;
+    border-radius: 18px;
+    max-height: 95vh;
+  }
+
+  h2[mat-dialog-title] {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }

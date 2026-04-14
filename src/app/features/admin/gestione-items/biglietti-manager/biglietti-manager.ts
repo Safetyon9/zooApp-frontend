@@ -5,6 +5,7 @@ import { Utilities } from '../../../../core/utils/utilities';
 import { BigliettoDialog } from '../dialog/biglietto-dialog/biglietto-dialog';
 import { SceltaUpdateDialog } from '../dialog/scelta-update-dialog/scelta-update-dialog';
 import { UploaditemDialog } from '../dialog/upload-item-dialog/upload-item-dialog';
+import { ConfirmDialog } from '../../../auth/dialog/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-biglietti-manager',
@@ -182,14 +183,16 @@ export class BigliettiManager implements OnInit {
   }
 
   eliminaBiglietto(biglietto: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare il biglietto "${biglietto.nome}"?`);
-    if (!conferma) return;
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare il biglietto "${biglietto.nome}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.bigliettiS.delete(biglietto.id).subscribe({
       next: () => this.search(),
       error: (err: any) => {
         console.error('Errore eliminazione biglietto', err);
       }
+    });
     });
   }
 
@@ -243,8 +246,9 @@ export class BigliettiManager implements OnInit {
   }
 
   eliminaTipo(tipo: any): void {
-    const conferma = confirm(`Sei sicuro di voler eliminare il tipo "${tipo.nome}"?`);
-    if (!conferma) return;
+    const dialogRef = this.util.openDialog(ConfirmDialog, { message: `Sei sicuro di voler eliminare il tipo "${tipo.nome}"?` });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (!res) return;
 
     this.bigliettiS.deleteTipo(tipo.id).subscribe({
       next: () => {
@@ -254,6 +258,7 @@ export class BigliettiManager implements OnInit {
       error: (err: any) => {
         console.error('Errore eliminazione tipo', err);
       }
+    });
     });
   }
 }

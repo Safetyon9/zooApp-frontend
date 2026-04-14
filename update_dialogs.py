@@ -1,4 +1,25 @@
+import os
+import re
 
+html_files = [
+    "src/app/features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog.html",
+    "src/app/features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog.html",
+    "src/app/features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog.html",
+    "src/app/features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog.html",
+    "src/app/features/admin/gestione-eventi/evento-dialog/evento-dialog.html",
+    "src/app/features/admin/gestione-coupons/coupons-dialog/coupons-dialog.html"
+]
+
+css_files = [
+    "src/app/features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog.css",
+    "src/app/features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog.css",
+    "src/app/features/admin/gestione-items/dialog/upload-item-dialog/upload-item-dialog.css",
+    "src/app/features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog.css",
+    "src/app/features/admin/gestione-eventi/evento-dialog/evento-dialog.css",
+    "src/app/features/admin/gestione-coupons/coupons-dialog/coupons-dialog.css"
+]
+
+css_content = """
 ::ng-deep .cdk-overlay-pane .mat-mdc-dialog-surface {
   background: transparent !important;
   box-shadow: none !important;
@@ -151,3 +172,26 @@ mat-form-field {
 ::ng-deep .mat-expansion-panel-header-title {
   color: white !important;
 }
+"""
+
+for f in css_files:
+    if os.path.exists(f):
+        with open(f, 'w', encoding='utf-8') as out:
+            out.write(css_content)
+
+for f in html_files:
+    if os.path.exists(f):
+        with open(f, 'r', encoding='utf-8') as inp:
+            content = inp.read()
+        
+        # We need to add class="dialog-container" to the main wrapper of each file.
+        # Check if it starts with <div class="coupon-dialog-shell">, <div class="container dialog-container"> or <div>
+        content = re.sub(r'<div class="coupon-dialog-shell">', '<div class="dialog-container">', content)
+        content = re.sub(r'<div class="container dialog-container">', '<div class="dialog-container">', content)
+        content = re.sub(r'^<div>', '<div class="dialog-container">', content)
+        content = re.sub(r'^<div >', '<div class="dialog-container">', content)
+        
+        with open(f, 'w', encoding='utf-8') as out:
+            out.write(content)
+
+print("Done updating CSS and HTML for admin dialogs.")
