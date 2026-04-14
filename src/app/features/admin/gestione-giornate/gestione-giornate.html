@@ -32,16 +32,16 @@
                  class="day-cell" 
                  [class.not-current]="!day.currentMonth"
                  [class.today]="day.isToday"
-                 [class.aperto]="day.info?.aperto"
-                 [class.evento]="day.info?.evento"
+                 [class.aperto]="day.info?.aperto && !day.info?.eventoId"
+                 [class.evento]="day.info?.eventoId"
                  (click)="selectDay(day)">
               
               <span class="day-number">{{ day.day }}</span>
               
               <div class="day-details" *ngIf="day.currentMonth">
                 <span class="stock-tag" *ngIf="day.info?.stock > 0">S: {{ day.info?.stock }}</span>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #2ebc56" *ngIf="day.info?.aperto && !day.info?.evento">check_circle</mat-icon>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: var(--zoo-gold-soft)" *ngIf="day.info?.evento">event</mat-icon>
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #2ebc56" *ngIf="day.info?.aperto && !day.info?.eventoId">check_circle</mat-icon>
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: var(--zoo-gold-soft)" *ngIf="day.info?.eventoId">event</mat-icon>
               </div>
             </div>
           </div>

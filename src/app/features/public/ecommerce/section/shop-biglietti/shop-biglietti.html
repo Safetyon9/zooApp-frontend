@@ -1,50 +1,99 @@
 <div class="shop-container">
 
-  <h1 class="title">Biglietti disponibili</h1>
+  <div class="calendar-section">
+    <div class="calendar-header">
+      <h1 class="title">Pianifica la tua visita</h1>
+      <p class="subtitle">Il primo passo per il tuo viaggio nel mondo animale</p>
+    </div>
 
-  <div class="grid">
+    <div class="calendar-card">
+      <div class="calendar-nav">
+        <button mat-icon-button (click)="prevMonth()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="month-title">{{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}</span>
+        <button mat-icon-button (click)="nextMonth()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
 
-    @for (b of biglietti; track b.id) {
+      <div class="calendar-grid">
+        <div class="weekday">Dom</div>
+        <div class="weekday">Lun</div>
+        <div class="weekday">Mar</div>
+        <div class="weekday">Mer</div>
+        <div class="weekday">Gio</div>
+        <div class="weekday">Ven</div>
+        <div class="weekday">Sab</div>
 
-      <mat-card class="ticket-card" appearance="outlined">
-
-        <div class="img-wrapper">
-          @if (b.urlImmagine) {
-            <img [src]="imgBaseUrl + b.urlImmagine">
-          } @else {
-            <img src="no_image.png" />
-          }
-        </div>
-
-        <mat-card-content>
-
-          <h2 class="name">{{ b.nome }}</h2>
-
-          <p class="type">
-            {{ b.tipoNome }}
-          </p>
-
-          <div class="price">
-            € {{ b.prezzo }}
+        @for (day of days; track $index) {
+          <div class="day-cell" 
+               [class.not-current]="!day.currentMonth"
+               [class.past]="day.isPast"
+               [class.available]="day.info?.aperto && !day.info?.eventoId"
+               [class.event]="day.info?.eventoId"
+               [class.closed]="day.currentMonth && !day.info?.aperto && !day.isPast"
+               [class.selected]="selectedDate?.data === day.date"
+               (click)="selectDay(day)">
+            
+            <span class="day-number">{{ day.day }}</span>
+            
+            @if (day.info?.eventoId) {
+              <div class="event-dot" matTooltip="Evento Speciale"></div>
+            }
           </div>
+        }
+      </div>
 
-        </mat-card-content>
-
-        <mat-card-actions class="actions">
-
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="addToCart(b)">
-            Aggiungi al carrello
-          </button>
-
-        </mat-card-actions>
-
-      </mat-card>
-
-    }
-
+      <div class="calendar-legend">
+        <div class="legend-item"><span class="dot available"></span> Aperto</div>
+        <div class="legend-item"><span class="dot event"></span> Evento</div>
+        <div class="legend-item"><span class="dot closed"></span> Chiuso</div>
+      </div>
+    </div>
   </div>
+
+  @if (selectedDate) {
+    <div class="tickets-section animate-up">
+      <h2 class="section-title">
+         🎫 Scegli i tuoi biglietti per il {{ selectedDate.data | date:'dd MMMM yyyy' }}
+      </h2>
+
+      <div class="grid">
+        @for (b of biglietti; track b.id) {
+          <mat-card class="ticket-card" appearance="outlined">
+            <div class="img-wrapper">
+              @if (b.urlImmagine) {
+                <img [src]="imgBaseUrl + b.urlImmagine">
+              } @else {
+                <img src="no_image.png" />
+              }
+            </div>
+
+            <mat-card-content>
+              <h2 class="name">{{ b.nome }}</h2>
+              <p class="type">{{ b.tipoNome }}</p>
+              <div class="price">€ {{ b.prezzo }}</div>
+            </mat-card-content>
+
+            <mat-card-actions class="actions">
+              <button
+                mat-raised-button
+                class="btn-buy"
+                (click)="addToCart(b)">
+                Aggiungi al carrello
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="empty-selection-msg">
+       <mat-icon class="pulse-icon">touch_app</mat-icon>
+       <h3>Data non selezionata</h3>
+       <p>Seleziona un giorno disponibile sul calendario (in verde o blu) per visualizzare i biglietti.</p>
+    </div>
+  }
 
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { GiornateServices, GiornateDto } from '../../../core/services/giornate-services';
-import { EventiServices, EventoDto } from '../../../core/services/eventi-services';
+import { EventiServices, EventiDto } from '../../../core/services/eventi-services';
 
 @Component({
   selector: 'gestione-giornate',
@@ -12,8 +13,7 @@ export class GestioneGiornate implements OnInit {
   currentDate = new Date();
   days: any[] = [];
   selectedDate: GiornateDto | null = null;
-  eventi = signal<EventoDto[]>([]);
-  
+
   monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
     "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
   ];
@@ -24,67 +24,82 @@ export class GestioneGiornate implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadEventi();
-    this.loadGiornate();
-  }
-
-  loadEventi() {
-    this.eventiS.list().subscribe();
-  }
-
-  loadGiornate() {
-    this.giornateS.list().subscribe(() => {
+    forkJoin([
+      this.eventiS.list(),
+      this.giornateS.list()
+    ]).subscribe({
+      next: () => this.generateCalendar(),
+      error: (err) => {
+        console.error('Errore caricamento dati calendario:', err);
         this.generateCalendar();
+      }
+    });
+  }
+
+  loadAll() {
+    forkJoin([
+      this.eventiS.list(),
+      this.giornateS.list()
+    ]).subscribe({
+      next: () => this.generateCalendar(),
+      error: (err) => {
+        console.error('Errore ricaricamento dati:', err);
+        this.generateCalendar();
+      }
     });
   }
 
   generateCalendar() {
     const year = this.currentDate.getFullYear();
     const month = this.currentDate.getMonth();
-    
+
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
     const prevMonthDays = new Date(year, month, 0).getDate();
-    
+
     this.days = [];
-    
+
     for (let i = firstDay; i > 0; i--) {
-        this.days.push({ 
-            day: prevMonthDays - i + 1, 
-            currentMonth: false,
-            date: null
-        });
+      this.days.push({
+        day: prevMonthDays - i + 1,
+        currentMonth: false,
+        date: null
+      });
     }
-    
+
     const today = new Date();
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     const backendGiornate = this.giornateS.giornate();
+    const allEventi = this.eventiS.eventi();
 
     for (let i = 1; i <= daysInMonth; i++) {
-        const date = new Date(year, month, i);
-        const dateStr = this.formatDate(date);
-        
-        const gInfo = backendGiornate.find(g => g.data.startsWith(dateStr));
-        
-        this.days.push({
-            day: i,
-            currentMonth: true,
-            date: dateStr,
-            isToday: date.getTime() === today.getTime(),
-            isPast: date < today,
-            info: gInfo ? { ...gInfo } : { data: dateStr, stock: 0, aperto: false }
-        });
+      const date = new Date(year, month, i);
+      const dateStr = this.formatDate(date);
+
+      const gInfo = backendGiornate.find(g => g.data.startsWith(dateStr));
+
+      if (gInfo && gInfo.eventoId && !gInfo.evento) {
+        gInfo.evento = allEventi.find(e => e.id === gInfo.eventoId);
+      }
+
+      this.days.push({
+        day: i,
+        currentMonth: true,
+        date: dateStr,
+        isToday: date.getTime() === today.getTime(),
+        isPast: date < today,
+        info: gInfo ? { ...gInfo } : { data: dateStr, stock: 0, aperto: false }
+      });
     }
-    
+
     const remaining = 42 - this.days.length;
     for (let i = 1; i <= remaining; i++) {
-         this.days.push({ 
-            day: i, 
-            currentMonth: false,
-            date: null
-        });
+      this.days.push({
+        day: i,
+        currentMonth: false,
+        date: null
+      });
     }
   }
 
@@ -115,30 +130,30 @@ export class GestioneGiornate implements OnInit {
   }
 
   saveStock() {
-  if (!this.selectedDate) return;
+    if (!this.selectedDate) return;
 
-  const payload = {
-    id: this.selectedDate.id,
-    data: this.selectedDate.data,
-    aperto: this.selectedDate.aperto,
-    stock: this.selectedDate.stock,
-    eventoId: this.selectedDate.evento?.id ?? null
-  };
+    const payload = {
+      id: this.selectedDate.id,
+      data: this.selectedDate.data,
+      aperto: this.selectedDate.aperto,
+      stock: this.selectedDate.stock,
+      eventoId: this.selectedDate.evento?.id ?? null
+    };
 
-  const action = this.selectedDate.id
-    ? this.giornateS.update(payload as any)
-    : this.giornateS.create(payload as any);
+    const action = this.selectedDate.id
+      ? this.giornateS.update(payload as any)
+      : this.giornateS.create(payload as any);
 
-  action.subscribe({
-    next: () => {
-      this.loadGiornate();
-      this.selectedDate = null;
-    },
-    error: (err) => console.error('Errore create/update:', err)
-  });
-}
+    action.subscribe({
+      next: () => {
+        this.loadAll();
+        this.selectedDate = null;
+      },
+      error: (err) => console.error('Errore salvataggio giornata:', err)
+    });
+  }
 
   cancelEdit() {
-      this.selectedDate = null;
+    this.selectedDate = null;
   }
 }
