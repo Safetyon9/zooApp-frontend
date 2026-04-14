@@ -13,31 +13,42 @@
       <p>Scopri l'emozione della natura.</p>
     </div>
 
-    <div class="sidebar-cards" *ngIf="events().length > 0; else noEvents">
-      <div class="side-card" *ngFor="let event of events()">
-        <div class="icon-circle">›</div>
+    <div class="sidebar-scroll">
+      <div class="sidebar-cards" *ngIf="events().length > 0; else noEvents">
+        <div class="side-card" *ngFor="let event of events()">
+          <div class="icon-circle">›</div>
 
-        <div class="side-text">
-          <div class="date-row">
-            <span class="side-badge">
-              Inizio: {{ formattaData(event.dataInizio) }}
-            </span>
+          <div class="side-text">
+            <div class="date-row">
+              <span class="side-badge">
+                Inizio: {{ formattaData(event.dataInizio) }}
+              </span>
 
-            <span class="side-badge">
-              Fine: {{ formattaData(event.dataFine) }}
-            </span>
+              <span class="side-badge">
+                Fine: {{ formattaData(event.dataFine) }}
+              </span>
 
-            <span class="status-badge not-available" *ngIf="event.nonDisponibile">
-              Non disponibile
-            </span>
+              <span class="status-badge live-badge" *ngIf="event.inCorso">
+                <span class="live-dot"></span>
+                In corso
+              </span>
+
+              <span class="status-badge not-available" *ngIf="event.nonDisponibile">
+                Non disponibile
+              </span>
+            </div>
+
+            <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
+            <h5>{{ event.descrizione || 'Descrizione Evento Zoo' }}</h5>
+
+            <p *ngIf="event.inCorso">
+              L'evento è attualmente in svolgimento.
+            </p>
+
+            <p *ngIf="event.nonDisponibile">
+              Questo evento non è attualmente disponibile.
+            </p>
           </div>
-
-          <h3>{{ event.tipoEvento || 'Evento Zoo' }}</h3>
-          <h5>{{ event.descrizione || 'Descrizione Evento Zoo' }}</h5>
-
-          <p *ngIf="event.nonDisponibile">
-            Questo evento non è attualmente disponibile.
-          </p>
         </div>
       </div>
     </div>
