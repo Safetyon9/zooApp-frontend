@@ -28,18 +28,25 @@
             <div class="weekday">Ven</div>
             <div class="weekday">Sab</div>
 
-            <div *ngFor="let day of days" class="day-cell" [class.not-current]="!day.currentMonth"
-              [class.today]="day.isToday" [class.aperto]="day.info?.aperto && !day.info?.eventoId"
-              [class.evento]="day.info?.eventoId" (click)="selectDay(day)">
+            <div *ngFor="let day of days" class="day-cell"
+              [class.not-current]="!day.currentMonth"
+              [class.today]="day.isToday"
+              [class.aperto]="day.currentMonth && day.info?.aperto && !day.info?.eventoId"
+              [class.evento]="day.currentMonth && day.info?.eventoId"
+              [class.chiuso]="day.currentMonth && day.info?.id && !day.info?.aperto && !day.info?.eventoId"
+              [class.selected]="selectedDate && day.date === selectedDate.data"
+              (click)="selectDay(day)">
 
               <span class="day-number">{{ day.day }}</span>
 
               <div class="day-details" *ngIf="day.currentMonth">
                 <span class="stock-tag" *ngIf="day.info?.stock > 0">S: {{ day.info?.stock }}</span>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #2ebc56"
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #10b981"
                   *ngIf="day.info?.aperto && !day.info?.eventoId">check_circle</mat-icon>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: var(--zoo-gold-soft)"
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #3b82f6"
                   *ngIf="day.info?.eventoId">event</mat-icon>
+                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #ef4444"
+                  *ngIf="day.info?.id && !day.info?.aperto && !day.info?.eventoId">block</mat-icon>
               </div>
             </div>
           </div>
@@ -62,7 +69,7 @@
 
           <mat-form-field appearance="outline">
             <mat-label>Evento speciale</mat-label>
-            <mat-select [(ngModel)]="selectedDate.eventoId" [compareWith]="compareEventi">
+            <mat-select [(ngModel)]="selectedDate.eventoId" [compareWith]="compareEventi" (ngModelChange)="onEventChange($event)">
               <mat-option [value]="null">Nessun evento</mat-option>
               <mat-option *ngFor="let ev of eventiS.eventi()" [value]="ev">
                 {{ ev.tipoEvento }}

@@ -8,18 +8,29 @@
       [class.active]="i === currentImageIndex()"
       [alt]="'Donation Image ' + (i + 1)"
     />
-    
     <div class="carousel-overlay"></div>
   </div>
 
   <div class="donation-card-wrapper">
     <div class="donation-card">
-      <div class="card-header">
-        <h2>Sostieni il Nostro Zoo 🐾</h2>
+
+      <div class="success-overlay" *ngIf="donationSuccess()">
+        <div class="success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3>Grazie per il tuo sostegno!</h3>
+        <p>La tua donazione di <strong>{{ donatedAmount() }}€</strong> aiuterà gli animali del nostro zoo.</p>
+      </div>
+
+      <div class="card-header" *ngIf="!donationSuccess()">
+        <h2>Sostieni il Nostro Zoo</h2>
         <p>Il tuo contributo aiuta ad alimentare e proteggere le specie a rischio.</p>
       </div>
 
-      <div class="donation-content">
+      <div class="donation-content" *ngIf="!donationSuccess()">
         <div class="amount-selectors">
           <button
             *ngFor="let amount of [5, 10, 20, 50]"
@@ -51,8 +62,8 @@
         </button>
       </div>
 
-      <div class="card-footer">
-        <p>❤️ Grazie per il tuo supporto!</p>
+      <div class="card-footer" *ngIf="!donationSuccess()">
+        <p>Grazie per aver scelto di fare la differenza.</p>
       </div>
     </div>
   </div>

@@ -4,6 +4,56 @@
   height: 100vh;
 }
 
+.success-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 2rem;
+  text-align: center;
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 12px rgba(34, 197, 94, 0.15);
+}
+
+.success-icon svg {
+  width: 36px;
+  height: 36px;
+  color: #ffffff;
+}
+
+.success-overlay h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.success-overlay p {
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.success-overlay strong {
+  color: var(--zoo-gold-soft);
+}
+
 .donation-container {
   position: relative;
   width: 100%;

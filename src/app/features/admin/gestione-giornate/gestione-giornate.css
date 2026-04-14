@@ -100,11 +100,35 @@
 }
 
 .day-cell.aperto {
-  border-left: 4px solid #2ebc56;
+  background: #d1fae5;
+  border: 1.5px solid #10b981;
+}
+
+.day-cell.aperto:hover {
+  background: #a7f3d0;
 }
 
 .day-cell.evento {
-  border-left: 4px solid var(--zoo-gold-soft);
+  background: #dbeafe;
+  border: 1.5px solid #3b82f6;
+}
+
+.day-cell.evento:hover {
+  background: #bfdbfe;
+}
+
+.day-cell.chiuso {
+  background: #fee2e2;
+  border: 1.5px solid #ef4444;
+}
+
+.day-cell.chiuso:hover {
+  background: #fecaca;
+}
+
+.day-cell.selected {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
 }
 
 .day-number {

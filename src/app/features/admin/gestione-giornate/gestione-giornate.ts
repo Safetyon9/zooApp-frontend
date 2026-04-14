@@ -128,20 +128,31 @@ export class GestioneGiornate implements OnInit {
     return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }
 
+  onEventChange(evento: any) {
+    if (!this.selectedDate) return;
+    if (!evento) {
+      this.selectedDate.aperto = true;
+    }
+    const day = this.days.find(d => d.date === this.selectedDate!.data);
+    if (day) {
+      day.info = { ...day.info, eventoId: evento };
+    }
+  }
+
   saveStock() {
     if (!this.selectedDate) return;
 
-    const payload = {
+    const payload: any = {
       id: this.selectedDate.id,
       data: this.selectedDate.data,
       aperto: this.selectedDate.aperto,
-      stock: this.selectedDate.stock,
-      eventoId: this.selectedDate.eventoId?.id ?? null
+      stock: this.selectedDate.stock ?? 0,
+      eventoId: this.selectedDate.eventoId ? (this.selectedDate.eventoId as any).id : null
     };
 
     const action = this.selectedDate.id
-      ? this.giornateS.update(payload as any)
-      : this.giornateS.create(payload as any);
+      ? this.giornateS.update(payload)
+      : this.giornateS.create(payload);
 
     action.subscribe({
       next: () => {

@@ -20,8 +20,9 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(var(--zoo-gold-soft-rgb), 0.2);
   color: #ffffff;
-  overflow: hidden;
-  transition: all 0.35s ease;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-sizing: border-box;
 }
 
 .dialog-container:hover {
@@ -214,16 +215,14 @@ mat-form-field {
   }
 
   .form-grid {
-    grid-template-columns: 1fr;
-    gap: 14px 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 12px;
   }
 
-  .col-1,
+  .col-1 { grid-column: span 1; }
   .col-2,
   .col-3,
-  .col-4 {
-    grid-column: 1 / -1;
-  }
+  .col-4 { grid-column: 1 / -1; }
 
   .button-group button {
     min-width: 100%;

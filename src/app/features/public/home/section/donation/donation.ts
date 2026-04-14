@@ -10,6 +10,8 @@ export class Donation implements OnDestroy {
   selectedAmount = signal<number>(10);
   customAmount: number | null = null;
   isProcessing = signal<boolean>(false);
+  donationSuccess = signal<boolean>(false);
+  donatedAmount = signal<number>(0);
 
   animalImages = [
     'foto/donation/donation1.jpg',
@@ -54,12 +56,16 @@ export class Donation implements OnDestroy {
 
     this.isProcessing.set(true);
 
-    // Simula una chiamata API
     setTimeout(() => {
+      this.donatedAmount.set(Number(amount));
       this.isProcessing.set(false);
-      alert(`Grazie per la tua donazione di ${amount}€!`);
-      this.selectedAmount.set(10);
-      this.customAmount = null;
+      this.donationSuccess.set(true);
+
+      setTimeout(() => {
+        this.donationSuccess.set(false);
+        this.selectedAmount.set(10);
+        this.customAmount = null;
+      }, 4000);
     }, 1500);
   }
 }
