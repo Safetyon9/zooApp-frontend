@@ -126,4 +126,9 @@ export class AuthServices {
   getCarrelloId(): number | null {
     return this.grant().carrelloId;
   }
+
+  getClienteId(): number | null {
+  const userId = this.grant().userId;
+  return userId ? Number(userId) : null;
+}
 }

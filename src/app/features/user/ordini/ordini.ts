@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { OrdineUtenteDTO, OrdineUtenteServices } from '../../../core/services/ordini-utente-services';
+import { AuthServices } from '../../../core/services/auth-services';
 
 @Component({
   selector: 'app-ordini',
@@ -6,4 +8,112 @@ import { Component } from '@angular/core';
   templateUrl: './ordini.html',
   styleUrl: './ordini.css',
 })
-export class Ordini {}
+export class Ordini implements OnInit {
+  filtro = {
+    numero: '',
+    stato: '',
+    totale: null as number | null
+  };
+
+  sortBy: string = 'numero';
+  sortOrder: 'asc' | 'desc' = 'asc';
+
+  ordiniList: OrdineUtenteDTO[] = [];
+  loading = false;
+
+  clienteId: number | null = null;
+
+  constructor(
+    private ordiniUtenteService: OrdineUtenteServices,
+    private cdr: ChangeDetectorRef,
+    private auth: AuthServices
+  ) {}
+
+  ngOnInit(): void {
+    //this.clienteId = this.auth.getClienteId() ?? 1;
+    this.clienteId = 1
+    this.search();
+  }
+
+  search(): void {
+    if (!this.clienteId) {
+      this.ordiniList = [];
+      return;
+    }
+
+    this.loading = true;
+
+    this.ordiniUtenteService.listByUtente(this.clienteId).subscribe({
+      next: (items) => {
+        const filtered = items.filter(o =>
+          (!this.filtro.numero || String(o.id ?? '').includes(this.filtro.numero)) &&
+          (!this.filtro.stato || String(o.stato ?? '').toLowerCase().includes(this.filtro.stato.toLowerCase())) &&
+          (this.filtro.totale === null || this.filtro.totale === undefined || this.getTotaleOrdine(o) >= Number(this.filtro.totale))
+        );
+
+        this.ordiniList = this.sortResults(filtered);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.ordiniList = [];
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  public getTotaleOrdine(o: OrdineUtenteDTO): number {
+    return (o.righe || []).reduce((sum, r) => sum + Number(r.prezzoTotale ?? 0), 0);
+  }
+
+  private sortResults(items: OrdineUtenteDTO[]): OrdineUtenteDTO[] {
+    const sorted = [...items];
+
+    sorted.sort((a, b) => {
+      let aVal: any, bVal: any;
+
+      switch (this.sortBy) {
+        case 'numero':
+          aVal = a.id ?? 0;
+          bVal = b.id ?? 0;
+          break;
+        case 'stato':
+          aVal = (a.stato || '').toLowerCase();
+          bVal = (b.stato || '').toLowerCase();
+          break;
+        case 'totale':
+          aVal = this.getTotaleOrdine(a);
+          bVal = this.getTotaleOrdine(b);
+          break;
+        default:
+          return 0;
+      }
+
+      if (aVal < bVal) return this.sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return sorted;
+  }
+
+  sort(field: string): void {
+    if (this.sortBy === field) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = field;
+      this.sortOrder = 'asc';
+    }
+    this.ordiniList = this.sortResults(this.ordiniList);
+  }
+
+  getSortIcon(field: string): string {
+    if (this.sortBy !== field) return '⇅';
+    return this.sortOrder === 'asc' ? '↑' : '↓';
+  }
+
+  dettaglioOrdine(o: OrdineUtenteDTO): void {
+    console.log('Ordine selezionato', o);
+  }
+}
