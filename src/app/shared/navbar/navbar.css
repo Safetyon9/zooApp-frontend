@@ -208,3 +208,75 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
+
+.logo-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+  gap: 20px;
+}
+
+.mobile-toggle {
+  display: none;
+  cursor: pointer;
+  color: var(--zoo-gold-soft);
+  align-items: center;
+  padding: 8px;
+}
+
+.mobile-toggle .material-icons {
+  font-size: 2.2rem;
+}
+
+@media (max-width: 1000px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 20px;
+  }
+
+  .navbar-left {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+  }
+
+  .logo-toggle-row {
+    width: 100%;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .navbar-menu.left,
+  .navbar-menu.right,
+  .navbar-right,
+  .navbar-search {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .navbar-search {
+    margin: 15px 0 0 0;
+    justify-content: center;
+  }
+
+  .navbar-menu.left.active,
+  .navbar-menu.right.active,
+  .navbar-right.active,
+  .navbar-search.active {
+    display: flex;
+    margin-top: 15px;
+    padding-bottom: 10px;
+  }
+
+  .navbar-right {
+    margin-top: 0;
+  }
+}

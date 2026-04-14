@@ -54,24 +54,27 @@ export class Navbar {
     const el = document.body;
 
     el.addEventListener('scroll', () => {
-
-      const y = el.scrollTop;
+      const y = el.scrollTop || document.documentElement.scrollTop;
       const delta = y - this.lastScrollY;
 
-      const threshold = 8;
+      const threshold = 15;
+      let newHidden = this.isHidden;
 
       if (y < 80) {
-        this.isHidden = false;
+        newHidden = false;
       } else if (delta > threshold) {
-        this.isHidden = true;
+        newHidden = true;
       } else if (delta < -threshold) {
-        this.isHidden = false;
+        newHidden = false;
       }
 
       this.lastScrollY = y;
 
-      this.cdr.detectChanges();
-    });
+      if (newHidden !== this.isHidden) {
+        this.isHidden = newHidden;
+        this.cdr.detectChanges();
+      }
+    }, { passive: true });
   }
 
   isMerchPage(): boolean {

@@ -25,7 +25,9 @@
   background-position: center;
   background-repeat: no-repeat;
   filter: saturate(1.05) contrast(1.05);
-  transform: scale(1.03);
+  transform: translateZ(0) scale(1.04);
+  backface-visibility: hidden;
+  will-change: transform;
   z-index: 0;
 }
 

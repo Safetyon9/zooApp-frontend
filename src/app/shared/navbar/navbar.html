@@ -4,11 +4,17 @@
 
     <div class="navbar-left">
 
-    <div class="logo-container" routerLink="/" (click)="openHome()">
-        <img src="logo/logo-app.svg" alt="Logo ZooApp" class="logo-img" (click)="openHome()">
-    </div>
+      <div class="logo-toggle-row">
+        <div class="logo-container" routerLink="/" (click)="openHome()">
+            <img src="logo/logo-app.svg" alt="Logo ZooApp" class="logo-img" (click)="openHome()">
+        </div>
 
-      <ul class="navbar-menu left">
+        <div class="mobile-toggle" (click)="toggleMenu()">
+          <span class="material-icons">{{ isMenuOpen ? 'close' : 'menu' }}</span>
+        </div>
+      </div>
+
+      <ul class="navbar-menu left" [class.active]="isMenuOpen">
         @if (!isShopPage()) {
           <li>
             <a href="javascript:void(0)" (click)="scrollToEventi(); closeMenu()">Eventi</a>
@@ -40,7 +46,7 @@
       </ul>
 
       @if (isMerchPage()) {
-        <div class="navbar-search">
+        <div class="navbar-search" [class.active]="isMenuOpen">
           <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Cerca prodotti..." class="search-input">
           <span class="material-icons search-icon">search</span>
         </div>
