@@ -252,7 +252,6 @@
   }
 
   .navbar-menu.left,
-  .navbar-menu.right,
   .navbar-right,
   .navbar-search {
     display: none;
@@ -262,15 +261,25 @@
     gap: 15px;
   }
 
+  .navbar-menu.right {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+
   .navbar-search {
     margin: 15px 0 0 0;
     justify-content: center;
   }
 
   .navbar-menu.left.active,
-  .navbar-menu.right.active,
   .navbar-right.active,
   .navbar-search.active {
+    display: flex;
+    margin-top: 15px;
+    padding-bottom: 10px;
+  }
     display: flex;
     margin-top: 15px;
     padding-bottom: 10px;
