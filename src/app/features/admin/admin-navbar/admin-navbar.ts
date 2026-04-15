@@ -50,6 +50,14 @@ export class AdminNavbar {
     this.router.navigate(['/admin/coupons']);
   }
 
+  openGestioneMetodiPagamento(): void {
+    this.router.navigate(['/admin/metodi-pagamento']);
+  }
+
+  openGestioneCorrieri(): void {
+    this.router.navigate(['/admin/corrieri']);
+  }
+
   openGestioneCalendario(){
     this.router.navigate(['/admin/giornate']);
   }

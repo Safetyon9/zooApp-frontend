@@ -6,14 +6,12 @@ export interface MetodoPagamentoDTO {
   id: number;
   nome: string;
   provider?: string;
-  attivo?: boolean;
 }
 
 export interface MetodiPagamentoReq {
   id?: number;
   nome: string;
   provider?: string;
-  attivo?: boolean;
 }
 
 @Injectable({

@@ -62,7 +62,6 @@ export class Info implements OnInit {
 
     this.utenteServices.findAllByUserName(userId).subscribe({
       next: (r: any) => {
-        console.log('PROFILO BACKEND:', JSON.stringify(r));
         this.profilo = this.mapProfilo(r);
         this.cdr.detectChanges();
       },
@@ -85,7 +84,6 @@ export class Info implements OnInit {
     });
   }
 
-  // USA USERNAME AL POSTO DI EMAIL
   inviaMailValidazione(): void {
     const username = this.profilo?.username;
     if (!username) {

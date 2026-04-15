@@ -1,0 +1,75 @@
+<div class="page-container">
+  <mat-card class="admin-card" appearance="outlined">
+
+    <mat-card-header class="header-row">
+      <mat-card-title>Gestione Corrieri</mat-card-title>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="onCreate()">
+        Nuovo Corriere
+      </button>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+      @if (loading) {
+        <div class="empty-state">
+          <p>Caricamento corrieri...</p>
+        </div>
+      } @else {
+
+        <div class="table-wrapper">
+          <table class="accounts-table">
+
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (c of corrieri; track c.id) {
+                <tr>
+                  <td>{{ c.id || '-' }}</td>
+                  <td>{{ c.nome || '-' }}</td>
+
+                  <td class="actions-cell">
+                    <button
+                      type="button"
+                      class="text-button"
+                      (click)="onUpdate(c)">
+                      Modifica
+                    </button>
+
+                    <button
+                      type="button"
+                      class="text-button text-button-danger"
+                      (click)="onDelete(c)">
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="3" class="empty-cell">
+                    Nessun corriere trovato.
+                  </td>
+                </tr>
+              }
+            </tbody>
+
+          </table>
+        </div>
+      }
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

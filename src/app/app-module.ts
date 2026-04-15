@@ -81,6 +81,10 @@ import { ResetPasswordComponent } from './features/public/email/change-password/
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
+import { GestioneMetodoPagamento } from './features/admin/gestione-metodo-pagamento/gestione-metodo-pagamento';
+import { MetodoPagamentoDialog } from './features/admin/gestione-metodo-pagamento/metodo-pagamento-dialog/metodo-pagamento-dialog';
+import { GestioneCorrieri } from './features/admin/gestione-corrieri/gestione-corrieri';
+import { CorriereDialog } from './features/admin/gestione-corrieri/corriere-dialog/corriere-dialog';
 import { PagamentoRicevuto } from './features/public/pagamento-ricevuto/pagamento-ricevuto';
 
 @NgModule({
@@ -134,7 +138,11 @@ import { PagamentoRicevuto } from './features/public/pagamento-ricevuto/pagament
     UploaditemDialog,
     GestioneCoupons,
     GestioneGiornate,
-    MessageDialog
+    MessageDialog,
+    GestioneMetodoPagamento,
+    MetodoPagamentoDialog,
+    GestioneCorrieri,
+    CorriereDialog
   ],
   imports: [
     BrowserModule,

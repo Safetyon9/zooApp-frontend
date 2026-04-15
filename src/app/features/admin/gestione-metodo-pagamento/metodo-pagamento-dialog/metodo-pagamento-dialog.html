@@ -1,0 +1,42 @@
+<div class="dialog-container">
+
+  <h2 mat-dialog-title>{{ mod === 'U' ? 'Modifica Metodo' : 'Nuovo Metodo di Pagamento' }}</h2>
+
+  <button
+    mat-icon-button
+    mat-dialog-close
+    type="button"
+    class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onSave()" class="form-grid">
+
+      <mat-form-field appearance="fill" class="full-row">
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" formControlName="nome" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-row">
+        <mat-label>Provider</mat-label>
+        <input matInput type="text" formControlName="provider">
+      </mat-form-field>
+
+
+      <div class="button-group full-row">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!form.valid">
+          {{ mod === 'C' ? 'Crea' : 'Salva' }}
+        </button>
+      </div>
+
+    </form>
+
+  </mat-dialog-content>
+
+</div>

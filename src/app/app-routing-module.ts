@@ -32,6 +32,8 @@ import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/c
 import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
 import { OrdineDettaglio } from './features/auth/dialog/ordine-dettaglio/ordine-dettaglio';
 import { PagamentoRicevuto } from './features/public/pagamento-ricevuto/pagamento-ricevuto';
+import { GestioneMetodoPagamento } from './features/admin/gestione-metodo-pagamento/gestione-metodo-pagamento';
+import { GestioneCorrieri } from './features/admin/gestione-corrieri/gestione-corrieri';
 
 const routes: Routes = [
   {
@@ -76,6 +78,8 @@ const routes: Routes = [
       { path: 'ordini', component: GestioneOrdini },
       { path: 'coupons', component: GestioneCoupons },
       { path: 'giornate', component: GestioneGiornate },
+      { path: 'metodi-pagamento', component: GestioneMetodoPagamento },
+      { path: 'corrieri', component: GestioneCorrieri },
       { path: 'modify', component: AdminChangePwd }
     ]
   },
