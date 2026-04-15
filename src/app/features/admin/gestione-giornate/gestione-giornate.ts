@@ -24,6 +24,7 @@ export class GestioneGiornate implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.generateCalendar();
     this.refreshData();
   }
 
