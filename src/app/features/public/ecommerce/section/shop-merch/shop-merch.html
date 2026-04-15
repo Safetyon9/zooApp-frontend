@@ -9,8 +9,52 @@
     </div>
   </div>
 
+  <div class="products-toolbar">
+    <div class="toolbar-left">
+      <label class="toolbar-label">
+        Categoria
+        <select
+          class="toolbar-select"
+          [value]="selectedCategory()"
+          (change)="selectedCategory.set($any($event.target).value)"
+        >
+          <option value="">Tutte le categorie</option>
+          <option *ngFor="let cat of categories()" [value]="cat">
+            {{ cat }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <div class="toolbar-right">
+      <label class="toolbar-label">
+        Cerca
+        <input
+          type="text"
+          class="toolbar-input"
+          placeholder="Nome o descrizione..."
+          [value]="searchTerm()"
+          (input)="searchTerm.set($any($event.target).value)"
+        >
+      </label>
+
+      <label class="toolbar-label">
+        Ordina per
+        <select
+          class="toolbar-select"
+          [value]="sortBy()"
+          (change)="sortBy.set($any($event.target).value)"
+        >
+          <option value="none">Predefinito</option>
+          <option value="priceAsc">Prezzo: dal più basso</option>
+          <option value="priceDesc">Prezzo: dal più alto</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
   <div class="products-wrapper">
-    <ng-container *ngFor="let gruppo of prodottiPerCategoria()">
+    <ng-container *ngFor="let gruppo of prodottiPerCategoriaFiltrati()">
       <div class="section-title">{{ gruppo.categoria }}</div>
 
       <div class="product-grid">
