@@ -44,7 +44,7 @@
 
               @if (item.urlImmagine) {
                 <img
-                  [src]="item.urlImmagine"
+                  [src]="imgBaseUrl + item.urlImmagine"
                   class="oggetto-img"
                   [alt]="item.nome"
                 />

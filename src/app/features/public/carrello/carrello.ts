@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class Carrello implements OnInit{
 
+  imgBaseUrl = "http://localhost:9090/files/";
+
   constructor(
     public cartService: CartService,
     private shopService: ShopService,

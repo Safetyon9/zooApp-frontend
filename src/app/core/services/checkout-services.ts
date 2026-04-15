@@ -61,7 +61,7 @@ export class CheckoutService {
   }
 
   svuotaERedirect() {
-    this.cartService.clear();
+    //this.cartService.clear();
     this.router.navigate(['/pagamento-ricevuto']);
   }
 }
