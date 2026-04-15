@@ -60,6 +60,10 @@ export class CheckoutService {
     return this.ordiniService.create(body);
   }
 
+  svuotaCarrello() {
+    this.cartService.clear();
+  }
+
   svuotaERedirect() {
     //this.cartService.clear();
     this.router.navigate(['/pagamento-ricevuto']);

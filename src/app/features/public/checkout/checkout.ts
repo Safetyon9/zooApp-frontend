@@ -124,16 +124,42 @@ export class Checkout implements OnInit {
     };
 
     this.checkoutService.confermaOrdine(body).subscribe({
-      next: () => {
-        this.success.set(true);
-        this.msg.set('Ordine confermato con successo!');
-        this.checkoutService.svuotaERedirect();
-        this.isLoading = false;
+    next: (res: any) => {
+      const riepilogoOrdine = {
+        ordineId: res?.ordineId ?? res?.id ?? null,
+        dataOrdine: new Date(), // o stringa formattata
+        profilo: this.profilo,
+        indirizzoSpedizione: this.indirizzoSpedizione,
+        metodoPagamento: this.metodiPagamento.find(m => m.id === this.metodoSelezionato) ?? null,
+        couponCodice: this.couponValido() ? this.couponCodice : null,
+        scontoAmount: Number(this.scontoAmount) || 0,
+        subtotale: Number(this.subtotale) || 0,
+        totaleFinale: Number(this.totaleFinale) || 0,
+        items: this.cartService.items().map(i => ({
+          ...i,
+          prezzoTotale: Number(i.prezzoTotale) || 0,
+          prezzoUnitario: Number(i.prezzoUnitario) || 0,
+          quantita: Number(i.quantita) || 0
+        }))
+      };
+
+      this.success.set(true);
+      this.msg.set('Ordine confermato con successo!');
+
+      // svuota carrello
+      this.checkoutService.svuotaCarrello?.(); // vedi punto 2
+
+      this.isLoading = false;
+
+      // redirect con riepilogo
+      this.router.navigate(['/pagamento-ricevuto'], {
+        state: { ordine: riepilogoOrdine }
+      });
       },
       error: (err) => {
         this.msg.set(err.error?.msg || 'Errore nella conferma ordine');
         this.isLoading = false;
       }
     });
-  }
+    }
 }
