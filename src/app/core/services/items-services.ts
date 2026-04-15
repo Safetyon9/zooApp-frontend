@@ -28,4 +28,11 @@ export class ItemsServices {
       .pipe(tap(res => this.setItems(tipo, res)));
   }
 
+  getById(id: number, tipo: 'prodotto' | 'biglietti') {
+    return this.http.get<any>(
+      `${this.baseUrl}${tipo}/getById`,
+      { params: { id } }
+    );
+  }
+
 }
