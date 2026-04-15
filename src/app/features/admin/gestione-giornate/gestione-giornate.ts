@@ -50,7 +50,6 @@ export class GestioneGiornate implements OnInit {
 
     this.days = [];
 
-    // Fill previous month days
     for (let i = firstDay; i > 0; i--) {
       this.days.push({
         day: prevMonthLastDay - i + 1,
@@ -64,7 +63,6 @@ export class GestioneGiornate implements OnInit {
 
     const backendGiornate = this.giornateS.giornate();
 
-    // Fill current month days
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(year, month, i);
       const dateStr = this.formatDate(date);
@@ -79,7 +77,6 @@ export class GestioneGiornate implements OnInit {
       });
     }
 
-    // Fill next month days to complete 6 rows (42 cells)
     const remaining = 42 - this.days.length;
     for (let i = 1; i <= remaining; i++) {
       this.days.push({
