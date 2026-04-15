@@ -16,7 +16,6 @@ export class CheckoutService {
   private baseOrdine    = 'http://localhost:9090/rest/ordine';
   private baseMetodi    = 'http://localhost:9090/rest/metodiPagamento';
   private baseCoupons   = 'http://localhost:9090/rest/coupons';
-  private baseOggettiOrdine   = 'http://localhost:9090/rest/oggettoordine';
 
   getMetodiPagamento() {
     return this.http.get<any[]>(`${this.baseMetodi}/list`);

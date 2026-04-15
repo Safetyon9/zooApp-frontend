@@ -86,15 +86,22 @@
 
           <div class="item-row" *ngFor="let item of items">
             <div class="item-avatar" *ngIf="!item.urlImmagine">
-              {{ item.nome.charAt(0) }}
+              {{ item.nome?.charAt(0) || '?' }}
             </div>
-            <img *ngIf="item.urlImmagine" [src]="item.urlImmagine" class="item-img" [alt]="item.nome">
-                <div class="item-avatar" *ngIf="!item.urlImmagine">
-                {{ item.nome.charAt(0) }}
-                </div>
-            <p class="item-prezzo">
-              €{{ item.prezzoUnitario * item.quantita | number:'1.2-2' }}
-            </p>
+
+            <img
+              *ngIf="item.urlImmagine"
+              [src]="item.urlImmagine"
+              class="item-img"
+              [alt]="item.nome || 'item'"
+            />
+
+            <div class="item-info">
+              <p class="item-nome">{{ item.nome || 'Nome non disponibile' }}</p>
+              <p class="item-prezzo">
+                €{{ ((item.prezzoUnitario ?? 0) * (item.quantita ?? 0)) | number:'1.2-2' }}
+              </p>
+            </div>
           </div>
 
           <div class="divider"></div>
@@ -103,14 +110,17 @@
             <span>Subtotale</span>
             <span>€{{ subtotale | number:'1.2-2' }}</span>
           </div>
+
           <div class="totale-row" *ngIf="couponValido()">
             <span>Sconto coupon</span>
             <span class="sconto">-€{{ scontoAmount | number:'1.2-2' }}</span>
           </div>
+
           <div class="totale-row">
             <span>Spedizione</span>
             <span class="free">Gratuita</span>
           </div>
+
           <div class="totale-row finale">
             <span>Totale</span>
             <span>€{{ totaleFinale | number:'1.2-2' }}</span>
