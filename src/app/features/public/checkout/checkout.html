@@ -17,14 +17,22 @@
           <h3><span class="material-icons">person</span> Dati di spedizione</h3>
 
           <div class="profilo-row">
-            <div class="profilo-field">
+            <div class="form-field">
               <label>Nome</label>
-              <p>{{ profiloOriginale?.nome }}</p>
+              <input
+                class="input-field"
+                type="text"
+                [(ngModel)]="checkoutForm.nome"
+                placeholder="Inserisci nome">
             </div>
 
-            <div class="profilo-field">
+            <div class="form-field">
               <label>Cognome</label>
-              <p>{{ profiloOriginale?.cognome }}</p>
+              <input
+                class="input-field"
+                type="text"
+                [(ngModel)]="checkoutForm.cognome"
+                placeholder="Inserisci cognome">
             </div>
 
             <div class="profilo-field">
@@ -36,15 +44,16 @@
               <label>Telefono</label>
               <p>{{ profiloOriginale?.telefono }}</p>
             </div>
-          </div>
+          
 
-          <div class="form-field">
-            <label>Indirizzo di spedizione</label>
-            <input
-              class="input-field"
-              type="text"
-              [(ngModel)]="checkoutForm.indirizzo"
-              placeholder="Via, numero civico, città">
+            <div class="form-field">
+              <label>Indirizzo di spedizione</label>
+              <input
+                class="input-field"
+                type="text"
+                [(ngModel)]="checkoutForm.indirizzo"
+                placeholder="Via, numero civico, città">
+            </div>
           </div>
         </div>
 
