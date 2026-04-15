@@ -55,9 +55,8 @@ export class ShopService {
       itemId,
       quantita: quantity
     }).subscribe({
-      next: (cart: any) => {
-
-        this.cartService.setCart(cart.oggettiCarrello);
+      next: () => {
+        this.refreshCart();
       },
       error: (err) => console.error(err)
     });
@@ -66,8 +65,8 @@ export class ShopService {
   removeFromCart(cartItemId: number) {
 
     this.cartItemApi.delete(cartItemId).subscribe({
-      next: (cart: any) => {
-        this.cartService.setCart(cart.oggettiCarrello);
+      next: () => {
+        this.refreshCart();
       },
       error: (err) => console.error(err)
     });
