@@ -43,11 +43,10 @@ export class OrdineUtenteServices {
   }
 
   listByUtente(clienteId: number) {
-    const params = new HttpParams().set('clienteId', clienteId.toString());
-    return this.http.get<OrdineUtenteDTO[]>(this.url + 'list', { params }).pipe(
-      tap(resp => this._ordiniUtente.set(resp))
-    );
-  }
+  return this.http.get<OrdineUtenteDTO[]>(this.url + 'my-list/' + clienteId).pipe(
+    tap(resp => this._ordiniUtente.set(resp))
+  );
+}
 
   createForUtente(body: OrdineUtenteReq) {
     return this.http.post<OrdineUtenteDTO>(this.url + 'create', body).pipe(
