@@ -1,162 +1,180 @@
-<div class="checkout-wrapper">
-  <div class="checkout-container">
+<div class="receipt-page">
+  <div class="receipt-shell" *ngIf="ordine">
 
-    <div class="checkout-header success-header">
-      <div class="header-copy">
-        <h2>Pagamento ricevuto</h2>
-        <p class="success-subtitle">
-          Il tuo ordine è stato registrato correttamente.
-        </p>
-      </div>
-
+    <div class="receipt-topbar">
       <button class="btn-back" (click)="tornaAlNegozio()">
         <span class="material-icons">storefront</span>
         Torna al negozio
       </button>
+
+      <button class="btn-print" (click)="stampa()">
+        <span class="material-icons">print</span>
+        Stampa
+      </button>
     </div>
 
-    <div class="checkout-grid" *ngIf="ordine">
+    <div class="receipt-card">
 
-      <div class="left-col">
-
-        <div class="section-card success-banner">
-          <div class="success-icon">
-            <span class="material-icons">check_circle</span>
-          </div>
-
-          <div class="success-content">
-            <h3>Grazie per il tuo ordine!</h3>
-            <p>
-              Stiamo preparando la spedizione. Riceverai una mail con i dettagli.
-            </p>
-          </div>
+      <div class="receipt-header">
+        <div class="brand-block">
+          <p class="brand-kicker">Zoo Receipt</p>
+          <h1>Pagamento ricevuto</h1>
+          <p class="brand-subtitle">
+            La tua ricevuta digitale è stata generata correttamente.
+          </p>
         </div>
 
-        <div class="section-card">
-          <h3><span class="material-icons">person</span> Dati cliente</h3>
-          <div class="profilo-row">
-            <div class="profilo-field">
-              <label>Nome</label>
-              <p>{{ ordine.profilo?.nome || '-' }}</p>
-            </div>
-
-            <div class="profilo-field">
-              <label>Cognome</label>
-              <p>{{ ordine.profilo?.cognome || '-' }}</p>
-            </div>
-
-            <div class="profilo-field">
-              <label>Email</label>
-              <p>{{ ordine.profilo?.email || '-' }}</p>
-            </div>
-
-            <div class="profilo-field">
-              <label>Telefono</label>
-              <p>{{ ordine.profilo?.telefono || '-' }}</p>
-            </div>
-          </div>
+        <div class="status-badge">
+          <span class="material-icons">check_circle</span>
+          Pagato
         </div>
-
-        <div class="section-card">
-          <h3><span class="material-icons">local_shipping</span> Spedizione</h3>
-          <div class="profilo-row">
-            <div class="profilo-field full">
-              <label>Indirizzo di spedizione</label>
-              <p>{{ ordine.indirizzoSpedizione || '-' }}</p>
-            </div>
-
-            <div class="profilo-field">
-              <label>Data ordine</label>
-              <p>{{ ordine.dataOrdine || '-' }}</p>
-            </div>
-
-            <div class="profilo-field">
-              <label>Numero ordine</label>
-              <p>{{ ordine.ordineId || 'In elaborazione' }}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-card">
-          <h3><span class="material-icons">payment</span> Pagamento</h3>
-          <div class="profilo-row">
-            <div class="profilo-field">
-              <label>Metodo di pagamento</label>
-              <p>{{ ordine.metodoPagamento?.nome || '-' }}</p>
-            </div>
-
-            <div class="profilo-field" *ngIf="ordine.metodoPagamento?.provider">
-              <label>Provider</label>
-              <p>{{ ordine.metodoPagamento?.provider }}</p>
-            </div>
-
-            <div class="profilo-field" *ngIf="ordine.couponCodice">
-              <label>Coupon applicato</label>
-              <p>{{ ordine.couponCodice }}</p>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <div class="right-col">
+      <div class="receipt-meta">
+        <div class="meta-box">
+          <label>Numero ricevuta</label>
+          <p>{{ ricevutaNumero }}</p>
+        </div>
 
-        <div class="section-card riepilogo">
-          <h3><span class="material-icons">receipt_long</span> Riepilogo acquisto</h3>
+        <div class="meta-box">
+          <label>Numero ordine</label>
+          <p>{{ ordine.ordineId || 'In elaborazione' }}</p>
+        </div>
 
-          <div class="item-row" *ngFor="let item of ordine.items || []">
-            <div class="item-avatar" *ngIf="!item.urlImmagine">
-              {{ item.nome?.charAt(0) || '?' }}
-            </div>
+        <div class="meta-box">
+          <label>Data ordine</label>
+          <p>{{ ordine.dataOrdine || '-' }}</p>
+        </div>
 
-            <img
-              *ngIf="item.urlImmagine"
-              [src]="item.urlImmagine"
-              class="item-img"
-              [alt]="item.nome || 'item'"
-            />
+        <div class="meta-box">
+          <label>Metodo pagamento</label>
+          <p>{{ ordine.metodoPagamento?.nome || '-' }}</p>
+        </div>
+      </div>
 
-            <div class="item-info">
-              <p class="item-nome">{{ item.nome || 'Nome non disponibile' }}</p>
-              <p class="item-qty">Quantità: {{ item.quantita || 0 }}</p>
-            </div>
+      <div class="receipt-divider"></div>
 
-            <p class="item-prezzo">
-              €{{ (+item.prezzoTotale || 0) }}
-            </p>
+      <div class="receipt-section">
+        <h3>Dati cliente</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Nome</label>
+            <p>{{ ordine.profilo?.nome || '-' }} {{ ordine.profilo?.cognome || '' }}</p>
           </div>
 
-          <div class="divider"></div>
+          <div class="info-item">
+            <label>Email</label>
+            <p>{{ ordine.profilo?.email || '-' }}</p>
+          </div>
 
-          <div class="totale-row">
+          <div class="info-item">
+            <label>Telefono</label>
+            <p>{{ ordine.profilo?.telefono || '-' }}</p>
+          </div>
+
+          <div class="info-item full">
+            <label>Indirizzo spedizione</label>
+            <p>{{ ordine.indirizzoSpedizione || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-section">
+        <h3>Articoli acquistati</h3>
+
+        <div class="receipt-table">
+          <div class="receipt-table-head">
+            <span>Articolo</span>
+            <span>Qta</span>
+            <span>Totale</span>
+          </div>
+
+          <div class="receipt-row" *ngFor="let item of ordine.items || []">
+            <div class="receipt-product">
+              <div class="item-avatar" *ngIf="!item.urlImmagine">
+                {{ item.nome?.charAt(0) || '?' }}
+              </div>
+
+              <img
+                *ngIf="item.urlImmagine"
+                [src]="item.urlImmagine"
+                class="item-img"
+                [alt]="item.nome || 'item'"
+              />
+
+              <div class="product-copy">
+                <p class="item-name">{{ item.nome || 'Nome non disponibile' }}</p>
+                <p class="item-sub">
+                  Prezzo unitario: €{{ (+item.prezzoUnitario || 0) }}
+                </p>
+              </div>
+            </div>
+
+            <div class="receipt-qty">
+              {{ item.quantita || 0 }}
+            </div>
+
+            <div class="receipt-price">
+              €{{ (+item.prezzoTotale || 0) }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-bottom">
+        <div class="receipt-note">
+          <h4>Informazioni pagamento</h4>
+          <p>
+            {{ ordine.metodoPagamento?.nome || 'Metodo non disponibile' }}
+            <span *ngIf="ordine.metodoPagamento?.provider">
+              · {{ ordine.metodoPagamento?.provider }}
+            </span>
+          </p>
+
+          <p *ngIf="ordine.couponCodice">
+            Coupon applicato: <strong>{{ ordine.couponCodice }}</strong>
+          </p>
+        </div>
+
+        <div class="receipt-totals">
+          <div class="total-line">
             <span>Subtotale</span>
             <span>€{{ (+ordine.subtotale || 0) }}</span>
           </div>
 
-          <div class="totale-row" *ngIf="(+ordine.scontoAmount || 0) > 0">
+          <div class="total-line" *ngIf="(+ordine.scontoAmount || 0) > 0">
             <span>Sconto coupon</span>
-            <span class="sconto">-€{{ (+ordine.scontoAmount || 0) }}</span>
+            <span class="discount">-€{{ (+ordine.scontoAmount || 0) }}</span>
           </div>
 
-          <div class="totale-row">
+          <div class="total-line">
             <span>Spedizione</span>
             <span class="free">Gratuita</span>
           </div>
 
-          <div class="totale-row finale">
+          <div class="total-line grand-total">
             <span>Totale pagato</span>
             <span>€{{ (+ordine.totaleFinale || 0) }}</span>
           </div>
         </div>
-
       </div>
 
     </div>
+  </div>
 
-    <div class="section-card empty-summary" *ngIf="!ordine">
-      <h3>Nessun riepilogo disponibile</h3>
+  <div class="receipt-shell" *ngIf="!ordine">
+    <div class="receipt-card empty-card">
+      <h2>Nessun riepilogo disponibile</h2>
       <p>Non è stato possibile recuperare i dati dell'ordine.</p>
-    </div>
 
+      <button class="btn-back primary" (click)="tornaAlNegozio()">
+        <span class="material-icons">storefront</span>
+        Torna al negozio
+      </button>
+    </div>
   </div>
 </div>

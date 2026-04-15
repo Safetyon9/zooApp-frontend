@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class PagamentoRicevuto implements OnInit {
 
   ordine: any = null;
+  ricevutaNumero = '';
 
   constructor(private router: Router) {}
 
@@ -17,11 +18,19 @@ export class PagamentoRicevuto implements OnInit {
     const nav = this.router.getCurrentNavigation();
     this.ordine = nav?.extras?.state?.['ordine'] ?? history.state?.ordine ?? null;
 
-   
-    
+    if (this.ordine) {
+      this.ricevutaNumero =
+        this.ordine?.ordineId
+          ? `RCV-${this.ordine.ordineId}`
+          : `RCV-${Date.now()}`;
+    }
   }
 
   tornaAlNegozio(): void {
     this.router.navigate(['/shop']);
+  }
+
+  stampa(): void {
+    window.print();
   }
 }
