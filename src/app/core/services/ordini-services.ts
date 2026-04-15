@@ -24,7 +24,7 @@ export interface OrdiniReq {
 })
 export class OrdiniServices {
 
-  private url = 'http://localhost:9090/rest/ordini/';
+  private url = 'http://localhost:9090/rest/ordine/';
   private _ordini = signal<OrdineDTO[]>([]);
 
   constructor(private http: HttpClient) {}
@@ -41,6 +41,12 @@ export class OrdiniServices {
       tap(resp => this._ordini.set(resp))
     );
   }
+
+  listByUtente(clienteId: number) {
+  return this.http.get<OrdineDTO[]>(this.url + 'my-list/' + clienteId).pipe(
+    tap(resp => this._ordini.set(resp))
+  );
+}
 
   create(body: OrdiniReq) {
     return this.http.post<OrdineDTO>(this.url + 'create', body).pipe(

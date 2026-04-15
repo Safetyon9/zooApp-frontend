@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { OrdineUtenteDTO } from '../../../../core/services/ordini-utente-services';
+import { OrdineDTO } from '../../../../core/services/ordini-services';
 
 @Component({
   selector: 'app-ordine-dettaglio',
@@ -11,7 +11,7 @@ import { OrdineUtenteDTO } from '../../../../core/services/ordini-utente-service
 export class OrdineDettaglio {
   constructor(
     //public dialogRef: MatDialogRef<OrdineDettaglioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: OrdineUtenteDTO
+    @Inject(MAT_DIALOG_DATA) public data: OrdineDTO
   ) {}
 
   getTotaleOrdine(): number {

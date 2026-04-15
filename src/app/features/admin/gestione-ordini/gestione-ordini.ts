@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { OrdineUtenteDTO, OrdineUtenteServices } from '../../../core/services/ordini-utente-services';
 import { AuthServices } from '../../../core/services/auth-services';
 import { Utilities } from '../../../core/utils/utilities';
+import { OrdineDTO, OrdiniServices } from '../../../core/services/ordini-services';
 
 @Component({
   selector: 'app-ordini',
@@ -19,36 +19,29 @@ export class GestioneOrdini implements OnInit {
   sortBy: string = 'numero';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  ordiniList: OrdineUtenteDTO[] = [];
+  ordiniList: OrdineDTO[] = [];
   loading = false;
 
   clienteId: number | null = null;
 
-  ordineSelezionato: OrdineUtenteDTO | null = null;
+  ordineSelezionato: OrdineDTO | null = null;
 
   constructor(
-    private ordiniUtenteService: OrdineUtenteServices,
+    private ordiniService: OrdiniServices,
     private cdr: ChangeDetectorRef,
-    private auth: AuthServices,
-    private util: Utilities
+    private auth: AuthServices
   ) {}
 
   ngOnInit(): void {
-    this.clienteId = this.auth.getClienteId() ?? 1;
     this.search();
   }
 
-  search(): void {
-    if (!this.clienteId) {
-      this.ordiniList = [];
-      return;
-    }
+ search(): void {
+  this.loading = true;
 
-    this.loading = true;
-
-    this.ordiniUtenteService.listByUtente(this.clienteId).subscribe({
-      next: (items) => {
-        const filtered = items.filter(o =>
+   this.ordiniService.list().subscribe({
+     next: (items) => {
+      const filtered = items.filter(o =>
           (!this.filtro.numero || String(o.id ?? '').includes(this.filtro.numero)) &&
           (!this.filtro.stato || String(o.stato ?? '').toLowerCase().includes(this.filtro.stato.toLowerCase())) &&
           (this.filtro.totale === null || this.filtro.totale === undefined || this.getTotaleOrdine(o) >= Number(this.filtro.totale))
@@ -66,11 +59,11 @@ export class GestioneOrdini implements OnInit {
     });
   }
 
-  public getTotaleOrdine(o: OrdineUtenteDTO): number {
+  public getTotaleOrdine(o: OrdineDTO): number {
     return (o.righe || []).reduce((sum, r) => sum + Number(r.prezzoTotale ?? 0), 0);
   }
 
-  private sortResults(items: OrdineUtenteDTO[]): OrdineUtenteDTO[] {
+  private sortResults(items: OrdineDTO[]): OrdineDTO[] {
     const sorted = [...items];
 
     sorted.sort((a, b) => {
@@ -116,7 +109,7 @@ export class GestioneOrdini implements OnInit {
     return this.sortOrder === 'asc' ? '↑' : '↓';
   }
 
-  dettaglioOrdine(o: OrdineUtenteDTO): void {
+  dettaglioOrdine(o: OrdineDTO): void {
     this.ordineSelezionato = o;
   }
 }
