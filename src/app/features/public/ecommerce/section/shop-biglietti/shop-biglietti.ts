@@ -3,6 +3,8 @@ import { ItemsServices } from '../../../../../core/services/items-services';
 import { ShopService } from '../../../../../core/services/shop-services';
 import { GiornateServices, GiornateDto } from '../../../../../core/services/giornate-services';
 import { EventiServices, EventiDto } from '../../../../../core/services/eventi-services';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDialog } from '../../../../auth/dialog/message-dialog/message-dialog';
 
 @Component({
   selector: 'app-shop-biglietti',
@@ -26,7 +28,8 @@ export class ShopBiglietti implements OnInit {
     private itemsS: ItemsServices,
     public shop: ShopService,
     private giornateS: GiornateServices,
-    private eventiS: EventiServices
+    private eventiS: EventiServices,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -142,7 +145,14 @@ export class ShopBiglietti implements OnInit {
 
   addToCart(ticket: any) {
     if (!this.selectedDate) {
-      alert('Per favore seleziona una data disponibile dal calendario.');
+      this.dialog.open(MessageDialog, {
+        width: '400px',
+        data: {
+          title: 'Attenzione',
+          message: 'Per favore seleziona una data disponibile dal calendario.',
+          type: 'info'
+        }
+      });
       return;
     }
 

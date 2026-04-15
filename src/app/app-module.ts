@@ -40,6 +40,7 @@ import { OrdineDettaglio } from './features/auth/dialog/ordine-dettaglio/ordine-
 import { SceltaUpdateDialog } from './features/admin/gestione-items/dialog/scelta-update-dialog/scelta-update-dialog';
 import { ProdottoDialog } from './features/admin/gestione-items/dialog/prodotto-dialog/prodotto-dialog';
 import { BigliettoDialog } from './features/admin/gestione-items/dialog/biglietto-dialog/biglietto-dialog';
+import { MessageDialog } from './features/auth/dialog/message-dialog/message-dialog';
 import { PublicLayout } from './features/public/public-layout/public-layout';
 import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { Navbar } from './shared/navbar/navbar';
@@ -130,7 +131,8 @@ import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-gi
     CouponDialog,
     UploaditemDialog,
     GestioneCoupons,
-    GestioneGiornate
+    GestioneGiornate,
+    MessageDialog
   ],
   imports: [
     BrowserModule,

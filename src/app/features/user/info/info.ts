@@ -7,6 +7,7 @@ import { Utilities } from '../../../core/utils/utilities';
 
 import { UpdateDialog } from '../../auth/dialog/update-dialog/update-dialog';
 import { ConfirmDialog } from '../../auth/dialog/confirm-dialog/confirm-dialog';
+import { MessageDialog } from '../../auth/dialog/message-dialog/message-dialog';
 
 @Component({
   selector: 'app-info',
@@ -88,17 +89,26 @@ export class Info implements OnInit {
   inviaMailValidazione(): void {
     const username = this.profilo?.username;
     if (!username) {
-      alert('Username non disponibile.');
+      this.dialog.open(MessageDialog, {
+        width: '400px',
+        data: { title: 'Attenzione', message: 'Username non disponibile.', type: 'info' }
+      });
       return;
     }
 
     this.utenteServices.inviaMailValidazione(username).subscribe({
       next: () => {
-        alert('Mail di validazione inviata con successo.');
+        this.dialog.open(MessageDialog, {
+          width: '400px',
+          data: { title: 'Successo', message: 'Mail di validazione inviata con successo.', type: 'success' }
+        });
       },
       error: (err: any) => {
         console.error('Errore invio mail di validazione', err);
-        alert('Errore durante l\'invio della mail di validazione.');
+        this.dialog.open(MessageDialog, {
+          width: '400px',
+          data: { title: 'Errore', message: 'Errore durante l\'invio della mail di validazione.', type: 'error' }
+        });
       }
     });
   }
