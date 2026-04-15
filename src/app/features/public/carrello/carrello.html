@@ -1,4 +1,5 @@
 <div class="carrello-wrapper">
+
   <div class="carrello-container">
 
     <div class="carrello-header">
@@ -9,18 +10,21 @@
           {{ cartService.totalCount() }} articoli
         </span>
       }
+
+      <button class="btn-back-to-shop" (click)="tornaAlNegozio()">
+        Torna al negozio
+      </button>
     </div>
+    
 
     @if (cartService.items().length === 0) {
       <div class="empty-state">
         <p>Il carrello è vuoto</p>
         <span>Aggiungi qualche prodotto per iniziare</span><br>
-
-        <button class="btn-back-to-shop" (click)="tornaAlNegozio()">
-          Torna al negozio
-        </button>
       </div>
     }
+
+
 
     @if (cartService.items().length > 0) {
 
@@ -89,11 +93,6 @@
         <div class="riepilogo-row">
           <span>Subtotale</span>
           <span>€{{ cartService.totalPrice() | number:'1.2-2' }}</span>
-        </div>
-
-        <div class="riepilogo-row">
-          <span>Spedizione</span>
-          <span class="free">Gratuita</span>
         </div>
 
         <div class="riepilogo-row totale">

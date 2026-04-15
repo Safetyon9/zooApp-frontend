@@ -1,60 +1,67 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CartService } from './cart-service';
-import { switchMap } from 'rxjs';
+
+import { MetodiPagamentoApiService } from './metodi-pagamento-api-services';
+import { CouponsServices } from './coupons-services';
+import { OrdiniServices } from './ordini-services';
+
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  private http = inject(HttpClient);
   private cartService = inject(CartService);
   private router = inject(Router);
 
-  private baseOrdine    = 'http://localhost:9090/rest/ordine';
-  private baseMetodi    = 'http://localhost:9090/rest/metodiPagamento';
-  private baseCoupons   = 'http://localhost:9090/rest/coupons';
+  constructor(
+    private metodiPagamentoApiService: MetodiPagamentoApiService,
+    private couponsService: CouponsServices,
+    private ordiniService: OrdiniServices
+  ) {}
 
   getMetodiPagamento() {
-    return this.http.get<any[]>(`${this.baseMetodi}/list`);
-  }
-
-  getCoupons() {
-    return this.http.get<any[]>(`${this.baseCoupons}/list`);
-  }
-
-  verificaCoupon(codice: string, subtotale: number): { valido: boolean; sconto: number; msg: string } {
-    return { valido: false, sconto: 0, msg: '' };
+    return this.metodiPagamentoApiService.list();
   }
 
   verificaCouponRemoto(codice: string, subtotale: number) {
-    return this.getCoupons().pipe(
-      switchMap(coupons => {
-        const coupon = coupons.find((c: any) =>
+    return this.couponsService.list().pipe(
+      map(coupons => {
+        const coupon = coupons.find(c =>
           c.codice === codice && c.attivo
         );
 
         if (!coupon) {
-          return [{ valido: false, sconto: 0, msg: 'Coupon non valido o scaduto', couponId: null }];
+          return {
+            valido: false,
+            sconto: 0,
+            msg: 'Coupon non valido o scaduto',
+            couponId: null
+          };
         }
 
         const sconto = coupon.tipo === 'PERCENTUALE'
-          ? subtotale * (coupon.valore / 100)
+          ? subtotale * (coupon.valore! / 100)
           : Number(coupon.valore);
 
-        return [{ valido: true, sconto, msg: `Coupon applicato! Sconto: €${sconto.toFixed(2)}`, couponId: coupon.id }];
+        return {
+          valido: true,
+          sconto,
+          msg: `Coupon applicato! Sconto: €${sconto.toFixed(2)}`,
+          couponId: coupon.id
+        };
       })
     );
   }
 
   confermaOrdine(body: any) {
-  return this.http.post<any>(`${this.baseOrdine}/create`, body);
-}
+    return this.ordiniService.create(body);
+  }
 
   svuotaERedirect() {
     this.cartService.clear();
-    setTimeout(() => this.router.navigate(['/utente']), 2500);
+    this.router.navigate(['/utente']);
   }
 }

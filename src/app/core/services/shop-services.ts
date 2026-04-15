@@ -73,18 +73,12 @@ export class ShopService {
   }
 
   updateQuantity(item: OggettiCarrelloDTO, quantity: number) {
-
-    const cartItem = this.cartService.getItem(item.id);
-    if (!cartItem?.id) return;
-
     this.cartItemApi.update({
-      id: cartItem.id,
+      id: item.id,
       quantita: quantity
     }).subscribe({
-      next: () => {
-        this.refreshCart();
-      },
-      error: (err) => console.error('UPDATE ERROR', err)
+      next: () => this.refreshCart(),
+      error: (err) => console.error(err)
     });
   }
 
@@ -107,7 +101,7 @@ export class ShopService {
 
     this.cartApi.clear(carrelloId).subscribe({
       next: () => {
-        this.cartService.clear();
+        this.refreshCart();
       },
       error: (err) => console.error('CLEAR ERROR', err)
     });

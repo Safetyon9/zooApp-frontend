@@ -318,6 +318,7 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(var(--zoo-gold-soft-rgb), 0.3);
   margin-top: 16px;
+  margin-left: auto;
 }
 
 .btn-back-to-shop:hover {

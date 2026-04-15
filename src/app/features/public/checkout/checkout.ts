@@ -60,15 +60,29 @@ export class Checkout implements OnInit {
   get totaleFinale(): number { return Math.max(0, this.subtotale - this.scontoAmount); }
 
   verificaCoupon(): void {
-    if (!this.couponCodice) return;
-    this.checkoutService.verificaCouponRemoto(this.couponCodice, this.subtotale).subscribe({
-      next: (result) => {
-        this.couponValido.set(result.valido);
-        this.scontoAmount = result.sconto;
-        this.couponId = result.couponId;
-        this.couponMsg.set(result.msg);
-      }
-    });
+    if (!this.couponCodice?.trim()) return;
+
+    this.couponValido.set(false);
+    this.scontoAmount = 0;
+    this.couponId = null;
+    this.couponMsg.set('');
+
+    this.checkoutService
+      .verificaCouponRemoto(this.couponCodice.trim(), this.subtotale)
+      .subscribe({
+        next: (result) => {
+          this.couponValido.set(!!result.valido);
+          this.scontoAmount = result.sconto ?? 0;
+          this.couponId = result.couponId ?? null;
+          this.couponMsg.set(result.msg ?? '');
+        },
+        error: () => {
+          this.couponValido.set(false);
+          this.scontoAmount = 0;
+          this.couponId = null;
+          this.couponMsg.set('Errore durante la verifica coupon');
+        }
+      });
   }
 
   confermaOrdine(): void {
