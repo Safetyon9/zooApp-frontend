@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
 import { Utilities } from '../../../core/utils/utilities';
-import { OrdineDTO, OrdiniServices } from '../../../core/services/ordini-services';
+import { OrdineDTO, OrdiniServices, PagamentoDTO } from '../../../core/services/ordini-services';
 
 @Component({
   selector: 'app-ordini',
@@ -25,6 +25,8 @@ export class GestioneOrdini implements OnInit {
   clienteId: number | null = null;
 
   ordineSelezionato: OrdineDTO | null = null;
+  pagamentoSelezionato: PagamentoDTO | null = null;
+  
 
   constructor(
     private ordiniService: OrdiniServices,
@@ -60,8 +62,8 @@ export class GestioneOrdini implements OnInit {
   }
 
   public getTotaleOrdine(o: OrdineDTO): number {
-    return (o.righe || []).reduce((sum, r) => sum + Number(r.prezzoTotale ?? 0), 0);
-  }
+  return Number(o.importoTotale ?? 0);
+}
 
   private sortResults(items: OrdineDTO[]): OrdineDTO[] {
     const sorted = [...items];
@@ -111,5 +113,25 @@ export class GestioneOrdini implements OnInit {
 
   dettaglioOrdine(o: OrdineDTO): void {
     this.ordineSelezionato = o;
+  }
+
+   dettaglioPagamento(idPagamento: number): void {
+    if (!idPagamento) {
+      this.pagamentoSelezionato = null;
+      return;
+    }
+
+    this.pagamentoSelezionato = null;
+
+    this.ordiniService.getPagamentoById(idPagamento).subscribe({
+      next: (p) => {
+        this.pagamentoSelezionato = p;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.pagamentoSelezionato = null;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

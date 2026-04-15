@@ -3,11 +3,9 @@ import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
 export interface PagamentoDTO {
-  id?: number;
   metodoPagamentoNome?: string;
   stato?: string;
   urlRicevutaPDF?: string;
-  ordineId?: number;
 }
 
 export interface OrdineDTO {
@@ -17,6 +15,7 @@ export interface OrdineDTO {
   cognome?: string;
   indirizzo?: string;
   dataOrdine?: string;
+  importoTotale?: number
   stato?: string;
   righe?: any[];
   pagamento?: PagamentoDTO | null;
