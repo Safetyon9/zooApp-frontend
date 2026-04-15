@@ -4,17 +4,15 @@
       <mat-card-title>Gestione Calendario</mat-card-title>
     </mat-card-header>
 
-    <mat-divider></mat-divider>
-
     <mat-card-content>
       <div class="calendar-wrapper">
         <div class="calendar-main">
           <div class="calendar-nav">
-            <button mat-icon-button (click)="prevMonth()">
+            <button mat-icon-button (click)="prevMonth()" title="Mese precedente">
               <mat-icon>chevron_left</mat-icon>
             </button>
-            <h3>{{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}</h3>
-            <button mat-icon-button (click)="nextMonth()">
+            <span class="month-title">{{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}</span>
+            <button mat-icon-button (click)="nextMonth()" title="Mese successivo">
               <mat-icon>chevron_right</mat-icon>
             </button>
           </div>
@@ -38,14 +36,17 @@
               (click)="selectDay(day)">
 
               <span class="day-number">{{ day.day }}</span>
+              
+              <span class="stock-badge" *ngIf="day.currentMonth && day.info?.stock > 0">
+                {{ day.info?.stock }}
+              </span>
 
-              <div class="day-details" *ngIf="day.currentMonth">
-                <span class="stock-tag" *ngIf="day.info?.stock > 0">S: {{ day.info?.stock }}</span>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #10b981"
+              <div class="day-status-icons" *ngIf="day.currentMonth">
+                <mat-icon style="font-size: 16px; width: 16px; height: 16px; color: #10b981"
                   *ngIf="day.info?.aperto && !day.info?.eventoId">check_circle</mat-icon>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #3b82f6"
-                  *ngIf="day.info?.eventoId">event</mat-icon>
-                <mat-icon style="font-size: 14px; width: 14px; height: 14px; color: #ef4444"
+                <mat-icon style="font-size: 16px; width: 16px; height: 16px; color: #3b82f6"
+                  *ngIf="day.info?.eventoId">stars</mat-icon>
+                <mat-icon style="font-size: 16px; width: 16px; height: 16px; color: #ef4444"
                   *ngIf="day.info?.id && !day.info?.aperto && !day.info?.eventoId">block</mat-icon>
               </div>
             </div>
@@ -55,50 +56,50 @@
         <div class="edit-panel" *ngIf="selectedDate; else noSelection">
           <h4>Dettagli {{ selectedDate.data | date:'dd/MM/yyyy' }}</h4>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Stock Biglietti</mat-label>
-            <input matInput type="number" [(ngModel)]="selectedDate.stock" placeholder="Esempio: 200">
-            <mat-icon matSuffix>inventory_2</mat-icon>
-          </mat-form-field>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Stock Biglietti</mat-label>
+              <input matInput type="number" [(ngModel)]="selectedDate.stock" placeholder="Esempio: 200">
+              <mat-icon matSuffix>inventory_2</mat-icon>
+            </mat-form-field>
 
-          <div style="padding: 8px 0;">
-            <mat-checkbox [(ngModel)]="selectedDate.aperto" color="primary">
-              Giornata disponibile
-            </mat-checkbox>
+            <div style="padding: 8px 0;">
+              <mat-checkbox [(ngModel)]="selectedDate.aperto" color="primary">
+                Aperto al pubblico
+              </mat-checkbox>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Evento Speciale</mat-label>
+              <mat-select [(ngModel)]="selectedDate.eventoId" [compareWith]="compareEventi" (ngModelChange)="onEventChange($event)">
+                <mat-option [value]="null">Nessun evento</mat-option>
+                <mat-option *ngFor="let ev of eventiS.eventi()" [value]="ev">
+                  {{ ev.tipoEvento }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>celebration</mat-icon>
+            </mat-form-field>
           </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Evento speciale</mat-label>
-            <mat-select [(ngModel)]="selectedDate.eventoId" [compareWith]="compareEventi" (ngModelChange)="onEventChange($event)">
-              <mat-option [value]="null">Nessun evento</mat-option>
-              <mat-option *ngFor="let ev of eventiS.eventi()" [value]="ev">
-                {{ ev.tipoEvento }}
-              </mat-option>
-            </mat-select>
-            <mat-icon matSuffix>celebration</mat-icon>
-          </mat-form-field>
+          <p style="font-size: 12px; color: #8b6f47; margin-bottom: 24px; font-style: italic;">
+            * Lo stock e la disponibilità influenzano direttamente gli acquisti in tempo reale.
+          </p>
 
           <div class="actions">
-            <p style="font-size: 12px; color: #6b7280; margin-bottom: 20px;">
-              * Lo stock definisce il numero massimo di biglietti acquistabili per questa data.
-            </p>
-            <div style="display: flex; gap: 10px; width: 100%;">
-              <button class="btn-secondary" (click)="cancelEdit()">Annulla</button>
-              <button class="btn-primary" (click)="saveStock()">Salva tutto</button>
-            </div>
+            <button class="btn-save" (click)="saveStock()">Salva Modifiche</button>
+            <button class="btn-cancel" (click)="cancelEdit()">Annulla</button>
           </div>
         </div>
 
         <ng-template #noSelection>
           <div class="edit-panel">
             <div class="empty-state">
-              <mat-icon
-                style="font-size: 48px; width: 48px; height: 48px; color: var(--zoo-gold-soft)">touch_app</mat-icon>
-              <p>Seleziona un giorno dal calendario per gestirne la disponibilità e lo stock.</p>
+              <mat-icon style="font-size: 56px; width: 56px; height: 56px; color: #d4c8b0">touch_app</mat-icon>
+              <p>Seleziona una data per gestirne stock, eventi e stato di apertura.</p>
             </div>
           </div>
         </ng-template>
       </div>
     </mat-card-content>
   </mat-card>
-</div>
+</div>

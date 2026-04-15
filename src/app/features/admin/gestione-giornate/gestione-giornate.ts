@@ -13,8 +13,7 @@ export class GestioneGiornate implements OnInit {
   currentDate = new Date();
   days: any[] = [];
   selectedDate: GiornateDto | null = null;
-  eventi = signal<EventiDto[]>([]);
-
+  
   monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
     "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
   ];
@@ -25,6 +24,10 @@ export class GestioneGiornate implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.refreshData();
+  }
+
+  refreshData() {
     forkJoin([
       this.eventiS.list(),
       this.giornateS.list()
@@ -37,32 +40,20 @@ export class GestioneGiornate implements OnInit {
     });
   }
 
-  loadAll() {
-    forkJoin([
-      this.eventiS.list(),
-      this.giornateS.list()
-    ]).subscribe({
-      next: () => this.generateCalendar(),
-      error: (err) => {
-        console.error('Errore ricaricamento dati:', err);
-        this.generateCalendar();
-      }
-    });
-  }
-
   generateCalendar() {
     const year = this.currentDate.getFullYear();
     const month = this.currentDate.getMonth();
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const prevMonthDays = new Date(year, month, 0).getDate();
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
 
     this.days = [];
 
+    // Fill previous month days
     for (let i = firstDay; i > 0; i--) {
       this.days.push({
-        day: prevMonthDays - i + 1,
+        day: prevMonthLastDay - i + 1,
         currentMonth: false,
         date: null
       });
@@ -72,26 +63,23 @@ export class GestioneGiornate implements OnInit {
     today.setHours(0, 0, 0, 0);
 
     const backendGiornate = this.giornateS.giornate();
-    const allEventi = this.eventiS.eventi();
 
+    // Fill current month days
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(year, month, i);
       const dateStr = this.formatDate(date);
-
       const gInfo = backendGiornate.find(g => g.data.startsWith(dateStr));
-
-
 
       this.days.push({
         day: i,
         currentMonth: true,
         date: dateStr,
         isToday: date.getTime() === today.getTime(),
-        isPast: date < today,
         info: gInfo ? { ...gInfo } : { data: dateStr, stock: 0, aperto: false }
       });
     }
 
+    // Fill next month days to complete 6 rows (42 cells)
     const remaining = 42 - this.days.length;
     for (let i = 1; i <= remaining; i++) {
       this.days.push({
@@ -103,19 +91,19 @@ export class GestioneGiornate implements OnInit {
   }
 
   formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
   nextMonth() {
-    this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() + 1));
+    this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 1);
     this.generateCalendar();
   }
 
   prevMonth() {
-    this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() - 1));
+    this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
     this.generateCalendar();
   }
 
@@ -125,7 +113,7 @@ export class GestioneGiornate implements OnInit {
   }
 
   compareEventi(e1: any, e2: any): boolean {
-    return e1 && e2 ? e1.id === e2.id : e1 === e2;
+    return (e1?.id === e2?.id) || (e1 === e2);
   }
 
   onEventChange(evento: any) {
@@ -133,21 +121,14 @@ export class GestioneGiornate implements OnInit {
     if (!evento) {
       this.selectedDate.aperto = true;
     }
-    const day = this.days.find(d => d.date === this.selectedDate!.data);
-    if (day) {
-      day.info = { ...day.info, eventoId: evento };
-    }
   }
 
   saveStock() {
     if (!this.selectedDate) return;
 
-    const payload: any = {
-      id: this.selectedDate.id,
-      data: this.selectedDate.data,
-      aperto: this.selectedDate.aperto,
-      stock: this.selectedDate.stock ?? 0,
-      eventoId: this.selectedDate.eventoId ? (this.selectedDate.eventoId as any).id : null
+    const payload: GiornateDto = {
+      ...this.selectedDate,
+      eventoId: (this.selectedDate.eventoId as any)?.id ? this.selectedDate.eventoId : null
     };
 
     const action = this.selectedDate.id
@@ -156,7 +137,7 @@ export class GestioneGiornate implements OnInit {
 
     action.subscribe({
       next: () => {
-        this.loadAll();
+        this.refreshData();
         this.selectedDate = null;
       },
       error: (err) => console.error('Errore salvataggio giornata:', err)
@@ -167,3 +148,4 @@ export class GestioneGiornate implements OnInit {
     this.selectedDate = null;
   }
 }
+
