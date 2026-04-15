@@ -145,14 +145,7 @@ export class ShopBiglietti implements OnInit {
       alert('Per favore seleziona una data disponibile dal calendario.');
       return;
     }
-    
-    this.shop.addToCart(
-      ticket,
-      'biglietto',
-      this.quantity,
-      {
-        date: this.selectedDate.data
-      }
-    );
+
+    this.shop.addToCart(ticket.id, this.quantity);
   }
 }

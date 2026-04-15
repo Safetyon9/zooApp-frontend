@@ -64,14 +64,6 @@ export class ShopMerch implements OnInit {
   }
 
   addToCart(prodotto: any) {
-    this.shop.addToCart(
-      {
-        ...prodotto,
-        immagine: this.getImageUrl(prodotto)
-      },
-      'prodotto',
-      1,
-      {}
-    );
+    this.shop.addToCart(prodotto.id, 1);
   }
 }

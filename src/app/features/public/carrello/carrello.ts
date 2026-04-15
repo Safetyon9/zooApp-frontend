@@ -1,7 +1,6 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
-import { ShopService } from '../../../core/services/shop-services';
-import { CartType } from '../../../core/services/cart-service';
+import { OggettiCarrelloDTO, ShopService } from '../../../core/services/shop-services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,34 +25,23 @@ export class Carrello implements OnInit{
     this.cartService.totalPrice()
   );
 
-  incrementa(item: any) {
-    this.shopService.updateQuantity(
-      item,
-      item.tipo as CartType,
-      item.quantita + 1
-    );
+  incrementa(item: OggettiCarrelloDTO) {
+    this.shopService.updateQuantity(item, item.quantita + 1);
   }
 
-  decrementa(item: any) {
+  decrementa(item: OggettiCarrelloDTO) {
     const newQty = item.quantita - 1;
 
     if (newQty <= 0) {
-      this.rimuovi(item);
+      this.shopService.removeFromCart(item.id);
       return;
     }
 
-    this.shopService.updateQuantity(
-      item,
-      item.tipo as CartType,
-      newQty
-    );
+    this.shopService.updateQuantity(item, newQty);
   }
 
-  rimuovi(item: any) {
-    this.shopService.removeFromCart(
-      item,
-      item.tipo as CartType
-    );
+  rimuovi(item: OggettiCarrelloDTO) {
+    this.shopService.removeFromCart(item.id);
   }
 
   svuota() {

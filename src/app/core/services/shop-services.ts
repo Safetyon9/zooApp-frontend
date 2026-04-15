@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CartService, CartType } from './cart-service';
+import { CartService } from './cart-service';
 import { CartApiService } from './cart-api-services';
 import { CartItemApiService } from './cart-item-api-services';
 import { AuthServices } from './auth-services';
-import { ItemsServices } from './items-services';
 
 export interface OggettiCarrelloDTO {
   id: number;
@@ -26,8 +25,7 @@ export class ShopService {
     private cartService: CartService,
     private cartApi: CartApiService,
     private cartItemApi: CartItemApiService,
-    private auth: AuthServices,
-    private itemsApi: ItemsServices
+    private auth: AuthServices
   ) {}
 
   loadCart() {
@@ -45,82 +43,74 @@ export class ShopService {
       error: (err) => console.error(err)
     });
   }
-  //sto qua
-  addToCart(
-    item: any,
-    type: CartType,
-    quantity: number = 1,
-    extra?: any
-  ) {
 
-    console.log('AUTH USER:', this.auth);
-    console.log('CARRELLO ID:', this.auth.getCarrelloId());
-    if (!this.auth.isUserWithCart()) return;
+  addToCart(itemId: number, quantity: number = 1) {
 
+    //if (!this.auth.isUserWithCart()) return; da inserire pe rendere indisponibili le interazioni in base al ruolo.
     const carrelloId = this.auth.getCarrelloId();
     if (!carrelloId) return;
 
     this.cartItemApi.create({
       carrelloId,
-      itemId: item.id,
+      itemId,
       quantita: quantity
     }).subscribe({
-      next: (res: any) => {
-        console.log('CREATE CART RESPONSE:', res);
-        this.cartService.addLocalWithId(
-          item,
-          type,
-          quantity,
-          res.data
-        );
+      next: (cart: any) => {
+
+        this.cartService.setCart(cart.oggettiCarrello);
       },
-      error: (err) => {
-        console.error('AddToCart error', err);
-      }
+      error: (err) => console.error(err)
     });
   }
 
-  removeFromCart(item: any, type: CartType) {
+  removeFromCart(cartItemId: number) {
 
-    const cartItem = this.cartService.getItem(item.id, type);
-
-    this.cartService.remove(item.id, type);
-
-    if (!cartItem?.cartItemId) return;
-
-    this.cartItemApi.delete(cartItem.cartItemId).subscribe({
-      error: (err) => console.error('DELETE ERROR', err)
+    this.cartItemApi.delete(cartItemId).subscribe({
+      next: (cart: any) => {
+        this.cartService.setCart(cart.oggettiCarrello);
+      },
+      error: (err) => console.error(err)
     });
   }
 
-  updateQuantity(item: any, type: CartType, quantity: number) {
+  updateQuantity(item: OggettiCarrelloDTO, quantity: number) {
 
-    const cartItem = this.cartService.getItem(item.id, type);
-    if (!cartItem?.cartItemId) return;
+    const cartItem = this.cartService.getItem(item.id);
+    if (!cartItem?.id) return;
 
     this.cartItemApi.update({
-      id: cartItem.cartItemId,
+      id: cartItem.id,
       quantita: quantity
     }).subscribe({
       next: () => {
-        this.cartService.updateQty(item.id, type, quantity);
+        this.refreshCart();
       },
       error: (err) => console.error('UPDATE ERROR', err)
     });
   }
 
-  clearCart() {
+  private refreshCart() {
+    const carrelloId = this.auth.getCarrelloId();
+    if (!carrelloId) return;
 
-    const items = this.cartService.items();
-
-    items.forEach(i => {
-      if (!i.cartItemId) return;
-
-      this.cartItemApi.delete(i.cartItemId).subscribe({
-        error: (err) => console.error('CLEAR ERROR', err)
-      });
+    this.cartApi.getById(carrelloId).subscribe({
+      next: (cart) => {
+        this.cartService.setCart(cart.oggettiCarrello);
+      }
     });
+  }
 
-    this.cartService.clear();
+  clearCart() {
+    
+    const carrelloId = this.auth.getCarrelloId();
+    console.log('carrelloId:', carrelloId);
+    if (!carrelloId) return;
+
+    this.cartApi.clear(carrelloId).subscribe({
+      next: () => {
+        this.cartService.clear();
+      },
+      error: (err) => console.error('CLEAR ERROR', err)
+    });
   }
 }

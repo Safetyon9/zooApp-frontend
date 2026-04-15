@@ -102,10 +102,10 @@ export class Checkout implements OnInit {
         stato: 'ATTESA'
       },
       righe: this.cartService.items().map(i => ({
-        itemId: i.id,
+        itemId: i.itemId,
         quantita: i.quantita,
-        prezzoUnitario: i.prezzo,
-        prezzoTotale: i.prezzo * i.quantita
+        prezzoUnitario: i.prezzoUnitario,
+        prezzoTotale: i.prezzoTotale
       }))
     };
 

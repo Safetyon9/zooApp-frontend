@@ -92,7 +92,9 @@
                 <div class="item-avatar" *ngIf="!item.urlImmagine">
                 {{ item.nome.charAt(0) }}
                 </div>
-            <p class="item-prezzo">€{{ item.prezzo * item.quantita | number:'1.2-2' }}</p>
+            <p class="item-prezzo">
+              €{{ item.prezzoUnitario * item.quantita | number:'1.2-2' }}
+            </p>
           </div>
 
           <div class="divider"></div>

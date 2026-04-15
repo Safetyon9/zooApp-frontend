@@ -21,4 +21,23 @@ export class CartApiService {
       `${this.url}/getOrCreate/${userId}`
     );
   }
+
+  delete(id: number) {
+    return this.http.delete<any>(
+      `${this.url}/delete/${id}`
+    );
+  }
+
+  clear(id: number) {
+    return this.http.delete<any>(
+      `${this.url}/clear/${id}`
+    );
+  }
+
+  create(req: any) {
+    return this.http.post<any>(
+      `${this.url}/create`,
+      req
+    );
+  }
 }
