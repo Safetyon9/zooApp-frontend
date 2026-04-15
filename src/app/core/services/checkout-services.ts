@@ -62,6 +62,6 @@ export class CheckoutService {
 
   svuotaERedirect() {
     this.cartService.clear();
-    this.router.navigate(['/utente']);
+    this.router.navigate(['/pagamento-ricevuto']);
   }
 }
