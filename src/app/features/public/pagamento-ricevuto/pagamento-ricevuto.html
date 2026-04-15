@@ -38,7 +38,7 @@
 
         <div class="meta-box">
           <label>Numero ordine</label>
-          <p>{{ ordine.ordineId || 'In elaborazione' }}</p>
+          <p>{{ ordine.ordineId || '-' }}</p>
         </div>
 
         <div class="meta-box">
@@ -59,7 +59,11 @@
         <div class="info-grid">
           <div class="info-item">
             <label>Nome</label>
-            <p>{{ ordine.profilo?.nome || '-' }} {{ ordine.profilo?.cognome || '' }}</p>
+            <p>{{ ordine.profilo?.nome || '-' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Cognome</label>
+            <p>{{ ordine.profilo?.cognome || '' }}</p>
           </div>
 
           <div class="info-item">

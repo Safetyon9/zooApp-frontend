@@ -17,7 +17,6 @@ export class PagamentoRicevuto implements OnInit {
   ngOnInit(): void {
     const nav = this.router.getCurrentNavigation();
     this.ordine = nav?.extras?.state?.['ordine'] ?? history.state?.ordine ?? null;
-
     if (this.ordine) {
       this.ricevutaNumero =
         this.ordine?.ordineId
