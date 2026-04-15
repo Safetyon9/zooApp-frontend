@@ -128,10 +128,12 @@ export class GestioneGiornate implements OnInit {
 
     const payload: GiornateDto = {
       ...this.selectedDate,
-      eventoId: (this.selectedDate.eventoId as any)?.id ? this.selectedDate.eventoId : null
+      eventoId: this.selectedDate.eventoId?.id
+        ? this.selectedDate.eventoId
+        : undefined
     };
 
-    const action = this.selectedDate.id
+    const action = payload.id
       ? this.giornateS.update(payload)
       : this.giornateS.create(payload);
 
@@ -144,8 +146,8 @@ export class GestioneGiornate implements OnInit {
     });
   }
 
-  cancelEdit() {
-    this.selectedDate = null;
+    cancelEdit() {
+      this.selectedDate = null;
+    }
   }
-}
 
