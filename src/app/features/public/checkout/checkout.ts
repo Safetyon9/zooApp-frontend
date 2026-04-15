@@ -16,7 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class Checkout implements OnInit {
 
   profiloOriginale: any = {};
-  imgBaseUrl = "http://localhost:9090/files/";
+  imgBaseUrl = 'http://localhost:9090/files/';
 
   checkoutForm = {
     nome: '',
@@ -128,7 +128,7 @@ export class Checkout implements OnInit {
         }
       });
   }
-  
+
   get totaleFinale() {
     return this.subtotale + this.spedizione - this.scontoAmount;
   }
@@ -170,21 +170,31 @@ export class Checkout implements OnInit {
 
     this.checkoutService.creaOrdine(body).subscribe({
       next: (res: any) => {
+        console.log('RESPONSE CHECKOUT', res);
 
         const ordineId = res?.ordineId ?? res?.id ?? null;
+        const pagamentoId = res?.pagamentoId ?? null;
+        const idRicevuta = res?.idRicevuta ?? null;
 
         const riepilogoOrdine = {
           ordineId,
+          pagamentoId,
+          idRicevuta,
           dataOrdine: new Date(),
 
           profilo: this.profiloOriginale,
 
           indirizzoSpedizione: this.checkoutForm.indirizzo,
 
-          metodoPagamento: this.metodiPagamento
-            .find(m => m.id === this.metodoSelezionato) ?? null,
+          metodoPagamento:
+            this.metodiPagamento.find(m => m.id === this.metodoSelezionato) ?? null,
 
           couponCodice: this.couponCodice || null,
+
+          subtotale: this.subtotale,
+          scontoAmount: this.scontoAmount,
+          spedizione: this.spedizione,
+          totaleFinale: this.totaleFinale,
 
           items: this.cartService.items().map(i => ({
             itemId: i.itemId,
@@ -192,9 +202,12 @@ export class Checkout implements OnInit {
             quantita: i.quantita,
             prezzoUnitario: i.prezzoUnitario,
             prezzoTotale: i.prezzoTotale,
-            tipo: i.tipo
+            tipo: i.tipo,
+            urlImmagine: i.urlImmagine ?? null
           }))
         };
+
+        console.log('RIEPILOGO ORDINE', riepilogoOrdine);
 
         this.success.set(true);
         this.msg.set('Ordine confermato con successo!');
