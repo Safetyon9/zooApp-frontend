@@ -81,6 +81,7 @@ import { ResetPasswordComponent } from './features/public/email/change-password/
 import { GestioneCoupons } from './features/admin/gestione-coupons/gestione-coupons';
 import { CouponDialog } from './features/admin/gestione-coupons/coupons-dialog/coupons-dialog';
 import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-giornate';
+import { PagamentoRicevuto } from './features/public/pagamento-ricevuto/pagamento-ricevuto';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { GestioneGiornate } from './features/admin/gestione-giornate/gestione-gi
     MaintenanceOverlay,
     NavbarUtente,
     AdminNavbar,
+    PagamentoRicevuto,
     AdminChangePwd,
     GestioneEventi,
     GestioneItems,
