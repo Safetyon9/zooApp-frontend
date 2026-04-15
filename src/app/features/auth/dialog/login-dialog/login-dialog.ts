@@ -33,7 +33,7 @@ export class LoginDialog {
       next: (resp: any) => {
         this.msg.set('');
         console.log(resp);
-        this.auth.setAutentificated(resp.username, resp.carrelloId);
+        this.auth.setAutentificated(resp.username, resp.carrelloId, resp.clienteId);
 
         if (resp.ruolo === 'ADMIN') this.auth.setAdmin();
         if (resp.ruolo === 'USER') this.auth.setUser();
