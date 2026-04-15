@@ -80,8 +80,8 @@ export class OrdiniServices {
     return this.http.get<OrdineDTO>(this.url + 'findById/' + id);
   }
 
-  getPagamentoById(ordineId: number) {
-    return this.http.get<PagamentoDTO>(this.urlP + 'findById/' + ordineId);
+  getPagamentoById(id: number) {
+    return this.http.get<PagamentoDTO>(this.urlP + 'findById/' + id);
   }
 
 }

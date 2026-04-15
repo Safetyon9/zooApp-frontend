@@ -119,7 +119,21 @@ export class Ordini implements OnInit {
     this.ordineSelezionato = o;
   }
 
-  dettaglioPagamento(p: PagamentoDTO): void {
-    this.pagamentoSelezionato = p;
+  dettaglioPagamento(idPagamento: number): void {
+    if (!idPagamento) {
+      this.pagamentoSelezionato = null;
+      return;
+    }
+
+    this.ordiniService.getPagamentoById(idPagamento).subscribe({
+      next: (p) => {
+        this.pagamentoSelezionato = p;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.pagamentoSelezionato = null;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }
