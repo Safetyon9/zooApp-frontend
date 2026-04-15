@@ -97,16 +97,19 @@
 
           <div class="receipt-row" *ngFor="let item of ordine.items || []">
             <div class="receipt-product">
-              <div class="item-avatar" *ngIf="!item.urlImmagine">
-                {{ item.nome?.charAt(0) || '?' }}
-              </div>
+              @if (!item.urlImmagine) {
+                <div class="oggetto-avatar">
+                  {{ item.nome.charAt(0).toUpperCase() }}
+                </div>
+              }
 
-              <img
-                *ngIf="item.urlImmagine"
-                [src]="item.urlImmagine"
-                class="item-img"
-                [alt]="item.nome || 'item'"
-              />
+            @if (item.urlImmagine) {
+                <img
+                  [src]="imgBaseUrl + item.urlImmagine"
+                  class="item-img"
+                  [alt]="item.nome"
+                />
+              }
 
               <div class="product-copy">
                 <p class="item-name">{{ item.nome || 'Nome non disponibile' }}</p>

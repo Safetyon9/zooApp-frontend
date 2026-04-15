@@ -11,6 +11,7 @@ export class PagamentoRicevuto implements OnInit {
 
   ordine: any = null;
   ricevutaNumero = '';
+  imgBaseUrl = "http://localhost:9090/files/";
 
   constructor(private router: Router) {}
 

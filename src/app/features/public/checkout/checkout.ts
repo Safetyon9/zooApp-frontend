@@ -13,6 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class Checkout implements OnInit {
 
+  imgBaseUrl = "http://localhost:9090/files/";
   profilo: any = {};
   metodiPagamento: any[] = [];
   metodoSelezionato: number | null = null;
@@ -146,12 +147,10 @@ export class Checkout implements OnInit {
       this.success.set(true);
       this.msg.set('Ordine confermato con successo!');
 
-      // svuota carrello
-      this.checkoutService.svuotaCarrello?.(); // vedi punto 2
+      this.checkoutService.svuotaCarrello?.();
 
       this.isLoading = false;
 
-      // redirect con riepilogo
       this.router.navigate(['/pagamento-ricevuto'], {
         state: { ordine: riepilogoOrdine }
       });
