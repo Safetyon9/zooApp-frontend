@@ -92,9 +92,9 @@
 
                           @if (pagamentoSelezionato) {
                             <div style="margin-top: 12px;">
-                              <p><strong>Metodo pagamento:</strong> {{ pagamentoSelezionato?.metodoPagamento || '-' }}</p>
+                              <p><strong>Metodo pagamento:</strong> {{ pagamentoSelezionato?.metodoPagamentoNome || '-' }}</p>
                               <p><strong>Stato pagamento:</strong> {{ pagamentoSelezionato?.stato || '-' }}</p>
-                              <p><strong>ID ricevuta:</strong> {{ pagamentoSelezionato?.idRicevuta || '-' }}</p>
+                              <p><strong>ID ricevuta:</strong> {{ pagamentoSelezionato?.urlRicevutaPDF || '-' }}</p>
                             </div>
                           }
                         </div>

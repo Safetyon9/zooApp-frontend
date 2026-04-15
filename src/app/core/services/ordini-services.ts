@@ -4,9 +4,9 @@ import { tap } from 'rxjs/operators';
 
 export interface PagamentoDTO {
   id?: number;
-  metodoPagamento?: string;
+  metodoPagamentoNome?: string;
   stato?: string;
-  idRicevuta?: number;
+  urlRicevutaPDF?: string;
   ordineId?: number;
 }
 
@@ -34,7 +34,7 @@ export interface OrdiniReq {
 export class OrdiniServices {
 
   private url = 'http://localhost:9090/rest/ordine/';
-  private urlP = `http://localhost:9090/rest/pagamenti/`;
+  private urlP = 'http://localhost:9090/rest/pagamenti/';
   private _ordini = signal<OrdineDTO[]>([]);
 
   constructor(private http: HttpClient) {}
@@ -71,7 +71,7 @@ export class OrdiniServices {
   }
 
   delete(id: number) {
-    return this.http.delete(`${this.url}delete/${id}`).pipe(
+    return this.http.delete('${this.url}delete/${id}').pipe(
       tap(() => this.list())
     );
   }

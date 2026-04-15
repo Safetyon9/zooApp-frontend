@@ -125,6 +125,8 @@ export class Ordini implements OnInit {
       return;
     }
 
+    this.pagamentoSelezionato = null;
+
     this.ordiniService.getPagamentoById(idPagamento).subscribe({
       next: (p) => {
         this.pagamentoSelezionato = p;
