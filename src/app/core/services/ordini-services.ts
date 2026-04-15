@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-export interface OrdineDTO {
+export interface OrdineUtenteDTO {
   id?: number;
   clienteId?: number;
   nome?: string;
@@ -10,58 +10,64 @@ export interface OrdineDTO {
   indirizzo?: string;
   dataOrdine?: string;
   stato?: string;
-  righe?: any[];
+  righe?: OggettiOrdiniDTO[];
 }
 
-export interface OrdiniReq {
+export interface OrdineUtenteReq {
   id?: number;
   clienteId: number;
   indirizzo: string;
 }
 
+export interface OggettiOrdiniDTO {
+  id?: number;
+  itemId?: number;
+  nomeItem?: string;
+  quantita?: number;
+  prezzoUnitario?: number;
+  prezzoTotale?: number;
+  ordineId?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class OrdiniServices {
-
-  private url = 'http://localhost:9090/rest/ordini/';
-  private _ordini = signal<OrdineDTO[]>([]);
+export class OrdineUtenteServices {
+  private url = 'http://localhost:9090/rest/ordine/';
+  private _ordiniUtente = signal<OrdineUtenteDTO[]>([]);
 
   constructor(private http: HttpClient) {}
 
-  ordini() {
-    return this._ordini();
+  ordiniUtente() {
+    return this._ordiniUtente();
   }
 
-  list(clienteId?: number) {
-    let params = new HttpParams();
-    if (clienteId) params = params.set('clienteId', clienteId);
-
-    return this.http.get<OrdineDTO[]>(this.url + 'list', { params }).pipe(
-      tap(resp => this._ordini.set(resp))
+  listByUtente(clienteId: number) {
+    const params = new HttpParams().set('clienteId', clienteId.toString());
+    return this.http.get<OrdineUtenteDTO[]>(this.url + 'list', { params }).pipe(
+      tap(resp => this._ordiniUtente.set(resp))
     );
   }
 
-  create(body: OrdiniReq) {
-    return this.http.post<OrdineDTO>(this.url + 'create', body).pipe(
-      tap(() => this.list())
+  createForUtente(body: OrdineUtenteReq) {
+    return this.http.post<OrdineUtenteDTO>(this.url + 'create', body).pipe(
+      tap(() => this.listByUtente(body.clienteId).subscribe())
     );
   }
 
-  update(body: OrdiniReq) {
-    return this.http.put<OrdineDTO>(this.url + 'update', body).pipe(
-      tap(() => this.list())
+  updateForUtente(body: OrdineUtenteReq) {
+    return this.http.put<OrdineUtenteDTO>(this.url + 'update', body).pipe(
+      tap(() => this.listByUtente(body.clienteId).subscribe())
     );
   }
 
-  delete(id: number) {
+  deleteForUtente(id: number, clienteId: number) {
     return this.http.delete(`${this.url}delete/${id}`).pipe(
-      tap(() => this.list())
+      tap(() => this.listByUtente(clienteId).subscribe())
     );
   }
 
   getById(id: number) {
-    return this.http.get<OrdineDTO>(this.url + 'get/' + id);
+    return this.http.get<OrdineUtenteDTO>(this.url + 'get/' + id);
   }
-
 }

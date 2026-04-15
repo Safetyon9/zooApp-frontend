@@ -1,46 +1,76 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { OrdineUtenteDTO, OrdineUtenteServices } from '../../../core/services/ordini-utente-services';
+import { AuthServices } from '../../../core/services/auth-services';
 import { Utilities } from '../../../core/utils/utilities';
 
 @Component({
-  selector: 'app-gestione-ordini',
+  selector: 'app-ordini',
+  standalone: false,
   templateUrl: './gestione-ordini.html',
   styleUrl: './gestione-ordini.css',
-  standalone: false,
 })
 export class GestioneOrdini implements OnInit {
-
   filtro = {
     numero: '',
-    cliente: '',
-    totale: null
+    stato: '',
+    totale: null as number | null
   };
 
   sortBy: string = 'numero';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  ordiniList: any[] = [];
+  ordiniList: OrdineUtenteDTO[] = [];
   loading = false;
 
+  clienteId: number | null = null;
+
+  ordineSelezionato: OrdineUtenteDTO | null = null;
+
   constructor(
-    private util: Utilities,
-    private cdr: ChangeDetectorRef
+    private ordiniUtenteService: OrdineUtenteServices,
+    private cdr: ChangeDetectorRef,
+    private auth: AuthServices,
+    private util: Utilities
   ) {}
 
   ngOnInit(): void {
+    this.clienteId = this.auth.getClienteId() ?? 1;
     this.search();
   }
 
   search(): void {
+    if (!this.clienteId) {
+      this.ordiniList = [];
+      return;
+    }
+
     this.loading = true;
 
-    setTimeout(() => {
-      this.ordiniList = this.sortResults([]);
-      this.loading = false;
-      this.cdr.detectChanges();
-    }, 500);
+    this.ordiniUtenteService.listByUtente(this.clienteId).subscribe({
+      next: (items) => {
+        const filtered = items.filter(o =>
+          (!this.filtro.numero || String(o.id ?? '').includes(this.filtro.numero)) &&
+          (!this.filtro.stato || String(o.stato ?? '').toLowerCase().includes(this.filtro.stato.toLowerCase())) &&
+          (this.filtro.totale === null || this.filtro.totale === undefined || this.getTotaleOrdine(o) >= Number(this.filtro.totale))
+        );
+
+        this.ordiniList = this.sortResults(filtered);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.ordiniList = [];
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
-  private sortResults(items: any[]): any[] {
+  public getTotaleOrdine(o: OrdineUtenteDTO): number {
+    return (o.righe || []).reduce((sum, r) => sum + Number(r.prezzoTotale ?? 0), 0);
+  }
+
+  private sortResults(items: OrdineUtenteDTO[]): OrdineUtenteDTO[] {
     const sorted = [...items];
 
     sorted.sort((a, b) => {
@@ -48,16 +78,16 @@ export class GestioneOrdini implements OnInit {
 
       switch (this.sortBy) {
         case 'numero':
-          aVal = (a.numero || '').toLowerCase();
-          bVal = (b.numero || '').toLowerCase();
+          aVal = a.id ?? 0;
+          bVal = b.id ?? 0;
           break;
-        case 'cliente':
-          aVal = (a.cliente || '').toLowerCase();
-          bVal = (b.cliente || '').toLowerCase();
+        case 'stato':
+          aVal = (a.stato || '').toLowerCase();
+          bVal = (b.stato || '').toLowerCase();
           break;
         case 'totale':
-          aVal = a.totale || 0;
-          bVal = b.totale || 0;
+          aVal = this.getTotaleOrdine(a);
+          bVal = this.getTotaleOrdine(b);
           break;
         default:
           return 0;
@@ -78,7 +108,7 @@ export class GestioneOrdini implements OnInit {
       this.sortBy = field;
       this.sortOrder = 'asc';
     }
-    this.search();
+    this.ordiniList = this.sortResults(this.ordiniList);
   }
 
   getSortIcon(field: string): string {
@@ -86,7 +116,7 @@ export class GestioneOrdini implements OnInit {
     return this.sortOrder === 'asc' ? '↑' : '↓';
   }
 
-  get ordini() {
-    return this.ordiniList;
+  dettaglioOrdine(o: OrdineUtenteDTO): void {
+    this.ordineSelezionato = o;
   }
 }

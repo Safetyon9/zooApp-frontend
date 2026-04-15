@@ -1,13 +1,12 @@
 <div class="page-container">
   <mat-card class="admin-card" appearance="outlined">
     <mat-card-header class="header-row">
-      <mat-card-title>Gestione Ordini</mat-card-title>
+      <mat-card-title>Gestione ordini</mat-card-title>
     </mat-card-header>
 
     <mat-divider></mat-divider>
 
     <mat-card-content>
-
       <div class="search-row">
         <mat-form-field appearance="outline">
           <mat-label>Numero</mat-label>
@@ -15,8 +14,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Cliente</mat-label>
-          <input matInput placeholder="Cliente" [(ngModel)]="filtro.cliente" (keyup)="search()" />
+          <mat-label>Stato</mat-label>
+          <input matInput placeholder="Stato" [(ngModel)]="filtro.stato" (keyup)="search()" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -43,39 +42,81 @@
             <thead>
               <tr>
                 <th class="sortable" (click)="sort('numero')">Numero {{ getSortIcon('numero') }}</th>
-                <th class="sortable" (click)="sort('cliente')">Cliente {{ getSortIcon('cliente') }}</th>
                 <th class="sortable" (click)="sort('totale')">Totale(€) {{ getSortIcon('totale') }}</th>
                 <th>Data</th>
-                <th>Stato</th>
+                <th class="sortable" (click)="sort('stato')">Stato {{ getSortIcon('stato') }}</th>
                 <th>Azioni</th>
               </tr>
             </thead>
 
             <tbody>
-                @for (o of ordini; track o.id) {
-                  <tr>
-                    <td>{{ o.numero || '-' }}</td>
-                    <td>{{ o.cliente || '-' }}</td>
-                    <td>{{ o.totale ?? '-' }}</td>
-                    <td>{{ o.data || '-' }}</td>
-                    <td>{{ o.stato || '-' }}</td>
-                    <td class="actions-cell">
-                      <button type="button" class="text-button">
-                        Modifica
-                      </button>
+              @for (o of ordiniList; track o.id) {
+                <tr>
+                  <td>{{ o.id || '-' }}</td>
+                  <td>{{ getTotaleOrdine(o) }}</td>
+                  <td>{{ o.dataOrdine ? (o.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</td>
+                  <td>{{ o.stato || '-' }}</td>
+                  <td class="actions-cell">
+                    <button type="button" class="text-button" (click)="dettaglioOrdine(o)">
+                      Dettaglio
+                    </button>
+                  </td>
+                </tr>
 
-                      <button type="button" class="text-button text-button-danger">
-                        Elimina
-                      </button>
+                @if (ordineSelezionato?.id === o.id) {
+                  <tr class="detail-row">
+                    <td colspan="5">
+                      <div class="detail-box">
+                        <h3>Dettaglio ordine #{{ ordineSelezionato?.id }}</h3>
+
+                        <p><strong>Nome:</strong> {{ ordineSelezionato?.nome || '-' }} {{ ordineSelezionato?.cognome || '' }}</p>
+                        <p><strong>Indirizzo:</strong> {{ ordineSelezionato?.indirizzo || '-' }}</p>
+                        <p><strong>Data:</strong> {{ ordineSelezionato?.dataOrdine ? (ordineSelezionato?.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+                        <p><strong>Stato:</strong> {{ ordineSelezionato?.stato || '-' }}</p>
+                        <p><strong>Totale:</strong> {{ getTotaleOrdine(ordineSelezionato!) }} €</p>
+
+                        <mat-divider></mat-divider>
+
+                        <table class="accounts-table" style="margin-top: 12px;">
+                          <thead>
+                            <tr>
+                              <th>Item</th>
+                              <th>Q.tà</th>
+                              <th>Prezzo unit.</th>
+                              <th>Totale</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @for (r of ordineSelezionato?.righe || []; track r.id) {
+                              <tr>
+                                <td>{{ r.nomeItem || '-' }}</td>
+                                <td>{{ r.quantita || '-' }}</td>
+                                <td>{{ r.prezzoUnitario || '-' }}</td>
+                                <td>{{ r.prezzoTotale || '-' }}</td>
+                              </tr>
+                            } @empty {
+                              <tr>
+                                <td colspan="4" class="empty-cell">Nessuna riga presente.</td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+
+                        <div style="margin-top: 12px;">
+                          <button mat-raised-button color="primary" type="button" (click)="ordineSelezionato = null">
+                            Chiudi dettaglio
+                          </button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
-                } @empty {
-                  <tr>
-                    <td colspan="6" class="empty-cell">Nessun ordine trovato.</td>
-                  </tr>
                 }
-              </tbody>
-
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-cell">Nessun ordine trovato.</td>
+                </tr>
+              }
+            </tbody>
           </table>
         </div>
       }
