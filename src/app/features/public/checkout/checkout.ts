@@ -16,6 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class Checkout implements OnInit {
 
   profiloOriginale: any = {};
+  imgBaseUrl = "http://localhost:9090/files/";
 
   checkoutForm = {
     nome: '',
@@ -132,7 +133,6 @@ export class Checkout implements OnInit {
     return this.subtotale + this.spedizione - this.scontoAmount;
   }
 
-  // ciao
   confermaOrdine(): void {
     if (!this.checkoutForm.indirizzo) {
       this.msg.set('Inserisci un indirizzo di spedizione');
@@ -168,37 +168,46 @@ export class Checkout implements OnInit {
       }))
     };
 
-    this.checkoutService.confermaOrdine(body).subscribe({
-    next: (res: any) => {
-      const riepilogoOrdine = {
-        ordineId: res?.ordineId ?? res?.id ?? null,
-        dataOrdine: new Date(), // o stringa formattata
-        profilo: this.profilo,
-        indirizzoSpedizione: this.indirizzoSpedizione,
-        metodoPagamento: this.metodiPagamento.find(m => m.id === this.metodoSelezionato) ?? null,
-        couponCodice: this.couponValido() ? this.couponCodice : null,
-        scontoAmount: Number(this.scontoAmount) || 0,
-        subtotale: Number(this.subtotale) || 0,
-        totaleFinale: Number(this.totaleFinale) || 0,
-        items: this.cartService.items().map(i => ({
-          ...i,
-          prezzoTotale: Number(i.prezzoTotale) || 0,
-          prezzoUnitario: Number(i.prezzoUnitario) || 0,
-          quantita: Number(i.quantita) || 0
-        }))
-      };
+    this.checkoutService.creaOrdine(body).subscribe({
+      next: (res: any) => {
 
-      this.success.set(true);
-      this.msg.set('Ordine confermato con successo!');
+        const ordineId = res?.ordineId ?? res?.id ?? null;
 
-      this.checkoutService.svuotaCarrello?.();
+        const riepilogoOrdine = {
+          ordineId,
+          dataOrdine: new Date(),
 
-      this.isLoading = false;
+          profilo: this.profiloOriginale,
 
-      this.router.navigate(['/pagamento-ricevuto'], {
-        state: { ordine: riepilogoOrdine }
-      });
+          indirizzoSpedizione: this.checkoutForm.indirizzo,
+
+          metodoPagamento: this.metodiPagamento
+            .find(m => m.id === this.metodoSelezionato) ?? null,
+
+          couponCodice: this.couponCodice || null,
+
+          items: this.cartService.items().map(i => ({
+            itemId: i.itemId,
+            nome: i.nome,
+            quantita: i.quantita,
+            prezzoUnitario: i.prezzoUnitario,
+            prezzoTotale: i.prezzoTotale,
+            tipo: i.tipo
+          }))
+        };
+
+        this.success.set(true);
+        this.msg.set('Ordine confermato con successo!');
+
+        this.shopService.loadCart();
+
+        this.isLoading = false;
+
+        this.router.navigate(['/pagamento-ricevuto'], {
+          state: { ordine: riepilogoOrdine }
+        });
       },
+
       error: (err) => {
         this.msg.set(err.error?.msg || 'Errore nella conferma ordine');
         this.isLoading = false;

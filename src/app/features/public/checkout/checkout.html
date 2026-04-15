@@ -15,65 +15,81 @@
 
         <div class="section-card">
           <h3><span class="material-icons">person</span> Dati di spedizione</h3>
+
           <div class="profilo-row">
             <div class="profilo-field">
               <label>Nome</label>
-              <p>{{ profilo.nome }}</p>
+              <p>{{ profiloOriginale?.nome }}</p>
             </div>
+
             <div class="profilo-field">
               <label>Cognome</label>
-              <p>{{ profilo.cognome }}</p>
+              <p>{{ profiloOriginale?.cognome }}</p>
             </div>
+
             <div class="profilo-field">
               <label>Email</label>
-              <p>{{ profilo.email }}</p>
+              <p>{{ profiloOriginale?.email }}</p>
             </div>
+
             <div class="profilo-field">
               <label>Telefono</label>
-              <p>{{ profilo.telefono }}</p>
+              <p>{{ profiloOriginale?.telefono }}</p>
             </div>
           </div>
+
           <div class="form-field">
             <label>Indirizzo di spedizione</label>
             <input
               class="input-field"
               type="text"
-              [(ngModel)]="indirizzoSpedizione"
+              [(ngModel)]="checkoutForm.indirizzo"
               placeholder="Via, numero civico, città">
           </div>
         </div>
 
         <div class="section-card">
           <h3><span class="material-icons">payment</span> Metodo di pagamento</h3>
+
           <div class="metodi-list">
             <div
               class="metodo-item"
               *ngFor="let metodo of metodiPagamento"
               [class.selected]="metodoSelezionato === metodo.id"
               (click)="metodoSelezionato = metodo.id">
+
               <div class="metodo-radio">
                 <div class="radio-dot" *ngIf="metodoSelezionato === metodo.id"></div>
               </div>
+
               <div class="metodo-info">
                 <p class="metodo-nome">{{ metodo.nome }}</p>
-                <p class="metodo-provider" *ngIf="metodo.provider">{{ metodo.provider }}</p>
+                <p class="metodo-provider" *ngIf="metodo.provider">
+                  {{ metodo.provider }}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- COUPON -->
         <div class="section-card">
           <h3><span class="material-icons">local_offer</span> Coupon</h3>
+
           <div class="coupon-row">
             <input
               class="input-field"
               type="text"
               [(ngModel)]="couponCodice"
               placeholder="Inserisci codice coupon">
-            <button class="btn-coupon" (click)="verificaCoupon()">Applica</button>
+
+            <button class="btn-coupon" (click)="verificaCoupon()">
+              Applica
+            </button>
           </div>
-          <p class="coupon-msg" *ngIf="couponMsg()" [class.valid]="couponValido()">
-            {{ couponMsg() }}
+
+          <p class="coupon-msg" *ngIf="couponResult?.msg">
+            {{ couponResult.msg }}
           </p>
         </div>
 
@@ -85,22 +101,19 @@
           <h3><span class="material-icons">receipt_long</span> Riepilogo ordine</h3>
 
           <div class="item-row" *ngFor="let item of items">
-            @if (!item.urlImmagine) {
-                <div class="oggetto-avatar">
-                  {{ item.nome.charAt(0).toUpperCase() }}
-                </div>
-              }
 
-            @if (item.urlImmagine) {
-                <img
-                  [src]="imgBaseUrl + item.urlImmagine"
-                  class="item-img"
-                  [alt]="item.nome"
-                />
-              }
+            <div class="oggetto-avatar" *ngIf="!item.urlImmagine">
+              {{ item.nome?.charAt(0)?.toUpperCase() }}
+            </div>
+
+            <img
+              *ngIf="item.urlImmagine"
+              [src]="imgBaseUrl + item.urlImmagine"
+              class="item-img"
+              [alt]="item.nome">
 
             <div class="item-info">
-              <p class="item-nome">{{ item.nome || 'Nome non disponibile' }}</p>
+              <p class="item-nome">{{ item.nome }}</p>
               <p class="oggetto-qty">
                 {{ item.quantita }} × €{{ item.prezzoUnitario | number:'1.2-2' }}
               </p>
@@ -114,14 +127,14 @@
             <span>€{{ subtotale | number:'1.2-2' }}</span>
           </div>
 
-          <div class="totale-row" *ngIf="couponValido()">
+          <div class="totale-row" *ngIf="scontoAmount > 0">
             <span>Sconto coupon</span>
             <span class="sconto">-€{{ scontoAmount | number:'1.2-2' }}</span>
           </div>
 
           <div class="totale-row">
             <span>Spedizione</span>
-            <span class="free">Gratuita</span>
+            <span>€{{ spedizione | number:'1.2-2' }}</span>
           </div>
 
           <div class="totale-row finale">
@@ -129,7 +142,7 @@
             <span>€{{ totaleFinale | number:'1.2-2' }}</span>
           </div>
 
-          <p class="msg-text" [class.success]="success()" *ngIf="msg()">
+          <p class="msg-text" *ngIf="msg()" [class.success]="success()">
             {{ msg() }}
           </p>
 
@@ -137,10 +150,13 @@
             class="btn-conferma"
             (click)="confermaOrdine()"
             [disabled]="isLoading || items.length === 0">
+
             {{ isLoading ? 'Elaborazione...' : 'Conferma ordine' }}
           </button>
+
         </div>
       </div>
+
     </div>
   </div>
 </div>
