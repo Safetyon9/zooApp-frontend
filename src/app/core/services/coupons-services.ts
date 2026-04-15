@@ -47,4 +47,8 @@ export class CouponsServices {
   getById(id: number) {
     return this.http.get<CouponDto>(this.url + 'get/' + id);
   }
+
+  getByCodice(codice: string) {
+  return this.http.get<CouponDto>(this.url + 'codice/' + codice);
+}
 }

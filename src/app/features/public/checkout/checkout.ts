@@ -1,5 +1,6 @@
-import { Component, OnInit, signal, inject, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
 import { CartService } from '../../../core/services/cart-service';
+import { ShopService } from '../../../core/services/shop-services';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { CheckoutService } from '../../../core/services/checkout-services';
 import { Router } from '@angular/router';
@@ -13,28 +14,35 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class Checkout implements OnInit {
 
-  imgBaseUrl = "http://localhost:9090/files/";
-  profilo: any = {};
+  profiloOriginale: any = {};
+
+  checkoutForm = {
+    nome: '',
+    cognome: '',
+    email: '',
+    telefono: '',
+    indirizzo: ''
+  };
+
   metodiPagamento: any[] = [];
   metodoSelezionato: number | null = null;
+
   couponCodice = '';
-  couponMsg = signal('');
-  couponValido = signal(false);
-  couponId: number | null = null;
-  scontoAmount = 0;
-  indirizzoSpedizione = '';
+  couponResult: any = null;
+
   msg = signal('');
   success = signal(false);
   isLoading = false;
 
   constructor(
-  private cartService: CartService,
-  private utenteServices: UtenteServices,
-  public checkoutService: CheckoutService,
-  public router: Router,
-  private cdr: ChangeDetectorRef,
-  @Inject(PLATFORM_ID) private platformId: Object
-) {}
+    private cartService: CartService,
+    private shopService: ShopService,
+    private utenteServices: UtenteServices,
+    public checkoutService: CheckoutService,
+    public router: Router,
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
