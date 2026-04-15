@@ -4,6 +4,7 @@ import { ShopService } from '../../../core/services/shop-services';
 import { UtenteServices } from '../../../core/services/utente-services';
 import { CheckoutService } from '../../../core/services/checkout-services';
 import { Router } from '@angular/router';
+import { AuthServices } from '../../../core/services/auth-services';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -26,15 +27,18 @@ export class Checkout implements OnInit {
 
   metodiPagamento: any[] = [];
   metodoSelezionato: number | null = null;
+  spedizione: number = 5.99;
 
   couponCodice = '';
   couponResult: any = null;
+  couponId: number | null = null;
 
   msg = signal('');
   success = signal(false);
   isLoading = false;
 
   constructor(
+    private auth: AuthServices,
     private cartService: CartService,
     private shopService: ShopService,
     private utenteServices: UtenteServices,
@@ -47,55 +51,90 @@ export class Checkout implements OnInit {
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const userId = localStorage.getItem('userId');
+    const userId = this.getUserId();
     if (!userId) return;
+
+    this.shopService.loadCart();
 
     this.utenteServices.findAllByUserName(userId).subscribe({
       next: (r: any) => {
-        this.profilo = r;
-        this.indirizzoSpedizione = r.indirizzo ?? '';
+        this.profiloOriginale = r;
+        this.checkoutForm = {
+          nome: r.nome ?? '',
+          cognome: r.cognome ?? '',
+          email: r.email ?? '',
+          telefono: r.telefono ?? '',
+          indirizzo: r.indirizzo ?? ''
+        };
+
         this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Errore caricamento profilo:', err);
       }
     });
 
     this.checkoutService.getMetodiPagamento().subscribe({
-      next: (r) => this.metodiPagamento = r,
-      error: () => this.msg.set('Errore nel caricamento metodi di pagamento')
+      next: (r) => {
+        this.metodiPagamento = r;
+      },
+      error: () => {
+        this.msg.set('Errore nel caricamento metodi di pagamento');
+      }
     });
   }
 
-  get items() { return this.cartService.items(); }
-  get subtotale(): number { return this.cartService.totalPrice(); }
-  get totaleFinale(): number { return Math.max(0, this.subtotale - this.scontoAmount); }
+  private getUserId(): any {
+    return this.auth.grant()?.userId;
+  }
+
+  get items() {
+    return this.cartService.items();
+  }
+
+  get subtotale() {
+    return this.cartService.totalPrice();
+  }
+
+  get scontoAmount(): number {
+    if (!this.couponResult?.valido) return 0;
+
+    const tipo = this.couponResult.tipo;
+    const valore = this.couponResult.valore;
+
+    if (tipo === 'PERCENTUALE') {
+      return this.subtotale * (valore / 100);
+    }
+
+    return valore;
+  }
 
   verificaCoupon(): void {
     if (!this.couponCodice?.trim()) return;
 
-    this.couponValido.set(false);
-    this.scontoAmount = 0;
-    this.couponId = null;
-    this.couponMsg.set('');
-
     this.checkoutService
-      .verificaCouponRemoto(this.couponCodice.trim(), this.subtotale)
+      .verificaCoupon(this.couponCodice.trim())
       .subscribe({
         next: (result) => {
-          this.couponValido.set(!!result.valido);
-          this.scontoAmount = result.sconto ?? 0;
-          this.couponId = result.couponId ?? null;
-          this.couponMsg.set(result.msg ?? '');
+          this.couponResult = result;
+          this.couponId = result?.id ?? null;
         },
         error: () => {
-          this.couponValido.set(false);
-          this.scontoAmount = 0;
-          this.couponId = null;
-          this.couponMsg.set('Errore durante la verifica coupon');
+          this.couponResult = {
+            valido: false,
+            msg: 'Errore durante la verifica coupon'
+          };
         }
       });
   }
+  
+  get totaleFinale() {
+    return this.subtotale + this.spedizione - this.scontoAmount;
+  }
 
+  // ciao
   confermaOrdine(): void {
-    if (!this.indirizzoSpedizione) {
+    if (!this.checkoutForm.indirizzo) {
       this.msg.set('Inserisci un indirizzo di spedizione');
       return;
     }
@@ -105,7 +144,7 @@ export class Checkout implements OnInit {
       return;
     }
 
-    if (!this.profilo?.clienteId) {
+    if (!this.profiloOriginale?.clienteId) {
       this.msg.set('Cliente non trovato');
       return;
     }
@@ -115,20 +154,17 @@ export class Checkout implements OnInit {
 
     const body = {
       ordini: {
-        clienteId: this.profilo.clienteId,
-        indirizzo: this.indirizzoSpedizione
+        clienteId: this.profiloOriginale.clienteId,
+        indirizzo: this.checkoutForm.indirizzo
       },
       pagamenti: {
-        importo: this.totaleFinale,
         metodoPagamentoId: this.metodoSelezionato,
         couponId: this.couponId ?? null,
         stato: 'ATTESA'
       },
       righe: this.cartService.items().map(i => ({
         itemId: i.itemId,
-        quantita: i.quantita,
-        prezzoUnitario: i.prezzoUnitario,
-        prezzoTotale: i.prezzoTotale
+        quantita: i.quantita
       }))
     };
 
@@ -168,5 +204,5 @@ export class Checkout implements OnInit {
         this.isLoading = false;
       }
     });
-    }
+  }
 }
