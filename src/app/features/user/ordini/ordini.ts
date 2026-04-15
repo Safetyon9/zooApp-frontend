@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
-import { OrdineDTO, OrdiniServices } from '../../../core/services/ordini-services';
+import { OrdineDTO, OrdiniServices, PagamentoDTO } from '../../../core/services/ordini-services';
 
 @Component({
   selector: 'app-ordini',
@@ -24,6 +24,7 @@ export class Ordini implements OnInit {
   clienteId: number | null = null;
 
   ordineSelezionato: OrdineDTO | null = null;
+  pagamentoSelezionato: PagamentoDTO | null = null;
 
   constructor(
     private ordiniService: OrdiniServices,
@@ -116,5 +117,9 @@ export class Ordini implements OnInit {
 
   dettaglioOrdine(o: OrdineDTO): void {
     this.ordineSelezionato = o;
+  }
+
+  dettaglioPagamento(p: PagamentoDTO): void {
+    this.pagamentoSelezionato = p;
   }
 }

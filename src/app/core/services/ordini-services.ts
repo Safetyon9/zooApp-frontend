@@ -2,6 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
+export interface PagamentoDTO {
+  id?: number;
+  metodoPagamento?: string;
+  stato?: string;
+  idRicevuta?: number;
+  ordineId?: number;
+}
+
 export interface OrdineDTO {
   id?: number;
   clienteId?: number;
@@ -11,6 +19,7 @@ export interface OrdineDTO {
   dataOrdine?: string;
   stato?: string;
   righe?: any[];
+  pagamento?: PagamentoDTO | null;
 }
 
 export interface OrdiniReq {
@@ -25,6 +34,7 @@ export interface OrdiniReq {
 export class OrdiniServices {
 
   private url = 'http://localhost:9090/rest/ordine/';
+  private urlP = `http://localhost:9090/rest/pagamenti/`;
   private _ordini = signal<OrdineDTO[]>([]);
 
   constructor(private http: HttpClient) {}
@@ -67,7 +77,11 @@ export class OrdiniServices {
   }
 
   getById(id: number) {
-    return this.http.get<OrdineDTO>(this.url + 'get/' + id);
+    return this.http.get<OrdineDTO>(this.url + 'findById/' + id);
+  }
+
+  getPagamentoById(ordineId: number) {
+    return this.http.get<PagamentoDTO>(this.urlP + 'findById/' + ordineId);
   }
 
 }

@@ -69,11 +69,37 @@
                       <div class="detail-box">
                         <h3>Dettaglio ordine #{{ ordineSelezionato?.id }}</h3>
 
-                        <p><strong>Nome:</strong> {{ ordineSelezionato?.nome || '-' }} {{ ordineSelezionato?.cognome || '' }}</p>
-                        <p><strong>Indirizzo:</strong> {{ ordineSelezionato?.indirizzo || '-' }}</p>
-                        <p><strong>Data:</strong> {{ ordineSelezionato?.dataOrdine ? (ordineSelezionato?.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
-                        <p><strong>Stato:</strong> {{ ordineSelezionato?.stato || '-' }}</p>
-                        <p><strong>Totale:</strong> {{ getTotaleOrdine(ordineSelezionato!) }} €</p>
+                        <div class="detail-grid">
+                          <p><strong>Nome:</strong> {{ ordineSelezionato?.nome || '-' }} {{ ordineSelezionato?.cognome || '' }}</p>
+                          <p><strong>Indirizzo:</strong> {{ ordineSelezionato?.indirizzo || '-' }}</p>
+                          <p><strong>Data:</strong> {{ ordineSelezionato?.dataOrdine ? (ordineSelezionato?.dataOrdine | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+                          <p><strong>Stato ordine:</strong> {{ ordineSelezionato?.stato || '-' }}</p>
+                          <p><strong>Totale:</strong> {{ getTotaleOrdine(ordineSelezionato!) }} €</p>
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                        <div style="margin-top: 12px;">
+                          <h3>Pagamento</h3>
+
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            (click)="dettaglioPagamento(ordineSelezionato?.pagamento!)">
+                            Mostra pagamento
+                          </button>
+
+                          @if (pagamentoSelezionato) {
+                            <div style="margin-top: 12px;">
+                              <p><strong>Metodo pagamento:</strong> {{ pagamentoSelezionato?.metodoPagamento || '-' }}</p>
+                              <p><strong>Stato pagamento:</strong> {{ pagamentoSelezionato?.stato || '-' }}</p>
+                              <p><strong>ID ricevuta:</strong> {{ pagamentoSelezionato?.idRicevuta || '-' }}</p>
+                            </div>
+                          } @else {
+                            <p style="margin-top: 12px;">Nessun pagamento caricato.</p>
+                          }
+                        </div>
 
                         <mat-divider></mat-divider>
 
@@ -103,7 +129,7 @@
                         </table>
 
                         <div style="margin-top: 12px;">
-                          <button mat-raised-button color="primary" type="button" (click)="ordineSelezionato = null">
+                          <button mat-raised-button color="primary" type="button" (click)="ordineSelezionato = null; pagamentoSelezionato = null">
                             Chiudi dettaglio
                           </button>
                         </div>
