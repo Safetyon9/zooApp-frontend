@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthServices } from '../../../core/services/auth-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { OrdineDTO, OrdiniServices, PagamentoDTO } from '../../../core/services/ordini-services';
+import { SpedizioniApiServices } from '../../../core/services/spedizioni-api-services';
 
 @Component({
   selector: 'app-ordini',
@@ -19,6 +20,11 @@ export class GestioneOrdini implements OnInit {
   sortBy: string = 'numero';
   sortOrder: 'asc' | 'desc' = 'asc';
 
+  spedizioneForm = {
+    corriereId: null as number | null,
+    trackingNumber: ''
+  };
+
   ordiniList: OrdineDTO[] = [];
   loading = false;
 
@@ -31,7 +37,8 @@ export class GestioneOrdini implements OnInit {
   constructor(
     private ordiniService: OrdiniServices,
     private cdr: ChangeDetectorRef,
-    private auth: AuthServices
+    private auth: AuthServices,
+    private spedizioniServices: SpedizioniApiServices
   ) {}
 
   ngOnInit(): void {
@@ -131,6 +138,32 @@ export class GestioneOrdini implements OnInit {
       error: () => {
         this.pagamentoSelezionato = null;
         this.cdr.detectChanges();
+      }
+    });
+  }
+  
+  creaSpedizione() {
+
+    if (!this.ordineSelezionato?.id) return;
+
+    const body = {
+      corriereId: this.spedizioneForm.corriereId,
+      trackingNumber: this.spedizioneForm.trackingNumber,
+      ordineId: this.ordineSelezionato.id,
+      costo: 0,
+      stato: 'CREATA'
+    };
+
+    this.spedizioniServices.create(body).subscribe({
+      next: () => {
+        console.log('Spedizione creata');
+        this.spedizioneForm = {
+          corriereId: null,
+          trackingNumber: ''
+        };
+      },
+      error: (err) => {
+        console.error('Errore creazione spedizione', err);
       }
     });
   }

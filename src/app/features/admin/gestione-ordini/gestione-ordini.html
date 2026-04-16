@@ -86,7 +86,7 @@
                             mat-raised-button
                             color="primary"
                             type="button"
-                            (click)="dettaglioPagamento(ordineSelezionato!.id!)">
+                            (click)="dettaglioPagamento(ordineSelezionato!.pagamentoId!)">
                             Mostra pagamento
                           </button>
 
@@ -100,6 +100,28 @@
                         </div>
 
                         <mat-divider></mat-divider>
+
+                        <div style="margin-top: 12px;">
+                          <h3>Spedizione</h3>
+
+                          <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>Corriere ID</mat-label>
+                            <input matInput type="number" [(ngModel)]="spedizioneForm.corriereId">
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>Tracking Number</mat-label>
+                            <input matInput [(ngModel)]="spedizioneForm.trackingNumber">
+                          </mat-form-field>
+
+                          <button
+                            mat-raised-button
+                            color="accent"
+                            type="button"
+                            (click)="creaSpedizione()">
+                            Crea spedizione
+                          </button>
+                        </div>
 
                         <table class="accounts-table" style="margin-top: 12px;">
                           <thead>
