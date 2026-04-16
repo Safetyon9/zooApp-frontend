@@ -28,7 +28,7 @@ export class Checkout implements OnInit {
 
   metodiPagamento: any[] = [];
   metodoSelezionato: number | null = null;
-  spedizione: number = 9.99;
+  spedizione: number = 0;
 
   couponCodice = '';
   couponResult: any = null;
@@ -172,7 +172,7 @@ export class Checkout implements OnInit {
       next: (res: any) => {
         console.log('RESPONSE CHECKOUT', res);
 
-        const ordineId = res?.ordineId ?? res?.id ?? null;
+        const ordineId = res.data;
         const pagamentoId = res?.pagamentoId ?? null;
         const idRicevuta = res?.idRicevuta ?? null;
 
@@ -217,7 +217,9 @@ export class Checkout implements OnInit {
         this.isLoading = false;
 
         this.router.navigate(['/pagamento-ricevuto'], {
-          state: { ordine: riepilogoOrdine }
+          state: {
+            ordine: riepilogoOrdine
+          }
         });
       },
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CheckoutService } from '../../../core/services/checkout-services';
 import { ShopService } from '../../../core/services/shop-services';
+import { OrdiniServices } from '../../../core/services/ordini-services';
 
 @Component({
   selector: 'app-pagamento-ricevuto',
@@ -19,7 +20,8 @@ export class PagamentoRicevuto implements OnInit {
   constructor(
     private router: Router,
     private checkoutService: CheckoutService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private ordiniServices: OrdiniServices
   ) {}
 
   ngOnInit(): void {
@@ -30,10 +32,13 @@ export class PagamentoRicevuto implements OnInit {
     if (!this.ordine && typeof window !== 'undefined' && window.history?.state) {
       this.ordine = window.history.state.ordine ?? null;
     }
-
+    
     console.log('ORDINE RICEVUTO', this.ordine);
 
     if (this.ordine) {
+      
+      this.recuperaPagamentoId(this.ordine.ordineId);
+
       this.ricevutaNumero =
         this.ordine?.idRicevuta
           ? this.ordine.idRicevuta
@@ -46,6 +51,8 @@ export class PagamentoRicevuto implements OnInit {
     } else {
       console.error('Ordine non presente nello state di navigazione');
     }
+
+    
   }
 
   tornaAlNegozio(): void {
@@ -89,5 +96,18 @@ export class PagamentoRicevuto implements OnInit {
 
   svuota() {
     this.shopService.clearCart();
+  }
+
+  recuperaPagamentoId(ordineId: number): void {
+    this.ordiniServices.getById(ordineId).subscribe({
+      next: (res: any) => {
+        const pagamentoId = res?.pagamentoId ?? res?.pagamento?.id;
+        this.ordine.pagamentoId = pagamentoId;
+        console.log('PAGAMENTO ID RECUPERATO:', pagamentoId);
+      },
+      error: (err) => {
+        console.error('Errore recupero pagamentoId', err);
+      }
+    });
   }
 }

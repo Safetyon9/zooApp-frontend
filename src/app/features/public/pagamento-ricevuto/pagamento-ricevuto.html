@@ -168,12 +168,12 @@
 
           <div class="total-line">
             <span>Spedizione</span>
-            <span class="free">€{{ (+spedizione || 0) }}</span>
+            <span class="free">Gratis</span>
           </div>
 
           <div class="total-line grand-total">
             <span>Totale pagato</span>
-            <span>€{{ (+ordine.totaleFinale || 0) }}</span>
+            <span>€{{ (+ordine.totaleFinale || 0) | number:'1.2-2' }}</span>
           </div>
         </div>
       </div>

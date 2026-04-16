@@ -19,6 +19,7 @@ export interface OrdineDTO {
   stato?: string;
   righe?: any[];
   pagamento?: PagamentoDTO | null;
+  pagamentoId: number;
 }
 
 export interface OrdiniReq {
@@ -76,7 +77,9 @@ export class OrdiniServices {
   }
 
   getById(id: number) {
-    return this.http.get<OrdineDTO>(this.url + 'findById/' + id);
+    return this.http.get<OrdineDTO>(this.url + 'findById', {
+      params: { idOrdine: id }
+    });
   }
 
   getPagamentoById(idPagamento: number) {
