@@ -92,9 +92,9 @@
 
                           @if (pagamentoSelezionato) {
                             <div style="margin-top: 12px;">
-                              <p><strong>Metodo pagamento:</strong> {{ pagamentoSelezionato?.metodoPagamentoNome || '-' }}</p>
-                              <p><strong>Stato pagamento:</strong> {{ pagamentoSelezionato?.stato || '-' }}</p>
-                              <p><strong>ID ricevuta:</strong> {{ pagamentoSelezionato?.urlRicevutaPDF || '-' }}</p>
+                              <p><strong>Metodo pagamento:</strong> {{ pagamentoSelezionato.metodoPagamentoNome || '-' }}</p>
+                              <p><strong>Stato pagamento:</strong> {{ pagamentoSelezionato.stato || '-' }}</p>
+                              <p><strong>ID ricevuta:</strong> {{ pagamentoSelezionato.urlRicevutaPDF || '-' }}</p>
                             </div>
                           }
                         </div>
@@ -105,8 +105,16 @@
                           <h3>Spedizione</h3>
 
                           <mat-form-field appearance="outline" style="width: 100%;">
-                            <mat-label>Corriere ID</mat-label>
-                            <input matInput type="number" [(ngModel)]="spedizioneForm.corriereId">
+                            <mat-label>Corriere</mat-label>
+
+                            <mat-select [(ngModel)]="spedizioneForm.corriereId">
+                              @for (c of corrieri; track c.id) {
+                                <mat-option [value]="c.id">
+                                  {{ c.nome }}
+                                </mat-option>
+                              }
+                            </mat-select>
+
                           </mat-form-field>
 
                           <mat-form-field appearance="outline" style="width: 100%;">

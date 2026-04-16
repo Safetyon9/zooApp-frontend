@@ -3,6 +3,7 @@ import { AuthServices } from '../../../core/services/auth-services';
 import { Utilities } from '../../../core/utils/utilities';
 import { OrdineDTO, OrdiniServices, PagamentoDTO } from '../../../core/services/ordini-services';
 import { SpedizioniApiServices } from '../../../core/services/spedizioni-api-services';
+import { CorrieriApiService, CorriereDTO } from '../../../core/services/corrieri-api-services';
 
 @Component({
   selector: 'app-ordini',
@@ -25,6 +26,7 @@ export class GestioneOrdini implements OnInit {
     trackingNumber: ''
   };
 
+  corrieri: CorriereDTO[] = [];
   ordiniList: OrdineDTO[] = [];
   loading = false;
 
@@ -38,11 +40,22 @@ export class GestioneOrdini implements OnInit {
     private ordiniService: OrdiniServices,
     private cdr: ChangeDetectorRef,
     private auth: AuthServices,
-    private spedizioniServices: SpedizioniApiServices
+    private spedizioniServices: SpedizioniApiServices,
+    private corrieriService: CorrieriApiService
   ) {}
 
   ngOnInit(): void {
     this.search();
+
+    this.corrieriService.list().subscribe({
+      next: (res) => {
+        this.corrieri = res;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.corrieri = [];
+      }
+    });
   }
 
  search(): void {
@@ -145,18 +158,19 @@ export class GestioneOrdini implements OnInit {
   creaSpedizione() {
 
     if (!this.ordineSelezionato?.id) return;
+    if (!this.spedizioneForm.corriereId) return;
 
     const body = {
+      ordineId: this.ordineSelezionato.id,
       corriereId: this.spedizioneForm.corriereId,
       trackingNumber: this.spedizioneForm.trackingNumber,
-      ordineId: this.ordineSelezionato.id,
-      costo: 0,
-      stato: 'CREATA'
+      costo: 0
     };
 
     this.spedizioniServices.create(body).subscribe({
       next: () => {
         console.log('Spedizione creata');
+
         this.spedizioneForm = {
           corriereId: null,
           trackingNumber: ''
