@@ -1,27 +1,19 @@
 <div class="receipt-page">
   <div class="receipt-shell" *ngIf="ordine">
 
-    <div class="receipt-topbar">
+    <div class="receipt-topbar" data-html2canvas-ignore>
       <button class="btn-back" (click)="tornaAlNegozio()">
         <span class="material-icons">storefront</span>
         Torna al negozio
       </button>
 
-      <button class="btn-print" (click)="testUploadRicevuta()">
-        <span class="material-icons">cloud_upload</span>
-        Test upload ricevuta
-        </button>
-
-
       <button class="btn-print" (click)="stampa()">
         <span class="material-icons">print</span>
         Stampa
       </button>
-
-      
     </div>
 
-    <div class="receipt-card">
+    <div class="receipt-card" id="receipt-pdf">
 
       <div class="receipt-header">
         <div class="brand-block">
@@ -111,7 +103,7 @@
                 </div>
               }
 
-            @if (item.urlImmagine) {
+              @if (item.urlImmagine) {
                 <img
                   [src]="imgBaseUrl + item.urlImmagine"
                   class="item-img"
