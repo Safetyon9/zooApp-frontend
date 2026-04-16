@@ -66,8 +66,8 @@ export class Ordini implements OnInit {
   }
 
   public getTotaleOrdine(o: OrdineDTO): number {
-    return (o.righe || []).reduce((sum, r) => sum + Number(r.prezzoTotale ?? 0), 0);
-  }
+  return Number(o.importoTotale ?? 0);
+}
 
   private sortResults(items: OrdineDTO[]): OrdineDTO[] {
     const sorted = [...items];
