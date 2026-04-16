@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CheckoutService } from '../../../core/services/checkout-services';
+import { ShopService } from '../../../core/services/shop-services';
 
 @Component({
   selector: 'app-pagamento-ricevuto',
@@ -13,10 +14,12 @@ export class PagamentoRicevuto implements OnInit {
   ordine: any = null;
   ricevutaNumero = '';
   imgBaseUrl = "http://localhost:9090/files/";
+  spedizione: number = 9.99;
 
   constructor(
     private router: Router,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private shopService: ShopService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,9 @@ export class PagamentoRicevuto implements OnInit {
           : this.ordine?.ordineId
             ? `RCV-${this.ordine.ordineId}`
             : `RCV-${Date.now()}`;
+
+      
+      this.svuota();
     } else {
       console.error('Ordine non presente nello state di navigazione');
     }
@@ -79,5 +85,9 @@ export class PagamentoRicevuto implements OnInit {
     if (typeof window !== 'undefined') {
       window.print();
     }
+  }
+
+  svuota() {
+    this.shopService.clearCart();
   }
 }

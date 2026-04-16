@@ -28,7 +28,7 @@ export class Checkout implements OnInit {
 
   metodiPagamento: any[] = [];
   metodoSelezionato: number | null = null;
-  spedizione: number = 5.99;
+  spedizione: number = 9.99;
 
   couponCodice = '';
   couponResult: any = null;
